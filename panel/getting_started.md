@@ -26,14 +26,25 @@ this software on an OpenVZ based system you will not be successful.
 | | 9 | :white_check_mark: | |
 
 ## Dependencies
-* PHP `7.2` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`
-* MySQL `5.7` or higher **or** MariaDB `10.1.3` or higher
+* PHP `7.2` with the following extensions: 
+    * CLI `php7.2-cli`
+    * `openssl` (included with packaged versions)) 
+    * GD `php7.2-gd`
+    * MySQL `php7.2-mysql`
+    * PDO `php7.2-pdo`
+    * MBString `php7.2-mbstring`
+    * Tokenizer `php7.2-tokenizer` 
+    * BCMath `php7.2-bcmath` 
+    * DOM `php7.2-xml` or `php7.2-dom`
+    * cURL `php7.2-curl`
+    * Zip `php7.2-zip`
+* MySQL `>= 5.7` **or** MariaDB `>= 10.1.3`
 * Redis (`redis-server`)
-* A webserver (Apache, NGINX, Caddy, etc.)
-* `curl`
-* `tar`
-* `unzip`
-* `git`
+* A web server (e.g Apache, NGINX, Caddy, etc.) 
+* cURL `curl`
+* Tar `tar`
+* Unzip `unzip`
+* Git `git`
 
 ### Example Dependency Installation
 The commands below are simply an example of how you might install these dependencies. Please consult with your
