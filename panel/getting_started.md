@@ -11,7 +11,7 @@ of basic linux system administration you should stop and turn around now.**
 Pterodactyl runs on a wide range of operating systems, so pick whichever you are most comfortable using.
 
 ::: warning
-Pterodactyl does not support most OpenVZ systems due to incompatabilities with Docker. If you are planning on running
+Pterodactyl does not support most OpenVZ systems due to incompatibilities with Docker. If you are planning on running
 this software on an OpenVZ based system you will not be successful.
 :::
 

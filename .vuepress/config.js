@@ -1,7 +1,7 @@
 module.exports = {
     base: '/docs/',
     title: 'Pterodactyl Documentation',
-    description: 'Leanr how to install and use Pterodactyl.',
+    description: 'Learn how to install and use Pterodactyl.',
     themeConfig: {
         repo: 'pterodactyl/panel',
         docsRepo: 'pterodactyl/documentation',
