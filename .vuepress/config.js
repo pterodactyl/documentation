@@ -54,6 +54,16 @@ module.exports = {
                 children: [
                     '/',
                 ]
+            },
+            {
+                title: 'Configurations',
+                collapsable: true,
+                children: [
+                    '/config/nginx_ssl',
+                    '/config/nginx_nonssl',
+                    '/config/apache_ssl',
+                    '/config/apache_nonssl',
+                ]
             }
         ]
     }
