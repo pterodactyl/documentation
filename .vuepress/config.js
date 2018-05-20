@@ -1,7 +1,7 @@
 module.exports = {
     base: '/docs/',
     title: 'Pterodactyl Documentation',
-    description: 'Leanr how to install and use Pterodactyl.',
+    description: 'Learn how to install and use Pterodactyl.',
     themeConfig: {
         repo: 'pterodactyl/panel',
         docsRepo: 'pterodactyl/documentation',
@@ -36,6 +36,9 @@ module.exports = {
                 children: [
                     '/panel/getting_started',
                     '/panel/downloading',
+                    '/panel/installing',
+                    '/panel/queue_listeners',
+                    '/panel/webserver_configuration',
                 ]
             },
             {
@@ -50,6 +53,16 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/',
+                ]
+            },
+            {
+                title: 'Configurations',
+                collapsable: true,
+                children: [
+                    '/config/nginx_ssl',
+                    '/config/nginx_nonssl',
+                    '/config/apache_ssl',
+                    '/config/apache_nonssl',
                 ]
             }
         ]

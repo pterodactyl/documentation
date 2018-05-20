@@ -1,11 +1,9 @@
 # Getting Started
 Pterodactyl Panel is designed to run on your own web server. You will need to have root access to your server in order to run and use this panel.
 
-You are expected to understand how to read documentation to use this Panel. We have spent many hours detailing how to install or upgrade our
-software; take some time and read rather than copy and pasting and then complaining when things do not work. This panel does
-not exist as a drag-and-drop service to run your servers. It is a highly complex system requiring multiple dependencies and
-administrators willing to spend some time learning how to use it. **If you expect to be able to install this with no understanding
-of basic linux system administration you should stop and turn around now.**
+::: danger Linux Knowledge Required
+You are expected to understand how to read documentation to use this Panel. We have spent many hours detailing how to install or upgrade our software; take some time and read rather than copy and pasting and then complaining when things do not work. This panel does not exist as a drag-and-drop service to run your servers. It is a highly complex system requiring multiple dependencies and administrators willing to spend some time learning how to use it. If you expect to be able to install this with no understanding of basic linux system administration you should stop and turn around now.
+:::
 
 ## Picking a Server OS
 Pterodactyl runs on a wide range of operating systems, so pick whichever you are most comfortable using.
@@ -26,14 +24,25 @@ this software on an OpenVZ based system you will not be successful.
 | | 9 | :white_check_mark: | |
 
 ## Dependencies
-* PHP `7.2` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`
-* MySQL `5.7` or higher **or** MariaDB `10.1.3` or higher
+* PHP `7.2` with the following extensions: 
+    * CLI `php7.2-cli`
+    * `openssl` (included with packaged versions)) 
+    * GD `php7.2-gd`
+    * MySQL `php7.2-mysql`
+    * PDO `php7.2-pdo`
+    * MBString `php7.2-mbstring`
+    * Tokenizer `php7.2-tokenizer` 
+    * BCMath `php7.2-bcmath` 
+    * DOM `php7.2-xml` or `php7.2-dom`
+    * cURL `php7.2-curl`
+    * Zip `php7.2-zip`
+* MySQL `>= 5.7` **or** MariaDB `>= 10.1.3`
 * Redis (`redis-server`)
-* A webserver (Apache, NGINX, Caddy, etc.)
-* `curl`
-* `tar`
-* `unzip`
-* `git`
+* A web server (e.g Apache, NGINX, Caddy, etc.) 
+* cURL `curl`
+* Tar `tar`
+* Unzip `unzip`
+* Git `git`
 
 ### Example Dependency Installation
 The commands below are simply an example of how you might install these dependencies. Please consult with your
