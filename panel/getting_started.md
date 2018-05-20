@@ -4,8 +4,13 @@ Pterodactyl Panel is designed to run on your own web server. You will need to ha
 You are expected to understand how to read documentation to use this Panel. We have spent many hours detailing how to install or upgrade our
 software; take some time and read rather than copy and pasting and then complaining when things do not work. This panel does
 not exist as a drag-and-drop service to run your servers. It is a highly complex system requiring multiple dependencies and
-administrators willing to spend some time learning how to use it. **If you expect to be able to install this with no understanding
-of basic linux system administration you should stop and turn around now.**
+administrators willing to spend some time learning how to use it.
+
+::: danger Linux Knowledge Required
+If you have no knowledge of Linux at all, go away or learn the basics of it before trying to install Pterodactyl.
+Installing Pterodactyl without any knowledge of Linux is done at your own risk and you may not receive support/help installing it.
+Ignoring this and continuing with installation and failing will cause people in the Pterodactyl Discord to yell at you if you request help.
+:::
 
 ## Picking a Server OS
 Pterodactyl runs on a wide range of operating systems, so pick whichever you are most comfortable using.
