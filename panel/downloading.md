@@ -1,6 +1,6 @@
 # Download
 
-Before downloading the Pterodactyl Panel, we first need to create a directory to store
+Before downloading the Pterodactyl Panel, we need to create a directory to store
 it in.
 
 ```

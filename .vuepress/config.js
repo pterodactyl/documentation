@@ -36,6 +36,9 @@ module.exports = {
                 children: [
                     '/panel/getting_started',
                     '/panel/downloading',
+                    '/panel/installing',
+                    '/panel/queue_listeners',
+                    '/panel/webserver_configuration',
                 ]
             },
             {
