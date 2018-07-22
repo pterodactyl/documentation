@@ -42,7 +42,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '/panel/getting_started',
-                    '/panel/downloading',
+                    '/panel/webserver_configuration',
                 ]
             },
             {

@@ -1,4 +1,7 @@
 # Getting Started
+
+[[toc]]
+
 Pterodactyl Panel is designed to run on your own web server. You will need to have root access to your server in order to run and use this panel.
 
 You are expected to understand how to read documentation to use this Panel. We have spent many hours detailing how to install or upgrade our
@@ -12,13 +15,13 @@ Pterodactyl runs on a wide range of operating systems, so pick whichever you are
 
 ::: warning
 Pterodactyl does not support most OpenVZ systems due to incompatabilities with Docker. If you are planning on running
-this software on an OpenVZ based system you will not be successful.
+this software on an OpenVZ based system you will &mdash; most likely &mdash; not be successful.
 :::
 
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
 | **Ubuntu** | 14.04 | :warning: | Documentation assumes changes to `systemd` introduced in `16.04` |
-| | 16.04 | :white_check_mark: | Recommended. |
+| | 16.04 | :white_check_mark: | Documentation written assuming Ubuntu 16 as the base OS. |
 | | 18.04 | :white_check_mark: | |
 | **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
 | | 7 | :white_check_mark: | |
@@ -34,12 +37,21 @@ this software on an OpenVZ based system you will not be successful.
 * `tar`
 * `unzip`
 * `git`
+* `composer`
+
+### Installing Composer
+Composer is a dependency manager for PHP that allows us to ship everything you'll need code wise to operate the Panel. You'll
+need composer installed before continuing in this process.
+
+``` bash
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+```
 
 ### Example Dependency Installation
 The commands below are simply an example of how you might install these dependencies. Please consult with your
 operating system's package manager to determine the correct packages to install.
 
-```sh
+``` bash
 # Add "add-apt-repository" command
 apt -y install software-properties-common
 
@@ -59,7 +71,7 @@ apt -y install php7.2 php7.2-cli php7.2-gd php7.2-mysql php7.2-pdo php7.2-mbstri
 The first step in this process is to create the folder where the panel will live and then move ourselves into that
 newly created folder. Below is an example of how to perform this operation.
 
-``` sh
+``` bash
 mkdir -p /var/www/pterodactyl
 cd /var/www/pterodactyl
 ```
@@ -69,8 +81,129 @@ is as simple as using `curl` to download our pre-packaged content. Once it is do
 and then set the correct permissions on the `storage/` and `bootstrap/cache/` directories. These directories
 allow us to store files as well as keep a speedy cache available to reduce load times.
 
-```
+``` bash
 curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v0.7.6/panel.tar.gz
 tar --strip-components=1 -xzvf panel.tar.gz
 chmod -R 755 storage/* bootstrap/cache/
+```
+
+## Installation
+Now that all of the files have been downloaded we need to configure some core aspects of the Panel.
+
+::: tip Database Configuration
+You will need a database setup and a user with the correct permissions created for that database before
+continuing any further. If you are unsure how to do this, please consult our documentation.
+:::
+
+First we will copy over our default environment settings file, install core dependencies, and then generate a
+new application encryption key. **You should make a backup of the encryption key and store it in a secure
+location, _not on the server itself_.**
+
+``` bash
+cp .env.example .env
+composer install --no-dev --optimize-autoloader
+
+# Only run the command below if you are installing this Panel for
+# the first time and do not have any Pterodactyl Panel data in the database.
+php artisan key:generate --force
+```
+
+### Environment Configuration
+Pterodactyl's core environment is easily configured using a few different CLI commands built into the app. This step
+will cover setting up things such as sessions, caching, database credentials, and email sending.
+
+``` bash
+php artisan p:environment:setup
+php artisan p:environment:database
+
+# To use PHP's internal mail sending (not recommended), select "mail". To use a
+# custom SMTP server, select "smtp".
+php artisan p:environment:mail
+```
+
+### Database Setup
+Now we need to setup all of the base data for the Panel in the database you created earlier. **The command below
+may take some time to run depending on your machine. Please _DO NOT_ exit the process until it is completed!** This
+command will setup the database tables and then add all of the Nests & Eggs that power Pterodactyl.
+
+``` bash
+php artisan migrate --seed
+```
+
+You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
+At this time passwords **must** meet the following requirements: 8 characters, mixed case, at least one number.
+
+``` bash
+php artisan p:user:make
+```
+
+### Set Permissions
+The last step in the installation process is to set the correct permissions on the Panel files so that the webserver can
+use them correctly.
+
+``` bash
+# If using NGINX or Apache (not on CentOS):
+chown -R www-data:www-data * 
+
+# If using NGINX on CentOS:
+chown -R nginx:nginx *
+
+# If using Apache on CentOS
+chown -R apache:apache *
+```
+
+## Queue Listeners
+We make use of queues to make the application faster and handle sending emails and other actions in the background.
+You will need to setup the queue worker for these actions to be processed.
+
+### Crontab Configuration
+The first thing we need to do is create a new cronjob that runs every minute to process specific Pterodactyl tasks, such
+as session cleanup and sending scheduled tasks to daemons. You'll want to open your crontab using `sudo crontab -e` and
+then paste the line below.
+
+```bash
+* * * * * php /var/www/pterodactyl/artisan schedule:run >> /dev/null 2>&1
+```
+
+### Create Queue Worker
+Next you need to create a new systemd worker to keep our queue process running in the background. This queue is responsible
+for sending emails and handling many other background tasks for Pterodactyl.
+
+::: warning
+If you are using Ubuntu 14.04 you cannot use this method to run your queue worker. Please see these instructions for
+installing Supervisor and setting up your queue. Ensure you use the same ExecStart line as below.
+:::
+
+``` text
+# Pterodactyl Queue Worker File
+# ----------------------------------
+# File should be placed in:
+# /etc/systemd/system
+
+[Unit]
+Description=Pterodactyl Queue Worker
+After=redis-server.service
+
+[Service]
+# On some systems the user and group might be different.
+# Some systems use `apache` as the user and group.
+User=www-data
+Group=www-data
+Restart=always
+ExecStart=/usr/bin/php /var/www/pterodactyl/artisan queue:work --queue=high,standard,low --sleep=3 --tries=3
+
+[Install]
+WantedBy=multi-user.target
+```
+
+::: tip
+If you are not using `redis` for anything you should remove the `After=` line, otherwise you will encounter errors
+when the service starts.
+:::
+
+Finally, enable the service and set it to boot on machine start.
+
+``` bash
+sudo systemctl enable pteroq.service
+sudo systemctl start pteroq
 ```
