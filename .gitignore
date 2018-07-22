@@ -1,1 +1,3 @@
 .idea/
+.vuepress/dist
+node_modules/

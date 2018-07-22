@@ -2,6 +2,13 @@ module.exports = {
     base: '/docs/',
     title: 'Pterodactyl Documentation',
     description: 'Leanr how to install and use Pterodactyl.',
+    configureWebpack: {
+        serve: {
+            hot: {
+                port: 9091,
+            },
+        },
+    },
     themeConfig: {
         repo: 'pterodactyl/panel',
         docsRepo: 'pterodactyl/documentation',
