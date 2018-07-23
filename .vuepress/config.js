@@ -43,6 +43,7 @@ module.exports = {
                 children: [
                     '/panel/getting_started',
                     '/panel/webserver_configuration',
+                    '/panel/upgrading',
                 ]
             },
             {
