@@ -1,4 +1,5 @@
 # About
+[[toc]]
 
 ## Core Project Team
 | Name | Discord Name | Primary Role |
