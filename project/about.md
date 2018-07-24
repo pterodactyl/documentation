@@ -1,0 +1,45 @@
+# About
+
+## Core Project Team
+| Name | Discord Name | Primary Role |
+| ---- | ------------ | ---- |
+| [Dane Everitt](https://daneeveritt.com/) | `Tactical Fish#8008` | Project Maintainer |
+| Michael Parker | `parkervcp#6789` | Egg Developer, Docker Integration |
+| [Jakob Schrettenbrunner](https://schrej.net/) | `schrej#1337` | Golang Daemon Lead, Developer |
+| [Anand Capur](https://anand.io/) | `Arcdigital#1337` | Developer |
+| [Lance Pioch](https://lancepioch.com/) | `ShadowLancer#5209` | Developer |
+
+## Community Team
+Pterodactyl would not be as successful as it is today without the help of our fantastic community support team. These
+members can be found in our Discord channel and are distinguished with a yellow or orange username.
+
+## License
+``` text
+Copyright (c) 2015 - 2018 Dane Everitt <dane@daneeveritt.com>.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+## GPG Signature
+Starting with Panel `v0.4.0` all releases are signed with the GPG key below. All releases include a detached key as
+well to verify your download against.
+
+Releases also include a SHA256 checksum. 
+
+<<< @/.snippets/gpg.txt

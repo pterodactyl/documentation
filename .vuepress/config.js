@@ -1,7 +1,7 @@
 module.exports = {
     base: '/docs/',
-    title: 'Pterodactyl Documentation',
-    description: 'Leanr how to install and use Pterodactyl.',
+    title: 'Pterodactyl',
+    description: 'The open-source server management solution.',
     configureWebpack: {
         serve: {
             hot: {
@@ -34,7 +34,8 @@ module.exports = {
                 title: 'Project Information',
                 collapsable: false,
                 children: [
-                    '/',
+                    '/project/introduction.md',
+                    '/project/about.md',
                     '/project/terms.md',
                 ]
             },
