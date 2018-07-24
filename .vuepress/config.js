@@ -35,6 +35,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '/',
+                    '/project/terms.md',
                 ]
             },
             {
@@ -52,6 +53,14 @@ module.exports = {
                 children: [
                     '/',
                 ]
+            },
+            {
+                title: 'Tutorials',
+                collapsable: false,
+                children: [
+                    '/tutorials/mysql_setup.md',
+                    '/tutorials/creating_ssl_certificates.md',
+                ],
             },
             {
                 title: 'API Reference',
