@@ -1,0 +1,123 @@
+$arrow-bg: #000;
+
+.sidebar {
+    @apply fixed pin-l pin-b bg-white overflow-auto border-r border-grey-lighter py-8;
+    top: $nav-height;
+    width: $sidebar-width;
+
+    ul {
+        @apply list-reset m-0;
+    }
+
+    a {
+        @apply inline-block;
+    }
+
+    .nav-links {
+        @apply px-6;
+        
+        .nav-link, .repo-link {
+            @apply my-2;
+        }
+    }
+
+    .sidebar-group {
+        &:not(.first) {
+            @apply mt-8;
+        }
+
+        .sidebar-group {
+            @apply pl-2;
+        }
+
+        &:not(.collapsable) {
+            .sidebar-heading {
+                cursor: auto;
+                color: inherit;
+            }
+        }
+
+        a.sidebar-link {
+            @apply pl-8;
+        }
+    }
+
+    .sidebar-heading {
+        @apply text-blue text-lg font-bold px-6 mt-0 mb-2 cursor-pointer;
+        transition: color 200ms ease;
+
+        &.open, &:hover {
+            color: inherit;
+        }
+
+        .arrow {
+            @apply inline-block relative;
+            top: -0.12em;
+            left: 0.5em;
+            width: 0;
+            height: 0;
+
+            &.up {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-bottom: 6px solid $arrow-bg;
+            }
+            &.down {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 6px solid $arrow-bg;
+            }
+            &.right {
+                border-top: 4px solid transparent;
+                border-bottom: 4px solid transparent;
+                border-left: 6px solid $arrow-bg;
+            }
+            &.left {
+                border-top: 4px solid transparent;
+                border-bottom: 4px solid transparent;
+                border-right: 6px solid $arrow-bg;
+            }
+        }
+        &.open .arrow {
+            top: -0.18em;
+        }
+    }
+
+    .sidebar-group-items {
+        transition: height 100ms ease-out;
+        overflow: hidden;
+    }
+
+    .sidebar-sub-headers {
+        @apply pl-4 mb-1;
+
+        a.sidebar-link {
+            @apply text-sm border-l-0 pt-0 pb-1;
+        }
+    }
+
+    a.sidebar-link {
+        @apply inline-block w-full border-l-4 border-transparent text-grey-darkest px-6 py-1 font-normal;
+
+        &:hover {
+            @apply text-blue;
+        }
+
+        &.active {
+            @apply border-blue font-bold text-blue;
+        }
+    }
+}
+
+.sidebar-mask {
+    @apply fixed pin-t pin-l h-screen w-screen hidden;
+}
+
+.theme-container.no-sidebar {
+    .sidebar {
+        @apply hidden;
+    }
+    .page {
+        padding-left: 0;
+    }
+}

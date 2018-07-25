@@ -1,0 +1,77 @@
+body {
+    @apply text-grey-darkest;
+}
+
+a {
+    @apply text-blue font-bold no-underline;
+}
+
+kbd {
+    @apply border border-grey-lighter bg-grey-lightest;
+}
+
+ul, ol {
+    @apply pl-8 my-2;
+}
+
+strong {
+    @apply font-bold;
+}
+
+a.header-anchor {
+    @apply invisible float-left;
+    font-size: .85em;
+    width: .87em;
+    margin-left: -0.87em;
+    padding-right: 0.23em;
+    margin-top: 0.125em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    @apply font-bold mt-6;
+
+    &:hover .header-anchor {
+        @apply visible;
+    }
+}
+
+h1 {
+    @apply text-5xl;
+}
+
+h2 {
+    @apply pb-3 border-b;
+}
+
+p {
+    @apply my-4;
+}
+
+code, kbd, .line-number {
+  @apply font-mono;
+}
+
+p, ul, ol {
+    @apply leading-normal;
+}
+
+hr {
+    @apply border-t
+}
+
+table {
+    @apply block mt-4 border-collapse;
+    overflow-x: auto;
+
+    tr {
+        @apply border-t;
+
+        &:nth-child(2n) {
+            @apply bg-grey-lightest;
+        }
+    }
+
+    th, td {
+        @apply border py-2 px-4;
+    }
+}

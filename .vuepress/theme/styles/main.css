@@ -1,0 +1,12 @@
+@import "tailwindcss/preflight";
+@import "tailwindcss/components";
+
+@import "./variables.css";
+@import "./layout.css";
+@import "./text.css";
+@import "./nav.css";
+@import "./sidebar.css";
+@import "./home.css";
+@import "./code.css";
+
+@import "tailwindcss/utilities";

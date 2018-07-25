@@ -1,0 +1,54 @@
+.nav {
+    @apply fixed w-full flex bg-blue .font-sans;
+    height: $nav-height;
+    line-height: $nav-height;
+    z-index: 100;
+
+    .sidebar-button {
+        @apply p-3;
+
+        .icon {
+            @apply text-white block h-6;
+        }
+    }
+    
+    .home-link {
+        @apply  px-6 text-white font-light;
+
+        .logo {
+            @apply h-full float-left;
+        }
+
+        .site-name {
+            @apply float-left pl-2 text-2xl;
+        }
+    }
+
+    .search-box {
+        @apply relative px-2;
+
+        input {
+            @apply bg-transparent text-white border-white border-b p-1 w-48 outline-none;
+        }
+
+        .suggestions {
+            @apply absolute;
+        }
+    }
+
+    .nav-links {
+        .nav-link {
+            @apply block text-white px-2;
+
+            &:hover {
+                @apply bg-blue-dark;
+            }
+        }
+
+        @screen md {
+            .nav-item > a:not(.external).router-link-active {
+                box-shadow: inset 0 -4px 0 0 white;
+            }
+        }
+    }
+}

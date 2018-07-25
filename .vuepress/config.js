@@ -15,10 +15,11 @@ module.exports = {
         repoLabel: 'Contribute',
         editLinkText: 'Help us improve this page.',
         editLinks: true,
+        logo: '/pterodactyl-flat.png',
         nav: [
             {
                 text: 'Get Started',
-                link: '/panel/server_requirements/',
+                link: '/project/introduction.md',
             },
             {
                 text: 'API Reference',
@@ -70,6 +71,15 @@ module.exports = {
                     '/',
                 ]
             }
+        ]
+    },
+    postcss: {
+        plugins: [
+            require('postcss-import'),
+            require('tailwindcss')('./tailwind.js'),
+            require('precss'),
+            require('autoprefixer'),
+            require('cssnano'),
         ]
     }
 };

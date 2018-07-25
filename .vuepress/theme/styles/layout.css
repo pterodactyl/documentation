@@ -1,0 +1,9 @@
+.page {
+    padding-left: $sidebar-width;
+    padding-top: $nav-height;
+}
+
+.content {
+    @apply mx-auto p-8;
+    max-width: $content-width;
+}
