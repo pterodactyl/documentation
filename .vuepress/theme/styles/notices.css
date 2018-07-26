@@ -1,5 +1,5 @@
 .custom-block {
-    @apply .px-6 .py-1 .my-4;
+    @apply .px-6 .py-1 .my-4 rounded;
     border-left: .5rem solid;
 
     & > .custom-block-title {
@@ -19,10 +19,10 @@
     }
 
     &.tip {
-        @apply .bg-green-lightest .border-green-dark;
+        @apply .bg-blue-lightest .border-blue-dark;
 
         & p, & > .custom-block-title {
-            @apply .text-green-darker;
+            @apply .text-blue-darker;
         }
     }
 
