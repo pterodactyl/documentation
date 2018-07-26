@@ -25,7 +25,7 @@
 }
 
 div[class*="language-"] {
-    @apply .relative .bg-grey-darkest .rounded .border .border-black .text-sm;
+    @apply .relative .bg-grey-darkest .rounded .border .border-black .text-sm .my-4;
 
     .highlight-lines {
         @apply .absolute .pin-t .pin-l .w-full .leading-normal .select-none;

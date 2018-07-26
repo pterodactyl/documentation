@@ -44,7 +44,7 @@ a.header-anchor {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @apply .mt-6 .font-semibold;
+    @apply .mt-8 .mb-4 .font-semibold;
 
     &:hover .header-anchor {
         @apply .visible;
@@ -52,11 +52,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-    @apply .text-4xl;
+    @apply .mt-12 .text-4xl;
 }
 
 h2 {
-    @apply .pb-3 .border-b;
+    @apply .mt-10 .pb-2 .border-b;
 }
 
 p {
@@ -76,7 +76,7 @@ hr {
 }
 
 table {
-    @apply block mt-4 border-collapse;
+    @apply block my-4 border-collapse;
     overflow-x: auto;
 
     tr {
