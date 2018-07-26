@@ -12,7 +12,7 @@
     }
 
     .home-link {
-        @apply .text-white .font-light;
+        @apply .text-white .font-light .flex-no-shrink;
 
         .logo {
             @apply .h-full .float-left;
