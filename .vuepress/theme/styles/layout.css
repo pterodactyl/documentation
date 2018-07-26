@@ -8,6 +8,28 @@
     max-width: $content-width;
 }
 
+.table-of-contents {
+    @apply .my-8 .p-2 .rounded .border .border-grey-lighter;
+}
+
+.page-edit {
+    @apply .mx-auto .px-8 .pb-8;
+    max-width: $content-width;
+}
+
+.page-nav {
+    @apply .mx-auto .px-8 .pb-8;
+    max-width: $content-width;
+
+    .inner {
+        @apply .m-0 .pt-8 .border-t .border-grey-lighter;
+    }
+
+    .next {
+        @apply .float-right;
+    }
+}
+
 table td, table th {
     @apply .border;
     padding: 0.6rem 1rem !important;

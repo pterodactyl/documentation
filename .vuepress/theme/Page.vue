@@ -156,7 +156,7 @@ function find (page, items, offset) {
 }
 </script>
 
-<style lang="stylus">
+<!--<style lang="stylus">
 @import './styles/config.styl'
 @require './styles/wrapper.styl'
 
@@ -205,4 +205,4 @@ function find (page, items, offset) {
       float none
       text-align left
 
-</style>
+</style>-->

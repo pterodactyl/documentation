@@ -136,7 +136,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<!--<style lang="stylus">
 @import './styles/config.styl'
 
 .search-box-no
@@ -218,4 +218,4 @@ export default {
       width calc(100vw - 4rem)
     input:focus
       width 8rem
-</style>
+</style>-->

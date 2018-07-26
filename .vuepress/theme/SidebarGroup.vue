@@ -27,7 +27,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<!--<style lang="stylus">
 .sidebar-group-away
   &:not(.first)
     margin-top 1em
@@ -61,3 +61,4 @@ export default {
   transition height .1s ease-out
   overflow hidden
 </style>
+-->

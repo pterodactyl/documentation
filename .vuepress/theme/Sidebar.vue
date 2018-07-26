@@ -69,7 +69,7 @@ function resolveOpenGroupIndex (route, items) {
 }
 </script>
 
-<style lang="stylus">
+<!--<style lang="stylus">
 @import './styles/config.styl'
 
 .sidebar-no
@@ -102,3 +102,4 @@ function resolveOpenGroupIndex (route, items) {
     .sidebar-links
       padding 1rem 0
 </style>
+-->

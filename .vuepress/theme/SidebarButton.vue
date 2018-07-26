@@ -6,7 +6,7 @@
   </div>
 </template>
 
-<style lang="stylus">
+<!--<style lang="stylus">
 @import './styles/config.styl'
 
 .sidebar-button-x
@@ -26,3 +26,4 @@
   .sidebar-button
     display block
 </style>
+-->

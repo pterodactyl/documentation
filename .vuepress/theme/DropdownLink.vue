@@ -50,7 +50,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<!--<style lang="stylus">
 @import './styles/config.styl'
 
 .dropdown-wrapper
@@ -152,4 +152,4 @@ export default {
       border-radius 0.25rem
       white-space nowrap
       margin 0
-</style>
+</style>-->

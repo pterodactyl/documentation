@@ -42,7 +42,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<!--<style lang="stylus">
 @import './styles/config.styl'
 
 .home-gtfo
@@ -131,4 +131,4 @@ export default {
     .feature
       h2
         font-size 1.25rem
-</style>
+</style>-->

@@ -89,7 +89,7 @@ $arrow-bg: #000;
     }
 
     .sidebar-group-items {
-        transition: height 100ms ease-out;
+        transition: height .1s ease-out;
         overflow: hidden;
     }
 
