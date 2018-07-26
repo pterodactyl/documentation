@@ -24,15 +24,16 @@
     }
 
     .search-box {
-        @apply .relative .px-2;
+        @apply .relative .px-2 .w-full .text-right;
 
         input {
             transition: all 200ms ease-in;
-            @apply .text-grey-lighter .w-64 .outline-none .px-4 .py-2 .rounded;
+            @apply .text-grey-lighter .w-1/2 .outline-none .px-4 .py-2 .rounded;
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(0, 0, 0, 0.3);
 
             &:active, &:focus {
+                @apply .w-5/6;
                 transition: all 200ms ease-in;
                 background: rgba(0, 0, 0, 0.3);
                 border: 1px solid rgba(0, 0, 0, 0.7)
