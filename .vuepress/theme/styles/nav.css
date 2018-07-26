@@ -28,12 +28,12 @@
 
         input {
             transition: all 200ms ease-in;
-            @apply .text-grey-lighter .w-1/2 .outline-none .px-4 .py-2 .rounded;
+            @apply .text-grey-lighter .w-2/3 .outline-none .px-4 .py-2 .rounded;
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(0, 0, 0, 0.3);
 
             &:active, &:focus {
-                @apply .w-5/6;
+                @apply .w-full;
                 transition: all 200ms ease-in;
                 background: rgba(0, 0, 0, 0.3);
                 border: 1px solid rgba(0, 0, 0, 0.7)
@@ -41,7 +41,26 @@
         }
 
         .suggestions {
-            @apply absolute;
+            @apply .bg-white .rounded .border .p-2 .text-left .w-full;
+            margin-top: -0.3rem;
+            list-style: none;
+
+            & > li > a {
+                @apply .p-2 .block;
+
+                &:hover {
+                    @apply .rounded .bg-grey-lighter .no-underline .text-blue-dark;
+
+                    & > .header {
+                        @apply .text-grey-dark;
+                    }
+                }
+
+                & > .header {
+                    @apply .text-grey .font-normal .pl-1;
+                    font-size: 0.9em;
+                }
+            }
         }
     }
 
