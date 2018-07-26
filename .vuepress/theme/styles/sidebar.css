@@ -4,6 +4,7 @@ $arrow-bg: #000;
     @apply fixed pin-l pin-b bg-white overflow-auto border-r border-grey-lighter py-8;
     top: $nav-height;
     width: $sidebar-width;
+    font-size: 15px;
 
     ul {
         @apply list-reset m-0;
@@ -15,7 +16,7 @@ $arrow-bg: #000;
 
     .nav-links {
         @apply px-6;
-        
+
         .nav-link, .repo-link {
             @apply my-2;
         }
@@ -38,7 +39,11 @@ $arrow-bg: #000;
         }
 
         a.sidebar-link {
-            @apply pl-8;
+            @apply .pl-8;
+
+            &:hover {
+                @apply .no-underline .text-blue-light;
+            }
         }
     }
 

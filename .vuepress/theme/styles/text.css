@@ -1,25 +1,29 @@
 body {
-    @apply text-grey-darkest;
+    @apply .text-grey-darkest .font-sans;
 }
 
 a {
-    @apply text-blue font-bold no-underline;
+    @apply .text-blue-light .no-underline;
+    font-weight: 500;
+    &:hover {
+        @apply .underline;
+    }
 }
 
 kbd {
-    @apply border border-grey-lighter bg-grey-lightest;
+    @apply .border .border-grey-lighter .bg-grey-lightest;
 }
 
 ul, ol {
-    @apply pl-8 my-2;
+    @apply .pl-8 .my-2;
 }
 
 strong {
-    @apply font-bold;
+    @apply .font-bold;
 }
 
 a.header-anchor {
-    @apply invisible float-left;
+    @apply .invisible .float-left;
     font-size: .85em;
     width: .87em;
     margin-left: -0.87em;
@@ -27,24 +31,33 @@ a.header-anchor {
     margin-top: 0.125em;
 }
 
+.content:not(.custom) {
+    & > h1, h2, h3, h4, h5, h6 {
+        &:first-child {
+            @apply .my-1;
+        }
+    }
+}
+
 h1, h2, h3, h4, h5, h6 {
-    @apply font-bold mt-6;
+    @apply .mt-6 .font-semibold;
 
     &:hover .header-anchor {
-        @apply visible;
+        @apply .visible;
     }
 }
 
 h1 {
-    @apply text-5xl;
+    @apply .text-4xl;
 }
 
 h2 {
-    @apply pb-3 border-b;
+    @apply .pb-3 .border-b;
 }
 
 p {
-    @apply my-4;
+    @apply .my-4;
+    line-height: 1.7 !important;
 }
 
 code, kbd, .line-number {

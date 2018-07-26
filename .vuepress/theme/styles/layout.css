@@ -7,3 +7,8 @@
     @apply mx-auto p-8;
     max-width: $content-width;
 }
+
+table td, table th {
+    @apply .border;
+    padding: 0.6rem 1rem !important;
+}

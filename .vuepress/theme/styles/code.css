@@ -1,30 +1,27 @@
-$line-numbers-width: 1rem;
-
 .content {
     code {
         @apply m-0 text-sm bg-grey-lighter rounded-sm;
-        padding: .2rem;
+        padding: .25rem .5rem;
     }
 
     pre, pre[class*="language-"] {
-        @apply leading-tight overflow-auto my-4 mx-0 p-4;
+        @apply .leading-normal .overflow-auto .my-4 .mx-0 .p-4;
 
         code {
-            @apply text-white p-0 bg-transparent;
+            @apply .text-white .p-0 .bg-transparent;
         }
     }
 }
 
 div[class*="language-"] {
-    @apply relative bg-grey-darkest;
+    @apply .relative .bg-grey-darkest;
 
     .highlight-lines {
-        @apply absolute pin-t pin-l w-full leading-tight;
-        user-select: none;
+        @apply .absolute .pin-t .pin-l .w-full .leading-normal .select-none;
         margin-top: 1.15rem;
 
         .highlighted {
-            @apply bg-grey-darker;
+            @apply .bg-grey-darker;
         }
     }
 
@@ -46,37 +43,32 @@ div[class*="language-"] {
     }
     &.line-numbers-mode {
         .highlight-lines .highlighted {
-            @apply relative;
+            @apply .relative;
 
             &:before {
-                @apply absolute pin-l pin-t block h-full;
+                @apply .absolute .pin-l .pin-t .block .h-full .w-4;
                 content: ' ';
-                width: $line-numbers-width;
             }
         }
 
         pre {
-            @apply align-middle;
-            width: $line-numbers-width;
+            @apply .align-middle .w-4;
         }
 
         .line-numbers-wrapper {
-            @apply absolute pin-t text-center;
-            width: $line-numbers-width;
+            @apply .absolute .pin-t .text-center .w-4;
 
             br {
-                user-select: none;
+                @apply .select-none;
             }
 
             .line-number {
-                @apply relative;
-                user-select: none;
+                @apply .relative .select-none;
             }
         }
         &::after {
-            @apply absolute pin-t pin-l h-full;
+            @apply .absolute .pin-t .pin-l .h-full .w-4;
             content: '';
-            width: $line-numbers-width;
         }
     }
 }
