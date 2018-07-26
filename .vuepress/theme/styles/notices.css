@@ -1,5 +1,5 @@
 .custom-block {
-    @apply .px-6 .py-1;
+    @apply .px-6 .py-1 .my-4;
     border-left: .5rem solid;
 
     & > .custom-block-title {

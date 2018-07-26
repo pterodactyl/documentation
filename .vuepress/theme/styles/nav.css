@@ -1,8 +1,7 @@
 .nav {
-    @apply .fixed .w-full .flex .bg-blue .font-sans .border-b .border-t .border-blue-darker .px-6 .text-sm;
+    @apply .fixed .w-full .flex .bg-blue .font-sans .border-b .border-t .border-blue-darker .px-6 .text-sm .z-20;
     height: 56px;
     line-height: 54px;
-    z-index: 100;
 
     .sidebar-button {
         @apply p-3;
@@ -25,7 +24,7 @@
     }
 
     .search-box {
-        @apply relative px-2;
+        @apply .relative .px-2;
 
         input {
             @apply bg-transparent text-white border-white border-b p-1 w-48 outline-none;

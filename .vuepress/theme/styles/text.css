@@ -61,7 +61,6 @@ h2 {
 
 p {
     @apply .my-4;
-    line-height: 1.7 !important;
 }
 
 code, kbd, .line-number {
@@ -69,7 +68,7 @@ code, kbd, .line-number {
 }
 
 p, ul, ol {
-    @apply leading-normal;
+    line-height: 1.7;
 }
 
 hr {
