@@ -26,7 +26,7 @@ div[class*="language-"] {
     }
 
     pre, pre[class*="language-"] {
-        @apply .bg-transparent .relative .m-0;
+        @apply .bg-transparent .relative .m-0 .mr-4;
         z-index: 1;
     }
 
@@ -77,31 +77,40 @@ div[class*="language-"] {
 
 @each $lang in js,ts,html,md,vue,css,sass,scss,less,stylus,go,java,c,sh,yaml,conf {
     div[class~="language-#{$lang}"]:before {
+        @apply .mr-8;
         content: '#{$lang}';
     }
 }
 
 div[class~="language-javascript"]:before {
+    @apply .mr-8;
     content: "js";
 }
 div[class~="language-typescript"]:before {
+    @apply .mr-8;
     content: "ts";
 }
 div[class~="language-markup"]:before {
+    @apply .mr-8;
     content: "html";
 }
 div[class~="language-markdown"]:before {
+    @apply .mr-8;
     content: "md";
 }
 div[class~="language-json"]:before {
+    @apply .mr-8;
     content: "json";
 }
 div[class~="language-ruby"]:before {
+    @apply .mr-8;
     content: "rb";
 }
 div[class~="language-python"]:before {
+    @apply .mr-8;
     content: "py";
 }
 div[class~="language-bash"]:before {
+    @apply .mr-8;
     content: "sh";
 }
