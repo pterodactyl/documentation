@@ -1,0 +1,11 @@
+.badge {
+    @apply .ml-2 .leading-normal;
+
+    &.tip {
+        @apply .bg-green-dark !important;
+    }
+
+    &.warn {
+        @apply .bg-yellow-dark !important;
+    }
+}
