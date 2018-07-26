@@ -8,6 +8,10 @@ a {
     &:hover {
         @apply .underline;
     }
+
+    &.external:hover {
+        @apply .no-underline;
+    }
 }
 
 kbd {
