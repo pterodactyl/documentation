@@ -27,7 +27,16 @@
         @apply .relative .px-2;
 
         input {
-            @apply bg-transparent text-white border-white border-b p-1 w-48 outline-none;
+            transition: all 200ms ease-in;
+            @apply .text-grey-lighter .w-64 .outline-none .px-4 .py-2 .rounded;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+
+            &:active, &:focus {
+                transition: all 200ms ease-in;
+                background: rgba(0, 0, 0, 0.3);
+                border: 1px solid rgba(0, 0, 0, 0.7)
+            }
         }
 
         .suggestions {
