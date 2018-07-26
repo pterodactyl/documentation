@@ -9,14 +9,16 @@
       <NavLink v-else :item="item"/>
     </div>
     <!-- repo link -->
-    <a v-if="repoLink"
-      :href="repoLink"
-      class="nav-link"
-      target="_blank"
-      rel="noopener noreferrer">
-      {{ repoLabel }}
-      <OutboundLink/>
-    </a>
+    <div v-if="repoLink"
+       class="nav-item">
+      <a :href="repoLink"
+         class="nav-link"
+         target="_blank"
+         rel="noopener noreferrer">
+        {{ repoLabel }}
+        <OutboundLink/>
+      </a>
+    </div>
   </nav>
 </template>
 
