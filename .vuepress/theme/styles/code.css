@@ -1,7 +1,7 @@
 .content {
     code {
-        @apply .m-0 .text-sm .bg-grey-lighter .rounded-sm .border;
-        padding: .25rem .5rem;
+        @apply .m-0 .text-sm .bg-grey-lighter .rounded .border;
+        padding: .15rem .4rem;
     }
 
     pre, pre[class*="language-"] {
@@ -25,11 +25,11 @@
 }
 
 div[class*="language-"] {
-    @apply .relative .bg-grey-darkest .rounded .border .border-black;
+    @apply .relative .bg-grey-darkest .rounded .border .border-black .text-sm;
 
     .highlight-lines {
         @apply .absolute .pin-t .pin-l .w-full .leading-normal .select-none;
-        margin-top: 1.15rem;
+        margin-top: .9rem;
 
         .highlighted {
             @apply .bg-grey-darker;
