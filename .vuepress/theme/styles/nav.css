@@ -4,10 +4,10 @@
     line-height: 54px;
 
     .sidebar-button {
-        @apply p-3;
+        @apply .p-3;
 
         .icon {
-            @apply text-white block h-6;
+            @apply .text-white .block h-6;
         }
     }
 

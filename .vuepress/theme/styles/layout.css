@@ -4,7 +4,7 @@
 }
 
 .content {
-    @apply mx-auto p-8;
+    @apply .mx-auto .p-8;
     max-width: $content-width;
 }
 

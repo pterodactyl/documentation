@@ -1,34 +1,34 @@
 $arrow-bg: #000;
 
 .sidebar {
-    @apply fixed pin-l pin-b bg-white overflow-auto border-r border-grey-lighter py-8;
+    @apply .fixed .pin-l .pin-b .bg-white .overflow-auto .border-r .border-grey-lighter .py-8;
     top: $nav-height;
     width: $sidebar-width;
     font-size: 15px;
 
     ul {
-        @apply list-reset m-0;
+        @apply .list-reset .m-0;
     }
 
     a {
-        @apply inline-block;
+        @apply .inline-block;
     }
 
     .nav-links {
-        @apply px-6;
+        @apply .px-6;
 
         .nav-link, .repo-link {
-            @apply my-2;
+            @apply .my-2;
         }
     }
 
     .sidebar-group {
         &:not(.first) {
-            @apply mt-8;
+            @apply .mt-8;
         }
 
         .sidebar-group {
-            @apply pl-2;
+            @apply .pl-2;
         }
 
         &:not(.collapsable) {
@@ -48,7 +48,7 @@ $arrow-bg: #000;
     }
 
     .sidebar-heading {
-        @apply text-blue text-lg font-bold px-6 mt-0 mb-2 cursor-pointer;
+        @apply .text-blue .text-lg .font-bold .px-6 .mt-0 .mb-2 .cursor-pointer;
         transition: color 200ms ease;
 
         &.open, &:hover {
@@ -56,7 +56,7 @@ $arrow-bg: #000;
         }
 
         .arrow {
-            @apply inline-block relative;
+            @apply .inline-block .relative;
             top: -0.12em;
             left: 0.5em;
             width: 0;
@@ -94,33 +94,33 @@ $arrow-bg: #000;
     }
 
     .sidebar-sub-headers {
-        @apply pl-4 mb-1;
+        @apply .pl-4 .mb-1;
 
         a.sidebar-link {
-            @apply text-sm border-l-0 pt-0 pb-1;
+            @apply .text-sm .border-l-0 .pt-0 .pb-1;
         }
     }
 
     a.sidebar-link {
-        @apply inline-block w-full border-l-4 border-transparent text-grey-darkest px-6 py-1 font-normal;
+        @apply .inline-block .w-full .border-l-4 .border-transparent .text-grey-darkest .px-6 .py-1 .font-normal;
 
         &:hover {
-            @apply text-blue;
+            @apply .text-blue;
         }
 
         &.active {
-            @apply border-blue font-bold text-blue;
+            @apply .border-blue .font-bold .text-blue;
         }
     }
 }
 
 .sidebar-mask {
-    @apply fixed pin-t pin-l h-screen w-screen hidden;
+    @apply .fixed .pin-t .pin-l .h-screen .w-screen .hidden;
 }
 
 .theme-container.no-sidebar {
     .sidebar {
-        @apply hidden;
+        @apply .hidden;
     }
     .page {
         padding-left: 0;
