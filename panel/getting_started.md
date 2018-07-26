@@ -56,7 +56,7 @@ operating system's package manager to determine the correct packages to install.
 apt -y install software-properties-common
 
 # Add additional repositories for PHP, Redis, and MariaDB
-add-apt-repository -y ppa:ondrej/php
+LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php
 add-apt-repository -y ppa:chris-lea/redis-server
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
