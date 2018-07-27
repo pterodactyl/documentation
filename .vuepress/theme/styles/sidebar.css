@@ -1,6 +1,10 @@
 $arrow-bg: #000;
 
 .sidebar {
+    @screen smx {
+        @apply .hidden;
+    }
+
     @apply .fixed .pin-l .pin-b .bg-white .overflow-auto .border-r .border-grey-lighter .py-8;
     top: $nav-height;
     width: $sidebar-width;

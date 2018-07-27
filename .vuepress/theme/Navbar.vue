@@ -6,7 +6,7 @@
         <img class="logo"
              v-if="$site.themeConfig.logo"
              :src="$withBase($site.themeConfig.logo)">
-        <span class="site-name"
+        <span class="site-name hidden md:inline"
               v-if="$siteTitle"
               :class="{ 'can-hide': $site.themeConfig.logo }">
         {{ $siteTitle }}

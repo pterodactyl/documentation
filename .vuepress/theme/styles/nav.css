@@ -33,10 +33,6 @@
         .logo {
             @apply .h-12 .float-left;
         }
-
-        .site-name {
-            @apply .hidden;
-        }
     }
 
     .search-box {
@@ -53,6 +49,16 @@
                 transition: all 200ms ease-in;
                 background: rgba(0, 0, 0, 0.3);
                 border: 1px solid rgba(0, 0, 0, 0.7)
+            }
+        }
+
+        @screen smx {
+            @apply .pr-0 .pl-6;
+            
+            input {
+                &:active, &:focus {
+                    @apply .w-full;
+                }
             }
         }
 
