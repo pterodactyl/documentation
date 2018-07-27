@@ -16,10 +16,14 @@
     }
 
     .home-link {
-        @apply .block .text-white .font-light .mr-6 .flex-none .w-auto;
+        @apply .text-white .font-light;
+
+        &:hover {
+            @apply .no-underline;
+        }
 
         .logo {
-            @apply .h-12;
+            @apply .h-12 .float-left;
         }
 
         .site-name {
