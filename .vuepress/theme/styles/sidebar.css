@@ -134,6 +134,6 @@ $arrow-bg: #000;
 .sidebar-open > .sidebar {
     @screen smx {
         @apply .inline .w-full .z-50;
-        top: 60px;
+        top: 56px;
     }
 }
