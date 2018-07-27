@@ -1,19 +1,24 @@
 <template>
   <header class="nav">
     <SidebarButton class="block md:hidden flex-no-shrink" @toggle-sidebar="$emit('toggle-sidebar')"/>
-    <router-link :to="$localePath" class="home-link">
-      <img class="logo"
-        v-if="$site.themeConfig.logo"
-        :src="$withBase($site.themeConfig.logo)">
-      <span class="site-name"
-        v-if="$siteTitle"
-        :class="{ 'can-hide': $site.themeConfig.logo }">
+    <div class="logo-container">
+      <router-link :to="$localePath" class="home-link">
+        <img class="logo"
+             v-if="$site.themeConfig.logo"
+             :src="$withBase($site.themeConfig.logo)">
+        <span class="site-name"
+              v-if="$siteTitle"
+              :class="{ 'can-hide': $site.themeConfig.logo }">
         {{ $siteTitle }}
       </span>
-    </router-link>
-    <div class="flex-grow"></div>
-    <SearchBox/>
-    <NavLinks class="hidden md:flex"/>
+      </router-link>
+    </div>
+    <div class="w-full">
+      <div class="flex">
+        <SearchBox/>
+        <NavLinks class="hidden md:flex"/>
+      </div>
+    </div>
   </header>
 </template>
 

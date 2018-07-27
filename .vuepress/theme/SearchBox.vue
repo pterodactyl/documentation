@@ -12,20 +12,20 @@
       @keyup.enter="go(focusIndex)"
       @keyup.up="onUp"
       @keyup.down="onDown">
-    <ul class="suggestions"
-      v-if="showSuggestions"
-      :class="{ 'align-right': alignRight }"
-      @mouseleave="unfocus">
-      <li class="suggestion" v-for="(s, i) in suggestions"
-        :class="{ focused: i === focusIndex }"
-        @mousedown="go(i)"
-        @mouseenter="focus(i)">
-        <a :href="s.path" @click.prevent>
-          <span class="page-title">{{ s.title || s.path }}</span>
-          <span v-if="s.header" class="header">&gt; {{ s.header.title }}</span>
-        </a>
-      </li>
-    </ul>
+    <div class="suggestion-container" v-if="showSuggestions" @mouseleave="unfocus">
+      <div class="suggestion-padding"></div>
+      <ul class="suggestions" :class="{ 'align-right': alignRight }">
+        <li class="suggestion" v-for="(s, i) in suggestions"
+            :class="{ focused: i === focusIndex }"
+            @mousedown="go(i)"
+            @mouseenter="focus(i)">
+          <a :href="s.path" @click.prevent>
+            <span class="page-title">{{ s.title || s.path }}</span>
+            <span v-if="s.header" class="header">&gt; {{ s.header.title }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
