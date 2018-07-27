@@ -130,3 +130,9 @@ $arrow-bg: #000;
         padding-left: 0;
     }
 }
+
+.sidebar-open > .sidebar {
+    @screen smx {
+        @apply .inline .w-full .z-50;
+    }
+}

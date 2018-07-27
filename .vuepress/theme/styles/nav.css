@@ -54,7 +54,7 @@
 
         @screen smx {
             @apply .pr-0 .pl-6;
-            
+
             input {
                 &:active, &:focus {
                     @apply .w-full;
