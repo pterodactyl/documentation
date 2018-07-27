@@ -1,6 +1,5 @@
 .custom-block {
-    @apply .px-6 .py-1 .my-4 rounded;
-    border-left: .5rem solid;
+    @apply .px-6 .py-1 .my-4 .rounded .border;
 
     & > .custom-block-title {
         @apply .font-semibold;
