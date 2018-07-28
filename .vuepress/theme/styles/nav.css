@@ -111,7 +111,7 @@
 
             @screen md {
                 .suggestion-padding {
-                    @apply .w-1/3 .inline-block;
+                    @apply .w-1/3;
                 }
             }
         }
