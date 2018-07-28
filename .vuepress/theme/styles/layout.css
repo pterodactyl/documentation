@@ -40,6 +40,10 @@
         @apply .m-0 .pt-8 .border-t .border-grey-lighter;
     }
 
+    .next, .prev {
+        @apply .inline-block;
+    }
+    
     .next {
         @apply .float-right;
     }
