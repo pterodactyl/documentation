@@ -1,14 +1,14 @@
 .page {
-    padding-top: $nav-height;
+    padding-top: 56px;
 
     @screen md {
-        padding-left: $sidebar-width;
+        padding-left: 20rem;
     }
 }
 
 .content {
     @apply .mx-auto .p-4;
-    max-width: $content-width;
+    max-width: 840px;
 
     @screen md {
         @apply .p-8;
@@ -21,7 +21,7 @@
 
 .page-edit {
     @apply .mx-auto .px-4 .pb-4;
-    max-width: $content-width;
+    max-width: 840px;
 
     @screen md {
         @apply .px-8 .pb-8;
@@ -30,7 +30,7 @@
 
 .page-nav {
     @apply .mx-auto .px-4 .pb-4;
-    max-width: $content-width;
+    max-width: 840px;
 
     @screen md {
         @apply .px-8 .pb-8;
