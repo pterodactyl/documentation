@@ -2,6 +2,45 @@
 
 [[toc]]
 
+## Supported Systems
+| Operating System | Version | Supported | Notes |
+| ---------------- | ------- | :-------: | ----- |
+| **Ubuntu** | 14.04 | :warning: | Approaching EOL, not recommended for new installations. |
+| | 16.04 | :white_check_mark: | |
+| | 18.04 | :white_check_mark: | |
+| **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
+| | 7 | :white_check_mark: | |
+| **Debian** | 8 | :warning: | Requires [kernel modifications](debian_8_docker.md) to run Docker. |
+| | 9 | :white_check_mark: | |
+| **Alpine Linux** | 3.4+ | :warning: | Not officially supported, but reportedly works. |
+| **RHEL** | 7 | :no_entry_sign: | Requires daemon modifications, see [this issue](https://github.com/pterodactyl/panel/issues/1062). |
+
+## System Requirements
+In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
+dedicated servers should be capable of running Docker, but there are edge cases.
+
+If your provider makes use of `Virtuozzo`, `OpenVZ` (or `OVZ`), or `LXC` then you will most likely be unable to
+run the Daemon. If you are unsure what your host is using there are a couple of options. The easiest is to check
+their website, or reach out to their support team.
+
+If you want to take a different approach, try using `lscpu` and checking what the virtualization type listed is. An
+example of this is shown below which shows my hypervisor running with full virtualization — this means it will
+support Docker without issues. If you see `KVM` for the vendor, chances are you're fine as well.
+
+``` bash
+dane@daemon:~$ lscpu | grep 'vendor\|type'
+Hypervisor vendor:     VMware
+Virtualization type:   full
+```
+
+If that doesn't work for some reason, or you're still unsure, you can also run the command below and as long as it 
+doesn't report `Xen` or `LXC` you're probably okay to continue.
+
+``` bash
+dane@daemon:~$ sudo dmidecode -s system-manufacturer
+VMware, Inc.
+```
+
 ## Dependencies
 Pterodactyl's Daemon requires the following dependencies be installed on your system in order for it to operate.
 
@@ -19,6 +58,12 @@ are listed below for commonly supported systems.
 * [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce)
 * [CentOS](https://docs.docker.com/install/linux/docker-ce/centos/#install-docker-ce)
 * [Debian](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce)
+
+::: warning Check your Kernel
+Please be aware that some hosts install a modified kernel that does not support important docker features. Please
+check your kernel by running `uname -r`. If your kernel ends in `-xxxx-grs-ipv6-64` or `-xxxx-mod-std-ipv6-64` you're
+probably using a non-supported kernel. Check our [Kernel Modifications](kernel_modifications.md) guide for details.
+:::
 
 #### Start Docker on Boot
 If you are on Ubuntu 16 or CentOS run the command below to have Docker start when you boot your machine.

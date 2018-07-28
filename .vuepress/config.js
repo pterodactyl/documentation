@@ -54,7 +54,9 @@ module.exports = {
                 collapsable: false,
                 children: [
                     '/daemon/installing',
-                    '/daemon/upgrading'
+                    '/daemon/upgrading',
+                    '/daemon/kernel_modifications',
+                    '/daemon/debian_8_docker',
                 ]
             },
             {
