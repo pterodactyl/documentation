@@ -1,17 +1,11 @@
 .nav {
-    @apply .fixed .w-full .bg-blue .font-sans .border-b .border-t .border-blue-darker .px-6 .text-sm .z-20 .flex;
+    @apply .fixed .w-full .bg-blue .font-sans .border-b .border-t .border-blue-darker .px-2 .text-sm .z-20 .flex;
     height: 56px;
     line-height: 54px;
 
-    .sidebar-button {
-        @apply .p-3;
-
-        .icon {
-            @apply .text-white .block h-6;
-        }
-    }
-
     @screen md {
+        @apply .px-6;
+
         .logo-container {
             width: 23rem; /* sidebar is 20rem + 1.5rem padding on each side for nav */
         }
@@ -23,6 +17,15 @@
         }
     }
 
+    .sidebar-button {
+        @apply .p-3;
+
+        .icon {
+            @apply .text-white .block;
+            height: 1.8rem;
+        }
+    }
+
     .home-link {
         @apply .text-white .font-light;
 
@@ -31,7 +34,13 @@
         }
 
         .logo {
-            @apply .h-12 .float-left;
+            @apply .hidden;
+        }
+
+        @screen md {
+            .logo {
+                @apply .w-12 .float-left .block;
+            }
         }
     }
 

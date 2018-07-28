@@ -9,6 +9,10 @@
         img {
             @apply .my-4;
             max-height: 20rem;
+
+            @screen smx {
+                max-height: 6rem;
+            }
         }
 
         .action-button {
@@ -32,14 +36,20 @@
     }
 
     .features {
-        @apply .border-t .py-5 .mt-10 .flex .flex-wrap .items-start .justify-between;
-        align-content: stretch;
+        @apply .border-t .py-5 .px-4 .mt-10;
+
+        @screen md {
+            @apply .flex .flex-wrap .items-start .justify-between .px-0;
+            align-content: stretch;
+
+            .feature {
+                @apply .flex-grow ;
+                flex-basis: 30%;
+                max-width: 30%;
+            }
+        }
 
         .feature {
-            @apply .flex-grow;
-            flex-basis: 30%;
-            max-width: 30%;
-
             h2 {
                 @apply .border-b-0 .pb-0 .py-4 .font-normal;
             }
@@ -51,6 +61,6 @@
     }
 
     .footer {
-        @apply .text-center .text-grey .text-sm;
+        @apply .text-center .text-grey .text-sm .pb-8 .px-4;
     }
 }

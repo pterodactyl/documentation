@@ -118,17 +118,14 @@ $arrow-bg: #000;
     }
 }
 
-.sidebar-mask {
-    @apply .fixed .pin-t .pin-l .h-screen .w-screen .hidden;
-}
-
-.theme-container.no-sidebar {
-    .sidebar {
+@screen md {
+    .no-sidebar > .sidebar {
         @apply .hidden;
     }
-    .page {
-        padding-left: 0;
-    }
+}
+
+.sidebar-mask {
+    @apply .fixed .pin-t .pin-l .h-screen .w-screen .hidden;
 }
 
 .sidebar-open > .sidebar {
