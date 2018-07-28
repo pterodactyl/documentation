@@ -2,6 +2,10 @@
     @apply .mx-auto;
     max-width: 960px;
 
+    @screen md {
+        @apply .px-8;
+    }
+
     .hero {
         @apply .text-center .mx-auto;
         padding-top: 58px;

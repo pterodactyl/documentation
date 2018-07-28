@@ -49,11 +49,9 @@ a.header-anchor {
 h1, h2, h3, h4, h5, h6 {
     @apply .mb-4 .font-semibold;
 
-    &:hover .header-anchor {
-        @apply .visible;
-
-        @screen smx {
-            margin-left: 0 !important;
+    @screen md {
+        &:hover .header-anchor {
+            @apply .visible;
         }
     }
 }
