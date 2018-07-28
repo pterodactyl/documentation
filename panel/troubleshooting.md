@@ -47,6 +47,14 @@ it does help you get faster support if you're able to provide these logs, and at
 Sometimes the errors are pretty strightforward and will tell you exactly what went wrong, such as a `ConnectionException`
 being thrown when the Panel can't connect to the Daemon.
 
+### Utilizing GREP
+If you're trying to go through a bunch of errors quickly, you can use the command below which will limit the results returned to only
+be the actual error lines, without all of the stack traces.
+
+``` bash
+tail -n 1000 ~/Sites/development/code/panel/storage/logs/laravel-2018-07-19.log | grep "\[$(date +%Y)"
+```
+
 ## Transfer Exceptions / XHR Poll Error
 If you are seeing errors similar to the examples below, chances are there is some networking related issue, or you
 just don't have a required service running.
