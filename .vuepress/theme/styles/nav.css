@@ -8,7 +8,7 @@
 
         .logo-container {
             @apply .flex-no-shrink;
-            width: calc($sidebar-width - 1.5rem); /* sidebar is 20rem + 1.5rem padding on each side for nav */
+            width: calc(18.5); /* sidebar is 20rem + 1.5rem padding on each side for nav */
         }
 
         .home-link {
