@@ -39,14 +39,6 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 * `git`
 * `composer`
 
-### Installing Composer
-Composer is a dependency manager for PHP that allows us to ship everything you'll need code wise to operate the Panel. You'll
-need composer installed before continuing in this process.
-
-``` bash
-curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-```
-
 ### Example Dependency Installation
 The commands below are simply an example of how you might install these dependencies. Please consult with your
 operating system's package manager to determine the correct packages to install.
@@ -65,6 +57,14 @@ apt update
 
 # Install Dependencies
 apt -y install php7.2 php7.2-cli php7.2-gd php7.2-mysql php7.2-pdo php7.2-mbstring php7.2-tokenizer php7.2-bcmath php7.2-xml php7.2-fpm php7.2-curl php7.2-zip mariadb-server nginx curl tar unzip git redis-server
+```
+
+### Installing Composer
+Composer is a dependency manager for PHP that allows us to ship everything you'll need code wise to operate the Panel. You'll
+need composer installed before continuing in this process.
+
+``` bash
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
 ## Download Files
