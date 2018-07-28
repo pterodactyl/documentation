@@ -2,6 +2,7 @@ module.exports = {
     base: '/docs/',
     title: 'Pterodactyl',
     description: 'The open-source server management solution.',
+    ga: 'UA-87324178-1',
     configureWebpack: {
         serve: {
             hot: {
