@@ -47,6 +47,7 @@ module.exports = {
                     '/panel/getting_started',
                     '/panel/webserver_configuration',
                     '/panel/upgrading',
+                    '/panel/troubleshooting',
                 ]
             },
             {
