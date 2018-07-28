@@ -21,10 +21,10 @@ module.exports = {
                 text: 'Get Started',
                 link: '/project/introduction.md',
             },
-            {
-                text: 'API Reference',
-                link: '/api/'
-            },
+            // {
+            //     text: 'API Reference',
+            //     link: '/api/'
+            // },
             {
                 text: 'Get Help',
                 link: 'https://pterodactyl.io/discord'
