@@ -44,8 +44,3 @@
         @apply .float-right;
     }
 }
-
-table td, table th {
-    @apply .border;
-    padding: 0.6rem 1rem !important;
-}

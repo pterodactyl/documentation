@@ -81,18 +81,22 @@ hr {
 }
 
 table {
-    @apply block my-4 border-collapse;
+    @apply .block .my-4 .border-collapse;
     overflow-x: auto;
 
     tr {
-        @apply border-t;
+        @apply .border-t;
 
         &:nth-child(2n) {
-            @apply bg-grey-lightest;
+            @apply .bg-grey-lightest;
         }
     }
 
     th, td {
-        @apply border py-2 px-4;
+        @apply .border .py-2 .px-4;
+    }
+
+    td {
+        @apply .leading-normal;
     }
 }

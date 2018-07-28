@@ -55,6 +55,7 @@ module.exports = {
                 children: [
                     '/daemon/installing',
                     '/daemon/upgrading',
+                    '/daemon/configuration',
                     '/daemon/kernel_modifications',
                     '/daemon/debian_8_docker',
                 ]
