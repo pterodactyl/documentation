@@ -13,6 +13,12 @@
     @screen md {
         @apply .p-8;
     }
+
+    &.error-page {
+        h1 {
+            @apply .pt-12 !important;
+        }
+    }
 }
 
 .table-of-contents {
@@ -43,7 +49,7 @@
     .next, .prev {
         @apply .inline-block;
     }
-    
+
     .next {
         @apply .float-right;
     }

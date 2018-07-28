@@ -46,6 +46,10 @@ a.header-anchor {
     }
 }
 
+blockquote {
+    @apply .border-l-4 .border-grey-light .text-grey .p-1 .pl-4 .font-light .my-4 .text-xl;
+}
+
 h1, h2, h3, h4, h5, h6 {
     @apply .mb-4 .font-semibold;
 
