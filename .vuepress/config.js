@@ -68,13 +68,13 @@ module.exports = {
                     '/tutorials/creating_ssl_certificates.md',
                 ],
             },
-            {
-                title: 'API Reference',
-                collapsable: true,
-                children: [
-                    '/',
-                ]
-            }
+            // {
+            //     title: 'API Reference',
+            //     collapsable: true,
+            //     children: [
+            //         '/',
+            //     ]
+            // }
         ]
     },
     postcss: {
