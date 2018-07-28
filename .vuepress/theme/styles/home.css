@@ -1,6 +1,4 @@
 .home {
-    padding-top: $nav-height;
-
     .hero {
         @apply .text-center .mx-auto;
         max-width: 960px;
@@ -15,16 +13,16 @@
     }
 
     .features {
-    @apply .border-t .px-2 .mt-8 .flex .flex-wrap .items-start .content-between;
+        @apply .border-t .px-2 .mt-8 .flex .flex-wrap .items-start .content-between;
 
-    .feature {
-        @apply flex-grow;
-        flex-basis: 30%;
-        max-width: 30%;
+        .feature {
+            @apply flex-grow;
+            flex-basis: 30%;
+            max-width: 30%;
 
-        h2 {
-            @apply border-b-0 pb-0;
+            h2 {
+                @apply border-b-0 pb-0;
+            }
         }
     }
-}
 }

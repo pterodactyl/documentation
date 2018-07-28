@@ -37,8 +37,8 @@ a.header-anchor {
 
 .content:not(.custom) {
     & > h1, h2, h3, h4, h5, h6 {
-        margin-top: calc(.5rem - $nav-height);
-        padding-top: calc($nav-height + 1rem);
+        margin-top: calc(.5rem - 56px);
+        padding-top: calc(56px + 1rem);
 
         &:first-child {
             @apply .my-1 .pt-0;

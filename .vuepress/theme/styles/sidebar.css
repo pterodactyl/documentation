@@ -6,8 +6,8 @@ $arrow-bg: #000;
     }
 
     @apply .fixed .pin-l .pin-b .bg-white .overflow-auto .border-r .border-grey-lighter .py-8;
-    top: $nav-height;
-    width: $sidebar-width;
+    top: 56px;
+    width: 20rem;
     font-size: 15px;
 
     ul {

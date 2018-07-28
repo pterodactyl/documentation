@@ -1,7 +1,6 @@
 @import "tailwindcss/preflight";
 @import "tailwindcss/components";
 
-@import "./variables.css";
 @import "./layout.css";
 @import "./text.css";
 @import "./nav.css";
