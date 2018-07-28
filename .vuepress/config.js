@@ -51,9 +51,10 @@ module.exports = {
             },
             {
                 title: 'Daemon',
-                collapsable: true,
+                collapsable: false,
                 children: [
-                    '/',
+                    '/daemon/installing',
+                    '/daemon/upgrading'
                 ]
             },
             {

@@ -86,7 +86,7 @@ div[class*="language-"] {
 
 /* language hints */
 
-@each $lang in js,ts,html,md,vue,css,sass,scss,less,stylus,go,java,c,sh,yaml,conf {
+@each $lang in js,ts,html,md,vue,css,sass,scss,less,stylus,go,java,c,sh,yaml,conf,sql {
     div[class~="language-#{$lang}"]:before {
         content: '#{$lang}';
     }
