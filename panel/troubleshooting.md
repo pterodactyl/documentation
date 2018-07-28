@@ -52,7 +52,7 @@ If you're trying to go through a bunch of errors quickly, you can use the comman
 be the actual error lines, without all of the stack traces.
 
 ``` bash
-tail -n 1000 ~/Sites/development/code/panel/storage/logs/laravel-2018-07-19.log | grep "\[$(date +%Y)"
+tail -n 1000 /var/www/pterodactyl/storage/logs/laravel-$(date +%F) | grep "\[$(date +%Y)"
 ```
 
 ## Transfer Exceptions / XHR Poll Error
