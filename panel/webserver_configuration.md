@@ -83,7 +83,7 @@ After=network.target
 [Service]
 User=%i
 Environment=STNORESTART=yes
-ExecStart=/usr/sbin/caddy -agree=true -conf=/etc/caddy/Caddyfile
+ExecStart=/usr/local/bin/caddy -agree=true -conf=/etc/caddy/Caddyfile
 Restart=on-failure
 
 [Install]
