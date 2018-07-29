@@ -1,44 +1,69 @@
 <template>
     <div class="home">
-        <div class="header section bg-blue text-white">
+        <div class="header section bg-blue text-grey-lightest less-padding emphasize">
             <div class="container z-10">
                 <div class="text-center">
-                    <div><img class="max-w-xs" :src="$withBase('pterodactyl.png')"></div>
-                    <h1 class="font-normal text-4xl">The Free Gameserver Management Panel</h1>
-                    <div class="mt-4"><router-link class="btn" to="/project/introduction.html">Get started</router-link><a class="btn" href="https://demo.pterodactyl.io" target="_blank">Demo</a></div>
+                    <h1 class="text-5xl font-normal">Pterodactyl</h1>
+                    <div>
+                        <img class="max-w-xs" :src="$withBase('pterodactyl.png')">
+                    </div>
+                    <h2 class="font-light text-3xl border-0">The open-source server management solution.</h2>
+                    <div class="mt-4">
+                        <a class="btn" href="https://demo.pterodactyl.io" target="_blank" rel="nofollow noopener">Demo</a>
+                        <router-link class="btn" to="/panel/getting_started.html">Get started</router-link>
+                    </div>
                 </div>
             </div>
-            <!-- <div class="absolute pin z-0" id="particles-js"></div> -->
         </div>
-        <div class="section bg-white" name="about">
+        <div class="section bg-white">
             <div class="container text-center">
                 <h1 class="text-blue mb-4">Pterodactyl Panel</h1>
-                <p>
-                    Pterodactyl Panel is the free, open-source, game agnostic, self-hosted control panel for users, networks, and game service providers. Pterodactyl supports games and servers such as Minecraft (including Spigot, Bungeecord, and Sponge), ARK:
-                    Evolution Evolved, CS:GO, Team Fortress 2, Insurgency, Teamspeak 3, Mumble, and many more. Control all of your games from one unified interface.
-                </p>
+                <h3 class="border-0 font-light leading-normal max-w-xl mx-auto">
+                    Pterodactyl is the open-source game server management panel built with PHP7, Nodejs, and Go.
+                    Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers
+                    while exposing a beautiful and intuitive UI to administrators and users. Stop wasting time fiddling
+                    with other systems &mdash; make game servers a first class citizen on your platform.
+                </h3>
                 <img class="max-w-lg w-full m-4" :src="$withBase('frontpage/mockup-macbook-grey.png')"></div>
         </div>
-        <div class="section bg-blue text-white" name="features">
+        <div class="section bg-blue text-grey-lightest">
             <div class="container text-center">
                 <h1 class="mb-4">Why Pterodactyl</h1>
                 <div class="flex flex-wrap">
-                    <div class="feature"><span><i class="icon icon-lock"></i></span>
-                        <h3>Secure</h3> No MD5 here. We make use of the latest security standards such as BCrypt hashing and AES-256-CBC encryption.</div>
-                    <div class="feature"><span><i class="icon icon-browser"></i></span>
-                        <h3>Themable</h3> Every aspect of Pterodactyl is fully themeable using the Blade templating engine and your own CSS.</div>
-                    <div class="feature"><span><i class="icon icon-anchor"></i></span>
-                        <h3>Docker Based</h3> Pterodactyl is the first game panel to make use of Docker to control servers and harden your network.</div>
-                    <div class="feature"><span><i class="icon icon-wallet"></i></span>
-                        <h3>Free & Open Source</h3> Pterodactyl is 100% free and licensed under a MIT license. All of our code is completely open source as well.</div>
-                    <div class="feature"><span><i class="icon icon-beaker"></i></span>
-                        <h3>User Friendly</h3>Furious clicking and yelling is for video games. Pterodactyl's interface is so simple that even <a class="text-white" href="http://fallout.wikia.com/wiki/Dogmeat_(Fallout)">Dogmeat</a> could use it.</div>
-                    <div class="feature"><span><i class="icon icon-expand"></i></span>
-                        <h3>Scalable</h3>Whether you're a hosting company or some dudes playing video games, Pterodactyl has you covered.</div>
+                    <div class="feature">
+                        <span><i class="icon icon-lock"></i></span>
+                        <h3>Security First</h3>
+                        <p>Security is a first-class citizen on this platform with bcrypt hashing, AES-256-CBC encryption, and HTTPS support out of the box.</p>
+                    </div>
+                    <div class="feature">
+                        <span><i class="icon icon-beaker"></i></span>
+                        <h3>Modern Tooling</h3>
+                        <p>Built on a modern stack utilizing the best design practices that make it easy to jump in and make modifications.</p>
+                    </div>
+                    <div class="feature">
+                        <span><i class="icon icon-anchor"></i></span>
+                        <h3>Docker to the Core</h3>
+                        <p>All servers run in isolated Docker containers that limit attack vectors, provide strict resource limits, and provide environments tailored to each specific game.</p>
+                    </div>
+                    <div class="feature">
+                        <span><i class="icon icon-wallet"></i></span>
+                        <h3>Free & Open Source</h3>
+                        <p>Pterodactyl is 100% free and licensed under a MIT license. All of our code is completely open source as well.</p>
+                    </div>
+                    <div class="feature">
+                        <span><i class="icon icon-browser"></i></span>
+                        <h3>User Friendly</h3>
+                        <p>Save the furious clicking and screaming for Overwatch. Pterodactyl's interface is designed so well even Hanzo can use it.</p>
+                    </div>
+                    <div class="feature">
+                        <span><i class="icon icon-expand"></i></span>
+                        <h3>Scalable</h3>
+                        <p>Whether you're a hosting company, the next Hyplex, or just some dudes playing video games, we've got you covered.</p>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="section bg-white" name="screenshots">
+        <div class="section bg-white">
             <div class="text-center">
                 <h1>Screenshots</h1>
                 <div class="screenshots">
@@ -56,23 +81,44 @@
                 </div>
             </div>
         </div>
-        <div class="section bg-blue text-white">
+        <div class="section bg-blue text-grey-lightest">
             <div class="container text-center">
                 <h1>Get Started</h1>
                 <p class="m-4">Ready to fly on the Pterodactyl?</p>
-                <div class="mt-4"><router-link class="btn" to="/project/introduction.html">Introduction</router-link><a class="btn" href="https://pterodactyl.io/discord">Discord</a></div>
+                <div class="mt-4">
+                    <router-link class="btn" to="/project/introduction.html">About the project</router-link>
+                    <a class="btn" href="https://pterodactyl.io/discord">Discord</a>
+                </div>
             </div>
         </div>
-        <div class="section bg-black text-white text-sm less-padding">
+        <div class="section bg-black text-grey-lighter text-sm less-padding">
             <div class="container text-center">
-                <img class="w-16" :src="$withBase('pterodactyl-flat.svg')">
-                <p class="my-4">
-                    There are tons of options out there when it comes to self-hosted game management panels. However, you will find no panel that can compete with Pterodactyl in terms of features, customization, stability, and most of all: price.
-                </p>
-                <p class="my-4">
-                    We're committed to building the best software that we can, and have been working with game management panels for almost five years now. We've seen games change, and are committed to making the most flexible, lightweight, and future proof panel that we can.
-                </p>
-                <div class=" mt-8 pt-8 border-t border-blue px-8">MIT Licensed | Copyright © 2015 - 2018 Dane Everitt & Contributors.</div>
+                <div>
+                    <img class="w-16" :src="$withBase('pterodactyl-flat.svg')">
+                </div>
+                <div class="text-left flex">
+                    <div class="flex-none w-1/2 pr-12">
+                        <p class="my-4">
+                            There are tons of options out there when it comes to self-hosted game management panels. However, you will find no panel that can compete with Pterodactyl in terms of features, customization, stability, and most of all: price.
+                        </p>
+                        <p class="my-4">
+                            We're committed to building the best software that we can, and have been working with game management panels for almost five years now. We've seen games change, and are committed to making the most flexible, lightweight, and future proof panel that we can.
+                        </p>
+                    </div>
+                    <div class="flex-1 pr-12">
+                        <p><a class="text-grey-lightest" href="https://blog.pterodactyl.io/">Blog</a></p>
+                        <p><a class="text-grey-lightest" href="https://github.com/pterodactyl">Github</a></p>
+                        <p><a class="text-grey-lightest" href="/panel/getting_started.html">Documentation</a></p>
+                        <p><a class="text-grey-lightest" href="/panel/troubleshooting.html">Troubleshooting</a></p>
+                        <p><a class="text-grey-lightest" href="https://github.com/parkervcp/eggs">Additional Game Configurations</a></p>
+                    </div>
+                    <div class="flex-1">
+                        <a href="https://pterodactyl.io/discord" target="_blank" rel="nofollow noopener">
+                            <img src="https://cdn.pterodactyl.io/site-assets/discord.png" class="w-3/4">
+                        </a>
+                    </div>
+                </div>
+                <div class="mt-8 pt-8 px-8 text-grey-dark text-xs">MIT Licensed | Copyright © 2015 - 2018 Dane Everitt & Contributors.</div>
             </div>
         </div>
     </div>

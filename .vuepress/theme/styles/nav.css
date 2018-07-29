@@ -1,5 +1,5 @@
 .nav {
-    @apply .fixed .w-full .bg-blue .font-sans .border-b .border-t .border-blue-darker .px-2 .text-sm .z-20 .flex;
+    @apply .fixed .w-full .bg-blue .font-sans .border-b .border-t .border-blue-darker .px-2 .text-sm .z-50 .flex;
     height: 56px;
     line-height: 54px;
 
