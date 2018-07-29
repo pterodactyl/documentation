@@ -70,11 +70,10 @@ panel.yourdomain.com {
 ```
 to turn it on:
 ``` bash
-caddy -conf Caddyfile
+caddy -conf /etc/caddy/Caddyfile
 ```
-To run caddy in the background use systemD
+To run caddy in the background use SystemD
 ``` bash
-
 cat <<EOF > /etc/systemd/system/caddy@.service
 [Unit]
 Description=Caddy HTTP/2 web server %I
