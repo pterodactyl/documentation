@@ -1,5 +1,5 @@
 module.exports = {
-    base: '/docs/',
+    base: '/',
     title: 'Pterodactyl',
     description: 'The open-source server management solution.',
     ga: 'UA-87324178-1',

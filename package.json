@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "jquery": "^3.3.1",
+    "vue-slick": "^1.1.13",
     "vuepress": "^0.13.0"
   },
   "scripts": {
