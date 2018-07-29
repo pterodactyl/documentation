@@ -32,7 +32,7 @@
                     <div class="feature"><span><i class="icon icon-wallet"></i></span>
                         <h3>Free & Open Source</h3> Pterodactyl is 100% free and licensed under a MIT license. All of our code is completely open source as well.</div>
                     <div class="feature"><span><i class="icon icon-beaker"></i></span>
-                        <h3>User Friendly</h3>Furious clicking and yelling is for video games. Pterodactyl's interface is so simple that even <a href="http://fallout.wikia.com/wiki/Dogmeat_(Fallout)">Dogmeat</a> could use it.</div>
+                        <h3>User Friendly</h3>Furious clicking and yelling is for video games. Pterodactyl's interface is so simple that even <a class="text-white" href="http://fallout.wikia.com/wiki/Dogmeat_(Fallout)">Dogmeat</a> could use it.</div>
                     <div class="feature"><span><i class="icon icon-expand"></i></span>
                         <h3>Scalable</h3>Whether you're a hosting company or some dudes playing video games, Pterodactyl has you covered.</div>
                 </div>
