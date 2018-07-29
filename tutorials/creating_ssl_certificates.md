@@ -30,5 +30,7 @@ You can add the command below to that crontab. For advanced users, we suggest in
 which provides more options, and is much more powerful than certbot.
 
 ``` text
+service nginx stop
 letsencrypt renew
+service nginx start
 ```
