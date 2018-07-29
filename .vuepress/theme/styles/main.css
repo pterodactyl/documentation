@@ -9,5 +9,7 @@
 @import "./code.css";
 @import "./notices.css";
 @import "./badges.css";
+@import "./etline.css";
+@import "./slick.css";
 
 @import "tailwindcss/utilities";
