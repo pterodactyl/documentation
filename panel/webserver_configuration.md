@@ -50,3 +50,49 @@ sudo ln -s /etc/apache2/sites-available/pterodactyl.conf /etc/apache2/sites-enab
 sudo a2enmod rewrite
 systemctl restart apache2
 ```
+
+## Caddy
+Caddy is a webserver with automatic https, this may come handy when you don't want to remake your ssl certificates every 90 days.
+::: danger
+Caddy is incompatible with other webservers, if you plan on running other websites on your panel you will have to add them to caddy too.
+:::
+/etc/caddy/Caddyfile:
+``` json
+panel.yourdomain.com {
+    # Set the directory root
+    root /var/www/pterodactyl/public
+    # Let caddy know where fastcgi is for php, edit "7.2" to your php-fpm version
+    fastcgi / /run/php/php7.2-fpm.sock php
+    # rewrite all requests to index.php, this is required for how pterodactyl works
+    rewrite {
+        to {path} {path}/ /index.php
+}
+```
+to turn it on:
+``` bash
+caddy -conf Caddyfile
+```
+To run caddy in the background use systemD
+``` bash
+
+cat <<EOF > /etc/systemd/system/caddy@.service
+[Unit]
+Description=Caddy HTTP/2 web server %I
+Documentation=https://caddyserver.com/docs
+After=network.target
+
+[Service]
+User=%i
+Environment=STNORESTART=yes
+ExecStart=/usr/sbin/caddy -agree=true -conf=/etc/caddy/Caddyfile
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
+reload the systemd daemon: `systemctl daemon-reload`
+start the service: `systemctl start caddy@root`
+enable it (to start it automatically on boot): `systemctl enable caddy@root`
+to restart it: `systemctl restart caddy@root`
+For more documentation on how to use the caddy webserver, go here https://caddyserver.com/docs.
