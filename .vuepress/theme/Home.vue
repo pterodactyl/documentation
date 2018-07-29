@@ -10,7 +10,7 @@
             </div>
             <!-- <div class="absolute pin z-0" id="particles-js"></div> -->
         </div>
-        <div class="section bg-white rounded-lg" name="about">
+        <div class="section bg-white" name="about">
             <div class="container text-center">
                 <h1 class="text-blue mb-4">Pterodactyl Panel</h1>
                 <p>
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="section bg-white rounded-lg" name="screenshots">
+        <div class="section bg-white" name="screenshots">
             <div class="text-center">
                 <h1>Screenshots</h1>
                 <div class="screenshots">
