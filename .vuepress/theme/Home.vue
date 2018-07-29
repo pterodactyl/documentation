@@ -9,8 +9,8 @@
                     </div>
                     <h2 class="font-light text-3xl border-0">The open-source server management solution.</h2>
                     <div class="mt-4">
-                        <a class="btn" href="https://demo.pterodactyl.io" target="_blank" rel="nofollow noopener">Demo</a>
-                        <router-link class="btn" to="/panel/getting_started.html">Get started</router-link>
+                        <a class="btn hidden md:inline-block" href="https://demo.pterodactyl.io" target="_blank" rel="nofollow noopener">Demo</a>
+                        <router-link class="btn inline-block" to="/panel/getting_started.html">Get started</router-link>
                     </div>
                 </div>
             </div>
@@ -68,15 +68,15 @@
                 <h1>Screenshots</h1>
                 <div class="screenshots">
                     <slick ref="slick" :options="slickOptions">
-                        <a :href="$withBase('frontpage/gallery/screenshot-1.png')"><img class="max-w-lg" :src="$withBase('frontpage/gallery/screenshot-1.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-2.png')"><img class="max-w-lg" :src="$withBase('frontpage/gallery/screenshot-2.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-3.png')"><img class="max-w-lg" :src="$withBase('frontpage/gallery/screenshot-3.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-4.png')"><img class="max-w-lg" :src="$withBase('frontpage/gallery/screenshot-4.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-5.png')"><img class="max-w-lg" :src="$withBase('frontpage/gallery/screenshot-5.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-6.png')"><img class="max-w-lg" :src="$withBase('frontpage/gallery/screenshot-6.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-7.png')"><img class="max-w-lg" :src="$withBase('frontpage/gallery/screenshot-7.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-8.png')"><img class="max-w-lg" :src="$withBase('frontpage/gallery/screenshot-8.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-9.png')"><img class="max-w-lg" :src="$withBase('frontpage/gallery/screenshot-9.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-1.png')"><img :src="$withBase('frontpage/gallery/screenshot-1.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-2.png')"><img :src="$withBase('frontpage/gallery/screenshot-2.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-3.png')"><img :src="$withBase('frontpage/gallery/screenshot-3.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-4.png')"><img :src="$withBase('frontpage/gallery/screenshot-4.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-5.png')"><img :src="$withBase('frontpage/gallery/screenshot-5.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-6.png')"><img :src="$withBase('frontpage/gallery/screenshot-6.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-7.png')"><img :src="$withBase('frontpage/gallery/screenshot-7.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-8.png')"><img :src="$withBase('frontpage/gallery/screenshot-8.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-9.png')"><img :src="$withBase('frontpage/gallery/screenshot-9.png')"></a>
                     </slick>
                 </div>
             </div>
@@ -86,8 +86,8 @@
                 <h1>Get Started</h1>
                 <p class="m-4">Ready to fly on the Pterodactyl?</p>
                 <div class="mt-4">
-                    <router-link class="btn" to="/project/introduction.html">About the project</router-link>
-                    <a class="btn" href="https://pterodactyl.io/discord">Discord</a>
+                    <router-link class="btn inline-block" to="/project/introduction.html">About the project</router-link>
+                    <a class="btn inline-block" href="https://pterodactyl.io/discord">Discord</a>
                 </div>
             </div>
         </div>
@@ -96,8 +96,8 @@
                 <div>
                     <img class="w-16" :src="$withBase('pterodactyl-flat.svg')">
                 </div>
-                <div class="text-left flex">
-                    <div class="flex-none w-1/2 pr-12">
+                <div class="text-left md:flex">
+                    <div class="flex-none w-full md:w-1/2 md:pr-12">
                         <p class="my-4">
                             There are tons of options out there when it comes to self-hosted game management panels. However, you will find no panel that can compete with Pterodactyl in terms of features, customization, stability, and most of all: price.
                         </p>
@@ -105,20 +105,20 @@
                             We're committed to building the best software that we can, and have been working with game management panels for almost five years now. We've seen games change, and are committed to making the most flexible, lightweight, and future proof panel that we can.
                         </p>
                     </div>
-                    <div class="flex-1 pr-12">
+                    <div class="hidden md:block md:flex-1 md:pr-12">
                         <p><a class="text-grey-lightest" href="https://blog.pterodactyl.io/">Blog</a></p>
                         <p><a class="text-grey-lightest" href="https://github.com/pterodactyl">Github</a></p>
                         <p><a class="text-grey-lightest" href="/panel/getting_started.html">Documentation</a></p>
                         <p><a class="text-grey-lightest" href="/panel/troubleshooting.html">Troubleshooting</a></p>
                         <p><a class="text-grey-lightest" href="https://github.com/parkervcp/eggs">Additional Game Configurations</a></p>
                     </div>
-                    <div class="flex-1">
+                    <div class="text-center mt-8 md:flex-1 md:mt-0">
                         <a href="https://pterodactyl.io/discord" target="_blank" rel="nofollow noopener">
                             <img src="https://cdn.pterodactyl.io/site-assets/discord.png" class="w-3/4">
                         </a>
                     </div>
                 </div>
-                <div class="mt-8 pt-8 px-8 text-grey-dark text-xs">MIT Licensed | Copyright © 2015 - 2018 Dane Everitt & Contributors.</div>
+                <div class="footer">MIT Licensed | Copyright © 2015 - 2018 Dane Everitt & Contributors.</div>
             </div>
         </div>
     </div>
