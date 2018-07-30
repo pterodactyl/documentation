@@ -28,9 +28,25 @@ letsencrypt certonly -d example.com
 You'll also probably want to configure automatic renewal by adding the command below to a cronjob that runs daily.
 You can add the command below to that crontab. For advanced users, we suggest installing and using [acme.sh](https://acme.sh)
 which provides more options, and is much more powerful than certbot.
+::: warning
+Make sure to disable your webserver or setup auto renewal by dns using tools like [acme.sh](https://acme.sh).
+:::
 
+stop the webserver:
 ``` text
+# apache users
+service apache2 stop
+# nginx users
 service nginx stop
+```
+renew your certificate
+``` text
 letsencrypt renew
+```
+start your webserver again:
+``` text
+# apache users
+service apache2 start
+# nginx users
 service nginx start
 ```
