@@ -1,4 +1,8 @@
 # Creating SSL Certificates
+::: warning
+This is not needed when running a automatic-ssl webserver like caddy.
+:::
+
 This tutorial briefly covers creating new SSL certificates for your panel and daemon using LetsEncrypt&trade;. To
 begin, we will be installing certbot, a simple script that will automatically renew our certificates and allow much
 cleaner creation of them. The command below is for Ubuntu distributions, but you can always check [Certbot's official
