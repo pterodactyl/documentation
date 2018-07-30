@@ -7,12 +7,12 @@ In most cases, only users with a server provided by OVH will need to make any mo
 :::
 
 ## Update Kernel
-Install the new kernels using apt-get. In this case we are installing the latest version of the 4.4 kernel,
+Install the new kernels using apt-get. In this case we are installing the latest version of the kernel,
 but feel free to browse using apt-cache search linux-image-extra to find all possible image versions you can
 install. You'll want to install the latest.
 
 ``` bash
-apt-get install linux-image-4.4.0-131-generic linux-image-extra-4.4.0-131-generic
+apt-get install linux-image-generic linux-image-extra-virtual
 ```
 
 After you've installed the new kernel you'll need to update the grub loader using the command below. After that, a
