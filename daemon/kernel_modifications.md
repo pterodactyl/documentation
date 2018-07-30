@@ -44,12 +44,12 @@ After running that you should see output similar to the example below.
 
 ``` text
 menuentry 'Ubuntu' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
-        menuentry 'Ubuntu, with Linux 4.4.0-131-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-131-generic-advanced-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
-        menuentry 'Ubuntu, with Linux 4.4.0-131-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-131-generic-recovery-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
-        menuentry 'Ubuntu, with Linux 4.4.0-127-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-127-generic-advanced-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
-        menuentry 'Ubuntu, with Linux 4.4.0-127-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-127-generic-recovery-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
-        menuentry 'Ubuntu, with Linux 4.4.0-116-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-116-generic-advanced-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
-        menuentry 'Ubuntu, with Linux 4.4.0-116-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-116-generic-recovery-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
+    menuentry 'Ubuntu, with Linux 4.4.0-131-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-131-generic-advanced-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
+    menuentry 'Ubuntu, with Linux 4.4.0-131-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-131-generic-recovery-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
+    menuentry 'Ubuntu, with Linux 4.4.0-127-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-127-generic-advanced-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
+    menuentry 'Ubuntu, with Linux 4.4.0-127-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-127-generic-recovery-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
+    menuentry 'Ubuntu, with Linux 4.4.0-116-generic' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-116-generic-advanced-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
+    menuentry 'Ubuntu, with Linux 4.4.0-116-generic (recovery mode)' --class ubuntu --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-4.4.0-116-generic-recovery-ad1a8550-963c-4a9f-b922-85827cf44fbe' {
 ```
 
 As you can see, we have `Ubuntu, with Linux 4.4.0-131-generic` listed as the first indented option. To boot using this
