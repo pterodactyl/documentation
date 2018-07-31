@@ -5873,7 +5873,7 @@ slice-ansi@1.0.0:
   dependencies:
     is-fullwidth-code-point "^2.0.0"
 
-slick-carousel@^1.6.0:
+slick-carousel@^1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/slick-carousel/-/slick-carousel-1.8.1.tgz#a4bfb29014887bb66ce528b90bd0cda262cc8f8d"
 
@@ -6618,12 +6618,6 @@ vue-server-renderer@^2.5.16:
     resolve "^1.2.0"
     serialize-javascript "^1.3.0"
     source-map "0.5.6"
-
-vue-slick@^1.1.13:
-  version "1.1.13"
-  resolved "https://registry.yarnpkg.com/vue-slick/-/vue-slick-1.1.13.tgz#e7555c49f7e70880aa3b85b91422154667d5218f"
-  dependencies:
-    slick-carousel "^1.6.0"
 
 vue-style-loader@^4.1.0:
   version "4.1.1"

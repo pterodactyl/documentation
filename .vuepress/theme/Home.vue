@@ -126,10 +126,10 @@
 
 <script>
     import NavLink from './NavLink.vue';
-    // import Slick from 'vue-slick';
+    import Slick from './SlickCarousel.vue';
 
     export default {
-        components: { NavLink },
+        components: { NavLink, Slick },
         data() {
             return {
                 slickOptions: {
