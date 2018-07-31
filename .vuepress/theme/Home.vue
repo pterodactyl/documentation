@@ -64,6 +64,24 @@
             </div>
         </div>
         <div class="section bg-white">
+            <div class="text-center">
+                <h1>Screenshots</h1>
+                <div class="screenshots">
+                    <slick ref="slick" :options="slickOptions">
+                        <a :href="$withBase('frontpage/gallery/screenshot-1.png')"><img :src="$withBase('frontpage/gallery/screenshot-1.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-2.png')"><img :src="$withBase('frontpage/gallery/screenshot-2.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-3.png')"><img :src="$withBase('frontpage/gallery/screenshot-3.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-4.png')"><img :src="$withBase('frontpage/gallery/screenshot-4.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-5.png')"><img :src="$withBase('frontpage/gallery/screenshot-5.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-6.png')"><img :src="$withBase('frontpage/gallery/screenshot-6.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-7.png')"><img :src="$withBase('frontpage/gallery/screenshot-7.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-8.png')"><img :src="$withBase('frontpage/gallery/screenshot-8.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-9.png')"><img :src="$withBase('frontpage/gallery/screenshot-9.png')"></a>
+                    </slick>
+                </div>
+            </div>
+        </div>
+        <div class="section bg-blue text-grey-lightest">
             <div class="container text-center">
                 <h1>Get Started</h1>
                 <p class="m-4">Ready to fly on the Pterodactyl?</p>
@@ -108,9 +126,10 @@
 
 <script>
     import NavLink from './NavLink.vue';
+    import Slick from './SlickCarousel.vue';
 
     export default {
-        components: { NavLink },
+        components: { NavLink, Slick },
         data() {
             return {
                 slickOptions: {
