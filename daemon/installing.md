@@ -94,6 +94,7 @@ NodeJS is also super easy to install! Simply run the command below to make the p
 ``` bash
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 apt -y install nodejs
+apt -y install make gcc g++
 ```
 
 ::: tip Other OS Distributions
