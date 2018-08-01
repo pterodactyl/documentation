@@ -66,6 +66,7 @@ panel.yourdomain.com {
     # rewrite all requests to index.php, this is required for how pterodactyl works
     rewrite {
         to {path} {path}/ /index.php
+            }
 }
 ```
 to turn it on:
@@ -73,8 +74,9 @@ to turn it on:
 caddy -conf /etc/caddy/Caddyfile
 ```
 To run caddy in the background use SystemD
+
+/etc/systemd/system/caddy@.service
 ``` bash
-cat <<EOF > /etc/systemd/system/caddy@.service
 [Unit]
 Description=Caddy HTTP/2 web server %I
 Documentation=https://caddyserver.com/docs
@@ -88,10 +90,7 @@ Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
-EOF
 ```
 reload the systemd daemon: `systemctl daemon-reload`
 start the service: `systemctl start caddy@root`
 enable it (to start it automatically on boot): `systemctl enable caddy@root`
-to restart it: `systemctl restart caddy@root`
-For more documentation on how to use the caddy webserver, go here https://caddyserver.com/docs.
