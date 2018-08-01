@@ -108,7 +108,7 @@
                     <div class="hidden md:block md:flex-1 md:pr-12">
                         <p><a class="text-grey-lightest" href="https://blog.pterodactyl.io/">Blog</a></p>
                         <p><a class="text-grey-lightest" href="https://github.com/pterodactyl">Github</a></p>
-                        <p><a class="text-grey-lightest" href="/panel/getting_started.html">Documentation</a></p>
+                        <p><a class="text-grey-lightest" href="https://donorbox.org/pterodactyl" target="_blank">Support Pterodactyl</a></p>
                         <p><a class="text-grey-lightest" href="/panel/troubleshooting.html">Troubleshooting</a></p>
                         <p><a class="text-grey-lightest" href="https://github.com/parkervcp/eggs">Additional Game Configurations</a></p>
                     </div>
