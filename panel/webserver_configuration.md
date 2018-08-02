@@ -53,11 +53,9 @@ systemctl restart apache2
 
 ## Caddy
 Caddy is a webserver with automatic https, this may come handy when you don't want to remake your ssl certificates every 90 days.
-::: danger
-Caddy is incompatible with other webservers, if you plan on running other websites on your panel you will have to add them to caddy too.
-:::
 /etc/caddy/Caddyfile:
-``` json
+```
+#replace panel.yourdomain.com with your own panel domain.
 panel.yourdomain.com {
     # Set the directory root
     root /var/www/pterodactyl/public
@@ -69,14 +67,17 @@ panel.yourdomain.com {
             }
 }
 ```
-to turn it on:
-``` bash
+
+### Running the webserver
+Once you've created the file above, simply run the command below to start the webserver manually. 
+```
 caddy -conf /etc/caddy/Caddyfile
 ```
+
 To run caddy in the background use SystemD
 
 /etc/systemd/system/caddy@.service
-``` bash
+```
 [Unit]
 Description=Caddy HTTP/2 web server %I
 Documentation=https://caddyserver.com/docs
@@ -91,6 +92,12 @@ Restart=on-failure
 [Install]
 WantedBy=multi-user.target
 ```
-reload the systemd daemon: `systemctl daemon-reload`
-start the service: `systemctl start caddy@root`
-enable it (to start it automatically on boot): `systemctl enable caddy@root`
+
+```
+# reload the systemd daemon:
+systemctl daemon-reload
+# start the service:
+systemctl start caddy@root
+# enable it (to start it automatically on boot):
+systemctl enable caddy@root
+```
