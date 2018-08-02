@@ -33,7 +33,7 @@ and there are plenty more games available provided by the community. Some of the
 * Discord ATLBot
 * [and many more...](https://github.com/parkervcp/eggs)
 
-## Resonsible Disclosure
+## Responsible Disclosure
 Pterodactyl is completely open-source, and as such completely open to independent users and auditors to browse our
 code base and hunt for security issues. If you come across anything that raises red flags for you, please do not 
 hesitate to reach out directly to `support@pterodactyl.io`. We ask that you please be responsible when disclosing
