@@ -81,6 +81,13 @@ module.exports = {
                     '/tutorials/creating_ssl_certificates.md',
                 ],
             },
+            {
+                title: 'Development & Ops',
+                collapsable: true,
+                children: [
+                    '/ops/publish_release.md',
+                ],
+            },
             // {
             //     title: 'API Reference',
             //     collapsable: true,
