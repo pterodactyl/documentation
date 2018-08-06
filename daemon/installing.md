@@ -13,7 +13,7 @@
 | **Debian** | 8 | :warning: | Requires [kernel modifications](debian_8_docker.md) to run Docker. |
 | | 9 | :white_check_mark: | |
 | **Alpine Linux** | 3.4+ | :warning: | Not officially supported, but reportedly works. |
-| **RHEL** | 7 | :no_entry_sign: | Requires daemon modifications, see [this issue](https://github.com/pterodactyl/panel/issues/1062). |
+| **RHEL** | 7 | :warning: | Not officially supported, should work. |
 
 ## System Requirements
 In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
@@ -118,7 +118,7 @@ set when creating the node.
 
 The next step is to download the software and unpack the archive.
 ``` bash
-curl -L https://github.com/pterodactyl/daemon/releases/download/v0.5.6/daemon.tar.gz | tar --strip-components=1 -xzv
+curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.0/daemon.tar.gz | tar --strip-components=1 -xzv
 ```
 
 Finally, we need to install the dependencies that allow the Daemon to run properly. This command will most likely

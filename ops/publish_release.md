@@ -93,12 +93,12 @@ git checkout -b release/v1.2.3
 # make file edits
 git push -u origin release/v1.2.3
 
-git tag -asm "v1.2.3"
+git tag -as v1.2.3 -m "v1.2.3"
 git push origin v1.2.3
 
 # edit release on Github, download files
 
-mv panel-v1.2.3.tar.gz panel.tar.gz
+mv panel-1.2.3.tar.gz panel.tar.gz
 shasum -a 256 panel.tar.gz > checksum.txt
 cat checksum.txt
 
