@@ -104,6 +104,9 @@ Please note that all of the settings above are in the `docker.policy.network.X` 
 | ------------ | ------------- | ----- |
 | `tmpfs` | `rw,exec,nosuid,size=50M` | These are the arguments used for mounting a `tmpfs` directory into containers to allow certain programs to run. |
 | `log_driver` | none | :warning: This option was **removed** in `v0.6` and is forcibly set to `json-file`. The log driver to use for containers. We default to `none` to mitigate a potential DoS attack vector if a server were to spam log output. |
+| `log_opts` | array | |
+| `log_opts.max_size` | `5m` | The maximum size of the server output log file created by Docker. |
+| `log_opts.max_files` | `1` | The maximum number of files that Docker will create with output from the server. |
 | `readonly_root` | true | Determines if the root filesystem of the container should be readonly. |
 | `securityopts` | array | An array of security options to apply to a container. The default array is provided below. |
 | `cap_drop` | array | An array of linux capabilities to drop from the container (in addition to ones [dropped by docker already](https://docs.docker.com/engine/security/security/#linux-kernel-capabilities). A listing of the default array is below. |
