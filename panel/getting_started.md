@@ -174,11 +174,10 @@ If you are using Ubuntu 14.04 you cannot use this method to run your queue worke
 installing Supervisor and setting up your queue. Ensure you use the same ExecStart line as below.
 :::
 
+Create a file called `pteroq.service` in `/etc/systemd/system` with the contents below.
 ``` text
 # Pterodactyl Queue Worker File
 # ----------------------------------
-# File should be placed in:
-# /etc/systemd/system
 
 [Unit]
 Description=Pterodactyl Queue Worker
