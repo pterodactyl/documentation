@@ -61,7 +61,7 @@ to access anything on the host, as well as bind to any IP or Port they wish.
     "socket": "/var/run/docker.sock",
     "autoupdate_images": true,
     "network": {
-      "name": "pterodactyl_nw"
+      "name": "pterodactyl_nw",
       "interfaces": {
         "v4": {
           "subnet": "172.18.0.0/16",
