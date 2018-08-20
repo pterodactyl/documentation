@@ -49,7 +49,7 @@ sudo apt update
 ```
 
 To find the most recent kernels, run `apt-cache search linux-image` which will list all of the ones available. In this
-case, we'll install the `4.9.0 ` kernel using the command below. Once we've done that, it is time to reboot the server
+case, we'll install the `4.9.0` kernel using the command below. Once we've done that, it is time to reboot the server
 to start using this kernel.
 
 ``` bash
