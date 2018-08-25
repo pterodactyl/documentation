@@ -100,7 +100,7 @@ the Daemon's ports from the outside network are setup.
 
 * If nothing is working so far, check your own DNS settings and consider switching DNS servers.
 
-* When running the Panel and Daemon on one server it can sometimes help if to add an entry in `/etc/hosts` that directs
+* When running the Panel and Daemon on one server it can sometimes help to add an entry in `/etc/hosts` that directs
 the public IP back to the server. Sometimes the reverse path is also needed, so you may need to add an entry to your
 servers `/etc/hosts` file that points the Panel's domain to the correct IP.
 
