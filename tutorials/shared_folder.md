@@ -70,8 +70,7 @@ service wings restart
 ```
 ## Rebuild Containers
 Because of some changes we made behind the scenes when it comes to displaying server output you'll need to rebuild and
-restart all of your servers. The rebuild step is required, the restart step is optional, but highly recommended otherwise
-you will not be able to see any console output.
+restart all of your servers. The rebuild step is required
 
 Run the following commands _from the Panel server_ in order to perform a mass rebuild and restart. Replace `###` with the
 ID of the node you just upgraded, or remove the `--node` flag entirely to rebuild on all nodes.
