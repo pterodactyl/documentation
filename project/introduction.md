@@ -12,7 +12,6 @@ Some of our core supported games include:
 
 * Minecraft — including Spigot, Sponge, Bungeecord, Waterfall, and more
 * Rust
-* Terraria
 * Teamspeak
 * Mumble
 * Team Fortress 2
