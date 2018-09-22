@@ -195,6 +195,10 @@ ExecStart=/usr/bin/php /var/www/pterodactyl/artisan queue:work --queue=high,stan
 WantedBy=multi-user.target
 ```
 
+::: tip Redis on CentOS
+If you are using CentOS, you will need to replace `redis-server.service` with `redis.service` at the `After=` line in order to ensure `redis` starts before the queue worker.
+:::
+
 ::: tip
 If you are not using `redis` for anything you should remove the `After=` line, otherwise you will encounter errors
 when the service starts.
