@@ -59,12 +59,12 @@ yuaptm install -y certbot
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
-## Server Configuriation
+## Server Configuration
 
 This following section covers the configuration of parts of the server to run the panel.
 
 ### MariaDB
-The fastest way to set up mariadb is to use the `mysql_secure_installation` command and follow prompts
+The fastest way to set up MariaDB is to use the `mysql_secure_installation` command and follow prompts
 
 ```bash
 mysql_secure_installation

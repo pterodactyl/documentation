@@ -92,7 +92,7 @@ Now that all of the files have been downloaded we need to configure some core as
 
 ::: tip Database Configuration
 You will need a database setup and a user with the correct permissions created for that database before
-continuing any further. If you are unsure how to do this, please consult our documentation.
+continuing any further. If you are unsure how to do this, please consult our [documentation](/tutorials/mysql_setup.md).
 :::
 
 First we will copy over our default environment settings file, install core dependencies, and then generate a
