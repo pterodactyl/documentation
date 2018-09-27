@@ -25,7 +25,7 @@ their website, or reach out to their support team.
 
 If you want to take a different approach, try using `lscpu` and checking what the virtualization type listed is. An
 example of this is shown below which shows my hypervisor running with full virtualization — this means it will
-support Docker without issues. If you see `KVM` for the vendor, chances are you're fine as well.
+support Docker without issues. If you see `KVM` or `VMware` for the vendor, chances are you're fine as well.
 
 ``` bash
 dane@daemon:~$ lscpu | grep 'vendor\|type'
@@ -45,7 +45,7 @@ VMware, Inc.
 Pterodactyl's Daemon requires the following dependencies be installed on your system in order for it to operate.
 
 * Docker
-* Nodejs (`8.0` or `10.0`)
+* `Nodejs 8`
 * `tar`
 * `unzip`
 * `make`, `gcc` (`gcc-g++` on CentOS), `g++`
@@ -93,7 +93,7 @@ NodeJS is also super easy to install! Simply run the command below to make the p
 
 ``` bash
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-apt -y install nodejs make gcc g++
+apt -y install nodejs make gcc g++ node-gyp
 ```
 
 ::: tip Other OS Distributions
