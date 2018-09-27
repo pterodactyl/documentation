@@ -110,8 +110,8 @@ mkdir -p /srv/daemon /srv/daemon-data
 cd /srv/daemon
 ```
 
-::: warning OVH Servers
-If you are using a server provided by OVH please be aware that your main drive space is probably allocated to
+::: warning OVH/SYS Servers
+If you are using a server provided by OVH or SoYouStart please be aware that your main drive space is probably allocated to
 `/home`, and not `/` by default. Please consider using `/home/daemon-data` for server data. This can be easily
 set when creating the node.
 :::
