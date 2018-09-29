@@ -111,6 +111,10 @@ php artisan key:generate --force
 ### Environment Configuration
 Pterodactyl's core environment is easily configured using a few different CLI commands built into the app. This step
 will cover setting up things such as sessions, caching, database credentials, and email sending.
+::: tip Using Google's SMTP host
+If using Gmails free SMTP host, follow the guide in the Tutorials section to utilise it correctly
+without encountering issues.
+:::
 
 ``` bash
 php artisan p:environment:setup
