@@ -123,7 +123,7 @@ set when creating the node.
 
 The next step is to download the software and unpack the archive.
 ``` bash
-curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.6/daemon.tar.gz | tar --strip-components=1 -xzv
+curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.7/daemon.tar.gz | tar --strip-components=1 -xzv
 ```
 
 Finally, we need to install the dependencies that allow the Daemon to run properly. This command will most likely
