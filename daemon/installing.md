@@ -52,7 +52,12 @@ Pterodactyl's Daemon requires the following dependencies be installed on your sy
 * `python`
 
 ### Installing Docker
-Please reference the official Docker documentation for how to install Docker CE on your server. Some quick links
+For a quick install of Docker CE, you can execute the command below:
+``` bash
+curl -sSL https://get.docker.com/ | CHANNEL=stable bash
+```
+
+If you would rather do a manual installation, please reference the official Docker documentation for how to install Docker CE on your server. Some quick links
 are listed below for commonly supported systems.
 
 * [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce)
