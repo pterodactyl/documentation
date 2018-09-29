@@ -5,7 +5,9 @@ cleaner creation of them. The command below is for Ubuntu distributions, but you
 site](https://certbot.eff.org/) for installation instructions.
                                                                                                                
 ``` bash
-sudo apt-get install letsencrypt
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install certbot
 ```
 
 ## Creating a Certificate
@@ -21,7 +23,7 @@ Once you've generated the certificate you should start NGINX or Apache again to 
 that you've already configured the webservers to use SSL).
 
 ``` bash
-letsencrypt certonly -d example.com
+certbot certonly -d example.com
 ```
 
 ## Auto Renewal
@@ -30,5 +32,5 @@ You can add the command below to that crontab. For advanced users, we suggest in
 which provides more options, and is much more powerful than certbot.
 
 ``` text
-letsencrypt renew
+certbot renew
 ```
