@@ -82,22 +82,20 @@ On most systems, docker will be unable to setup swap space, you can check if thi
 If it outputs `WARNING: No swap limit support` near the bottom, this is the case. Enabling swap is completely optional,
 but we recommended doing it if you will be hosting for others, and to prevent OOM errors.
 
-To do so, open `/etc/default/grub` as a root user, and find the line starting with `GRUB_CMDLINE_LINUX_DEFAULT`. Make
-sure the line includes `swapaccount=1`.
+To do so, simply run the following commands:
 
-After doing that, simply run `sudo update-grub` followed by `sudo reboot` to restart the server and have swap enabled.
-Below is an example of what the line should look like, _do not copy this line verbatium, it often has additional
-OS specific parameters._
-
-``` text
-GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
+``` bash
+sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="[^"]*/& swapaccount=1/' /etc/default/grub
+sudo update-grub
 ```
+
+You will need to restart your server to apply the changes.
 
 ### Installing Nodejs
 NodeJS is also super easy to install! Simply run the command below to make the package accessible to your system.
 
 ``` bash
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 apt -y install nodejs make gcc g++
 ```
 
