@@ -44,6 +44,9 @@ The commands below are simply an example of how you might install these dependen
 operating system's package manager to determine the correct packages to install.
 
 ``` bash
+#Forcing IPv4 on apt
+echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
+
 # Add "add-apt-repository" command
 apt -y install software-properties-common
 
@@ -53,10 +56,10 @@ add-apt-repository -y ppa:chris-lea/redis-server
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 # Update repositories list
-apt update
+apt -y update
 
 # Add universe repository if you are on Ubuntu 18.04
-apt-add-repository universe
+apt-add-repository -y universe
 
 # Install Dependencies
 apt -y install php7.2 php7.2-cli php7.2-gd php7.2-mysql php7.2-pdo php7.2-mbstring php7.2-tokenizer php7.2-bcmath php7.2-xml php7.2-fpm php7.2-curl php7.2-zip mariadb-server nginx curl tar unzip git redis-server
