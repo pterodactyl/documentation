@@ -44,7 +44,7 @@ The commands below are simply an example of how you might install these dependen
 operating system's package manager to determine the correct packages to install.
 
 ``` bash
-#Forcing IPv4 on apt
+# Force IPv4 on apt (only use if you have an ipv4 address)
 echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4
 
 # Add "add-apt-repository" command
