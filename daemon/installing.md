@@ -14,6 +14,7 @@
 | | 9 | :white_check_mark: | |
 | **Alpine Linux** | 3.4+ | :warning: | Not officially supported, but reportedly works. |
 | **RHEL** | 7 | :warning: | Not officially supported, should work. |
+| **Fedora** | 28 | :warning: | Not officially supported, should work. |
 
 ## System Requirements
 In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
