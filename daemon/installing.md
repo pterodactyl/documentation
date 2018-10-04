@@ -126,12 +126,16 @@ The next step is to download the software and unpack the archive.
 curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.7/daemon.tar.gz | tar --strip-components=1 -xzv
 ```
 
-Finally, we need to install the dependencies that allow the Daemon to run properly. This command will most likely
+Next, we need to install the dependencies that allow the Daemon to run properly. This command will most likely
 take a few minutes to run, please do not interrupt it.
 ``` bash
 npm install --only=production
 ```
 
+Finally, we will improve the security of the installation.
+``` bash
+npm audit fix
+```
 ## Configure Daemon
 Once you have installed the daemon and required components, the next step is to create a node on your installed Panel
 Once you have done that there will be a tab called Configuration when you view the node.
