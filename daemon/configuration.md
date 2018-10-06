@@ -56,6 +56,13 @@ Using the `host` stack removes many network specific protections afforded by Doc
 to access anything on the host, as well as bind to any IP or Port they wish.
 :::
 
+::: danger
+Any changes to the network after the daemon has been started will require you to remove the docker network and restart the daemon. Any servers on the host need to be stopped before and most likely rebuilt.
+
+The following will stop the daemon, remove the network, and start the daemon again. Run at your own risk.  
+`systemctl stop wings && docker network rm pterodactyl_nw && systemctl start wings`
+:::
+
 ``` json{5}
 "docker": {
     "socket": "/var/run/docker.sock",
