@@ -52,7 +52,12 @@ Pterodactyl's Daemon requires the following dependencies be installed on your sy
 * `python`
 
 ### Installing Docker
-Please reference the official Docker documentation for how to install Docker CE on your server. Some quick links
+For a quick install of Docker CE, you can execute the command below:
+``` bash
+curl -sSL https://get.docker.com/ | CHANNEL=stable bash
+```
+
+If you would rather do a manual installation, please reference the official Docker documentation for how to install Docker CE on your server. Some quick links
 are listed below for commonly supported systems.
 
 * [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce)
@@ -110,15 +115,15 @@ mkdir -p /srv/daemon /srv/daemon-data
 cd /srv/daemon
 ```
 
-::: warning OVH Servers
-If you are using a server provided by OVH please be aware that your main drive space is probably allocated to
+::: warning OVH/SYS Servers
+If you are using a server provided by OVH or SoYouStart please be aware that your main drive space is probably allocated to
 `/home`, and not `/` by default. Please consider using `/home/daemon-data` for server data. This can be easily
 set when creating the node.
 :::
 
 The next step is to download the software and unpack the archive.
 ``` bash
-curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.5/daemon.tar.gz | tar --strip-components=1 -xzv
+curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.7/daemon.tar.gz | tar --strip-components=1 -xzv
 ```
 
 Finally, we need to install the dependencies that allow the Daemon to run properly. This command will most likely
