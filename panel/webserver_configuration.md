@@ -38,7 +38,14 @@ systemctl restart nginx
 You should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place it in `/etc/apache2/sites-available`, or &mdash; if on CentOS, `/etc/httpd/conf.d/`.
 
-<<< @/.snippets/webservers/apache.conf{2}
+### Apache With SSL
+Like the nginx configuration, this assumes you will be using SSL on both the Panel and Daemons for improved security. You will need to visit our Creating SSL Certificates documentation on how to create these certificates.
+
+<<< @/.snippets/webservers/apache.conf{2,8,17-18}
+
+### Apache Without SSL
+
+<<< @/.snippets/webservers/apache-nossl.conf{2}
 
 ### Enabling Configuration
 Once you've created the file above, simply run the commands below. If you are on CentOS _you do not need to run the commands
