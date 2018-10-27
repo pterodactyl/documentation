@@ -6,8 +6,8 @@ site](https://certbot.eff.org/) for installation instructions.
                                                                                                                
 ``` bash
 sudo add-apt-repository ppa:certbot/certbot
-sudo apt-get update
-sudo apt-get install certbot
+sudo apt update
+sudo apt install certbot
 ```
 
 ## Creating a Certificate
