@@ -206,6 +206,5 @@ when the service starts.
 Finally, enable the service and set it to boot on machine start.
 
 ``` bash
-sudo systemctl enable pteroq.service
-sudo systemctl start pteroq
+sudo systemctl enable --now pteroq.service
 ```
