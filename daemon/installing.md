@@ -182,9 +182,7 @@ WantedBy=multi-user.target
 Then, run the commands below to reload systemd and start the daemon.
 
 ``` bash
-systemctl daemon-reload
-systemctl enable wings
-systemctl start wings
+systemctl enable --now wings
 ```
 
 ### Daemonizing (using Forever)
