@@ -72,7 +72,7 @@ probably using a non-supported kernel. Check our [Kernel Modifications](kernel_m
 :::
 
 #### Start Docker on Boot
-If you are on Ubuntu 16 or CentOS run the command below to have Docker start when you boot your machine.
+If you are on an operating system with systemd (Ubuntu 16+, Debian 8+, CentOS 7+) run the command below to have Docker start when you boot your machine.
 
 ``` bash
 systemctl enable docker
