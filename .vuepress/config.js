@@ -71,6 +71,7 @@ module.exports = {
                     '/daemon/configuration',
                     '/daemon/kernel_modifications',
                     '/daemon/debian_8_docker',
+                    '/daemon/standalone_sftp',
                 ]
             },
             {
