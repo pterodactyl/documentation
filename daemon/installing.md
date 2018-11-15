@@ -46,7 +46,7 @@ VMware, Inc.
 Pterodactyl's Daemon requires the following dependencies be installed on your system in order for it to operate.
 
 * Docker
-* Nodejs (`8.0` or `10.0`)
+* Nodejs (`8.0` or `10.0`, `8.0`on CentOS 7)
 * `tar`
 * `unzip`
 * `make`, `gcc` (`gcc-c++` on CentOS), `g++`
