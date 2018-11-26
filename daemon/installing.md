@@ -47,6 +47,7 @@ Pterodactyl's Daemon requires the following dependencies be installed on your sy
 
 * Docker
 * Nodejs (`8.0` or `10.0`)
+* `node-gpy`
 * `tar`
 * `unzip`
 * `make`, `gcc` (`gcc-c++` on CentOS), `g++`
