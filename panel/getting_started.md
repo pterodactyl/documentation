@@ -99,8 +99,7 @@ continuing any further. If you are unsure how to do this, please have a look at 
 :::
 
 First we will copy over our default environment settings file, install core dependencies, and then generate a
-new application encryption key. **You should make a backup of the encryption key and store it in a secure
-location, _not on the server itself_.**
+new application encryption key.
 
 ``` bash
 cp .env.example .env
@@ -110,6 +109,11 @@ composer install --no-dev --optimize-autoloader
 # the first time and do not have any Pterodactyl Panel data in the database.
 php artisan key:generate --force
 ```
+
+::: danger
+Back up your encryption key (APP_KEY in the `.env` file). It is used as an encryption key for all data that needs to be stored securely (e.g. api keys).
+Store it somewhere safe - not just on your server. If you lose it, all encrypted data is useless and can't be restored, even if you have database backups.
+:::
 
 ### Environment Configuration
 Pterodactyl's core environment is easily configured using a few different CLI commands built into the app. This step
