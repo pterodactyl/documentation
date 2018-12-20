@@ -37,11 +37,16 @@ module.exports = {
             //     link: '/api/'
             // },
             {
+                text: 'Community Guides',
+                link: '/community/about.md',
+            },
+            {
                 text: 'Get Help',
                 link: 'https://pterodactyl.io/discord'
             }
         ],
-        sidebar: [
+        sidebar: { 
+            '/project/': [
             {
                 title: 'Project Information',
                 collapsable: false,
@@ -96,7 +101,200 @@ module.exports = {
             //         '/',
             //     ]
             // }
+        ],
+        '/panel/': [
+            {
+                title: 'Project Information',
+                collapsable: false,
+                children: [
+                    '/project/introduction.md',
+                    '/project/about.md',
+                    '/project/terms.md',
+                ]
+            },
+            {
+                title: 'Panel',
+                collapsable: false,
+                children: [
+                    '/panel/getting_started',
+                    '/panel/webserver_configuration',
+                    '/panel/upgrading',
+                    '/panel/configuration',
+                    '/panel/troubleshooting',
+                ]
+            },
+            {
+                title: 'Daemon',
+                collapsable: false,
+                children: [
+                    '/daemon/installing',
+                    '/daemon/upgrading',
+                    '/daemon/configuration',
+                    '/daemon/kernel_modifications',
+                    '/daemon/debian_8_docker',
+                ]
+            },
+            {
+                title: 'Tutorials',
+                collapsable: false,
+                children: [
+                    '/tutorials/mysql_setup.md',
+                    '/tutorials/creating_ssl_certificates.md',
+                ],
+            },
+            {
+                title: 'Development & Ops',
+                collapsable: true,
+                children: [
+                    '/ops/publish_release.md',
+                ],
+            },
+            // {
+            //     title: 'API Reference',
+            //     collapsable: true,
+            //     children: [
+            //         '/',
+            //     ]
+            // }
+        ],
+        '/daemon/': [
+            {
+                title: 'Project Information',
+                collapsable: false,
+                children: [
+                    '/project/introduction.md',
+                    '/project/about.md',
+                    '/project/terms.md',
+                ]
+            },
+            {
+                title: 'Panel',
+                collapsable: false,
+                children: [
+                    '/panel/getting_started',
+                    '/panel/webserver_configuration',
+                    '/panel/upgrading',
+                    '/panel/configuration',
+                    '/panel/troubleshooting',
+                ]
+            },
+            {
+                title: 'Daemon',
+                collapsable: false,
+                children: [
+                    '/daemon/installing',
+                    '/daemon/upgrading',
+                    '/daemon/configuration',
+                    '/daemon/kernel_modifications',
+                    '/daemon/debian_8_docker',
+                ]
+            },
+            {
+                title: 'Tutorials',
+                collapsable: false,
+                children: [
+                    '/tutorials/mysql_setup.md',
+                    '/tutorials/creating_ssl_certificates.md',
+                ],
+            },
+            {
+                title: 'Development & Ops',
+                collapsable: true,
+                children: [
+                    '/ops/publish_release.md',
+                ],
+            },
+            // {
+            //     title: 'API Reference',
+            //     collapsable: true,
+            //     children: [
+            //         '/',
+            //     ]
+            // }
+        ],
+        '/tutorials/': [
+            {
+                title: 'Project Information',
+                collapsable: false,
+                children: [
+                    '/project/introduction.md',
+                    '/project/about.md',
+                    '/project/terms.md',
+                ]
+            },
+            {
+                title: 'Panel',
+                collapsable: false,
+                children: [
+                    '/panel/getting_started',
+                    '/panel/webserver_configuration',
+                    '/panel/upgrading',
+                    '/panel/configuration',
+                    '/panel/troubleshooting',
+                ]
+            },
+            {
+                title: 'Daemon',
+                collapsable: false,
+                children: [
+                    '/daemon/installing',
+                    '/daemon/upgrading',
+                    '/daemon/configuration',
+                    '/daemon/kernel_modifications',
+                    '/daemon/debian_8_docker',
+                ]
+            },
+            {
+                title: 'Tutorials',
+                collapsable: false,
+                children: [
+                    '/tutorials/mysql_setup.md',
+                    '/tutorials/creating_ssl_certificates.md',
+                ],
+            },
+            {
+                title: 'Development & Ops',
+                collapsable: true,
+                children: [
+                    '/ops/publish_release.md',
+                ],
+            },
+            // {
+            //     title: 'API Reference',
+            //     collapsable: true,
+            //     children: [
+            //         '/',
+            //     ]
+            // }
+        ],
+        '/community/':[
+            {
+                title: 'Community Guides',
+                collapsable: false,
+                children: [
+                    '/community/about.md',
+                ]
+            },
+            {
+                title: 'Install Panel',
+                collapsable: false,
+                children: [
+                    '/community/install/panel/centos7.md',
+                    '/community/install/panel/ubuntu1804.md',
+                    '/community/install/panel/debian9.md',
+                ]
+            },
+            {
+                title: 'Install Daemon',
+                collapsable: false,
+                children: [
+                    '/community/install/daemon/centos7.md',
+                    '/community/install/daemon/ubuntu1804.md',
+                    '/community/install/daemon/debian9.md',
+                ]
+            },
         ]
+    }
     },
     postcss: {
         plugins: [
