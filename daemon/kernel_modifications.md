@@ -19,7 +19,7 @@ After you've installed the new kernel you'll need to update the grub loader usin
 server reboot is in order.
 
 ``` bash
-sudo chmod -x /etc/grub.d/06_OVHkernel
+sudo mv /etc/grub.d/06_OVHkernel /etc/grub.d/96_OVHkernel
 sudo update-grub
 sudo reboot
 ```
