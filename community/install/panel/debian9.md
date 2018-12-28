@@ -113,8 +113,8 @@ The default php-fpm configuration is good to use.
 
 Start and enable php-fpm on the system.
 ```bash
-systemctl enable php-fpm
-systemctl start php-fpm
+systemctl enable php7.2-fpm
+systemctl start php7.2-fpm
 ```
 
 ### nginx
