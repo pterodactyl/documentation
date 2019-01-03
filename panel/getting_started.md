@@ -192,7 +192,7 @@ After=redis-server.service
 
 [Service]
 # On some systems the user and group might be different.
-# Some systems use `apache` as the user and group.
+# Some systems use `apache` or `nginx` as the user and group.
 User=www-data
 Group=www-data
 Restart=always
