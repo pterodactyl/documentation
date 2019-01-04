@@ -115,8 +115,7 @@ We have a tutorial in the tutorial section
 
 ### PHP
 
-The following config is the one that will match the nginx config later in the guide.
-Place the contents below in a file called `www-pterodactyl.conf` in the `/etc/php-fpm.d` folder.
+Place the contents below in a file inside the `/etc/php-fpm.d` folder. The file can be named anything, but a good standard is `www-pterodactyl.conf`. This config will match the nginx config later in the guide.
 
 <<< @/.snippets/php-fpm/pterodactyl-centos.conf
 
