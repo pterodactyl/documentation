@@ -115,9 +115,7 @@ We have a tutorial in the tutorial section
 
 ### PHP
 
-The default php-fpm configuration is good to use but you need to edit the nginx config to use the ip address.
-
-The following config is the one that will match the nginx config later in the guide.
+Place the contents below in a file inside the `/etc/php-fpm.d` folder. The file can be named anything, but a good standard is `www-pterodactyl.conf`. This config will match the nginx config later in the guide.
 
 <<< @/.snippets/php-fpm/pterodactyl-centos.conf
 
