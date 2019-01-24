@@ -34,11 +34,11 @@ Once you've done that, restarting the Daemon will apply the change and not boot 
 To download the standalone server, execute the command below in your Daemon's base directory (generally `/srv/daemon`).
 
 ``` sh
-curl -Lo sftp-server https://github.com/pterodactyl/sftp-server/releases/download/v1.0.1/sftp-server
+curl -Lo sftp-server https://github.com/pterodactyl/sftp-server/releases/download/v1.0.2/sftp-server
 chmod +x sftp-server
 ```
 
-Excellent, now you've got the server binary. Because we've written this server using [`Golang`](https://golang.org) there
+Excellent, now you've got the server binary. Because we've written this server using [`go`](https://golang.org) there
 are no additional dependencies you need to install.
 
 ### Start the Server
