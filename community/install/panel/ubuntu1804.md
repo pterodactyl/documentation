@@ -51,7 +51,7 @@ systemctl enable redis-server
 
 #### certbot
 ```bash
-yuaptm install -y certbot
+apt install -y certbot
 ```
 
 #### composer
