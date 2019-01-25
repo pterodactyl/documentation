@@ -74,7 +74,7 @@ StartLimitInterval=600
 WantedBy=multi-user.target
 ```
 
-Then, run the commands below to reload systemd and start the SFTP server.
+Then, run the command below to enable it in systemd and start the SFTP server.
 
 ``` bash
 systemctl enable --now pterosftp
