@@ -12,12 +12,12 @@ is because the internal logic the Panel is using to determine how links should b
 HTTP, and not over HTTPS.
 
 You will need to edit the `.env` file in the Panel's root directory to contain `TRUSTED_PROXIES=*` at minimum. We 
-highly suggest providing a specific IP address (or comma seperated list of IPs) rather than allowing `*`. For example,
+highly suggest providing a specific IP address (or comma separated list of IPs) rather than allowing `*`. For example,
 if your proxy is running on the same machine as the server, chances are that something like `TRUSTED_PROXIES=127.0.0.1`
 will work for you.
 
 ### Cloudflare Specific Configuration
-If you're using Cloudflares Flexible SSL you should set `TRUSTED_PROXIES` to contain [their IP addresses](https://www.cloudflare.com/ips/).
+If you're using Cloudflare's Flexible SSL you should set `TRUSTED_PROXIES` to contain [their IP addresses](https://www.cloudflare.com/ips/).
 Below is an example of how to set this.
 
 ```

@@ -11,13 +11,13 @@ day-to-day basis.
 ## Pick a Codename
 If this is going to be a major version release `0.X` or `1.X` (not `0.0.X`), you will need to have a codename picked
 out for the release. This should be some type of rhyme or otherwise creative name, ideally using some type of Pterodactyl
-releated species name.
+related species name.
 
 ## Create the Release Branch
 Releases should be created as their own branch on Github, following the GitFlow model. This means you'll need to create
 a `release/vX.X.X` branch. Once the branch is created you need to update the version number for the software. For the Panel
-this requires editing `config/app.php` and setting the specific `APP_VERSION` _without_ a preceeding `v`. For the Daemon,
-you need to edit `package.json` and set the `version` field, again _without_ a preceeding `v`.
+this requires editing `config/app.php` and setting the specific `APP_VERSION` _without_ a preceding `v`. For the Daemon,
+you need to edit `package.json` and set the `version` field, again _without_ a preceding `v`.
 
 Once you've created the branch and update the relevant file publish the branch to Github to begin the next steps.
 
