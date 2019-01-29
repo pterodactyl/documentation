@@ -293,6 +293,13 @@ module.exports = {
                     '/community/install/daemon/debian9.md',
                 ]
             },
+            {
+                title: 'Minecraft',
+                collapsable: false,
+                children: [
+                    '/community/minecraft/networks.md',
+                ],
+            },
         ]
     }
     },
