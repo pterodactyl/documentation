@@ -45,7 +45,7 @@ Wont do the job. As it'll give a error such as `Error: Attempting to renew cert 
 This will happen especially if your running NGINX instead of Apache, the solution for this is to stop NGINX, renew the certificate then start NGINX once again.
 You can do this by running,
 ```bash
-systemctl stop NGINX
+systemctl stop nginx
 ```
 To stop the NGINX service. Now you need to renew the certificate, you can do this by running,
 ```bash
@@ -54,5 +54,5 @@ certbot renew
 Wait for the process to complete. 
 Once it has, you may now re-start the NGINX service using,
 ```bash
-systemctl start NGINX
+systemctl start nginx
 ```
