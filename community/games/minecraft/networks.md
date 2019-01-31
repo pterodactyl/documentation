@@ -1,4 +1,4 @@
-# Server Networks
+# Minecraft Server Networks
 
 [[toc]]
 

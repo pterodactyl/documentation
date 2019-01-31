@@ -294,10 +294,10 @@ module.exports = {
                 ]
             },
             {
-                title: 'Minecraft',
+                title: 'Game Specific',
                 collapsable: false,
                 children: [
-                    '/community/minecraft/networks.md',
+                    '/community/games/minecraft/networks.md',
                 ],
             },
             {
