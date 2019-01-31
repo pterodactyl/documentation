@@ -1,0 +1,154 @@
+# Creating a Custom Egg
+
+[[toc]]
+
+::: warning
+You should not edit existing services or options that ship with the Panel. Each upgrade we push can make minor changes to these, and you'll lose any changes you've made.
+:::
+
+The first thing you'll need to do is create a new service. In this case, the name and description speak for themselves in this case. The `Folder Name` _must be a unique name_ not being used by any other service, and should only contain letters, numbers, underscores, and dashes. This is the name of the folder where the daemon will be storing the service options on the daemon.
+
+The default start command is also required, however it can be changed per-option.
+
+## Create New Option
+After creating the service, in the bottom right of the page you should see a button titled `New Egg`, press it.
+
+![](./../../.vuepress/public/community/eggs/Pterodactyl_Create_New_Egg_Select.png)
+
+You will be taken to a new service option page which is where most of the configuration happens. The first thing you need to do is select your service that you created previously from the `Associated Nest` dropdown.
+
+Pterodactyl_Create_New_Egg_Process_Management.png
+
+After that, enter an Option Name to describe it, in this case I am using `Widget`. You will also need to provide a _valid_ docker image, as well as a start command to be assigned to servers under this service option (remember, this can be tweaked per-server if needed).
+
+_Docker images must be specifically designed to work with Pterodactyl Panel._ You should read more about that in our [Creating a Docker Image](/community/eggs/creating_a_custom_image.md) guide.
+
+## Configure Process Management
+This is perhaps the most important step in this service option configuration, as this tells the Daemon how to run everything.
+
+![](./../../.vuepress/public/community/eggs/Pterodactyl_Create_New_Egg_Process_Management.png)
+
+The first field you'll encounter is `Copy Settings From`. The default selection is `None`. That is expected, and okay. This dropdown is discussed at the end of this article.
+
+### Stop Command
+Next, you'll encounter `Stop Command` and, as the name implies, this should be the command used to safely stop the option. For some games, this is `stop` or `end`. Certain programs and games don't have a specified stop command, so you can enter `^C` to have the daemon execute a `SIGINT` to end the process.
+
+### Log Storage
+Logs are competely handeled by the daemon now and use the docker logs to output the complete output from the server. This can be set like below.
+
+```json
+{}
+``` 
+
+### Configuration Files
+The next block is one of the most complex blocks, the `Configuration Files` descriptor. The Daemon will process this block prior to booting the server to ensure all of the required settings are defined and set correctly.
+
+```json
+{
+    "server.properties": {
+        "parser": "properties",
+        "find": {
+            "server-ip": "0.0.0.0",
+            "enable-query": "true",
+            "server-port": "{{server.build.default.port}}",
+            "query.port": "{{server.build.default.port}}"
+        }
+    }
+}
+```
+
+In this example, we are telling the Daemon to read `server.properties` in `/home/container`. Within this block, we define a `parser`, in this case `properties` but the following are [valid parsers](https://github.com/Pterodactyl/Daemon/blob/develop/src/helpers/fileparser.js):
+
+* `file` — This parser goes based on matching the beginning of lines, and not a specific property like the other four. Avoid using this parser if possible.
+* `yaml` (supports `*` notation)
+* `properties`
+* `ini`
+* `json` (supports `*` notation)
+* `xml`
+
+Once you have defined a parser, we then define a `find` block which tells the Daemon what specific elements to find and replace. In this example, we have provided four separate items within the `server.properties` file that we want to find and replace to the assigned values. You can use either an exact value, or define a specific server setting from the `server.json` file. In this case, we're assigning the default server port to be used as the `server-port` and `query.port`. **These placeholders are case sensitive, and should have no spaces in them.**
+
+You can have multiple files listed here, the Daemon will process them in parallel before starting the server. When using `yaml` or `json` you can use more advanced searching for elements.
+
+```json
+{
+    "config.yml": {
+        "parser": "yaml",
+        "find": {
+            "listeners[0].query_enabled": true,
+            "listeners[0].query_port": "{{server.build.default.port}}",
+            "listeners[0].host": "0.0.0.0:{{server.build.default.port}}",
+            "servers.*.address": {
+                "127.0.0.1": "{{config.docker.interface}}",
+                "localhost": "{{config.docker.interface}}"
+            }
+        }
+    }
+}
+```
+
+In this example, we are parsing `config.yml` using the `yaml` parser. The first three find items are simply assigning ports and IPs for the first listener block. The last one, `servers.*.address` uses wildcard matching to match any items within the `servers` block, and then finding each `address` block for those items.
+
+::: v-pre
+An advanced feature of this file configuration is the ability to define multiple find and replace statements for a single matching line. In this case, we are looking for either `127.0.0.1` or `localhost` and replacing them with the docker interface defined in the configuration file using `{{config.docker.interface}}`. 
+:::
+
+### Start Configuration
+The last block to configure is the `Start Configuration` for servers running using this service option.
+
+```json
+{
+    "done": ")! For help, type ",
+    "userInteraction": [
+        "Go to eula.txt for more info."
+    ]
+}
+```
+
+In the example block above, we define `done` as the entire line, or part of a line that indicates a server is done starting, and is ready for players to join. When the Daemon sees this output, it will mark the server as `ON` rather than `STARTING`. We can also define `userInteraction` as an array of lines that should indicate that the server *did not crash*, but rather stopped because the user needs to perform some action.
+
+In this case, we define it as the line asking users to agree to the EULA. You are not required to have `userInteraction` lines, however if you are going to leave it empty, it should still be defined with an empty array, as shown below:
+
+```json
+{
+    "done": ")! For help, type ",
+    "userInteraction": []
+}
+```
+
+That concludes basic service option configuration.
+
+# Copy Settings From
+As mentioned above, there is a unique `Copy Settings From` dropdown when adding a new option. This gives you the ability to, as the name suggests, copy settings defined above from a different option.
+
+![](./../../.vuepress/public/community/eggs/Pterodactyl_Create_New_Egg_Copy_Settings_From.png)
+
+In the panel, we use this to copy settings that remain the same between similar service options, such as many of the Minecraft options.
+
+For example, lets look at the `Sponge (SpongeVanilla)` service option.
+
+As you can see, it as been told to copy settings from `Vanilla Minecraft`. This means that any of the fields that are left blank will inherit from the assigned parent. We then define a specific `userInteraction` line that is different in Sponge compared to Vanilla, but tell it that everything else should remain the same.
+
+*Please note that `Copy Settings From` does not support nested copies, you can only copy from a single parent, and that parent **must not be copying from another option.***
+
+# Egg Variables
+One of the great parts of the Egg Variables is the ability to define specific variables that users and/or admins can control to tweak different settings without letting users modify the startup command. To create new variables, or edit existing ones, visit the new service option you created, and click the `Variables` tab at the top of the page. Lets take a look at an example variable that we can create.
+
+![](./../../.vuepress/public/community/eggs/Pterodactyl_Create_New_Egg_Variables.png)
+
+::: v-pre
+The name and description are rather self-explanitory, so I'll skip down to the `Environment Variable` box. This should be an Alpha-Numeric name with underscores, and should be uppercase. This will be the name of the environment variable which can be accessed in the startup command as `{{WOOZLE_WOO}}`, within file modifications as `{{env.WOOZLE_WOO}}`, or just `${WOOZLE_WOO}` in any shell scripts (it is passed through in the environment). We also define a default value for this environment variable in this example, but it is not required to do so.
+:::
+
+The next section is `Permissions`, which is a dropdown with two options: `Users Can View` and `Users Can Edit`.
+
+* `Users Can View` — allows a user to view the field on the front-end, as well as the assigned value of that variable. They will be able to see it replaced in their startup command.
+* `Users Can Edit` — allows a user to edit the value of the variable, for example the name of their `server.jar` file if running Minecraft.
+
+You should use caution here, even if you assign neither of the permissions it does not mean that the value will be hidden. Crafty users will still be able to get the environment on their server. In most cases this is simply hiding it from the user, and then used within the Dockerfile to perform actions, thus it is not important for the user to see.
+
+Finally, you will need to define some input rules to validate the value against. In this example, we use `required|string|between:1,10`, which means the field is `required`, must be a `string`, and must be between `1` and `10` characters in length. You can find [all of the available validation rules](https://laravel.com/docs/5.4/validation#available-validation-rules) on the Laravel website. You can also use ReGEX based validation by using the `regex:` rule flag. For example, [`required|regex:/^([\w\d._-]+)(\.jar)$/`](https://regex101.com/r/k4oEOn/1) will require the field, and will match the regex as any letters or numbers (`\w\d`) including underscore (`_`), periods (`.`), and dashes (`-`) ending in `.jar`.
+
+They will then be visible when managing the startup for a server in both the Admin CP and on the Front-End.
+
+![](./../../.vuepress/public/community/eggs/Pterodactyl_Create_New_Egg_Startup.png)
