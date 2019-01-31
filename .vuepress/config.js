@@ -297,7 +297,7 @@ module.exports = {
                 title: 'Game Specific',
                 collapsable: false,
                 children: [
-                    '/community/games/minecraft/networks.md',
+                    '/community/games/minecraft.md',
                 ],
             },
             {

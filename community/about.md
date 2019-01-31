@@ -19,7 +19,7 @@ This is the community guide section of the site.
 * [Create a Custom Docker Image](/community/eggs/creating_a_custom_image.md)
 
 # Specific Server Config
-* [Minecraft Server networks](/community/games/minecraft/networks.md)
+* [Minecraft Server networks](/community/games/minecraft.md)
 
 
 ##
