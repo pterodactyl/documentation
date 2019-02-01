@@ -36,23 +36,21 @@ certbot renew
 ```
 
 ## Troubleshooting
-If you get a `Insecure Connection` or related when trying to access your panel, it is likely that the SSL has expired.
-This can be easily fixed by renewing the SSL certificate, although using the command
-``` text
-certbot renew
-```
-Wont do the job. As it'll give a error such as `Error: Attempting to renew cert (domain) from /etc/letsencrypt/renew/domain.conf produced an unexpected error`.
-This will happen especially if your running NGINX instead of Apache, the solution for this is to stop NGINX, renew the certificate then start NGINX once again.
-You can do this by running,
+If you get an `Insecure Connection` or related error when trying to access your panel, it is likely that the SSL certificate has expired.
+This can be easily fixed by renewing the SSL certificate, although using the command `certbot renew` won't do the job. As it'll give a error like: `Error: Attempting to renew cert (domain) from /etc/letsencrypt/renew/domain.conf produced an unexpected error`.
+This will happen especially if you're running NGINX instead of Apache. The solution for this is to stop NGINX, then renew the certificate, finally restart NGINX.
+
+Stop NGINX:
 ```bash
 systemctl stop nginx
 ```
-To stop the NGINX service. Now you need to renew the certificate, you can do this by running,
+
+Renew the certificate:
 ```bash
 certbot renew
 ```
-Wait for the process to complete. 
-Once it has, you may now re-start the NGINX service using,
+
+Once the process has complete, you can restart the NGINX service:
 ```bash
 systemctl start nginx
 ```
