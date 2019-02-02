@@ -79,7 +79,6 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 ```
 
 ## Server Configuration
-
 This following section covers the configuration of parts of the server to run the panel.
 
 ### Configuring MariaDB
@@ -113,7 +112,6 @@ installation should now be secure.
 To add your first user to the database, see our tutorial on [setting up MySQL](/tutorials/mysql_setup.md).
 
 ### Setup PHP
-
 Place the contents below in a file inside the `/etc/php-fpm.d` folder. The file can be named anything, but a good standard is `www-pterodactyl.conf`. This config will match the nginx config later in the guide.
 
 <<< @/.snippets/php-fpm/pterodactyl-centos.conf
