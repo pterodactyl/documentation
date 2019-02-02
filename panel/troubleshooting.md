@@ -44,7 +44,7 @@ local.ERROR: ErrorException: file_put_contents(...): failed to open stream: Perm
 From this error we can determine that there was an error performing a [file_put_contents()](http://php.net/manual/en/function.file-put-contents.php) call, and the error was
 that we couldn't open the file because permissions were denied. Its okay if you don't understand the error at all, but
 it does help you get faster support if you're able to provide these logs, and at least find the source of the error.
-Sometimes the errors are pretty strightforward and will tell you exactly what went wrong, such as a `ConnectionException`
+Sometimes the errors are pretty straightforward and will tell you exactly what went wrong, such as a `ConnectionException`
 being thrown when the Panel can't connect to the Daemon.
 
 ### Utilizing GREP
@@ -116,7 +116,7 @@ installation of the Panel.
 When restoring backups you should _always_ restore the `.env` file!
 :::
 
-Sometimes when using the Panel you'll unexpectely encounter a broken page, and upon checking the logs you'll see
+Sometimes when using the Panel you'll unexpectedly encounter a broken page, and upon checking the logs you'll see
 an exception mentioning an invalid MAC when decrypting. This error is caused by mismatched `APP_KEY`s in your `.env` file
 when the data was encrypted versus decrypted.
 
