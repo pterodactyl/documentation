@@ -69,6 +69,22 @@ module.exports = {
                     ]
                 },
                 {
+                    title: 'Creating Eggs',
+                    collapsable: false,
+                    children: [
+                        '/community/eggs/creating_a_custom_egg.md',
+                        '/community/eggs/creating_a_custom_image.md',
+                    ],
+                },
+                {
+                    title: 'Node Configuration',
+                    collapsable: false,
+                    children: [
+                        '/community/config/nodes/add_node.md',
+                        '/community/config/nodes/add_node_allocations.md',
+                    ],
+                },
+                {
                     title: 'Minecraft',
                     collapsable: false,
                     children: [
