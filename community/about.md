@@ -1,5 +1,6 @@
-# Introduction
-This is the community guide section of the site.
+# About
+This section of Pterodactyl's site is dedicated to more complex topics, tutorials, and features that we
+feel are important to share with the community, but do not fit into the theme of our core documentation.
 
-##
-This is the area for community maintained guides that have been validated before being added.
+Here you'll find in-depth OS-specific installation guides, advanced network configurations, individual game
+setup instructions, and so much more.

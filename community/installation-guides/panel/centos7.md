@@ -1,15 +1,17 @@
-# Install pterodactyl on CentOS 7
-
-This guide covers the installation of the requirements for a panel with SSL enabled.
+# CentOS 7
+In this guide we will install Pterodactyl — including all of it's dependencies — and configure our webserver
+to serve it using SSL.
 
 [[toc]]
 
-## Install Requirements
+::: tip
+This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for CentOS 7.
+:::
 
-The panel requirements can be found [here](/panel/getting_started.md#dependencies)
+## Install Requirements
+We will first begin by installing all of Pterodactyl's [required](/panel/getting_started.md#dependencies) dependencies.
 
 ### MariaDB
-
 ```bash
 ## Install Repos
 cat <<EOF > /etc/yum.repos.d/mariadb.repo
@@ -47,8 +49,7 @@ yum update -y
 yum install -y php72u-php php72u-common php72u-fpm php72u-cli php72u-json php72u-mysqlnd php72u-mcrypt php72u-gd php72u-mbstring php72u-pdo php72u-zip php72u-bcmath php72u-dom php72u-opcache
 ```
 
-### nginx
-
+### Nginx
 ```bash
 yum install -y nginx
 
@@ -58,7 +59,6 @@ firewall-cmd --reload
 ```
 
 ### Redis
-
 ```bash
 yum install -y redis40u
 
@@ -66,14 +66,14 @@ systemctl start redis
 systemctl enable redis
 ```
 
-### utilities
+### Additional Utilities
 
-#### certbot
+#### Certbot
 ```bash
 yum install -y certbot
 ```
 
-#### composer
+#### Composer
 ```bash
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ```
@@ -82,7 +82,7 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 
 This following section covers the configuration of parts of the server to run the panel.
 
-### MariaDB
+### Configuring MariaDB
 The fastest way to set up mariadb is to use the `mysql_secure_installation` command and follow prompts
 
 ```bash
@@ -110,10 +110,9 @@ All done! If you've completed all of the above steps, your MariaDB
 installation should now be secure.
 
 #### Adding MariaDB user
-We have a tutorial in the tutorial section  
-[Setting up MySQL](/tutorials/mysql_setup.md)
+To add your first user to the database, see our tutorial on [setting up MySQL](/tutorials/mysql_setup.md).
 
-### PHP
+### Setup PHP
 
 Place the contents below in a file inside the `/etc/php-fpm.d` folder. The file can be named anything, but a good standard is `www-pterodactyl.conf`. This config will match the nginx config later in the guide.
 
@@ -125,17 +124,15 @@ systemctl enable php-fpm
 systemctl start php-fpm
 ```
 
-### nginx
+### Nginx
+Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
-follow the [tutorial](/tutorials/creating_ssl_certificates.md) on generating an SSL cert to use.
-
-#### ssl config
+#### SSL Configuration
 <<< @/.snippets/webservers/nginx-centos.conf{5,11,26-27}
 
-### Redis
-The default Redis install is perfectly fine for the panel.
+### Redis Setup
+The default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
+[running another Redis instance](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host).
 
-If you have Redis already in use you may want to look into running another Redis instance similar to [this guide](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host)
-
-## Installing the panel
-Follow the regular guide to install the [panel](/panel/getting_started.md#installation)
+## Installing the Panel
+Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#installation).

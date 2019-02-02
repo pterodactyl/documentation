@@ -51,21 +51,21 @@ module.exports = {
                     ]
                 },
                 {
-                    title: 'Install Panel',
+                    title: 'Panel Installation',
                     collapsable: false,
                     children: [
-                        '/community/install/panel/centos7.md',
-                        '/community/install/panel/ubuntu1804.md',
-                        '/community/install/panel/debian9.md',
+                        '/community/installation-guides/panel/centos7.md',
+                        '/community/installation-guides/panel/ubuntu1804.md',
+                        '/community/installation-guides/panel/debian9.md',
                     ]
                 },
                 {
                     title: 'Install Daemon',
                     collapsable: false,
                     children: [
-                        '/community/install/daemon/centos7.md',
-                        '/community/install/daemon/ubuntu1804.md',
-                        '/community/install/daemon/debian9.md',
+                        '/community/installation-guides/daemon/centos7.md',
+                        '/community/installation-guides/daemon/ubuntu1804.md',
+                        '/community/installation-guides/daemon/debian9.md',
                     ]
                 },
                 {
