@@ -99,6 +99,7 @@ module.exports = {
                         '/project/introduction.md',
                         '/project/about.md',
                         '/project/terms.md',
+                        '/project/discord.md',
                     ]
                 },
                 {
