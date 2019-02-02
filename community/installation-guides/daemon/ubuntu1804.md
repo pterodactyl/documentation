@@ -1,12 +1,15 @@
-# Install wings on Ubuntu 18.04
-
-This guide covers the installation of the requirements for a daemon with SSL enabled.
+# Ubuntu 18.04
+In this guide we will install Pterodactyl's Daemon (wings) — including all of it's dependencies — and configure it
+to use a SSL connection.
 
 [[toc]]
 
-## Install Requirements
+::: tip
+This guide is based off the [official installation documentation](/daemon/installing.md) but is tailored specifically for Ubuntu 18.04.
+:::
 
-The daemon requirements can be found [here](/daemon/installing.md#system-requirements)
+## Install Requirements
+We will first begin by installing all of the Daemon's [required](/daemon/installing.md#dependencies) dependencies.
 
 ### General Requirements
 ```bash
@@ -22,11 +25,11 @@ systemctl enable docker
 systemctl start docker
 ```
 
-### nodejs
+### Nodejs
 
 ```bash
 apt install -y nodejs npm
 ```
 
-## Installing the daemon
-Follow the regular guide to install the [daemon](/daemon/installing.md#installing-daemon-software)
+## Installing the Daemon
+Great, now all of the dependencies and firewall rules have been dealt with. From here follow the [official Daemon installation documentation](/daemon/installing.md#installing-daemon-software).

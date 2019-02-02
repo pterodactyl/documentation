@@ -1,12 +1,15 @@
-# Install wings on CentOS 7
-
-This guide covers the installation of the requirements for a daemon with SSL enabled.
+# CentOS 7
+In this guide we will install Pterodactyl's Daemon (wings) — including all of it's dependencies — and configure it
+to use a SSL connection.
 
 [[toc]]
 
-## Install Requirements
+::: tip
+This guide is based off the [official installation documentation](/daemon/installing.md) but is tailored specifically for CentOS 7.
+:::
 
-The daemon requirements can be found [here](/daemon/installing.md#system-requirements)
+## Install Requirements
+We will first begin by installing all of the Daemon's [required](/daemon/installing.md#dependencies) dependencies.
 
 ### General Requirements
 ```bash
@@ -26,15 +29,14 @@ systemctl enable docker
 systemctl start docker
 ```
 
-### nodejs
+### Nodejs
 
 ```bash
 curl --silent --location https://rpm.nodesource.com/setup_8.x | bash -
 yum install -y nodejs
 ```
 
-### server ports
-
+### Server Ports
 ```bash
 firewall-cmd --add-port 8080/tcp --permanent
 firewall-cmd --add-port 2022/tcp --permanent
@@ -42,5 +44,5 @@ firewall-cmd --permanent --zone=trusted --change-interface=docker0
 firewall-cmd --reload
 ```
 
-## Installing the daemon
-Follow the regular guide to install the [daemon](/daemon/installing.md#installing-daemon-software)
+## Installing the Daemon
+Great, now all of the dependencies and firewall rules have been dealt with. From here follow the [official Daemon installation documentation](/daemon/installing.md#installing-daemon-software).

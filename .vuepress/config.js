@@ -60,7 +60,7 @@ module.exports = {
                     ]
                 },
                 {
-                    title: 'Install Daemon',
+                    title: 'Daemon Installation',
                     collapsable: false,
                     children: [
                         '/community/installation-guides/daemon/centos7.md',
