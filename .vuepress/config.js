@@ -72,8 +72,8 @@ module.exports = {
                     title: 'Creating Eggs',
                     collapsable: false,
                     children: [
-                        '/community/eggs/creating_a_custom_egg.md',
-                        '/community/eggs/creating_a_custom_image.md',
+                        '/community/config/eggs/creating_a_custom_egg.md',
+                        '/community/config/eggs/creating_a_custom_image.md',
                     ],
                 },
                 {
@@ -81,14 +81,13 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/community/config/nodes/add_node.md',
-                        '/community/config/nodes/add_node_allocations.md',
                     ],
                 },
                 {
-                    title: 'Minecraft',
+                    title: 'Game Configuration',
                     collapsable: false,
                     children: [
-                        '/community/minecraft/networks.md',
+                        '/community/games/minecraft.md',
                     ],
                 },
             ],
