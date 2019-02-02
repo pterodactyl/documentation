@@ -1,15 +1,17 @@
-# Install pterodactyl on Ubuntu 18.04
-
-This guide covers the installation of the requirements for a panel with SSL enabled.
+# Ubuntu 18.04
+In this guide we will install Pterodactyl — including all of it's dependencies — and configure our webserver
+to serve it using SSL.
 
 [[toc]]
 
-## Install Requirements
+::: tip
+This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for Ubuntu 18.04.
+:::
 
-The panel requirements can be found [here](/panel/getting_started.md#dependencies)
+## Install Requirements
+We will first begin by installing all of Pterodactyl's [required](/panel/getting_started.md#dependencies) dependencies.
 
 ### MariaDB
-
 ```bash
 ## Get apt updates
 apt update -y
@@ -32,7 +34,7 @@ apt update -y
 apt install -y php7.2 php7.2-cli php7.2-gd php7.2-mysql php7.2-pdo php7.2-mbstring php7.2-tokenizer php7.2-bcmath php7.2-xml php7.2-fpm php7.2-curl php7.2-zip
 ```
 
-### nginx
+### Nginx
 
 ```bash
 apt install -y nginx
@@ -47,23 +49,22 @@ systemctl start redis-server
 systemctl enable redis-server
 ```
 
-### utilities
+### Additional Utilities
 
-#### certbot
+#### Certbot
 ```bash
 apt install -y certbot
 ```
 
-#### composer
+#### Composer
 ```bash
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
 ## Server Configuration
-
 This following section covers the configuration of parts of the server to run the panel.
 
-### MariaDB
+### Configuring MariaDB
 The fastest way to set up MariaDB is to use the `mysql_secure_installation` command and follow prompts
 
 ```bash
@@ -87,35 +88,29 @@ Extra databases that aren't needed
 Clears and sets all the changes made  
 `Reload privilege tables now? [Y/n] Y`
 
-All done! If you've completed all of the above steps, your MariaDB  
-installation should now be secure.
+All done! If you've completed all of the above steps, your MariaDB installation should now be secure.
 
 #### Adding MariaDB user
-We have a tutorial in the tutorial section  
-[Setting up MySQL](/tutorials/mysql_setup.md)
+To add your first user to the database, see our tutorial on [setting up MySQL](/tutorials/mysql_setup.md).
 
-### PHP
+### Setup PHP
+The default php-fpm configuration is fine to use and can be started and then enabled on the system using the
+commands below.
 
-The default php-fpm configuration is good to use.
-
-Start and enable php-fpm on the system.
 ```bash
 systemctl enable php7.2-fpm
 systemctl start php7.2-fpm
 ```
 
-### nginx
+### Nginx
+Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
-follow the [tutorial](/tutorials/creating_ssl_certificates.md) on generating an SSL cert to use.
-
-#### ssl config
+#### SSL Configuration
 <<< @/.snippets/webservers/nginx.conf{5,11,26-27}
 
+### Redis Setup
+The default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
+[running another Redis instance](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host).
 
-### Redis
-The default Redis install is perfectly fine for the panel.
-
-If you have Redis already in use you may want to look into running another Redis instance similar to [this guide](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host)
-
-## Installing the panel
-Follow the regular guide to install the [panel](/panel/getting_started.md#installation)
+## Installing the Panel
+Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#installation).

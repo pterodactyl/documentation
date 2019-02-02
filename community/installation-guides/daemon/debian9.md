@@ -1,12 +1,15 @@
-# Install wings on Debian 9
-
-This guide covers the installation of the requirements for a daemon with SSL enabled.
+# Debian 9
+In this guide we will install Pterodactyl's Daemon (wings) — including all of it's dependencies — and configure it
+to use a SSL connection.
 
 [[toc]]
 
-## Install Requirements
+::: tip
+This guide is based off the [official installation documentation](/daemon/installing.md) but is tailored specifically for Debian 9.
+:::
 
-The daemon requirements can be found [here](/daemon/installing.md#system-requirements)
+## Install Requirements
+We will first begin by installing all of the Daemon's [required](/daemon/installing.md#dependencies) dependencies.
 
 ### General Requirements
 ```bash
@@ -33,7 +36,7 @@ systemctl enable docker
 systemctl start docker
 ```
 
-### nodejs
+### Nodejs
 
 ```bash
 ## Install nodejs repo
@@ -43,5 +46,5 @@ curl -sL https://deb.nodesource.com/setup_8.x | bash -
 apt install -y nodejs
 ```
 
-## Installing the daemon
-Follow the regular guide to install the [daemon](/daemon/installing.md#installing-daemon-software)
+## Installing the Daemon
+Great, now all of the dependencies have been dealt with. From here follow the [official Daemon installation documentation](/daemon/installing.md#installing-daemon-software).
