@@ -73,7 +73,7 @@ Please review the requirements below to see if you might qualify to become a par
 you meet these requirements, please send an email to dane@[this domain].io. Please refrain from contacting any
 of the Project Team directly on Discord, it is disruptive and rather annoying.
 
-1. *MUST* be able to show proof of buisness registration in your country.
+1. *MUST* be able to show proof of business registration in your country.
 2. *MUST* be able to show an easily found page on your company website that lists at least two (2) sources for contact
 from the following list: ticketing system, public twitter page (with activity), phone number, email address,
 and/or company address.
