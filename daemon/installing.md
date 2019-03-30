@@ -8,6 +8,7 @@
 | **Ubuntu** | 14.04 | :warning: | Approaching EOL, not recommended for new installations. |
 | | 16.04 | :white_check_mark: | |
 | | 18.04 | :white_check_mark: | |
+| | 19.04 | :warning: | Not officially supported, should work. |
 | **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
 | | 7 | :white_check_mark: | |
 | **Debian** | 8 | :warning: | Requires [kernel modifications](debian_8_docker.md) to run Docker. |
