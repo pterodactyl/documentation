@@ -19,7 +19,7 @@ apt install -y zip unzip tar make gcc g++ python
 ### Docker
 
 ```bash
-apt install -y docker.io
+curl -sSL https://get.docker.com/ | CHANNEL=stable bash
 
 systemctl enable docker
 systemctl start docker
