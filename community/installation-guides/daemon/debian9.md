@@ -40,7 +40,7 @@ systemctl start docker
 
 ```bash
 ## Install nodejs repo
-curl -sL https://deb.nodesource.com/setup_8.x | bash -
+curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
 ## Install nodejs
 apt install -y nodejs
