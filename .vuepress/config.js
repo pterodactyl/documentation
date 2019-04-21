@@ -90,6 +90,13 @@ module.exports = {
                         '/community/games/minecraft.md',
                     ],
                 },
+                {
+                    title: 'Tutorials',
+                    collapsable: false,
+                    children: [
+                        '/community/tutorials/creating_ssl_certificates.md',
+                    ],
+                },
             ],
             '/': [
                 {
