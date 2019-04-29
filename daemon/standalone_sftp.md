@@ -4,7 +4,7 @@
 Standalone SFTP support was introduced in `Panel@v0.7.11` and `Daemon@v0.6.8` and will not work with prior versions.
 :::
 
-Pterodactyl now ships with the option to use a [standlone SFTP server](https://github.com/pterodactyl/sftp-server)
+Pterodactyl now ships with the option to use a [standalone SFTP server](https://github.com/pterodactyl/sftp-server)
 rather than using the one that was built into the Daemon. This provides better compatability with SFTP clients, improved
 transfer speeds, and a more native approach to file handling and server operation.
 
