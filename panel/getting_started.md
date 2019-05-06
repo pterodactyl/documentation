@@ -138,7 +138,7 @@ php artisan migrate --seed
 ```
 
 
-### Add The First User
+### Create Your First User
 You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
 At this time passwords **must** meet the following requirements: 8 characters, mixed case, at least one number.
 
