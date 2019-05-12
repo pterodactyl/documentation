@@ -30,7 +30,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 
 ## Dependencies
 * PHP `7.2` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`
-* MySQL `5.7`**or** MariaDB `10.1.3` or higher
+* MySQL `5.7` **or** MariaDB `10.1.3` or higher
 * Redis (`redis-server`)
 * A webserver (Apache, NGINX, Caddy, etc.)
 * `curl`
