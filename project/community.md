@@ -2,6 +2,7 @@
     Sorry, but this file is off limits to additions or deletions that are not the result of fixing
     grammar or spelling mistakes.
 -->
+
 # Community Standards
 Pterodactyl prides itself on providing a warm and welcoming community for all of our members. However, due to the
 sheer size of our community, we have a few rules that we expect all individuals to follow at all times.
