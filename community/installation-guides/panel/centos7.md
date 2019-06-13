@@ -68,6 +68,11 @@ systemctl enable redis
 
 ### Additional Utilities
 
+#### Unzip
+```bash
+yum install -y unzip
+```
+
 #### Certbot
 ```bash
 yum install -y certbot
