@@ -68,11 +68,6 @@ systemctl enable redis
 
 ### Additional Utilities
 
-#### Certbot
-```bash
-yum install -y certbot
-```
-
 #### Composer
 ```bash
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
