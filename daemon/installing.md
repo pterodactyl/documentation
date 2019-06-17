@@ -51,7 +51,7 @@ Pterodactyl's Daemon requires the following dependencies be installed on your sy
 * `tar`
 * `unzip`
 * `make`, `gcc` (`gcc-c++` on CentOS), `g++`
-* `python`, `python-dev`
+* `python`
 
 ### Installing Docker
 For a quick install of Docker CE, you can execute the command below:
@@ -100,7 +100,7 @@ NodeJS is also super easy to install! Simply run the command below to make the p
 
 ``` bash
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-apt -y install nodejs make gcc g++ python-dev
+apt -y install nodejs make gcc g++
 ```
 
 ::: tip Other OS Distributions
