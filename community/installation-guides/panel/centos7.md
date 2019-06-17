@@ -68,11 +68,6 @@ systemctl enable redis
 
 ### Additional Utilities
 
-#### Certbot
-```bash
-yum install -y certbot
-```
-
 #### Composer
 ```bash
 yum install -y unzip # Required for Composer
