@@ -13,7 +13,7 @@ We will first begin by installing all of the Daemon's [required](/daemon/install
 
 ### General Requirements
 ```bash
-apt install -y zip unzip tar make gcc g++ python curl gnupg
+apt install -y zip unzip tar make gcc g++ python python-dev curl gnupg
 ```
 
 ### Docker
