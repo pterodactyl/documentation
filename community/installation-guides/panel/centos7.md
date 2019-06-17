@@ -75,6 +75,7 @@ yum install -y certbot
 
 #### Composer
 ```bash
+yum install -y unzip # Required for Composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
