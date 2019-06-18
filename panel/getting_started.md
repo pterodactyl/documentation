@@ -25,12 +25,12 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | | 18.04 | :white_check_mark: | |
 | **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
 | | 7 | :white_check_mark: | |
-| **Debian** | 8 | :white_check_mark: | |
+| **Debian** | 8 | :warning: | Debian 8 may need modifications to work with the latest docker and other requirements for the panel/daemon |
 | | 9 | :white_check_mark: | |
 
 ## Dependencies
 * PHP `7.2` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`
-* MySQL `5.7` or higher **or** MariaDB `10.1.3` or higher
+* MySQL `5.7` **or** MariaDB `10.1.3` or higher
 * Redis (`redis-server`)
 * A webserver (Apache, NGINX, Caddy, etc.)
 * `curl`
@@ -137,6 +137,7 @@ command will setup the database tables and then add all of the Nests & Eggs that
 php artisan migrate --seed
 ```
 
+### Add The First User
 You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
 At this time passwords **must** meet the following requirements: 8 characters, mixed case, at least one number.
 
@@ -210,6 +211,11 @@ If you are using CentOS, you will need to replace `redis-server.service` with `r
 If you are not using `redis` for anything you should remove the `After=` line, otherwise you will encounter errors
 when the service starts.
 :::
+
+If you are are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command: 
+```bash
+sudo systemctl enable redis-server
+```
 
 Finally, enable the service and set it to boot on machine start.
 

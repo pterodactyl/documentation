@@ -5,9 +5,10 @@
 | Name | Discord Name | Primary Role |
 | ---- | ------------ | ---- |
 | [Dane Everitt](https://daneeveritt.com/) | `Tactical Fish#8008` | Project Maintainer |
+| [Anand Capur](https://anand.io/) | `Arcdigital#1337` | Mobile/Cloud Project Lead |
 | Michael Parker | `parkervcp#6789` | Egg Developer, Docker Integration |
 | [Jakob Schrettenbrunner](https://schrej.net/) | `schrej#1337` | Golang Daemon Lead, Developer |
-| [Anand Capur](https://anand.io/) | `Arcdigital#1337` | Developer |
+| Stepan Fedotov | `Trixter#0001` | WHMCS Module Maintainer |
 | [Lance Pioch](https://lancepioch.com/) | `ShadowLancer#5209` | Developer |
 
 ## Community Team
@@ -16,7 +17,7 @@ members can be found in our Discord channel and are distinguished with a yellow 
 
 ## License
 ``` text
-Copyright (c) 2015 - 2018 Dane Everitt <dane@daneeveritt.com>.
+Copyright (c) 2015 - 2019 Dane Everitt <dane@daneeveritt.com>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

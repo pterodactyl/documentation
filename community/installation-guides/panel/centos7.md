@@ -68,13 +68,9 @@ systemctl enable redis
 
 ### Additional Utilities
 
-#### Certbot
-```bash
-yum install -y certbot
-```
-
 #### Composer
 ```bash
+yum install -y unzip # Required for Composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
@@ -133,4 +129,4 @@ The default Redis install is perfectly fine for the panel. If you have Redis alr
 [running another Redis instance](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host).
 
 ## Installing the Panel
-Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#installation).
+Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#download-files).
