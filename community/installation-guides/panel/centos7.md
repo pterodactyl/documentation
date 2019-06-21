@@ -35,18 +35,19 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.2
-We recommend the ius repo to get the latest php packages.
+### PHP 7.3
+We recommend the remi repo to get the latest php packages.
 
 ```bash
-## Install Repos
-yum install -y epel-release https://centos7.iuscommunity.org/ius-release.rpm
+## Install and Enable PHP 7.3 Repos
+yum install -y yum-utils epel-release http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum-config-manager --disable remi-php54 --enable remi-php73
 
 ## Get yum updates
 yum update -y
 
-## Install PHP 7.2
-yum install -y php72u-php php72u-common php72u-fpm php72u-cli php72u-json php72u-mysqlnd php72u-mcrypt php72u-gd php72u-mbstring php72u-pdo php72u-zip php72u-bcmath php72u-dom php72u-opcache
+## Install PHP 7.3
+yum install php php-cli php-openssl php-gd php-mysql php-pdo php-mbstring php-tokenizer php-bcmath php-xml php-dom php-curl php-zip
 ```
 
 ### Nginx
