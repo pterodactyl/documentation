@@ -214,7 +214,7 @@ when the service starts.
 
 If you are are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command: 
 ```bash
-sudo systemctl enable redis-server
+sudo systemctl enable --now redis-server
 ```
 
 Finally, enable the service and set it to boot on machine start.
