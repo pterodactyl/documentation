@@ -125,7 +125,12 @@ Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generati
 <<< @/.snippets/webservers/nginx-centos.conf{5,11,26-27}
 
 ### Redis Setup
-The default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
+On systems using SELinux (which CentOS does by default) you will want to set the correct permissions:
+``` bash
+audit2allow -a -M redis_t
+semodule -i redis_t.pp
+```
+Apart from that the default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
 [running another Redis instance](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host).
 
 ## Installing the Panel
