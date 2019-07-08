@@ -128,5 +128,12 @@ Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generati
 The default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
 [running another Redis instance](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host).
 
+## Redis issues fix if you have 500 error after Access denied
+setsebool -P httpd_can_network_connect 1
+
+## Fix for Access denied
+semanage fcontext -a -t httpd_sys_rw_content_t "/var/www/pterodactyl/storage(/.*)?"
+restorecon -R /var/www/pterodactyl
+
 ## Installing the Panel
 Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#download-files).
