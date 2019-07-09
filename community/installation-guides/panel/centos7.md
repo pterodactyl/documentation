@@ -63,7 +63,7 @@ firewall-cmd --reload
 
 ### Redis
 ```bash
-yum install -y redis40u
+yum install -y --enablerepo=remi redis
 
 systemctl start redis
 systemctl enable redis
@@ -126,6 +126,15 @@ systemctl enable php-fpm
 systemctl start php-fpm
 ```
 
+### SELinux commands
+
+The following command will allow nginx to work with redis and 
+```bash
+setsebool -P httpd_can_network_connect 1
+setsebool -P httpd_execmem 1
+setsebool -P httpd_unified 1
+```
+
 ### Nginx
 Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
@@ -138,12 +147,3 @@ The default Redis install is perfectly fine for the panel. If you have Redis alr
 
 ## Installing the Panel
 Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#download-files).
-
-## SELinux commands
-
-### nginx
-```bash
-setsebool -P httpd_can_network_connect 1
-setsebool -P httpd_execmem 1
-setsebool -P httpd_unified 1
-```
