@@ -41,12 +41,15 @@ We recommend the ius repo to get the latest php packages.
 ```bash
 ## Install Repos
 yum install -y epel-release http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum install -y yum-utils
+yum-config-manager --disable remi-php54
+yum-config-manager --enable remi-php73
 
 ## Get yum updates
 yum update -y
 
 ## Install PHP 7.3
-yum install -y php73-php php73-php-common php73-php-fpm php73-php-cli php73-php-json php73-php-mysqlnd php73-php-mcrypt php73-php-gd php73-php-mbstring php73-php-pdo php73-php-zip php73-php-bcmath php73-php-dom php73-php-opcache
+yum install -y php-php php-common php-fpm php-cli php-json php-mysqlnd php-mcrypt php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
 ```
 
 ### Nginx
@@ -135,3 +138,12 @@ The default Redis install is perfectly fine for the panel. If you have Redis alr
 
 ## Installing the Panel
 Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#download-files).
+
+## SELinux commands
+
+### nginx
+```bash
+setsebool -P httpd_can_network_connect 1
+setsebool -P httpd_execmem 1
+setsebool -P httpd_unified 1
+```
