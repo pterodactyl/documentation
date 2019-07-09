@@ -46,7 +46,7 @@ yum install -y epel-release http://rpms.remirepo.net/enterprise/remi-release-7.r
 yum update -y
 
 ## Install PHP 7.3
-yum install -y php73-php php73-common php73-fpm php73-cli php73-json php73-mysqlnd php73-mcrypt php73-gd php73-mbstring php73-pdo php73-zip php73-bcmath php73-dom php73-opcache
+yum install -y php73-php php73-php-common php73-php-fpm php73-php-cli php73-php-json php73-php-mysqlnd php73-php-mcrypt php73-php-gd php73-php-mbstring php73-php-pdo php73-php-zip php73-php-bcmath php73-php-dom php73-php-opcache
 ```
 
 ### Nginx
@@ -72,6 +72,11 @@ systemctl enable redis
 ```bash
 yum install -y unzip # Required for Composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+```
+
+#### SELinux tools
+```bash
+yum install -y policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
 ```
 
 ## Server Configuration
