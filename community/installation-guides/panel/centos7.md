@@ -133,6 +133,7 @@ The following command will allow nginx to work with redis and
 setsebool -P httpd_can_network_connect 1
 setsebool -P httpd_execmem 1
 setsebool -P httpd_unified 1
+restorecon -R /var/www/pterodactyl/
 ```
 
 ### Nginx
