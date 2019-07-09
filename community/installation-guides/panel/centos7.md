@@ -40,13 +40,13 @@ We recommend the ius repo to get the latest php packages.
 
 ```bash
 ## Install Repos
-yum install -y epel-release https://centos7.iuscommunity.org/ius-release.rpm
+yum install -y epel-release http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 
 ## Get yum updates
 yum update -y
 
-## Install PHP 7.2
-yum install -y php72u-php php72u-common php72u-fpm php72u-cli php72u-json php72u-mysqlnd php72u-mcrypt php72u-gd php72u-mbstring php72u-pdo php72u-zip php72u-bcmath php72u-dom php72u-opcache
+## Install PHP 7.3
+yum install -y php73-php php73-common php73-fpm php73-cli php73-json php73-mysqlnd php73-mcrypt php73-gd php73-mbstring php73-pdo php73-zip php73-bcmath php73-dom php73-opcache
 ```
 
 ### Nginx
