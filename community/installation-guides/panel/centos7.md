@@ -49,7 +49,7 @@ yum-config-manager --enable remi-php73
 yum update -y
 
 ## Install PHP 7.3
-yum install -y php-php php-common php-fpm php-cli php-json php-mysqlnd php-mcrypt php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
+yum install -y -php php-common php-fpm php-cli php-json php-mysqlnd php-mcrypt php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
 ```
 
 ### Nginx
