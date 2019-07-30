@@ -40,13 +40,16 @@ We recommend the ius repo to get the latest php packages.
 
 ```bash
 ## Install Repos
-yum install -y epel-release https://centos7.iuscommunity.org/ius-release.rpm
+yum install -y epel-release http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum install -y yum-utils
+yum-config-manager --disable remi-php54
+yum-config-manager --enable remi-php73
 
 ## Get yum updates
 yum update -y
 
-## Install PHP 7.2
-yum install -y php72u-php php72u-common php72u-fpm php72u-cli php72u-json php72u-mysqlnd php72u-mcrypt php72u-gd php72u-mbstring php72u-pdo php72u-zip php72u-bcmath php72u-dom php72u-opcache
+## Install PHP 7.3
+yum install -y php php-common php-fpm php-cli php-json php-mysqlnd php-mcrypt php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
 ```
 
 ### Nginx
@@ -60,7 +63,7 @@ firewall-cmd --reload
 
 ### Redis
 ```bash
-yum install -y redis40u
+yum install -y --enablerepo=remi redis
 
 systemctl start redis
 systemctl enable redis
@@ -72,6 +75,11 @@ systemctl enable redis
 ```bash
 yum install -y unzip # Required for Composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+```
+
+#### SELinux tools
+```bash
+yum install -y policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
 ```
 
 ## Server Configuration
@@ -116,6 +124,16 @@ Start and enable php-fpm on the system.
 ```bash
 systemctl enable php-fpm
 systemctl start php-fpm
+```
+
+### SELinux commands
+
+The following command will allow nginx to work with redis and 
+```bash
+setsebool -P httpd_can_network_connect 1
+setsebool -P httpd_execmem 1
+setsebool -P httpd_unified 1
+restorecon -R /var/www/pterodactyl/
 ```
 
 ### Nginx
