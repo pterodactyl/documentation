@@ -85,7 +85,7 @@ and then set the correct permissions on the `storage/` and `bootstrap/cache/` di
 allow us to store files as well as keep a speedy cache available to reduce load times.
 
 ``` bash
-curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v0.7.14/panel.tar.gz
+curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v0.7.15/panel.tar.gz
 tar --strip-components=1 -xzvf panel.tar.gz
 chmod -R 755 storage/* bootstrap/cache/
 ```
