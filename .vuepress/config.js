@@ -95,6 +95,7 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/community/tutorials/creating_ssl_certificates.md',
+                        'community/tutorials/phpMyAdmin_Configuration.md',
                     ],
                 },
             ],
