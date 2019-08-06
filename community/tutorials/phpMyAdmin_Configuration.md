@@ -161,6 +161,11 @@ Now we need to configure phpMyAdmin to acces your database
 To access the setup wizard go to `exampledomain.com/setup/index.php`
 Remember you should have set this up as a subdomain in the above web-server configuration. Here you will also see if there are any errors in your install. Make sure to fix them as they may lead to you having an insecure/not fully functional phpMyAdmin.
 After reviewing the errors click "New server" button and fill out the required details.
+### Finishing Setup
+To finish the setup make sure to remove the config folder of phpMyAdmin as otherwise anyone can change your settings
+```bash
+rm -rf /var/www/phpmyadmin/config
+```
 ## Editing Panel Files
 As the final step we will add `Database Admin` to the pterodactyl server sidebar. To do so we will need to edit the panels php files. This step isn't required and make sure you know exactly what you are doing since it may end up breaking your panel.
 ### Finding the right path.
