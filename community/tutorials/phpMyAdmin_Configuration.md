@@ -166,6 +166,7 @@ To finish the setup make sure to remove the config folder of phpMyAdmin as other
 ```bash
 rm -rf /var/www/phpmyadmin/config
 ```
+<span style="color:red"> Warning! This part of the guide may result in you getting a 500 error on your panel. If you are unsure of solving this do NOT follow further in this guide! You have successfully added phpMyAdmin as a subdomain and following further will edit the CORE FILES of the panel.</span>
 ## Editing Panel Files
 As the final step we will add `Database Admin` to the pterodactyl server sidebar. To do so we will need to edit the panels php files. This step isn't required and make sure you know exactly what you are doing since it may end up breaking your panel.
 ### Finding the right path.
@@ -199,7 +200,7 @@ class="active"
 class="active"
 @endif
 >
-<a href="https://phpmyadminhost/" target="_blank>
+<a href="https://phpmyadminhost/phpmyadmin/" target="_blank>
   <i class="fa fa-database"></i> <span>Database Admin</span>
   </a</li
   @endcan
