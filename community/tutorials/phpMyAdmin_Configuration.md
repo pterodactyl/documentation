@@ -200,7 +200,7 @@ class="active"
 class="active"
 @endif
 >
-<a href="https://phpmyadminhost/phpmyadmin/" target="_blank>
+<a href="https://phpmyadminhost/" target="_blank>
   <i class="fa fa-database"></i> <span>Database Admin</span>
   </a</li
   @endcan
