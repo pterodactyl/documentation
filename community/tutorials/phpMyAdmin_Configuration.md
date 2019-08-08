@@ -166,43 +166,4 @@ To finish the setup make sure to remove the config folder of phpMyAdmin as other
 ```bash
 rm -rf /var/www/phpmyadmin/config
 ```
-<span style="color:red"> Warning! This part of the guide may result in you getting a 500 error on your panel. If you are unsure of solving this do NOT follow further in this guide! You have successfully added phpMyAdmin as a subdomain and following further will edit the CORE FILES of the panel.</span>
-## Editing Panel Files
-As the final step we will add `Database Admin` to the pterodactyl server sidebar. To do so we will need to edit the panels php files. This step isn't required and make sure you know exactly what you are doing since it may end up breaking your panel.
-### Finding the right path.
-The file we are looking to edit will most likely be located at `/var/www/pterodactyl/resources/themes/pterodactyl/layouts/master.blade.php` you simply need to open it in your favorite editing program and look for `@can('view-databases', $server)` Here you will find one table component. Go right above the `@endcan` statement and add the following.
-```php
-<li
-@if(starts_with(Route::currentRouteName(), 'server.databases'))
-class="active"
-@endif
->
-<a href="<phpmyadmindomain" target="_blank>
-  <i class="fa fa-database"></i> <span>Database Admin</span>
-</a>
-</li>
-```
-
-the part of the file should end up looking similar to This
-```php
-@can('view-databases', $server
-<li
-@if(starts_with(Route::currentRouteName(), 'server.databases'))
-class="active"
-@endif
->
-<a href="{{ route('server.databases.index', $server->uuidShort)}}">
-  <i class="fa fa-database"></i> <span>@lang('navigation.server.databases')</span>
-</a>
-</li>
-<li
-@if(starts_with(Route::currentRouteName(), 'server.databases'))
-class="active"
-@endif
->
-<a href="https://phpmyadminhost/" target="_blank>
-  <i class="fa fa-database"></i> <span>Database Admin</span>
-  </a</li
-  @endcan
-  ```
-## Now after reading just over 200 lines you are DONE! Congratulations!
+## Now after reading just under 200 lines you are DONE! Congratulations!
