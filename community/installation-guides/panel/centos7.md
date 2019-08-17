@@ -8,8 +8,8 @@ to serve it using SSL.
 This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for CentOS 7.
 :::
 
-## Install Requirements
-We will first begin by installing all of Pterodactyl's [required](/panel/getting_started.md#dependencies) dependencies.
+## Install Requirements and Additional Utilities
+We will install all of Pterodactyl's [required](/panel/getting_started.md#dependencies) dependencies and a few aditional utilities.
 
 
 ::: tip
@@ -20,7 +20,6 @@ If you run `sestatus` and it shows `SELinux status: enabled` you should install 
 ```bash
 yum install -y policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
 ```
-
 
 ### MariaDB
 ```bash
@@ -96,7 +95,6 @@ The following command will allow nginx to work with redis and
 setsebool -P httpd_can_network_connect 1
 setsebool -P httpd_execmem 1
 setsebool -P httpd_unified 1
-restorecon -R /var/www/pterodactyl/
 ```
 
 ## Server Configuration
