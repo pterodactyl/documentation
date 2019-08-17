@@ -11,6 +11,17 @@ This guide is based off the [official installation documentation](/panel/getting
 ## Install Requirements
 We will first begin by installing all of Pterodactyl's [required](/panel/getting_started.md#dependencies) dependencies.
 
+
+::: tip
+If you run `sestatus` and it shows `SELinux status: enabled` you should install the following packages for later
+:::
+
+### SELinux tools
+```bash
+yum install -y policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
+```
+
+
 ### MariaDB
 ```bash
 ## Install Repos
@@ -35,7 +46,7 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.2
+### PHP 7.3
 We recommend the ius repo to get the latest php packages.
 
 ```bash
@@ -51,6 +62,15 @@ yum update -y
 ## Install PHP 7.3
 yum install -y php php-common php-fpm php-cli php-json php-mysqlnd php-mcrypt php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
 ```
+
+### Composer
+```bash
+yum install -y zip unzip # Required for Composer
+curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+```
+
+## Install Utility Pakcages
+
 
 ### Nginx
 ```bash
@@ -69,17 +89,14 @@ systemctl start redis
 systemctl enable redis
 ```
 
-### Additional Utilities
+#### SELinux commands
 
-#### Composer
+The following command will allow nginx to work with redis and 
 ```bash
-yum install -y unzip # Required for Composer
-curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-```
-
-#### SELinux tools
-```bash
-yum install -y policycoreutils policycoreutils-python selinux-policy selinux-policy-targeted libselinux-utils setroubleshoot-server setools setools-console mcstrans
+setsebool -P httpd_can_network_connect 1
+setsebool -P httpd_execmem 1
+setsebool -P httpd_unified 1
+restorecon -R /var/www/pterodactyl/
 ```
 
 ## Server Configuration
@@ -124,16 +141,6 @@ Start and enable php-fpm on the system.
 ```bash
 systemctl enable php-fpm
 systemctl start php-fpm
-```
-
-### SELinux commands
-
-The following command will allow nginx to work with redis and 
-```bash
-setsebool -P httpd_can_network_connect 1
-setsebool -P httpd_execmem 1
-setsebool -P httpd_unified 1
-restorecon -R /var/www/pterodactyl/
 ```
 
 ### Nginx
