@@ -40,7 +40,8 @@ If the above shows as that then Congratulations! You have created your theme cor
 Go ahead and place your downloaded theme in the correct directory **without overwriting** the default Pterodactyl theme such as the following:
 
 Your `public` folder into /var/www/pterodactyl/public/themes/MyThemeHere/
-Your `pesources` folder into /var/wwww/pterodactyl/resources/themes/MyThemehere/
+
+Your `resources` folder into /var/wwww/pterodactyl/resources/themes/MyThemehere/
 
 ### Setting your theme name in .env
 After creating your theme correctly and uploading the theme files correctly, you should edit your `.env` file next.
