@@ -48,6 +48,7 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/community/about.md',
+                        '/tutorials/custom_theme_setup.md',
                     ]
                 },
                 {
