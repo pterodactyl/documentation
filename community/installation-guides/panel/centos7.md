@@ -46,7 +46,7 @@ systemctl enable mariadb
 ```
 
 ### PHP 7.3
-We recommend the ius repo to get the latest php packages.
+We recommend the remi repo to get the latest php packages.
 
 ```bash
 ## Install Repos
