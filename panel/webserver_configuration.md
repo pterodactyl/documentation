@@ -14,7 +14,9 @@ You should paste the contents of the file below, replacing `<domain>` with your 
 ### NGINX With SSL
 This configuration assumes that you will be using SSL on both the Panel and Daemons for significantly improved communication
 security between users and the Panel. You will need to get a valid SSL certificate which can be done for free by using
-Let's Encrypt. Please see our [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page for how to create these certificates before continuing.
+Let's Encrypt. 
+
+**When using the SSL configuration you MUST create SSL certificates, otherwise your NGINX will fail to start.  See [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page for how to create these certificates before continuing.**
 
 <<< @/.snippets/webservers/nginx.conf{5,11,26-27}
 
@@ -41,7 +43,9 @@ You should paste the contents of the file below, replacing `<domain>` with your 
 Note: When using Apache, make sure you have the `libapache2-mod-php` package installed or else PHP will not display on your webserver.
 
 ### Apache With SSL
-Like the nginx configuration, this assumes you will be using SSL on both the Panel and Daemons for improved security. You will need to visit our [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page on how to create these certificates.
+Like the nginx configuration, this assumes you will be using SSL on both the Panel and Daemons for improved security.
+
+**When using the SSL configuration you MUST create SSL certificates, otherwise your Apache will fail to start.  See [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page for how to create these certificates before continuing.**
 
 <<< @/.snippets/webservers/apache.conf{2,8,17-18}
 
