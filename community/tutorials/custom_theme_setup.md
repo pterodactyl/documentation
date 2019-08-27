@@ -11,7 +11,7 @@ php artisan theme:create
 This command will enter you into a step by step procedure. Here are the ones you would want to fill in.
 ::: warning Do not create the theme named as `pterodactyl` as that is Pterodactyl's main design and should NOT be overwritten. :::
 ``` bash
-Give theme name::
+Give theme name:
 > (Enter Theme Name Here) (Example: MyThemeHere or theme1)
 
  Where will views be located? []:
