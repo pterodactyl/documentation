@@ -25,13 +25,13 @@ Give theme name::
 ```
 
 If you have done it correctly, the summary should be like this:
-```bash
 Summary:
 - Theme name: `(MyThemeHere)`
 - Views Path: `/var/www/pterodactyl/resources/themes/MyThemeHere`
 - Asset Path: `/var/www/pterodactyl/public/MyThemeHere`
 - Extends Theme: No
 
+```bash
  Create Theme? (yes/no) [yes]:
  > (Press Enter)
 ```
