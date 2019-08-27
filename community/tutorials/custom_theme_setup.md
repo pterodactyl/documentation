@@ -1,8 +1,8 @@
 # Creating a theme for Pterodactyl
 This tutorial briefly covers how to create a theme for Pterodactyl without overwriting the main theme files.
 
-## Method 1: Using CLI
-To begin, we will be using php artisan as it's the easiest and quickest method to do so. Let's begin by creating by going to your panel's main directory typically installed at `/var/www/pterodactyl`. The command below is a straight-forward setup. This setup will cover
+## Using CLI
+To begin, we will be using php artisan as it's the easiest and quickest method to do so than igaster's method. Let's begin by creating by going to your panel's main directory typically installed at `/var/www/pterodactyl`. The command below is a straight-forward setup. This setup will cover
 the majority of the functions all for you such as Theme Name, Views Location, Assets Location etc. So let's create a theme!
                                                                                                                
 ``` bash
@@ -21,19 +21,19 @@ Give theme name::
  > (Press Enter)
 
  Extends an other theme? (yes/no) [no]:
- > (Type No and Press Enter)
+ > (Press Enter)
 ```
 
 If you have done it correctly, the summary should be like this:
 ```bash
 Summary:
-- Theme name: (MyThemeHere)
-- Views Path: /var/www/pterodactyl/resources/themes/MyThemeHere
-- Asset Path: /var/www/pterodactyl/public/MyThemeHere
+- Theme name: `(MyThemeHere)`
+- Views Path: `/var/www/pterodactyl/resources/themes/MyThemeHere`
+- Asset Path: `/var/www/pterodactyl/public/MyThemeHere`
 - Extends Theme: No
 
  Create Theme? (yes/no) [yes]:
- > (Type Yes and Press Enter)
+ > (Press Enter)
 ```
 
 If the above shows as that then Congratulations! You have created your theme correctly! Now let's set your newly created theme as default.
