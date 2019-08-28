@@ -47,7 +47,7 @@ module.exports = {
                     title: 'Community Guides',
                     collapsable: false,
                     children: [
-                        '/community/about.md'
+                        '/community/about.md',
                     ]
                 },
                 {
