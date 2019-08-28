@@ -47,8 +47,7 @@ module.exports = {
                     title: 'Community Guides',
                     collapsable: false,
                     children: [
-                        '/community/about.md',
-                        '/community/tutorials/custom_theme_setup.md',
+                        '/community/about.md'
                     ]
                 },
                 {
@@ -96,6 +95,7 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/community/tutorials/creating_ssl_certificates.md',
+                        '/community/tutorials/custom_theme_setup.md',
                     ],
                 },
             ],
