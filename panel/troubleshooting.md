@@ -128,10 +128,15 @@ On systems with SELinux installed you might encounter unexpected errors when run
 to the daemon to perform actions. These issues can generally be resolved by executing the commands below to allow
 these programs to work with SELinux.
  
-### Redis Permissions
+### Redis Permissions Errors
 ``` bash
 audit2allow -a -M redis_t
 semodule -i redis_t.pp
+```
+
+### In case there is any weirdness with parts of the panel
+``` bash
+restorecon -R /var/www/pterodactyl/
 ```
 
 ### Daemon Connection Errors
