@@ -12,13 +12,13 @@ This command will activate the theme wizard. Besides the name, the defaults will
 ::: warning Do not create the theme named as `pterodactyl` as that is Pterodactyl's main design and should NOT be overwritten. :::
 ``` bash
 Give theme name:
-> (Enter Theme Name Here) (Example: MyThemeHere or theme1)
+> (Enter Theme Name Here) (Example: MyThemeNameHere)
 
  Where will views be located? []:
  > (Press Enter)
 
  Where will assets be located? []:
- > (Press Enter)
+ > /themes/(MyThemeNameHere) (Example: /themes/MyThemeNameHere)
 
  Extends an other theme? (yes/no) [no]:
  > (Press Enter)
@@ -28,7 +28,7 @@ If you have done it correctly, the summary should be like this:
 Summary:
 - Theme name: `MyThemeHere`
 - Views Path: `/var/www/pterodactyl/resources/themes/MyThemeHere`
-- Asset Path: `/var/www/pterodactyl/public/MyThemeHere`
+- Asset Path: `/var/www/pterodactyl/public/themes/MyThemeHere`
 - Extends Theme: No
 
 ```bash
