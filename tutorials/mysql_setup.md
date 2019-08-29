@@ -48,6 +48,7 @@ GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
 
+
 ## Adding Database to Pterodactyl Panel
 In this guide we assume you have successfully installed the panel using the specified MariaDB as your database and it is on the `0.7.15` version.
 ## Adding DB user
@@ -64,6 +65,9 @@ To than create a user run.<span style="color:red"> Change`data` and `password` t
 CREATE USER 'data'@'127.0.0.1' IDENTIFIED BY 'password';
 ```
 Than add privileges for the user.
+:::danger
+If your database is on a different host than your panel/daemon make sure to use `%` instead of `127.0.0.1` bellow
+:::
 ```sql
 GRANT ALL PRIVILEGES ON *.* TO 'data'@'127.0.0.1' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
@@ -77,8 +81,7 @@ You can now close your ssh session.
 Note. You might want to open your database to the internet. This is done by setting it's bind address to `0.0.0.0` instead of `127.0.0.1`
 :::
 ## Adding the DB to the Panel
-Go to `yourpaneldomain/admin/databases` and click `Create New` This will open up the following window.
-![](https://images.bbsnetwork.club/emptydb.png)<br>
+Go to `yourpaneldomain/admin/databases` and click `Create New` This will open up a window to add a database.
 Here you will need to fill it out as follows:
 - Name - A familiar name to reference the db at a later stage.
 - Host - The server this database is hosted on.
@@ -87,10 +90,9 @@ Here you will need to fill it out as follows:
 - Password - Password of the user we created earlier.
 - Linked node - Node the database is hosted on(can be left as none)
 Hit create and you are done!
-![](https://images.bbsnetwork.club/dbdone.png)
 ## Common Errors
 ### DatabaseController.php:142
 ```
 production.ERROR: ErrorException: Undefined variable: host in /var/www/pterodactyl/app/Http/Controllers/Admin/DatabaseController.php:142
 ```
-The database user you are trying to use doesn't have appropriate grants/has used incorrect password.
+The database user you are trying to use doesn't have appropriate grants/has used incorrect password.<br/>
