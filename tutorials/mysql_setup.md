@@ -47,8 +47,6 @@ you can remove that.
 GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
-
-
 ## Adding Database to Pterodactyl Panel
 In this guide we assume you have successfully installed the panel using the specified MariaDB as your database and it is on the `0.7.15` version.
 ## Adding DB user
