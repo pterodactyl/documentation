@@ -47,3 +47,50 @@ you can remove that.
 GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
+
+## Adding Database to Pterodactyl Panel
+In this guide we assume you have successfully installed the panel using the specified MariaDB as your database and it is on the `0.7.15` version.
+## Adding DB user
+First of all you will need to add a user to your database.This is simply done by connecting to your database via ssh and running the following. And entering your database root password, if you haven't set one just hit enter.
+```bash
+mysql -u root -p
+```
+Once you are in the database you need to change the db schema by running
+```sql
+USE mysql;
+```
+To than create a user run.<span style="color:red"> Change`data` and `password` to keep your database safe! </span>
+```sql
+CREATE USER 'data'@'127.0.0.1' IDENTIFIED BY 'password';
+```
+Than add privileges for the user.
+```sql
+GRANT ALL PRIVILEGES ON *.* TO 'data'@'127.0.0.1' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+Close your database connection with
+```sql
+EXIT;
+```
+You can now close your ssh session.
+:::tip
+Note. You might want to open your database to the internet. This is done by setting it's bind address to `0.0.0.0` instead of `127.0.0.1`
+:::
+## Adding the DB to the Panel
+Go to `yourpaneldomain/admin/databases` and click `Create New` This will open up the following window.
+![](https://images.bbsnetwork.club/emptydb.png)<br>
+Here you will need to fill it out as follows:
+- Name - A familiar name to reference the db at a later stage.
+- Host - The server this database is hosted on.
+- Port - Port of the database server.
+- Username - Username of the user we created earlier.
+- Password - Password of the user we created earlier.
+- Linked node - Node the database is hosted on(can be left as none)
+Hit create and you are done!
+![](https://images.bbsnetwork.club/dbdone.png)
+## Common Errors
+### DatabaseController.php:142
+```
+production.ERROR: ErrorException: Undefined variable: host in /var/www/pterodactyl/app/Http/Controllers/Admin/DatabaseController.php:142
+```
+The database user you are trying to use doesn't have appropriate grants/has used incorrect password.
