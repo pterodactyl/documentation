@@ -100,7 +100,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
 NodeJS is also super easy to install! Simply run the command below to make the package accessible to your system.
 
 ``` bash
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 apt -y install nodejs make gcc g++
 ```
 
