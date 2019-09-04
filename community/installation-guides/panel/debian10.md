@@ -1,4 +1,4 @@
-# Debian 9
+# Debian 10
 In this guide we will install Pterodactyl — including all of it's dependencies — and configure our webserver
 to serve it using SSL.
 

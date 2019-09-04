@@ -5,7 +5,7 @@ Standalone SFTP support was introduced in `Panel@v0.7.11` and `Daemon@v0.6.8` an
 :::
 
 Pterodactyl now ships with the option to use a [standalone SFTP server](https://github.com/pterodactyl/sftp-server)
-rather than using the one that was built into the Daemon. This provides better compatability with SFTP clients, improved
+rather than using the one that was built into the Daemon. This provides better compatibility with SFTP clients, improved
 transfer speeds, and a more native approach to file handling and server operation.
 
 Because this functionality is new, we've decided to make it an opt-in process, rather than an opt-out process. This page
@@ -48,7 +48,7 @@ Finally, start the SFTP server so that you can then use it to access your files.
 ./sftp-server
 ```
 
-By default this will start the SFTP server on the old port of `2022`. If you want to use a different port it can be
+By default, this will start the SFTP server on the old port of `2022`. If you want to use a different port it can be
 specified by passing the `--port` flag. For more advanced usage, please refer to the [Github README](https://github.com/pterodactyl/sftp-server#running)
 which includes all of the flags and their default values.
 

@@ -1,4 +1,4 @@
-# Debian 9
+# Debian 10
 In this guide we will install Pterodactyl's Daemon (wings) — including all of it's dependencies — and configure it
 to use a SSL connection.
 

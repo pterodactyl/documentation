@@ -116,7 +116,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="footer">MIT Licensed | Copyright © 2015 - 2018 Dane Everitt & Contributors.</div>
+                <div class="footer">MIT Licensed | Copyright © 2015 - 2019 Dane Everitt & Contributors.</div>
             </div>
         </div>
     </div>

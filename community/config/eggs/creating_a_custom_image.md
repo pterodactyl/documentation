@@ -43,7 +43,7 @@ Lets walk through the `Dockerfile` above. The first thing you'll notice is the [
 FROM openjdk:8-jdk-alpine
 ```
 
-In this case, we are using [`fopenjdk:8-jdk-alpine`](https://github.com/docker-library/openjdk) which provides us with Java 8.
+In this case, we are using [`openjdk:8-jdk-alpine`](https://github.com/docker-library/openjdk) which provides us with Java 8.
 
 ## Installing Dependencies
 The next thing we do is install the dependencies we will need using Alpine's package manager: `apk`. You'll notice some
