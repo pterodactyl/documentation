@@ -47,3 +47,53 @@ you can remove that.
 GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
+:::tip
+The following is to add a database managed by the panel for its game servers
+:::
+## Adding Database to Pterodactyl Panel
+In this guide we assume you have successfully installed the panel using the specified MariaDB as your database and it is on the `0.7.15` version.
+## Adding DB user
+First of all, you will need to add a user to your database. This is simply done by connecting to your database via CLI and running the following commands. You may need to enter a password if you specified one when connecting to the database. To connect to your database, enter:
+```bash
+mysql -u root -p
+```
+Once you are in the database you need to change the db schema by running
+```sql
+USE mysql;
+```
+To then create a user run.<span style="color:red"> Change `data` and `password` to keep your database safe! </span>
+```sql
+CREATE USER 'data'@'127.0.0.1' IDENTIFIED BY 'password';
+```
+Then add privileges for the user.
+:::danger
+If your database is on a different host than the one where your panel(daemon is installed, make sure to use `%` instead of `127.0.0.1` below
+:::
+```sql
+GRANT ALL PRIVILEGES ON *.* TO 'data'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+Close your database connection with
+```sql
+EXIT;
+```
+You can now close your ssh session.
+:::tip
+Note. You might want to open your database to the internet. This is done by setting its bind-address to `0.0.0.0` instead of `127.0.0.1`
+:::
+## Adding the DB to the Panel
+Go to `yourpaneldomain/admin/databases` and click `Create New`. This will open up a window in which you can add a database.
+Fill the form, following this example:
+- Name - A familiar name to reference the db at a later stage.
+- Host - The server this database is hosted on.
+- Port - Port of the database server.
+- Username - Username of the user we created earlier.
+- Password - Password of the user we created earlier.
+- Linked node - Node the database is hosted on. (Default value can be retained)
+Hit create and you are done!
+## Common Errors
+### DatabaseController.php:142
+```
+production.ERROR: ErrorException: Undefined variable: host in /var/www/pterodactyl/app/Http/Controllers/Admin/DatabaseController.php:142
+```
+The database user you are trying to use doesn't have appropriate grants/has used incorrect password.<br/>
