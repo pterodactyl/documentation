@@ -53,7 +53,7 @@ The following is to add a database managed by the panel for it's game servers
 ## Adding Database to Pterodactyl Panel
 In this guide we assume you have successfully installed the panel using the specified MariaDB as your database and it is on the `0.7.15` version.
 ## Adding DB user
-First of all you will need to add a user to your database.This is simply done by connecting to your database via ssh and running the following. And entering your database root password, if you haven't set one just hit enter.
+First of all, you will need to add a user to your database. This is simply done by connecting to your database via CLI and running the following commands. You may need to enter a password if you specified one when connecting to the database. To connect to your database, enter:
 ```bash
 mysql -u root -p
 ```
