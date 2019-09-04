@@ -48,7 +48,7 @@ GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
 :::tip
-The following is to add a database managed by the panel for it's game servers
+The following is to add a database managed by the panel for its game servers
 :::
 ## Adding Database to Pterodactyl Panel
 In this guide we assume you have successfully installed the panel using the specified MariaDB as your database and it is on the `0.7.15` version.
@@ -61,11 +61,11 @@ Once you are in the database you need to change the db schema by running
 ```sql
 USE mysql;
 ```
-To than create a user run.<span style="color:red"> Change`data` and `password` to keep your database safe! </span>
+To then create a user run.<span style="color:red"> Change `data` and `password` to keep your database safe! </span>
 ```sql
 CREATE USER 'data'@'127.0.0.1' IDENTIFIED BY 'password';
 ```
-Than add privileges for the user.
+Then add privileges for the user.
 :::danger
 If your database is on a different host than the one where your panel(daemon is installed, make sure to use `%` instead of `127.0.0.1` below
 :::
@@ -79,11 +79,11 @@ EXIT;
 ```
 You can now close your ssh session.
 :::tip
-Note. You might want to open your database to the internet. This is done by setting it's bind address to `0.0.0.0` instead of `127.0.0.1`
+Note. You might want to open your database to the internet. This is done by setting its bind-address to `0.0.0.0` instead of `127.0.0.1`
 :::
 ## Adding the DB to the Panel
 Go to `yourpaneldomain/admin/databases` and click `Create New`. This will open up a window in which you can add a database.
-Here you will need to fill it out as follows:
+Fill the form, following this example:
 - Name - A familiar name to reference the db at a later stage.
 - Host - The server this database is hosted on.
 - Port - Port of the database server.
