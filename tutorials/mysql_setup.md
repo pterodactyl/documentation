@@ -70,7 +70,7 @@ Than add privileges for the user.
 If your database is on a different host than your panel/daemon make sure to use `%` instead of `127.0.0.1` bellow
 :::
 ```sql
-GRANT ALL PRIVILEGES ON *.* TO 'data'@'127.0.0.1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'data'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
 Close your database connection with
