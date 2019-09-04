@@ -57,7 +57,6 @@ module.exports = {
                         '/community/installation-guides/panel/centos7.md',
                         '/community/installation-guides/panel/ubuntu1804.md',
                         '/community/installation-guides/panel/debian9.md',
-                        '/community/installation-guides/panel/debian10.md',
                     ]
                 },
                 {
