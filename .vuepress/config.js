@@ -66,7 +66,6 @@ module.exports = {
                         '/community/installation-guides/daemon/centos7.md',
                         '/community/installation-guides/daemon/ubuntu1804.md',
                         '/community/installation-guides/daemon/debian9.md',
-                        '/community/installation-guides/daemon/debian10.md',
                     ]
                 },
                 {
