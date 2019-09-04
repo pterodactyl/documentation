@@ -89,7 +89,7 @@ Here you will need to fill it out as follows:
 - Port - Port of the database server.
 - Username - Username of the user we created earlier.
 - Password - Password of the user we created earlier.
-- Linked node - Node the database is hosted on(can be left as none)
+- Linked node - Node the database is hosted on. (Default value can be retained)
 Hit create and you are done!
 ## Common Errors
 ### DatabaseController.php:142
