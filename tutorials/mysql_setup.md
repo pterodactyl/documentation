@@ -67,7 +67,7 @@ CREATE USER 'data'@'127.0.0.1' IDENTIFIED BY 'password';
 ```
 Then add privileges for the user.
 :::danger
-If your database is on a different host than the one where your panel(daemon is installed, make sure to use `%` instead of `127.0.0.1` below
+If your database is on a different host than the one where your panel(daemon is installed, make sure to use `%` instead of `127.0.0.1` below. If your password contains special characters make sure to escape them
 :::
 ```sql
 GRANT ALL PRIVILEGES ON *.* TO 'data'@'%' WITH GRANT OPTION;
@@ -97,3 +97,7 @@ Hit create and you are done!
 production.ERROR: ErrorException: Undefined variable: host in /var/www/pterodactyl/app/Http/Controllers/Admin/DatabaseController.php:142
 ```
 The database user you are trying to use doesn't have appropriate grants/has used incorrect password.<br/>
+```
+[PDOException] SQLSTATE[HY000] [2006] MySQL server has gone away
+```
+The database server has closed the connection during a query. This would usually be caused by the SQL server being on the same server as the panel. Best way to resolve this issue is to set the IP to `127.0.0.1`
