@@ -67,7 +67,7 @@ CREATE USER 'data'@'127.0.0.1' IDENTIFIED BY 'password';
 ```
 Then add privileges for the user.
 :::danger
-If your database is on a different host than the one where your panel(daemon is installed, make sure to use `%` instead of `127.0.0.1` below. If your password contains special characters make sure to escape them
+If your database is on a different host than the one where your panel(daemon is installed, make sure to use `%` instead of `127.0.0.1` below. If your password contains special characters, make sure to escape them.
 :::
 ```sql
 GRANT ALL PRIVILEGES ON *.* TO 'data'@'%' WITH GRANT OPTION;
