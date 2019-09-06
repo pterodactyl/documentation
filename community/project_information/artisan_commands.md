@@ -2,6 +2,9 @@
 ::: danger
 All the commands are ran in your panel web root directory, Most likely`/var/www/pterodactyl`
 :::
+:::tip
+Some commands have been skipped
+:::
 ## Database Setup
 ```bash
 php artisan p:environment:database
@@ -46,7 +49,7 @@ This command will execute pterodactyls ENV mail setup. Here you will be asked fo
 php artisan p:environment:setup
 ```
 This is the basic ENV setup for pterodactyl.
-- Egg Author Email : Here you will be asked to provide a valid email for the egg Author. If this email isn't valid the panel will not allow you to create new eggs
+- Egg Author Email : Here you will be asked to provide a valid email for the egg Author. If this email isn't valid the panel will not allow you to create new eggs and nests.
 - Application URL : The panel url you want to use. If you have a domain make this something like `panel.domain.tld` otherwise you may use your IP. This needs to be reachable by all your daemon servers.
 - Application Timezone : The timezone used by your panel and daemons. This will be the time shown in logs and used by all the docker containers. If you are looking for the whole list of the time-zones you will find it [Here](https://www.php.net/manual/en/timezones.php)
 - Cache Driver : The Cache driver used by pterodactyl.
@@ -116,3 +119,9 @@ Disable 2FA for a single user. fter a DB query it'll present you with a list of 
 php artisan p:user:make
 ```
 Opens a create user wizard<br>
+## Common Errors
+### ENV setup
+```
+SQLSTATE[HY000] [1698] Access denied for user 'user'@'localhost' (SQL: SELECT 1 FROM dual)
+```
+This error is mostly caused when the user you are trying to use has incorrect credentials for the database. Whoever it may be caused by many other options. To start troubleshooting do `systemctl status mysql` Here you will find details on the reason why the database is refusing connection. If you are using root it will always show this error. You need to have a separate user for security reasons

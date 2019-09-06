@@ -104,7 +104,7 @@ module.exports = {
                     title: 'Project Information',
                     collapsable: false,
                     children: [
-                       '/community/project_information/artasin_commands.md',
+                       '/community/project_information/artisan_commands.md',
                     ],
                 },
             ],
