@@ -108,7 +108,7 @@ Rebuilds the specified server
 ```bash
 php artisan p:user:delete
 ```
-Opens a user delete wizard asking for their username or email. After a DB query it'll present you with a list of user ids to pick and delete. `The ids are DB ids and NOT in order`
+Opens a user delete wizard asking for their username or email. After a DB query, it'll present you with a list of user ids to pick and delete. `The ids are DB ids and NOT in order`
 ## Disable 2FA for a user
 ```bash
 php artisan p:user:disable2fa
