@@ -1,6 +1,6 @@
 # Pterodactyl Artisan Commands
 ::: danger
-All the commands are ran in your panel web root directory, Most likely`/var/www/pterodactyl`
+All the commands are run in your panel web root directory, most likely `/var/www/pterodactyl`
 :::
 :::tip
 Some commands have been skipped
