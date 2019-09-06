@@ -124,4 +124,4 @@ Opens a create user wizard<br>
 ```
 SQLSTATE[HY000] [1698] Access denied for user 'user'@'localhost' (SQL: SELECT 1 FROM dual)
 ```
-This error is mostly caused when the user you are trying to use has incorrect credentials for the database. Whoever it may be caused by many other options. To start troubleshooting do `systemctl status mysql` Here you will find details on the reason why the database is refusing connection. If you are using root it will always show this error. You need to have a separate user for security reasons
+This error is mostly caused when the user you are trying to use has incorrect credentials for the database. Whoever it may be caused by many other options. To start troubleshooting do `systemctl status mysql` Here you will find details on the reason why the database is refusing the connection. If you are using root it will always show this error. You need to have a separate user for security reasons
