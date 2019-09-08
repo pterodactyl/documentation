@@ -98,6 +98,3 @@ production.ERROR: ErrorException: Undefined variable: host in /var/www/pterodact
 ```
 The database user you are trying to use doesn't have appropriate grants/has used incorrect password.<br/>
 ```
-[PDOException] SQLSTATE[HY000] [2006] MySQL server has gone away
-```
-The database server has closed the connection during a query. This would usually be caused by the SQL server being on the same server as the panel. Best way to resolve this issue is to set the IP to `127.0.0.1`
