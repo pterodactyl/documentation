@@ -96,7 +96,7 @@ This is will show a table of all currently installed themes along with their vie
 ### Install a Theme
 
 ```bash
-php artisan theme:install <theme-name>
+php artisan theme:install [theme-name]
 ```
 
 This will search for the file with the theme name followed by a `.theme.tar.gz` (standard Igaster theme packaged). If no theme name is provided, it will load all themes and give you a selection to install from.
@@ -104,11 +104,11 @@ This will search for the file with the theme name followed by a `.theme.tar.gz` 
 ### Create a Theme
 
 ```bash
-php artisan theme:create <theme-name>
+php artisan theme:create [theme-name]
 ```
 
 ### Remove a Theme
 
 ```bash
-php artisan theme:remove 
+php artisan theme:remove [theme-name]
 ```
