@@ -5,7 +5,7 @@ Artisan is a file located within your Pterodactyl installation directory. If you
 :::
 
 ::: tip
-To simplify this documentaiton, in command usage you'll see things like `<hello-world>` or `{hello-world}`. The first is a required parament and the latter is an optional argument.
+To simplify this documentaiton, in command usage you'll see things like `<hello-world>` or `{hello-world}`. The first is a required parameter and the latter is an optional argument.
 :::
 
 The Artisan CLI, command line interface, is part of the Laravel framework, which Pterodactyl is built on. This guide goes over some more Pterodactyl specific/related Artisan commands, which are all prefixed with the letter `p` (e.g. `p:user:make`). If you'd like to view all commands, you can do so by running:
