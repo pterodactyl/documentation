@@ -80,7 +80,19 @@ This is a commonly missed section of commands, but they exist and more people sh
 
 ### List All Themes
 
+```bash
+php artisan theme:list
+```
+
+This is will show a table of all currently installed themes along with their views and asset paths. This does not show themes that are ready to be installed, only installed themes.
+
 ### Install a Theme
+
+```bash
+php artisan theme:install <theme-name>
+```
+
+This will search for the file with the theme name followed by a `.theme.tar.gz` (standard Igaster theme packaged). If no theme name is provided, it will load all themes and give you a selection to install from.
 
 ### Create a Theme
 
