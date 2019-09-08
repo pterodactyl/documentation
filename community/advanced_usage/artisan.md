@@ -68,13 +68,13 @@ If you don't include the optional argument, it will instead use an interactive p
 ### Create/Make Location
 
 ```bash
-php artisan p:
+php artisan p:location:make {--short=us1} {--long="A description of this location."}
 ```
 
 ### Delete Location
 
 ```bash
-php artisan p:
+php artisan p:location:delete {--short=us1}
 ```
 
 ### Server Bulk Power
