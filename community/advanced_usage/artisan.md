@@ -65,21 +65,49 @@ If you don't include the optional argument, it will instead use an interactive p
 
 ## Server/Node Management
 
-### Create Location
+### Create/Make Location
+
+```bash
+php artisan p:
+```
 
 ### Delete Location
 
+```bash
+php artisan p:
+```
+
 ### Server Bulk Power
 
+```bash
+php artisan p:
+```
+
 ### Server Rebuild
+
+```bash
+php artisan p:
+```
 
 ## Panel Management
 
 ### View Panel Info
 
+```bash
+php artisan p:
+```
+
 ### Cleanup Service Backups
 
+```bash
+php artisan p:
+```
+
 ### Cleanup API Keys
+
+```bash
+php artisan p:
+```
 
 ## Theme Management
 
