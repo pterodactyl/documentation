@@ -94,8 +94,10 @@ php artisan p:
 ### View Panel Info
 
 ```bash
-php artisan p:
+php artisan p:info
 ```
+
+Displays a variety of panel information which can be used to check the configuation of this like database and email.
 
 ### Cleanup Service Backups
 
