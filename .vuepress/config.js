@@ -100,6 +100,13 @@ module.exports = {
                         '/community/tutorials/custom_theme_setup.md',
                     ],
                 },
+                {
+                  title: 'Advanced Usage',
+                  collapsable: false,
+                  children: [
+                    '/community/advanced_usage/artisan.md',
+                  ],
+                }
             ],
             '/': [
                 {
