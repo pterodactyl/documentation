@@ -102,14 +102,18 @@ Displays a variety of panel information which can be used to check the configuat
 ### Cleanup Service Backups
 
 ```bash
-php artisan p:
+php artisan p:maintenance:clean-service-backups
 ```
+
+When modifying services, backup files are created. This command cleans up these backups in the storage directory.
 
 ### Cleanup API Keys
 
 ```bash
-php artisan p:
+php artisan p:migration:clean-orphaned-keys
 ```
+
+When API keys are created, they assigned a role. Over time, there may be keys created that are not assigned a role and removes them from the database completely.
 
 ## Theme Management
 
