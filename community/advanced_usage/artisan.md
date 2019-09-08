@@ -76,7 +76,7 @@ If you don't include the optional argument, it will instead use an interactive p
 
 ## Theme Management
 
-This is a commonly missed section of commands, but they exist and more people should use theme. Pterodactyl has a built in theming system and with that comes a variety of commands for managing them easier.
+This is a commonly missed section of commands, but they exist and more people should be aware of them. Pterodactyl has a built in theming system and with that comes a variety of commands for managing them easier.
 
 ### List All Themes
 
