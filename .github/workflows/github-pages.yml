@@ -1,19 +1,22 @@
 name: GitHub pages
-on:
-  push:
-    branches:
-      - master
+on: push
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@master
+      
+    - name: Install dependencies
+      run: yarn
+      
+    - name: Build
+      run: yarn run build
 
-    - name: Build and deploy
-      uses: JamesIves/github-pages-deploy-action@2.0.0
+    - name: Deploy
+      if: github.ref == 'master'
+      uses: peaceiris/actions-gh-pages@v2.2.0
       env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BRANCH: gh-pages
-        FOLDER: .vuepress/dist
-        BUILD_SCRIPT: yarn && yarn run build
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PUBLISH_BRANCH: gh-pages
+        PUBLISH_DIR: ./.vuepress/dist
