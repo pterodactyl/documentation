@@ -63,7 +63,7 @@ USE mysql;
 ```
 To then create a user run.<span style="color:red"> Change `data` and `password` to keep your database safe! </span>
 ```sql
-CREATE USER 'data'@'127.0.0.1' IDENTIFIED BY 'password';
+CREATE USER 'data'@'%' IDENTIFIED BY 'password';
 ```
 Then add privileges for the user.
 :::danger
