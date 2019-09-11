@@ -29,7 +29,7 @@ module.exports = {
         logo: '/pterodactyl-flat.png',
         nav: [
             {
-                text: 'Get Started',
+                text: 'Documentation',
                 link: '/project/introduction.md',
             },
             {
