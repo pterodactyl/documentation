@@ -5,7 +5,7 @@ to use a SSL connection.
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/daemon/installing.md) but is tailored specifically for Debian 9.
+This guide is based off the [official installation documentation](/daemon/installing.md) but is tailored specifically for Debian 10.
 :::
 
 ## Install Requirements
