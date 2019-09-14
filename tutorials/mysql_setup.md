@@ -2,7 +2,7 @@
 [[toc]]
 
 
-## Creating a database for the pterodactyl panel
+## Creating a database for Pterodactyl
 MySQL is a core component of Pterodactyl Panel but it can be confusing to setup and use if you've never done so before.
 This is a very basic tutorial that skims just enough of the surface to set MySQL up and running with the panel.
 If you're interested in learning more, there are some great tutorials available on the Internet.
