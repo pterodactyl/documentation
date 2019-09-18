@@ -144,3 +144,11 @@ restorecon -R /var/www/pterodactyl/
 audit2allow -a -M http_port_t
 semodule -i http_port_t.pp
 ```
+
+## Database Errors
+
+### DatabaseController.php:142
+```
+production.ERROR: ErrorException: Undefined variable: host in /var/www/pterodactyl/app/Http/Controllers/Admin/DatabaseController.php:142
+```
+The database user you are trying to use doesn't have appropriate grants/has used incorrect password.
