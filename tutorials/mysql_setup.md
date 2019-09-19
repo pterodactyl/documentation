@@ -102,4 +102,8 @@ Fill the form, following this example:
 - Username - Username of the user we created earlier.
 - Password - Password of the user we created earlier.
 - Linked node - Node the database is hosted on. (Default value can be retained)
+::: tip
+When your database server is on the same node as the game server use `172.18.0.1` and not `120.0.0.1`<br>
+Keep in mind the databse you installed with Pterodactyl is MariaDB and not a standard database server, this may cause issues with plugins.
+:::
 Hit create and you are done!
