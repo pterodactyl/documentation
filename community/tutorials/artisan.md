@@ -104,22 +104,6 @@ php artisan p:info
 
 Displays a variety of panel information which can be used to check the configuation of this like database and email.
 
-### Cleanup Service Backups
-
-```bash
-php artisan p:maintenance:clean-service-backups
-```
-
-When modifying services, backup files are created. This command cleans up these backups in the storage directory.
-
-### Cleanup API Keys
-
-```bash
-php artisan p:migration:clean-orphaned-keys
-```
-
-When API keys are created, they assigned a role. Over time, there may be keys created that are not assigned a role and removes them from the database completely.
-
 ## Theme Management
 
 This is a commonly missed section of commands, but they exist and more people should be aware of them. Pterodactyl has a built in theming system and with that comes a variety of commands for managing them easier.
