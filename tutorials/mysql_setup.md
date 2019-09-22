@@ -16,7 +16,7 @@ installing MySQL. If you do not remember doing this, chances are you can just hi
 mysql -u root -p
 ```
 
-### Creating a User
+### Creating a user
 For security sake, and due to changes in MySQL 5.7, you'll need to create a new user for the panel. To do so, we want
 to first tell MySQL to use the mysql database, which stores such information.
 
@@ -31,7 +31,7 @@ USE mysql;
 CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'somePassword';
 ```
 
-### Create a Database
+### Create a database
 Next, we need to create a database for the panel. In this tutorial we will be naming the database `panel`, but you can
 substitute that for whatever name you wish.
 
@@ -39,7 +39,7 @@ substitute that for whatever name you wish.
 CREATE DATABASE panel;
 ```
 
-### Assigning Permissions
+### Assigning permissions
 Finally, we need to tell MySQL that our pterodactyl user should have access to the panel database. To do this, simply
 run the command below. If you plan on also using this MySQL instance as a database host on the Panel you'll want to
 include the `WITH GRANT OPTION` (which we are doing here). If you won't be using this user as part of the host setup
@@ -50,56 +50,32 @@ GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
 
-## Creating a database user for game servers
-:::tip Why this section exists
-Much of this is the same as the previous section but minor changes such as granting permissions on the `*.*` set of tables.
-
-The following is to add a database managed by the panel for its game servers
+## Creating a Database Host for Nodes
+:::tip
+This section covers creating a MySQL user that has permission to create and modify users. This allows the Panel to create per-server databases on the given host.
 :::
 
-In this guide we assume you have successfully installed the panel using the specified MariaDB (MySQL) as your database and it is on the `0.7.15` version.
-
-### Logging In
-
-``` bash
-mysql -u root -p
-```
-
-### Creating a User
-
-:::warning When creating your user
-To then create a user run. Change `data` and `password` to keep your database safe! (do not use the pterodactyl panel user)
-
-If your database is on a different host than the one where your panel/daemon is installed make sure to use your external IP of the panel host instead of `127.0.0.1` below.
-:::
-
-Create the user and set their password.
+### Creating a user
+If your database is on a different host than the one where your Panel or Daemon is installed make sure to use the IP address of the machine the Panel is running on. If you use `127.0.0.1` and try to connect externally, you will receive a connection refused error.
 
 ```sql
 USE mysql;
-CREATE USER 'data'@'127.0.0.1' IDENTIFIED BY 'password';
+
+# You should change the username and password below to something unique.
+CREATE USER 'pterodactyluser'@'127.0.0.1' IDENTIFIED BY 'somepassword';
 ```
 
-### Assigning Permissions
-
-Give the user access on the database and allow them to grant priviledges as well.
+### Assigning permissions
+The command below will give your newly created user the ability to create additional users, as well as create and destroy databases. As above, ensure `127.0.0.1` matches the IP address you used in the previous command.
 
 ```sql
-GRANT ALL PRIVILEGES ON *.* TO 'data'@'127.0.0.1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'pterodactyluser'@'127.0.0.1' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
 
-:::tip Datbase configuration changes
-Note. You might want to open your database to the internet. This is done by setting its bind-address to `0.0.0.0` instead of `127.0.0.1` in the my.cnf file.
-:::
+### Allowing external database access
+Chances are you'll need to allow external access to this MySQL instance in order to allow servers to connect to it. To do this, open `my.cnf`, which varies in location depending on your OS and how MySQL was installed.
 
-### Adding the new database to the Panel
-Go to `yourpaneldomain/admin/databases` and click `Create New`. This will open up a window in which you can add a database.
-Fill the form, following this example:
-- Name - A familiar name to reference the database at a later stage.
-- Host - The server this database is hosted on. (best if you use the external ip address)
-- Port - Port of the database server.
-- Username - Username of the user we created earlier.
-- Password - Password of the user we created earlier.
-- Linked node - Node the database is hosted on. (Default value can be retained)
-Hit create and you are done!
+Once opened, you'll want to change `bind-address=` to be `bind-address=0.0.0.0` which will allow connections on all interfaces, and thus, external connections.
+
+If your Node and Daemon are on the same machine, and you won't be needing external access, you can also use the `docker0` interface IP address, rather than `127.0.0.1`. This IP address can be found by running `ip addr | grep docker0`, and it likely looks something like `172.x.x.x`.
