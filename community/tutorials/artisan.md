@@ -29,7 +29,7 @@ php artisan help <command>
 
 ## User Management
 
-### Create/Make User
+### Create User
 
 ```bash
 php artisan p:user:make {--email=user@example.com}
@@ -43,7 +43,7 @@ php artisan p:user:make {--email=user@example.com}
 
 If you don't include the optional arguments, it will instead use an interactive prompt to guide you through the user creation process.
 
-### Delete/Remove User
+### Delete User
 
 ```bash
 php artisan p:user:delete {--user=username/email/UUID}
@@ -63,9 +63,9 @@ php artisan p:user:disable2fa {--email=user@example.com}
 
 If you don't include the optional argument, it will instead use an interactive prompt to ask you for the email address associated with the user.
 
-## Server/Node Management
+## Server & Node Management
 
-### Create/Make Location
+### Create Location
 
 ```bash
 php artisan p:location:make {--short=us1}
