@@ -98,15 +98,9 @@ module.exports = {
                     children: [
                         '/community/tutorials/creating_ssl_certificates.md',
                         '/community/tutorials/custom_theme_setup.md',
+                        '/community/tutorials/artisan.md',
                     ],
                 },
-                {
-                  title: 'Advanced Usage',
-                  collapsable: false,
-                  children: [
-                    '/community/advanced_usage/artisan.md',
-                  ],
-                }
             ],
             '/': [
                 {
