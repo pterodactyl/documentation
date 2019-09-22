@@ -85,6 +85,7 @@ The following will stop the daemon, remove the network, and start the daemon aga
 | ------------ | ------------- | ----- |
 | `username` | _none_ | The username to use when connecting to the registry. |
 | `password` | _none_ | The password associated with the account. |
+| `images` | _none_ | An array of images that are associated with the private registry. |
 | `auth` | _none_ | |
 | `email` | _none_ | |
 | `serveraddress` | _none_ | The address to the server the registry is located on. |
