@@ -1,16 +1,5 @@
 # Artisan CLI
 
-::: tip
-To simplify this documentaiton, in command usage you'll see things like the following:
-
-`<hello-world>` - Required argument
-
-`[hello-wolrd]` - Optional argument
-
-`{--hello-world}` - Option
-
-:::
-
 The Artisan CLI, command line interface, is part of the Laravel framework, which Pterodactyl is built on. The Artisan file is located in `/var/www/pterodactyl` if you followed the official guide. This guide goes over some more Pterodactyl specific/related Artisan commands, which are all prefixed with the letter `p` (e.g. `p:user:make`). If you'd like to view all commands, you can do so by running:
 
 ```bash
@@ -22,6 +11,17 @@ To get information regarding a specific command you can do so by running:
 ```bash
 php artisan help <command>
 ```
+
+::: tip
+To simplify this documentaiton, in command usage you'll see things like the following:
+
+`<hello-world>` - Required argument
+
+`[hello-wolrd]` - Optional argument
+
+`{--hello-world}` - Option
+
+:::
 
 ## User Management
 
