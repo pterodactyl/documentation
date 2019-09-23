@@ -25,6 +25,8 @@ To simplify this documentaiton, in command usage you'll see things like the foll
 
 ## User Management
 
+When running any of the following commands, you can either use the options or don't pass through anything and use the interactive prompt. You can also do both passing through options and using interactive prompts as well.
+
 ### Create User
 
 ```bash
@@ -37,15 +39,11 @@ php artisan p:user:make {--email=user@example.com}
                         {--no-password}
 ```
 
-If you don't include the optional arguments, it will instead use an interactive prompt to guide you through the user creation process.
-
 ### Delete User
 
 ```bash
 php artisan p:user:delete {--user=username/email/UUID}
 ```
-
-If you don't include the optional argument, it will instead use an interactive prompt to ask you for the information on the user to remove.
 
 ### Disable 2FA
 
@@ -56,8 +54,6 @@ Disabling 2-factor authentication should only be used as a last restort for user
 ```bash
 php artisan p:user:disable2fa {--email=user@example.com}
 ```
-
-If you don't include the optional argument, it will instead use an interactive prompt to ask you for the email address associated with the user.
 
 ## Server & Node Management
 
