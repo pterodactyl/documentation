@@ -55,7 +55,7 @@ Like the nginx configuration, this assumes you will be using SSL on both the Pan
 
 ### Enabling Configuration
 Once you've created the file above, simply run the commands below. If you are on CentOS _you do not need to run the commands
-below!_ You only need to run `systemctl httpd restart`.
+below!_ You only need to run `systemctl restart httpd`.
 
 ``` bash
 # You do not need to run any of these commands on CentOS
