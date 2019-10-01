@@ -21,7 +21,7 @@ dnf install -y policycoreutils selinux-policy selinux-policy-targeted setroubles
 
 ### MariaDB
 ```bash
-dnf install mariadb mariadb-server
+dnf install -y mariadb mariadb-server
 
 ## Start maraidb
 systemctl start mariadb
