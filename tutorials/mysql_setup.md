@@ -56,7 +56,7 @@ This section covers creating a MySQL user that has permission to create and modi
 :::
 
 ::: danger
-This is not for you to configure your mysql connections for servers. They should use the External IP of the DB server (or 172.18.0.1 for a database on the same node).
+This is not how to configure game servers.
 :::
 
 ### Creating a user
