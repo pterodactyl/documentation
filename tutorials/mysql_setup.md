@@ -55,6 +55,10 @@ FLUSH PRIVILEGES;
 This section covers creating a MySQL user that has permission to create and modify users. This allows the Panel to create per-server databases on the given host.
 :::
 
+::: danger
+This is not for you to configure your mysql connections for servers. They should use the External IP of the DB server (or 172.18.0.1 for a database on the same node).
+:::
+
 ### Creating a user
 If your database is on a different host than the one where your Panel or Daemon is installed make sure to use the IP address of the machine the Panel is running on. If you use `127.0.0.1` and try to connect externally, you will receive a connection refused error.
 
