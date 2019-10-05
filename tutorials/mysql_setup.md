@@ -62,14 +62,9 @@ If your database is on a different host than the one where your Panel or Daemon 
 USE mysql;
 
 # You should change the username and password below to something unique.
-CREATE USER 'pterodactyluser'@'127.0.0.1' IDENTIFIED BY 'somepassword';
-```
-
-### Assigning permissions
-The command below will give your newly created user the ability to create additional users, as well as create and destroy databases. As above, ensure `127.0.0.1` matches the IP address you used in the previous command.
 
 ```sql
-GRANT ALL PRIVILEGES ON *.* TO 'pterodactyluser'@'127.0.0.1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'username'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 ```
 
@@ -77,5 +72,3 @@ FLUSH PRIVILEGES;
 Chances are you'll need to allow external access to this MySQL instance in order to allow servers to connect to it. To do this, open `my.cnf`, which varies in location depending on your OS and how MySQL was installed.
 
 Once opened, you'll want to change `bind-address=` to be `bind-address=0.0.0.0` which will allow connections on all interfaces, and thus, external connections.
-
-If your Node and Daemon are on the same machine, and you won't be needing external access, you can also use the `docker0` interface IP address, rather than `127.0.0.1`. This IP address can be found by running `ip addr | grep docker0`, and it likely looks something like `172.x.x.x`.
