@@ -8,7 +8,7 @@ This guide is based off the [official installation documentation](/daemon/instal
 :::
 
 ## Install Requirements
-We will first begin by installing all of the Daemon's [required](/daemon/installing.md#dependencies) dependencies.
+We will first begin by installing all of the Daemon's [required dependencies](/daemon/installing.md#dependencies).
 
 ### General Requirements
 ```bash
