@@ -25,7 +25,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | | 18.04 | :white_check_mark: | |
 | **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
 | | 7 | :white_check_mark: | |
-| **Debian** | 8 | :warning: | Debian 8 may need modifications to work with the latest docker and other requirements for the panel/daemon |
+| **Debian** | 8 | :warning: | Debian 8 may need modifications to work with the latest docker and other requirements for the panel/daemon. |
 | | 9 | :white_check_mark: | |
 
 ## Dependencies
