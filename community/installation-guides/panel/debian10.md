@@ -37,7 +37,7 @@ systemctl enable mariadb
 ## Install the PHP 7.3 repo for debian
 apt install -y ca-certificates apt-transport-https
 wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
-echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
+echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list
 
 ## Get apt updates
 apt update
