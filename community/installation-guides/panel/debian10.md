@@ -5,7 +5,7 @@ to serve it using SSL.
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for Debian 9.
+This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for Debian 10.
 :::
 
 ## Install Requirements
