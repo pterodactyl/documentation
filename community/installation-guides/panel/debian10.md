@@ -16,7 +16,7 @@ We will first begin by installing all of Pterodactyl's [required](/panel/getting
 ## Get apt updates
 apt update
 
-## Install MariaDB 10.1
+## Install MariaDB 10.3
 apt install -y mariadb-common mariadb-server mariadb-client
 
 ## Start maraidb
@@ -30,7 +30,7 @@ systemctl enable mariadb
 apt update
 
 ## Install PHP 7.3
-apt install -y php7.3 php7.3-cli php7.3-gd php7.3-mysql php7.3-pdo php7.3-mbstring php7.3-tokenizer php7.3-bcmath php7.3-xml php7.3-fpm php7.3-curl php7.3-zip
+apt install -y php7.3 php7.3-cli php7.3-common php7.3-gd php7.3-mysql php7.3-mbstring php7.3-bcmath php7.3-xml php7.3-fpm php7.3-curl php7.3-zip
 ```
 
 ### Nginx
