@@ -5,7 +5,7 @@ to serve it using SSL.
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for Debian 9.
+This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for Debian 10.
 :::
 
 ## Install Requirements
@@ -13,18 +13,10 @@ We will first begin by installing all of Pterodactyl's [required](/panel/getting
 
 ### MariaDB
 ```bash
-apt install -y software-properties-common dirmngr
-
-## get MariaDB gpg keys
-apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-
-## install the MariaDB repo
-add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.jaleco.com/mariadb/repo/10.1/debian stretch main'
-
 ## Get apt updates
 apt update
 
-## Install MariaDB 10.1
+## Install MariaDB 10.3
 apt install -y mariadb-common mariadb-server mariadb-client
 
 ## Start maraidb
@@ -34,16 +26,11 @@ systemctl enable mariadb
 
 ### PHP 7.3
 ```bash
-## Install the PHP 7.3 repo for debian
-apt install -y ca-certificates apt-transport-https
-wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
-echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
-
 ## Get apt updates
 apt update
 
 ## Install PHP 7.3
-apt install -y php7.3 php7.3-cli php7.3-gd php7.3-mysql php7.3-pdo php7.3-mbstring php7.3-tokenizer php7.3-bcmath php7.3-xml php7.3-fpm php7.3-curl php7.3-zip
+apt install -y php7.3 php7.3-cli php7.3-common php7.3-gd php7.3-mysql php7.3-mbstring php7.3-bcmath php7.3-xml php7.3-fpm php7.3-curl php7.3-zip
 ```
 
 ### Nginx
