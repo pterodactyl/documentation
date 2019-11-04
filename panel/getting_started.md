@@ -29,7 +29,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | | 9 | :white_check_mark: | |
 
 ## Dependencies
-* PHP `7.2` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx
+* PHP `7.3` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx
 * MySQL `5.7` **or** MariaDB `10.1.3` or higher
 * Redis (`redis-server`)
 * A webserver (Apache, NGINX, Caddy, etc.)
@@ -59,7 +59,7 @@ apt update
 apt-add-repository universe
 
 # Install Dependencies
-apt -y install php7.2 php7.2-cli php7.2-gd php7.2-mysql php7.2-pdo php7.2-mbstring php7.2-tokenizer php7.2-bcmath php7.2-xml php7.2-fpm php7.2-curl php7.2-zip mariadb-server nginx tar unzip git redis-server
+apt -y install php7.3 php7.3-cli php7.3-gd php7.3-mysql php7.3-pdo php7.3-mbstring php7.3-tokenizer php7.3-bcmath php7.3-xml php7.3-fpm php7.3-curl php7.3-zip mariadb-server nginx tar unzip git redis-server
 ```
 
 ### Installing Composer
