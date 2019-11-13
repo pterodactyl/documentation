@@ -46,7 +46,7 @@ include the `WITH GRANT OPTION` (which we are doing here). If you won't be using
 you can remove that.
 
 ``` sql
-GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1';
 FLUSH PRIVILEGES;
 ```
 
