@@ -74,3 +74,6 @@ update grub and reboot, and you should be set.
 sudo update-grub
 sudo reboot
 ```
+
+## Boot from hard disk
+It's possible that even after you modified the GRUB configuration the server's still booted into a OVH kernel. If this happens to you, go to the OVH control panel and check the server's booting settings and make sure it's booting from hard disk instead of network boot.
