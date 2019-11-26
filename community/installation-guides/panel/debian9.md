@@ -15,12 +15,6 @@ We will first begin by installing all of Pterodactyl's [required](/panel/getting
 ```bash
 apt install -y software-properties-common dirmngr
 
-## get MariaDB gpg keys
-apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8
-
-## install the MariaDB repo
-add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://mirror.jaleco.com/mariadb/repo/10.1/debian stretch main'
-
 ## Get apt updates
 apt update
 
