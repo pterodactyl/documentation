@@ -17,7 +17,7 @@ To simplify this documentaiton, in command usage you'll see things like the foll
 
 `<hello-world>` - Required argument
 
-`[hello-wolrd]` - Optional argument
+`[hello-world]` - Optional argument
 
 `{--hello-world}` - Option
 
