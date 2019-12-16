@@ -54,6 +54,7 @@ module.exports = {
                     title: 'Panel Installation',
                     collapsable: false,
                     children: [
+                       '/community/installation-guides/panel/archlinux.md',
                         '/community/installation-guides/panel/centos7.md',
                         '/community/installation-guides/panel/centos8.md',
                         '/community/installation-guides/panel/debian9.md',
@@ -65,6 +66,7 @@ module.exports = {
                     title: 'Daemon Installation',
                     collapsable: false,
                     children: [
+                        '/community/installation-guides/daemon/archlinux.md',
                         '/community/installation-guides/daemon/centos7.md',
                         '/community/installation-guides/daemon/centos8.md',
                         '/community/installation-guides/daemon/debian9.md',
