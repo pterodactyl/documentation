@@ -200,3 +200,8 @@ sudo systemctl enable --now pteroq.service
 ```
 
 View the panel (with the included default configuration) on 127.0.0.1
+
+### Issues & Support
+
+Archlinux is not officially supported by pterodactyl, please submit any issues to the comments section of the AUR repo for pterodactyl-panel:
+https://aur.archlinux.org/packages/pterodactyl-panel/

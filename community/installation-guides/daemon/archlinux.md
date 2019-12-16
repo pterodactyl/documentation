@@ -66,3 +66,9 @@ Run the command below to reload systemd and start the daemon.
 ``` bash
 systemctl enable --now wings
 ```
+
+
+### Issues & Support
+
+Archlinux is not officially supported by pterodactyl, please submit any issues to the comments section of the AUR repo for pterodactyl-daemon:
+https://aur.archlinux.org/packages/pterodactyl-daemon/
