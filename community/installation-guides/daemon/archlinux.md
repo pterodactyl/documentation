@@ -44,7 +44,7 @@ Simply copy and paste the code block and paste it into a file called  and save i
 A script has been provided by the installed Daemon package at `/usr/bin/pterodactyl-daemon-config` which opens `/srv/daemon/config/core.json` with nano as root to allow editing.
 You may also use the Auto-Deployment feature rather than manually creating the files.
 
-![](./../.vuepress/public/daemon_configuration_example.png)
+![](./../../../.vuepress/public/daemon_configuration_example.png)
 
 ## Starting the Daemon
 To start your daemon simply move into the daemon directory and run the command below which will start the daemon in
@@ -70,5 +70,4 @@ systemctl enable --now wings
 
 ### Issues & Support
 
-Archlinux is not officially supported by pterodactyl, please submit any issues to the comments section of the AUR repo for pterodactyl-daemon:
-https://aur.archlinux.org/packages/pterodactyl-daemon/
+The [pterodactyl-daemon](https://aur.archlinux.org/packages/pterodactyl-daemon/) AUR package for Archlinux is maintained by community members, please submit any packaging issues to the comments section of the [AUR page](https://aur.archlinux.org/packages/pterodactyl-daemon/).

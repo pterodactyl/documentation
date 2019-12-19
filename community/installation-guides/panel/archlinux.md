@@ -11,12 +11,13 @@ This guide is based off the [official installation documentation](/daemon/instal
 ## Install Requirements
 We will first begin by installing [yay](https://github.com/Jguer/yay) to handle the installation of Pterodactyl's Panel ([from the Archlinux User Repos](https://aur.archlinux.org/packages/pterodactyl-daemon/) and it's dependencies.
 
+Commands are assumed to be run as a user (not as root!) unless otherwise specified.
+
 ### General Requirements
 ```bash
 sudo pacman -S git base-devel
 ```
-
-### Yay
+### Installing Yay
 
 ```bash
 git clone https://aur.archlinux.org/yay-git.git
@@ -24,7 +25,7 @@ cd yay-git
 makepkg -scif
 ```
 
-## Installing the Panel
+## Installing the Panel with Yay
 ```
 yay -S pterodactyl-panel
 ```
@@ -129,6 +130,12 @@ We need to configure some core aspects of the Panel.
 
 A script has been provided by the pterodactyl-panel package at `/usr/bin/pterodactyl-panel` which provides a menu for completeing the following configurations.
 
+``` bash
+sudo pterodactyl-panel
+```
+
+![](./../../../.vuepress/public/pterodactyl_panel_arch_script.png)
+
 These commands are assumed to be run as root from the installation directory (if not using the script)
 
 Generate a new application encryption key:
@@ -203,5 +210,4 @@ View the panel (with the included default configuration) on 127.0.0.1
 
 ### Issues & Support
 
-Archlinux is not officially supported by pterodactyl, please submit any issues to the comments section of the AUR repo for pterodactyl-panel:
-https://aur.archlinux.org/packages/pterodactyl-panel/
+The [pterodactyl-daemon](https://aur.archlinux.org/packages/pterodactyl-panel/) AUR package for Archlinux is maintained by community members, please submit any packaging issues to the comments section of the [AUR page](https://aur.archlinux.org/packages/pterodactyl-panel/).
