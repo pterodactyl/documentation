@@ -47,14 +47,17 @@ You may also use the Auto-Deployment feature rather than manually creating the f
 ![](./../../../.vuepress/public/daemon_configuration_example.png)
 
 ## Starting the Daemon
-To start your daemon simply move into the daemon directory and run the command below which will start the daemon in
+
+A script for starting the daemon is provided by the pterodactyl-daemon package at /usr/bin/pterodactyl-daemon.
+
+
+To start your daemon simply run the command below which will start the daemon in
 foreground mode. Once you are done, use `CTRL+C` to terminate the process. Depending on your server's internet connection
 pulling and starting the Daemon for the first time may take a few minutes.
 
 ``` bash
-sudo npm start
+pterodactyl-daemon
 ```
-A script has been provided by the installed Daemon package at `/usr/bin/pterodactyl-daemon` which starts the Daemon with the above two commands.
 
 ### Daemonizing (using systemd)
 
