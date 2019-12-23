@@ -132,6 +132,7 @@ foreground mode. Once you are done, use `CTRL+C` to terminate the process. Depen
 pulling and starting the Daemon for the first time may take a few minutes.
 
 ``` bash
+chmod u+x wings 
 sudo ./wings
 ```
 
