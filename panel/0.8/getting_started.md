@@ -64,6 +64,10 @@ apt-add-repository universe
 apt -y install php7.3 php7.3-cli php7.3-gd php7.3-mysql php7.3-pdo php7.3-mbstring php7.3-tokenizer php7.3-bcmath php7.3-xml php7.3-fpm php7.3-curl php7.3-zip mariadb-server nginx tar unzip git redis-server
 ```
 
+::: warning
+The commands above install PHP v7.3. If you are using the regular webserver configuration instructions to configure nginx, make sure to use the correct php-fpm socket in the `fastcgi_pass` configuration option.
+:::
+
 ### Installing Composer
 Composer is a dependency manager for PHP that allows us to ship everything you'll need code wise to operate the Panel. You'll
 need composer installed before continuing in this process.
