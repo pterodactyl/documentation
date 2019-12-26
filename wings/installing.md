@@ -14,9 +14,8 @@ This software _requires Pterodactyl 0.8_ in order to run.
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 14.04 | :no_entry_sign: | Does not support `systemd`. |
-| | 16.04 | :white_check_mark: | |
-| | 18.04 | :white_check_mark: | |
+| **Ubuntu** | 16.04 | :warning: | Ubuntu 16.04 is nearing end of life. |
+| | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
 | **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
 | | 7 | :white_check_mark: | |
 | **Debian** | 8 | :warning: | Requires [kernel modifications](/daemon/debian_8_docker.md) to run Docker. |
@@ -116,7 +115,7 @@ set when creating the node.
 
 The next step is to download the software and unpack the archive.
 ``` bash
-curl -L https://github.com/pterodactyl/wings/releases/download/v1.0.0-alpha.1/wings
+curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-alpha.1/wings
 ```
 ## Configure Daemon
 Once you have installed the daemon and required components, the next step is to create a node on your installed Panel
@@ -152,7 +151,7 @@ User=root
 WorkingDirectory=/srv/wings
 LimitNOFILE=4096
 PIDFile=/var/run/wings/daemon.pid
-ExecStart=./wings
+ExecStart=/srv/wings/wings
 Restart=on-failure
 StartLimitInterval=600
 
