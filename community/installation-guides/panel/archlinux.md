@@ -128,7 +128,7 @@ apt install -y certbot certbot-nginx
 ## Panel Setup
 We need to configure some core aspects of the Panel.
 
-A script has been provided by the pterodactyl-panel package at `/usr/bin/pterodactyl-panel` which provides a menu for completeing the following configurations.
+A script has been provided by the pterodactyl-panel package at `/usr/bin/pterodactyl-panel` which provides a menu for completing the following configurations.
 
 ``` bash
 sudo pterodactyl-panel
@@ -136,78 +136,11 @@ sudo pterodactyl-panel
 
 ![](./../../../.vuepress/public/pterodactyl_panel_arch_script.png)
 
-These commands are assumed to be run as root from the installation directory (if not using the script)
-
-Generate a new application encryption key:
-
-``` bash
-# Only run the command below if you are installing this Panel for
-# the first time and do not have any Pterodactyl Panel data in the database.
+From here follow the [official Panel installation documentation](/panel/getting_started.md#installation) starting with
+```bash
 php artisan key:generate --force
 ```
 
-::: danger
-Back up your encryption key (APP_KEY in the `.env` file). It is used as an encryption key for all data that needs to be stored securely (e.g. api keys).
-Store it somewhere safe - not just on your server. If you lose it, all encrypted data is useless and can't be restored, even if you have database backups.
-:::
-
-### Environment Configuration
-Pterodactyl's core environment is easily configured using a few different CLI commands built into the app. This step
-will cover setting up things such as sessions, caching, database credentials, and email sending.
-
-``` bash
-php artisan p:environment:setup
-php artisan p:environment:database
-
-# To use PHP's internal mail sending (not recommended), select "mail". To use a
-# custom SMTP server, select "smtp".
-php artisan p:environment:mail
-```
-
-### Database Setup
-Now we need to setup all of the base data for the Panel in the database you created earlier. **The command below
-may take some time to run depending on your machine. Please _DO NOT_ exit the process until it is completed!** This
-command will setup the database tables and then add all of the Nests & Eggs that power Pterodactyl.
-
-``` bash
-php artisan migrate --seed
-```
-
-### Add The First User
-You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
-At this time passwords **must** meet the following requirements: 8 characters, mixed case, at least one number.
-
-``` bash
-php artisan p:user:make
-```
-
-## Queue Listeners
-We make use of queues to make the application faster and handle sending emails and other actions in the background.
-You will need to setup the queue worker for these actions to be processed.
-
-### Crontab Configuration
-The first thing we need to do is create a new cronjob that runs every minute to process specific Pterodactyl tasks, such
-as session cleanup and sending scheduled tasks to daemons. You'll want to open your crontab using `sudo crontab -e` and
-then paste the line below.
-
-```bash
-* * * * * php /var/www/pterodactyl/artisan schedule:run >> /dev/null 2>&1
-```
-
-### Enable Queue Worker
-Next you need to enable a new systemd worker to keep our queue process running in the background. This queue is responsible
-for sending emails and handling many other background tasks for Pterodactyl.
-
-A file called `pteroq.service` has been included in `/etc/systemd/system` by the installed pterodactyl-panel package with the appropriate systemd configuration.
-
-Finally, enable and start the service:
-
-``` bash
-sudo systemctl enable --now pteroq.service
-```
-
-View the panel (with the included default configuration) on 127.0.0.1
-
 ### Issues & Support
 
-The [pterodactyl-daemon](https://aur.archlinux.org/packages/pterodactyl-panel/) AUR package for Archlinux is maintained by community members, please submit any packaging issues to the comments section of the [AUR page](https://aur.archlinux.org/packages/pterodactyl-panel/).
+The [pterodactyl-panel](https://aur.archlinux.org/packages/pterodactyl-panel/) and daemon AUR packages are maintained by community members, please submit any packaging issues to the comments section of the [AUR page](https://aur.archlinux.org/packages/pterodactyl-panel/) and not to the Pterodactyl github.

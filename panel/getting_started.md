@@ -29,6 +29,8 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | **Debian** | 8 | :warning: | Debian 8 may need modifications to work with the latest docker and other requirements for the panel/daemon |
 | | 9 | :white_check_mark: | Extra repos are required. |
 | | 10 | :white_check_mark: | All required packages are part of the base repos. |
+| **Arch Linux** |  | :white_check_mark: | Available from the AUR (pterodactyl-panel). |
+
 
 ## Dependencies
 * PHP `7.2` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx
@@ -153,7 +155,7 @@ use them correctly.
 
 ``` bash
 # If using NGINX or Apache (not on CentOS):
-chown -R www-data:www-data * 
+chown -R www-data:www-data *
 
 # If using NGINX on CentOS:
 chown -R nginx:nginx *
@@ -214,7 +216,7 @@ If you are not using `redis` for anything you should remove the `After=` line, o
 when the service starts.
 :::
 
-If you are are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command: 
+If you are are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command:
 ```bash
 sudo systemctl enable --now redis-server
 ```

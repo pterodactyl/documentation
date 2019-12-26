@@ -16,6 +16,8 @@
 | **RHEL** | 7 | :warning: | Not officially supported, should work. |
 | **Fedora** | 28 | :warning: | Not officially supported, should work. |
 | | 29 | :warning: | Not officially supported, should work. |
+| **Arch Linux** |  | :white_check_mark: | Available from the AUR (pterodactyl-daemon). |
+
 
 ## System Requirements
 In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
@@ -35,7 +37,7 @@ Hypervisor vendor:     VMware
 Virtualization type:   full
 ```
 
-If that doesn't work for some reason, or you're still unsure, you can also run the command below and as long as it 
+If that doesn't work for some reason, or you're still unsure, you can also run the command below and as long as it
 doesn't report `Xen` or `LXC` you're probably okay to continue.
 
 ``` bash
