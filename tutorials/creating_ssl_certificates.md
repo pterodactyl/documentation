@@ -1,16 +1,18 @@
 # Creating SSL Certificates
-This tutorial briefly covers creating new SSL certificates for your panel and daemon using LetsEncrypt&trade;. To
-begin, we will be installing certbot, a simple script that will automatically renew our certificates and allow much
+This tutorial briefly covers creating new SSL certificates for your panel and daemon using LetsEncrypt&trade;. 
+
+## Method 1: Using Certbot
+To begin, we will be installing certbot, a simple script that will automatically renew our certificates and allow much
 cleaner creation of them. The command below is for Ubuntu distributions, but you can always check [Certbot's official
 site](https://certbot.eff.org/) for installation instructions.
                                                                                                                
 ``` bash
 sudo add-apt-repository ppa:certbot/certbot
-sudo apt-get update
-sudo apt-get install certbot
+sudo apt update
+sudo apt install certbot
 ```
 
-## Creating a Certificate
+### Creating a Certificate
 After installing certbot, we need to then generate a certificate. There are a couple ways to do that, but the
 easiest is to have letsencrypt spin-up a temporary web-server to do this. In order for this to work, you will
 first need to stop NGINX or Apache.
@@ -26,11 +28,31 @@ that you've already configured the webservers to use SSL).
 certbot certonly -d example.com
 ```
 
-## Auto Renewal
+### Auto Renewal
 You'll also probably want to configure automatic renewal by adding the command below to a cronjob that runs daily.
 You can add the command below to that crontab. For advanced users, we suggest installing and using [acme.sh](https://acme.sh)
-which provides more options, and is much more powerful than certbot.
+which provides more options (see below), and is much more powerful than certbot.
 
 ``` text
 certbot renew
+```
+
+## Troubleshooting
+If you get an `Insecure Connection` or related error when trying to access your panel, it is likely that the SSL certificate has expired.
+This can be easily fixed by renewing the SSL certificate, although using the command `certbot renew` won't do the job. As it'll give a error like: `Error: Attempting to renew cert (domain) from /etc/letsencrypt/renew/domain.conf produced an unexpected error`.
+This will happen especially if you're running NGINX instead of Apache. The solution for this is to stop NGINX, then renew the certificate, finally restart NGINX.
+
+Stop NGINX:
+```bash
+systemctl stop nginx
+```
+
+Renew the certificate:
+```bash
+certbot renew
+```
+
+Once the process has complete, you can restart the NGINX service:
+```bash
+systemctl start nginx
 ```

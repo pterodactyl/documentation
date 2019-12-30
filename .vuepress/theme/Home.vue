@@ -3,11 +3,9 @@
         <div class="header section bg-blue text-grey-lightest less-padding emphasize">
             <div class="container z-10">
                 <div class="text-center">
-                    <h1 class="text-5xl font-normal">Pterodactyl</h1>
                     <div>
-                        <img class="max-w-xs" :src="$withBase('pterodactyl.png')">
+                        <img class="max-w-xl w-full" src="https://cdn.pterodactyl.io/logos/new/pterodactyl_logo_transparent.png" alt="Pterodactyl">
                     </div>
-                    <h2 class="font-light text-3xl border-0">The open-source server management solution.</h2>
                     <div class="mt-4">
                         <a class="btn hidden md:inline-block" href="https://demo.pterodactyl.io" target="_blank" rel="nofollow noopener">Demo</a>
                         <router-link class="btn inline-block" to="/panel/getting_started.html">Get started</router-link>
@@ -108,7 +106,7 @@
                     <div class="hidden md:block md:flex-1 md:pr-12">
                         <p><a class="text-grey-lightest" href="https://blog.pterodactyl.io/">Blog</a></p>
                         <p><a class="text-grey-lightest" href="https://github.com/pterodactyl">Github</a></p>
-                        <p><a class="text-grey-lightest" href="https://donorbox.org/pterodactyl" target="_blank">Support Pterodactyl</a></p>
+                        <p><a class="text-grey-lightest" href="https://paypal.me/PterodactylSoftware" target="_blank">Support Pterodactyl</a></p>
                         <p><a class="text-grey-lightest" href="/panel/troubleshooting.html">Troubleshooting</a></p>
                         <p><a class="text-grey-lightest" href="https://github.com/parkervcp/eggs">Additional Game Configurations</a></p>
                     </div>
@@ -118,7 +116,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="footer">MIT Licensed | Copyright © 2015 - 2018 Dane Everitt & Contributors.</div>
+                <div class="footer">MIT Licensed | Copyright © 2015 - 2019 Dane Everitt & Contributors.</div>
             </div>
         </div>
     </div>

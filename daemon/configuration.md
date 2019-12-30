@@ -56,6 +56,13 @@ Using the `host` stack removes many network specific protections afforded by Doc
 to access anything on the host, as well as bind to any IP or Port they wish.
 :::
 
+::: danger
+Any changes to the network after the daemon has been started will require you to remove the docker network and restart the daemon. Any servers on the host need to be stopped before and most likely rebuilt.
+
+The following will stop the daemon, remove the network, and start the daemon again. Run at your own risk.  
+`systemctl stop wings && docker network rm pterodactyl_nw && systemctl start wings`
+:::
+
 ``` json{5}
 "docker": {
     "socket": "/var/run/docker.sock",
@@ -78,6 +85,7 @@ to access anything on the host, as well as bind to any IP or Port they wish.
 | ------------ | ------------- | ----- |
 | `username` | _none_ | The username to use when connecting to the registry. |
 | `password` | _none_ | The password associated with the account. |
+| `images` | _none_ | An array of images that are associated with the private registry. |
 | `auth` | _none_ | |
 | `email` | _none_ | |
 | `serveraddress` | _none_ | The address to the server the registry is located on. |

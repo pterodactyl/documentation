@@ -14,7 +14,11 @@ You should paste the contents of the file below, replacing `<domain>` with your 
 ### NGINX With SSL
 This configuration assumes that you will be using SSL on both the Panel and Daemons for significantly improved communication
 security between users and the Panel. You will need to get a valid SSL certificate which can be done for free by using
-Let's Encrypt. Please see our Creating SSL Certificates documentation for how to create these certificates before continuing.
+Let's Encrypt. 
+
+::: warning 
+When using the SSL configuration you MUST create SSL certificates, otherwise your NGINX will fail to start.  See [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page for how to create these certificates before continuing.
+:::
 
 <<< @/.snippets/webservers/nginx.conf{5,11,26-27}
 
@@ -38,11 +42,24 @@ systemctl restart nginx
 You should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place it in `/etc/apache2/sites-available`, or &mdash; if on CentOS, `/etc/httpd/conf.d/`.
 
-<<< @/.snippets/webservers/apache.conf{2}
+Note: When using Apache, make sure you have the `libapache2-mod-php` package installed or else PHP will not display on your webserver.
+
+### Apache With SSL
+Like the nginx configuration, this assumes you will be using SSL on both the Panel and Daemons for improved security.
+
+::: warning
+When using the SSL configuration you MUST create SSL certificates, otherwise your Apache will fail to start.  See [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page for how to create these certificates before continuing.
+:::
+
+<<< @/.snippets/webservers/apache.conf{2,8,17-18}
+
+### Apache Without SSL
+
+<<< @/.snippets/webservers/apache-nossl.conf{2}
 
 ### Enabling Configuration
 Once you've created the file above, simply run the commands below. If you are on CentOS _you do not need to run the commands
-below!_ You only need to run `systemctl httpd restart`.
+below!_ You only need to run `systemctl restart httpd`.
 
 ``` bash
 # You do not need to run any of these commands on CentOS

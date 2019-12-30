@@ -29,73 +29,126 @@ module.exports = {
         logo: '/pterodactyl-flat.png',
         nav: [
             {
-                text: 'Get Started',
+                text: 'Documentation',
                 link: '/project/introduction.md',
             },
-            // {
-            //     text: 'API Reference',
-            //     link: '/api/'
-            // },
+            {
+                text: 'Community Guides',
+                link: '/community/about.md',
+            },
             {
                 text: 'Get Help',
                 link: 'https://pterodactyl.io/discord'
             }
         ],
-        sidebar: [
-            {
-                title: 'Project Information',
-                collapsable: false,
-                children: [
-                    '/project/introduction.md',
-                    '/project/about.md',
-                    '/project/terms.md',
-                ]
-            },
-            {
-                title: 'Panel',
-                collapsable: false,
-                children: [
-                    '/panel/getting_started',
-                    '/panel/webserver_configuration',
-                    '/panel/upgrading',
-                    '/panel/configuration',
-                    '/panel/troubleshooting',
-                ]
-            },
-            {
-                title: 'Daemon',
-                collapsable: false,
-                children: [
-                    '/daemon/installing',
-                    '/daemon/upgrading',
-                    '/daemon/configuration',
-                    '/daemon/kernel_modifications',
-                    '/daemon/debian_8_docker',
-                ]
-            },
-            {
-                title: 'Tutorials',
-                collapsable: false,
-                children: [
-                    '/tutorials/mysql_setup.md',
-                    '/tutorials/creating_ssl_certificates.md',
-                ],
-            },
-            {
-                title: 'Development & Ops',
-                collapsable: true,
-                children: [
-                    '/ops/publish_release.md',
-                ],
-            },
-            // {
-            //     title: 'API Reference',
-            //     collapsable: true,
-            //     children: [
-            //         '/',
-            //     ]
-            // }
-        ]
+        sidebar: {
+            '/community/': [
+                {
+                    title: 'Community Guides',
+                    collapsable: false,
+                    children: [
+                        '/community/about.md',
+                    ]
+                },
+                {
+                    title: 'Panel Installation',
+                    collapsable: false,
+                    children: [
+                        '/community/installation-guides/panel/centos7.md',
+                        '/community/installation-guides/panel/centos8.md',
+                        '/community/installation-guides/panel/debian9.md',
+                        '/community/installation-guides/panel/debian10.md',
+                        '/community/installation-guides/panel/ubuntu1804.md',
+                    ]
+                },
+                {
+                    title: 'Daemon Installation',
+                    collapsable: false,
+                    children: [
+                        '/community/installation-guides/daemon/centos7.md',
+                        '/community/installation-guides/daemon/centos8.md',
+                        '/community/installation-guides/daemon/debian9.md',
+                        '/community/installation-guides/daemon/debian10.md',
+                        '/community/installation-guides/daemon/ubuntu1804.md',
+                    ]
+                },
+                {
+                    title: 'Creating Eggs',
+                    collapsable: false,
+                    children: [
+                        '/community/config/eggs/creating_a_custom_egg.md',
+                        '/community/config/eggs/creating_a_custom_image.md',
+                    ],
+                },
+                {
+                    title: 'Game Configuration',
+                    collapsable: false,
+                    children: [
+                        '/community/games/minecraft.md',
+                    ],
+                },
+                {
+                    title: 'Tutorials',
+                    collapsable: false,
+                    children: [
+                        '/community/config/nodes/add_node.md',
+                        '/community/tutorials/creating_ssl_certificates.md',
+                        '/community/tutorials/custom_theme_setup.md',
+                        '/community/tutorials/artisan.md',
+                    ],
+                },
+            ],
+            '/': [
+                {
+                    title: 'Project Information',
+                    collapsable: false,
+                    children: [
+                        '/project/introduction.md',
+                        '/project/about.md',
+                        '/project/terms.md',
+                        '/project/community.md',
+                    ]
+                },
+                {
+                    title: 'Panel',
+                    collapsable: false,
+                    children: [
+                        '/panel/getting_started',
+                        '/panel/webserver_configuration',
+                        '/panel/upgrading',
+                        '/panel/configuration',
+                        '/panel/troubleshooting',
+                    ]
+                },
+                {
+                    title: 'Daemon',
+                    collapsable: false,
+                    children: [
+                        '/daemon/installing',
+                        '/daemon/upgrading',
+                        '/daemon/configuration',
+                        '/daemon/kernel_modifications',
+                        '/daemon/debian_8_docker',
+                        '/daemon/standalone_sftp',
+                    ]
+                },
+                {
+                    title: 'Tutorials',
+                    collapsable: false,
+                    children: [
+                        '/tutorials/mysql_setup.md',
+                        '/tutorials/creating_ssl_certificates.md',
+                    ],
+                },
+                {
+                    title: 'Development & Ops',
+                    collapsable: true,
+                    children: [
+                        '/ops/publish_release.md',
+                    ],
+                },
+            ],
+        },
     },
     postcss: {
         plugins: [

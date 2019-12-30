@@ -19,7 +19,7 @@ After you've installed the new kernel you'll need to update the grub loader usin
 server reboot is in order.
 
 ``` bash
-sudo chmod -x /etc/grub.d/06_OVHkernel
+sudo mv /etc/grub.d/06_OVHkernel /etc/grub.d/96_OVHkernel
 sudo update-grub
 sudo reboot
 ```
@@ -74,3 +74,6 @@ update grub and reboot, and you should be set.
 sudo update-grub
 sudo reboot
 ```
+
+## Boot from hard disk
+It's possible that even after you modified the GRUB configuration the server's still booted into a OVH kernel. If this happens to you, go to the OVH control panel and check the server's booting settings and make sure it's booting from hard disk instead of network boot.

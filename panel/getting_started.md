@@ -21,16 +21,18 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
 | **Ubuntu** | 14.04 | :warning: | Documentation assumes changes to `systemd` introduced in `16.04` |
-| | 16.04 | :white_check_mark: | Documentation written assuming Ubuntu 16 as the base OS. |
-| | 18.04 | :white_check_mark: | |
+| | 16.04 | :warning: | Ubuntu 16.04 is nearing end of life. |
+| | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
 | **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
-| | 7 | :white_check_mark: | |
-| **Debian** | 8 | :white_check_mark: | |
-| | 9 | :white_check_mark: | |
+| | 7 | :white_check_mark: | Extra repos are required. |
+| | 8 | :white_check_mark: | All required packages are part of the base repos. |
+| **Debian** | 8 | :warning: | Debian 8 may need modifications to work with the latest docker and other requirements for the panel/daemon |
+| | 9 | :white_check_mark: | Extra repos are required. |
+| | 10 | :white_check_mark: | All required packages are part of the base repos. |
 
 ## Dependencies
-* PHP `7.2` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`
-* MySQL `5.7` or higher **or** MariaDB `10.1.3` or higher
+* PHP `7.2` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx
+* MySQL `5.7` **or** MariaDB `10.1.3` or higher
 * Redis (`redis-server`)
 * A webserver (Apache, NGINX, Caddy, etc.)
 * `curl`
@@ -45,7 +47,7 @@ operating system's package manager to determine the correct packages to install.
 
 ``` bash
 # Add "add-apt-repository" command
-apt -y install software-properties-common
+apt -y install software-properties-common curl
 
 # Add additional repositories for PHP, Redis, and MariaDB
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
@@ -59,7 +61,7 @@ apt update
 apt-add-repository universe
 
 # Install Dependencies
-apt -y install php7.2 php7.2-cli php7.2-gd php7.2-mysql php7.2-pdo php7.2-mbstring php7.2-tokenizer php7.2-bcmath php7.2-xml php7.2-fpm php7.2-curl php7.2-zip mariadb-server nginx curl tar unzip git redis-server
+apt -y install php7.2 php7.2-cli php7.2-gd php7.2-mysql php7.2-pdo php7.2-mbstring php7.2-tokenizer php7.2-bcmath php7.2-xml php7.2-fpm php7.2-curl php7.2-zip mariadb-server nginx tar unzip git redis-server
 ```
 
 ### Installing Composer
@@ -85,7 +87,7 @@ and then set the correct permissions on the `storage/` and `bootstrap/cache/` di
 allow us to store files as well as keep a speedy cache available to reduce load times.
 
 ``` bash
-curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v0.7.10/panel.tar.gz
+curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v0.7.16/panel.tar.gz
 tar --strip-components=1 -xzvf panel.tar.gz
 chmod -R 755 storage/* bootstrap/cache/
 ```
@@ -95,12 +97,11 @@ Now that all of the files have been downloaded we need to configure some core as
 
 ::: tip Database Configuration
 You will need a database setup and a user with the correct permissions created for that database before
-continuing any further. If you are unsure how to do this, please consult our documentation.
+continuing any further. If you are unsure how to do this, please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
 :::
 
 First we will copy over our default environment settings file, install core dependencies, and then generate a
-new application encryption key. **You should make a backup of the encryption key and store it in a secure
-location, _not on the server itself_.**
+new application encryption key.
 
 ``` bash
 cp .env.example .env
@@ -110,6 +111,11 @@ composer install --no-dev --optimize-autoloader
 # the first time and do not have any Pterodactyl Panel data in the database.
 php artisan key:generate --force
 ```
+
+::: danger
+Back up your encryption key (APP_KEY in the `.env` file). It is used as an encryption key for all data that needs to be stored securely (e.g. api keys).
+Store it somewhere safe - not just on your server. If you lose it, all encrypted data is useless and can't be restored, even if you have database backups.
+:::
 
 ### Environment Configuration
 Pterodactyl's core environment is easily configured using a few different CLI commands built into the app. This step
@@ -133,6 +139,7 @@ command will setup the database tables and then add all of the Nests & Eggs that
 php artisan migrate --seed
 ```
 
+### Add The First User
 You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
 At this time passwords **must** meet the following requirements: 8 characters, mixed case, at least one number.
 
@@ -188,7 +195,7 @@ After=redis-server.service
 
 [Service]
 # On some systems the user and group might be different.
-# Some systems use `apache` as the user and group.
+# Some systems use `apache` or `nginx` as the user and group.
 User=www-data
 Group=www-data
 Restart=always
@@ -198,14 +205,22 @@ ExecStart=/usr/bin/php /var/www/pterodactyl/artisan queue:work --queue=high,stan
 WantedBy=multi-user.target
 ```
 
+::: tip Redis on CentOS
+If you are using CentOS, you will need to replace `redis-server.service` with `redis.service` at the `After=` line in order to ensure `redis` starts before the queue worker.
+:::
+
 ::: tip
 If you are not using `redis` for anything you should remove the `After=` line, otherwise you will encounter errors
 when the service starts.
 :::
 
+If you are are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command: 
+```bash
+sudo systemctl enable --now redis-server
+```
+
 Finally, enable the service and set it to boot on machine start.
 
 ``` bash
-sudo systemctl enable pteroq.service
-sudo systemctl start pteroq
+sudo systemctl enable --now pteroq.service
 ```

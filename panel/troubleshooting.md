@@ -44,7 +44,7 @@ local.ERROR: ErrorException: file_put_contents(...): failed to open stream: Perm
 From this error we can determine that there was an error performing a [file_put_contents()](http://php.net/manual/en/function.file-put-contents.php) call, and the error was
 that we couldn't open the file because permissions were denied. Its okay if you don't understand the error at all, but
 it does help you get faster support if you're able to provide these logs, and at least find the source of the error.
-Sometimes the errors are pretty strightforward and will tell you exactly what went wrong, such as a `ConnectionException`
+Sometimes the errors are pretty straightforward and will tell you exactly what went wrong, such as a `ConnectionException`
 being thrown when the Panel can't connect to the Daemon.
 
 ### Utilizing GREP
@@ -52,7 +52,7 @@ If you're trying to go through a bunch of errors quickly, you can use the comman
 be the actual error lines, without all of the stack traces.
 
 ``` bash
-tail -n 1000 /var/www/pterodactyl/storage/logs/laravel-$(date +%F) | grep "\[$(date +%Y)"
+tail -n 1000 /var/www/pterodactyl/storage/logs/laravel-$(date +%F).log | grep "\[$(date +%Y)"
 ```
 
 ## Transfer Exceptions / XHR Poll Error
@@ -116,7 +116,7 @@ installation of the Panel.
 When restoring backups you should _always_ restore the `.env` file!
 :::
 
-Sometimes when using the Panel you'll unexpectely encounter a broken page, and upon checking the logs you'll see
+Sometimes when using the Panel you'll unexpectedly encounter a broken page, and upon checking the logs you'll see
 an exception mentioning an invalid MAC when decrypting. This error is caused by mismatched `APP_KEY`s in your `.env` file
 when the data was encrypted versus decrypted.
 
@@ -128,10 +128,15 @@ On systems with SELinux installed you might encounter unexpected errors when run
 to the daemon to perform actions. These issues can generally be resolved by executing the commands below to allow
 these programs to work with SELinux.
  
-### Redis Permissions
+### Redis Permissions Errors
 ``` bash
 audit2allow -a -M redis_t
 semodule -i redis_t.pp
+```
+
+### In case there is any weirdness with parts of the panel
+``` bash
+restorecon -R /var/www/pterodactyl/
 ```
 
 ### Daemon Connection Errors
@@ -139,3 +144,11 @@ semodule -i redis_t.pp
 audit2allow -a -M http_port_t
 semodule -i http_port_t.pp
 ```
+
+## Database Errors
+
+### DatabaseController.php:142
+```
+production.ERROR: ErrorException: Undefined variable: host in /var/www/pterodactyl/app/Http/Controllers/Admin/DatabaseController.php:142
+```
+The database user you are trying to use doesn't have appropriate grants/has used incorrect password.

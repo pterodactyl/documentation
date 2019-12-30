@@ -14,6 +14,8 @@
 | | 9 | :white_check_mark: | |
 | **Alpine Linux** | 3.4+ | :warning: | Not officially supported, but reportedly works. |
 | **RHEL** | 7 | :warning: | Not officially supported, should work. |
+| **Fedora** | 28 | :warning: | Not officially supported, should work. |
+| | 29 | :warning: | Not officially supported, should work. |
 
 ## System Requirements
 In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
@@ -46,9 +48,10 @@ Pterodactyl's Daemon requires the following dependencies be installed on your sy
 
 * Docker
 * Nodejs (`8.0` or `10.0`)
+* `node-gyp`
 * `tar`
 * `unzip`
-* `make`, `gcc` (`gcc-g++` on CentOS), `g++`
+* `make`, `gcc` (`gcc-c++` on CentOS), `g++`
 * `python`
 
 ### Installing Docker
@@ -71,7 +74,7 @@ probably using a non-supported kernel. Check our [Kernel Modifications](kernel_m
 :::
 
 #### Start Docker on Boot
-If you are on Ubuntu 16 or CentOS run the command below to have Docker start when you boot your machine.
+If you are on an operating system with systemd (Ubuntu 16+, Debian 8+, CentOS 7+) run the command below to have Docker start when you boot your machine.
 
 ``` bash
 systemctl enable docker
@@ -97,7 +100,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
 NodeJS is also super easy to install! Simply run the command below to make the package accessible to your system.
 
 ``` bash
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 apt -y install nodejs make gcc g++
 ```
 
@@ -123,7 +126,7 @@ set when creating the node.
 
 The next step is to download the software and unpack the archive.
 ``` bash
-curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.7/daemon.tar.gz | tar --strip-components=1 -xzv
+curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.12/daemon.tar.gz | tar --strip-components=1 -xzv
 ```
 
 Finally, we need to install the dependencies that allow the Daemon to run properly. This command will most likely
@@ -181,9 +184,7 @@ WantedBy=multi-user.target
 Then, run the commands below to reload systemd and start the daemon.
 
 ``` bash
-systemctl daemon-reload
-systemctl enable wings
-systemctl start wings
+systemctl enable --now wings
 ```
 
 ### Daemonizing (using Forever)
