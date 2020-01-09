@@ -43,7 +43,7 @@ systemctl start docker
 curl -sL https://deb.nodesource.com/setup_10.x | bash -
 
 ## Install nodejs
-apt install -y nodejs npm
+apt install -y nodejs
 ```
 
 ## Installing the Daemon
