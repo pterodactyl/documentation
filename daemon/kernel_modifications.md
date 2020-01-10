@@ -5,6 +5,10 @@
 ::: tip
 In most cases, only users with a server provided by OVH will need to make any modifications to their kernel.
 :::
+::: edit
+OVH stopped providing a custom kernel on Ubuntu distros as of Canonical's copyright. They are always providing custom kernel for Debian and commands below does work only on Ubuntu.
+:::
+
 
 ## Update Kernel
 Install the new kernels using apt-get. In this case we are installing the latest version of the kernel,
