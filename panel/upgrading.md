@@ -26,3 +26,4 @@ php artisan queue:restart
 
 * [0.6.X to 0.7.16](/panel/upgrade/0.6_to_0.7.md)
 * [0.7.X series](/panel/upgrade/0.7.md) <Badge text="current" vertical="middle"/>
+* [0.8.X series](/panel/upgrade/0.8.md) <Badge text="alpha release" vertical="middle"/>

@@ -116,7 +116,7 @@ set when creating the node.
 
 The next step is to download the software and unpack the archive.
 ``` bash
-curl -L https://github.com/pterodactyl/wings/releases/download/v1.0.0-alpha.1/wings
+curl -L https://github.com/pterodactyl/wings/releases/download/v1.0.0-alpha.2/wings
 ```
 ## Configure Daemon
 Once you have installed the daemon and required components, the next step is to create a node on your installed Panel
