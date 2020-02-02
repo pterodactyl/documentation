@@ -145,6 +145,17 @@ audit2allow -a -M http_port_t
 semodule -i http_port_t.pp
 ```
 
+## FirewallD issues
+If you are on a RHEL/CentOS server with firewalld installed you may have broken DNS.
+
+```
+firewall-cmd --permanent --zone=trusted --change-interface=pterodactyl0
+firewall-cmd --reload
+```
+
+restart docker and wings after running these to be sure the rules are applied.
+
+
 ## Database Errors
 
 ### DatabaseController.php:142
