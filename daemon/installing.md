@@ -132,7 +132,7 @@ curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.12/daemon.t
 Finally, we need to install the dependencies that allow the Daemon to run properly. This command will most likely
 take a few minutes to run, please do not interrupt it.
 ``` bash
-npm install --only=production
+sudo npm install --only=production
 ```
 
 ## Configure Daemon
