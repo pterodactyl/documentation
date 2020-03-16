@@ -47,7 +47,7 @@ VMware, Inc.
 Pterodactyl's Daemon requires the following dependencies be installed on your system in order for it to operate.
 
 * Docker
-* Nodejs (`8.0` or `10.0`)
+* Nodejs (`v10`, `v12`, higher versions likely work, but are untested)
 * `node-gyp`
 * `tar`
 * `unzip`
