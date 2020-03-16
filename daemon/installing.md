@@ -131,6 +131,12 @@ curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.13/daemon.t
 
 Finally, we need to install the dependencies that allow the Daemon to run properly. This command will most likely
 take a few minutes to run, please do not interrupt it.
+
+::: warning Audit Results
+You may see output along the lines of "found 14 vulnerabilities (6 low, 3 moderate, 5 high) in 927 scanned packages".
+You can safely ignore this output. Do not run the audit fix command, you _will_ break your Daemon.
+:::
+
 ``` bash
 npm install --only=production
 ```
