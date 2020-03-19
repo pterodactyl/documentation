@@ -138,7 +138,7 @@ You can safely ignore this output. Do not run the audit fix command, you _will_ 
 :::
 
 ``` bash
-npm install --only=production
+npm install --only=production --no-audit --unsafe-perm
 ```
 
 ## Configure Daemon
