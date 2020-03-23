@@ -44,6 +44,18 @@ highly suggest providing a specific IP address (or comma separated list of IPs) 
 if your proxy is running on the same machine as the server, chances are that something like `TRUSTED_PROXIES=127.0.0.1`
 will work for you.
 
+### NGINX Specific Configuration
+For Pterodactyl to properly respond to an NGINX reverse proxy, the NGINX `location` config must contain the following lines:
+```
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header Host $host;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+proxy_redirect off;
+proxy_buffering off;
+proxy_request_buffering off;
+```
+
 ### Cloudflare Specific Configuration
 If you're using Cloudflare's Flexible SSL you should set `TRUSTED_PROXIES` to contain [their IP addresses](https://www.cloudflare.com/ips/).
 Below is an example of how to set this.
