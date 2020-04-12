@@ -103,7 +103,7 @@ systemctl start php7.3-fpm
 Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
 #### SSL Configuration
-<<< @/.snippets/webservers/nginx.conf{5,11,26-27}
+<<< @/.snippets/webservers/nginx-php7.3.conf{5,11,26-27}
 
 
 ### Redis Setup
