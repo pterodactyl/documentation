@@ -81,18 +81,6 @@ p {
     line-height: 1.7;
 }
 
-/* code, kbd, .line-number {
-  @apply font-mono;
-} */
-
-/* code {
-    @apply .border .border-grey-light .bg-grey-light;
-} */
-
-/* kbd {
-    @apply .border .border-grey-lighter .bg-grey-lightest;
-} */
-
 p, ul, ol {
     line-height: 1.7;
 }
