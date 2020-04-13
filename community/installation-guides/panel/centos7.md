@@ -68,7 +68,7 @@ yum install -y zip unzip # Required for Composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
-## Install Utility Pakcages
+## Install Utility Packages
 
 
 ### Nginx
