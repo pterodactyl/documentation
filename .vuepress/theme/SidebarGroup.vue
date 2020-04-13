@@ -31,9 +31,23 @@ export default {
   components: { SidebarLink, DropdownTransition, VersionSelect },
   data: function() {
     let isVersioned = this.item.versions.length > 0;
+
+    let versionSelect = "";
+    if (isVersioned) {
+      versionSelect = this.item.currentVersion || this.item.versions[0].name;
+      if (this.$router.currentRoute.path.startsWith(this.item.path)) {
+        const pathVersion = this.$router.currentRoute.path.split("/")[2];
+        versionSelect = ~this.item.versions
+          .map(v => v.name)
+          .indexOf(pathVersion)
+          ? pathVersion
+          : this.item.currentVersion;
+      }
+    }
+
     return {
       isVersioned,
-      versionSelect: isVersioned ? getSelectedVersion(this.item) : ""
+      versionSelect
     };
   },
   watch: {
@@ -73,14 +87,4 @@ export default {
     }
   }
 };
-
-function getSelectedVersion(item) {
-  if (window.location.pathname.startsWith(item.path)) {
-    const pathVersion = window.location.pathname.split("/")[2];
-    return ~item.versions.map(v => v.name).indexOf(pathVersion)
-      ? pathVersion
-      : item.currentVersion;
-  }
-  return item.currentVersion || item.versions[0].name;
-}
 </script>
