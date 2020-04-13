@@ -116,7 +116,7 @@ set when creating the node.
 
 The next step is to download the software and unpack the archive.
 ``` bash
-curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-alpha.2/wings
+curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.1/wings
 ```
 ## Configure Daemon
 Once you have installed the daemon and required components, the next step is to create a node on your installed Panel
@@ -136,7 +136,7 @@ chmod u+x wings
 sudo ./wings
 ```
 
-You may optionally add the `-debug` flag to run Wings in debug mode.
+You may optionally add the `--debug` flag to run Wings in debug mode.
 
 ### Daemonizing (using systemd)
 Running Pterodactyl Daemon in the background is a simple task, just make sure that it runs without errors before doing
