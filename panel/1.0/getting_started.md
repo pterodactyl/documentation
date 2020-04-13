@@ -30,7 +30,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | | 10 | :white_check_mark: | All required packages are part of the base repos. |
 
 ## Dependencies
-* PHP `7.3` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx
+* PHP `7.3+` (`7.4` recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx
 * MySQL `5.7.22` or higher (MySQL `8` recommended) **or** MariaDB `10.2` or higher.
 * Redis (`redis-server`)
 * A webserver (Apache, NGINX, Caddy, etc.)
@@ -46,7 +46,7 @@ operating system's package manager to determine the correct packages to install.
 
 ``` bash
 # Add "add-apt-repository" command
-apt -y install software-properties-common curl
+apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
 
 # Add additional repositories for PHP, Redis, and MariaDB
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
@@ -60,7 +60,7 @@ apt update
 apt-add-repository universe
 
 # Install Dependencies
-apt -y install php7.3 php7.3-cli php7.3-gd php7.3-mysql php7.3-pdo php7.3-mbstring php7.3-tokenizer php7.3-bcmath php7.3-xml php7.3-fpm php7.3-curl php7.3-zip mariadb-server nginx tar unzip git redis-server
+apt -y install php7.4 php7.4-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
 ```
 
 ### Installing Composer
@@ -86,7 +86,7 @@ and then set the correct permissions on the `storage/` and `bootstrap/cache/` di
 allow us to store files as well as keep a speedy cache available to reduce load times.
 
 ``` bash
-curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v0.8.0-alpha.2/panel.tar.gz
+curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v1.0.0-beta.1/panel.tar.gz
 tar --strip-components=1 -xzvf panel.tar.gz
 chmod -R 755 storage/* bootstrap/cache/
 ```

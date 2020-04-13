@@ -20,13 +20,13 @@ Let's Encrypt.
 When using the SSL configuration you MUST create SSL certificates, otherwise your NGINX will fail to start.  See [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page for how to create these certificates before continuing.
 :::
 
-<<< @/.snippets/webservers/nginx-php7.3.conf{5,11,26-27}
+<<< @/.snippets/webservers/nginx-php7.4.conf{5,11,26-27}
 
 Continue reading to the bottom of this section for the final steps with NGINX!
 
 ### NGINX Without SSL
 
-<<< @/.snippets/webservers/nginx-php7.3-nossl.conf{3}
+<<< @/.snippets/webservers/nginx-php7.4-nossl.conf{3}
 
 ### Enabling Configuration
 The final step is to enable your NGINX configuration and restart it.

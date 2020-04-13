@@ -9,7 +9,7 @@ to change, important features are missing, and the team has not vetted the perfo
 security of the software.
 :::
 
-This software _requires Pterodactyl 0.8_ in order to run.
+This software _requires Pterodactyl 1.0_ in order to run.
 
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
