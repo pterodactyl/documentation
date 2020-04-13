@@ -81,6 +81,6 @@ function getSelectedVersion(item) {
       ? pathVersion
       : item.currentVersion;
   }
-  return item.currentVersion;
+  return item.currentVersion || item.versions[0].name;
 }
 </script>
