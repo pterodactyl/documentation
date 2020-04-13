@@ -118,7 +118,7 @@
 @charset 'UTF-8';
 /* Slider */
 .slick-loading .slick-list {
-  background: #fff url('../../public/frontpage/loading.svg') center center no-repeat;
+  background: #fff url('../public/frontpage/loading.svg') center center no-repeat;
 }
 
 /* Icons */
@@ -127,8 +127,8 @@
   font-weight: normal;
   font-style: normal;
 
-  src: url('../fonts/slick/slick.eot');
-  src: url('../fonts/slick/slick.eot?#iefix') format('embedded-opentype'), url('../fonts/slick/slick.woff') format('woff'), url('../fonts/slick/slick.ttf') format('truetype'), url('../fonts/slick/slick.svg#slick') format('svg');
+  src: url('./fonts/slick/slick.eot');
+  src: url('./fonts/slick/slick.eot?#iefix') format('embedded-opentype'), url('./fonts/slick/slick.woff') format('woff'), url('./fonts/slick/slick.ttf') format('truetype'), url('./fonts/slick/slick.svg#slick') format('svg');
 }
 
 /* Arrows */

@@ -2,7 +2,14 @@ module.exports = {
     base: '/',
     title: 'Pterodactyl',
     description: 'The open-source server management solution.',
-    ga: 'UA-87324178-1',
+    plugins: [
+        ['@vuepress/google-analytics', {
+            ga: 'UA-12345678-9'
+        },],
+        ['@vuepress/search', {
+            searchMaxSuggestions: 10
+        }]
+    ],
     configureWebpack: {
         serve: {
             hot: {
