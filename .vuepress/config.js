@@ -115,11 +115,6 @@ module.exports = {
                     currentVersion: '0.7',
                     versions: [
                         {
-                            name: '0.6',
-                            status: 'deprecated',
-                            children: []
-                        },
-                        {
                             name: '0.7',
                             status: 'stable',
                             children: [
@@ -135,6 +130,7 @@ module.exports = {
                             status: 'beta',
                             children: [
                                 '/getting_started',
+                                '/webserver_configuration'
                             ]
                         }
                     ]
