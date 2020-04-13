@@ -99,11 +99,15 @@ $arrow-bg: #000;
             }
 
             .selected {
-                @apply .border .select-none .cursor-pointer .px-4;
+                @apply .select-none .border .cursor-pointer .px-4;
                 border-radius: 1rem;
+
+                &:hover {
+                    @apply .border-blue;
+                }
                 
                 &.open {
-                    @apply .border-blue .outline-none;
+                    @apply .border-blue;
                 }
 
                 &:after {
