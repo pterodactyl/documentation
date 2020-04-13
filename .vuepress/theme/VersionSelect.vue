@@ -2,7 +2,7 @@
   <div class="version-select custom-select" :tabindex="tabindex" @blur="open = false">
     <div class="selected" :class="{open: open}" @click="open = !open">
       <VersionSelectItem :version="selected" />
-      <span class="arrow down"></span>
+      <span class="arrow"></span>
     </div>
     <div class="items" :class="{hidden: !open}">
       <div

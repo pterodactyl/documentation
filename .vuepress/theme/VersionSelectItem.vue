@@ -1,7 +1,7 @@
 <template>
   <div class="inline-block">
     {{ version.name }}
-    <span class="rounded-full px-2 ml-1" :class="classes">{{version.status}}</span>
+    <span class="rounded-full ml-2" :class="classes">{{version.status}}</span>
   </div>
 </template>
 
