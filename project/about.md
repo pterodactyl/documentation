@@ -17,7 +17,7 @@ members can be found in our Discord channel and are distinguished with a yellow 
 
 ## License
 ``` text
-Copyright (c) 2015 - 2019 Dane Everitt <dane@daneeveritt.com>.
+Copyright (c) 2015 - 2020 Dane Everitt <dane@daneeveritt.com>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
