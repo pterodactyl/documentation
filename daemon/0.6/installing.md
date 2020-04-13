@@ -148,7 +148,7 @@ Once you have done that there will be a tab called Configuration when you view t
 Simply copy and paste the code block and paste it into a file called `core.json` in `/srv/daemon/config` and save it.
 You may also use the Auto-Deployment feature rather than manually creating the files.
 
-![](./../.vuepress/public/daemon_configuration_example.png)
+![](./../../.vuepress/public/daemon_configuration_example.png)
 
 ## Starting the Daemon
 To start your daemon simply move into the daemon directory and run the command below which will start the daemon in

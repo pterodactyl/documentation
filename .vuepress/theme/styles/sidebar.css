@@ -90,6 +90,55 @@ $arrow-bg: #000;
         &.open .arrow {
             top: -0.18em;
         }
+
+        .version-select {
+            @apply .relative .inline-block .text-sm;
+
+            &:focus {
+                @apply .outline-none;
+            }
+
+            .selected {
+                @apply .border .select-none .cursor-pointer .px-4;
+                border-radius: 1rem;
+                
+                &.open {
+                    @apply .border-blue .outline-none;
+                }
+
+                &:after {
+                    position: absolute;
+                    content: "";
+                    top: .5em;
+                    right: 10px;
+                    width: 0;
+                    height: 0;
+                    border: 4px solid transparent;
+                    border-color: #fff transparent transparent transparent;
+                }
+            }
+
+            .items {
+                @apply .absolute .pin-r .bg-white .border .p-1 .mt-1;
+                border-radius: 1rem;
+                z-index: 100;
+                
+                .item {
+                    @apply .select-none .rounded-full .cursor-pointer .px-2 .border .border-white;
+                    white-space: nowrap;
+                    margin-top: .125rem;
+                    margin-bottom: .125rem;
+
+                    &:hover, &:focus {
+                        @apply .bg-grey-lighter;
+                    }
+
+                    &:last-child {
+                        @apply .mb-0;
+                    }
+                }
+            }
+        }
     }
 
     .sidebar-group-items {

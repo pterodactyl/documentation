@@ -111,24 +111,51 @@ module.exports = {
                 {
                     title: 'Panel',
                     collapsable: false,
-                    children: [
-                        '/panel/getting_started',
-                        '/panel/webserver_configuration',
-                        '/panel/upgrading',
-                        '/panel/configuration',
-                        '/panel/troubleshooting',
+                    path: '/panel/',
+                    currentVersion: '0.7',
+                    versions: [
+                        {
+                            name: '0.6',
+                            status: 'deprecated',
+                            children: []
+                        },
+                        {
+                            name: '0.7',
+                            status: 'stable',
+                            children: [
+                                '/getting_started',
+                                '/webserver_configuration',
+                                '/upgrading',
+                                '/configuration',
+                                '/troubleshooting',
+                            ]
+                        },
+                        {
+                            name: '1.0',
+                            status: 'beta',
+                            children: [
+                                '/getting_started',
+                            ]
+                        }
                     ]
                 },
                 {
                     title: 'Daemon',
                     collapsable: false,
-                    children: [
-                        '/daemon/installing',
-                        '/daemon/upgrading',
-                        '/daemon/configuration',
-                        '/daemon/kernel_modifications',
-                        '/daemon/debian_8_docker',
-                        '/daemon/standalone_sftp',
+                    path: '/daemon/',
+                    currentVersion: '0.6',
+                    versions: [
+                        {
+                            name: '0.6',
+                            children: [
+                                '/installing',
+                                '/upgrading',
+                                '/configuration',
+                                '/kernel_modifications',
+                                '/debian_8_docker',
+                                '/standalone_sftp',
+                            ]
+                        }
                     ]
                 },
                 {

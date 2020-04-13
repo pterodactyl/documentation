@@ -3,32 +3,32 @@ export const extRE = /\.(md|html)$/
 export const endingSlashRE = /\/$/
 export const outboundRE = /^(https?:|mailto:|tel:)/
 
-export function normalize (path) {
+export function normalize(path) {
   return decodeURI(path)
     .replace(hashRE, '')
     .replace(extRE, '')
 }
 
-export function getHash (path) {
+export function getHash(path) {
   const match = path.match(hashRE)
   if (match) {
     return match[0]
   }
 }
 
-export function isExternal (path) {
+export function isExternal(path) {
   return outboundRE.test(path)
 }
 
-export function isMailto (path) {
+export function isMailto(path) {
   return /^mailto:/.test(path)
 }
 
-export function isTel (path) {
+export function isTel(path) {
   return /^tel:/.test(path)
 }
 
-export function ensureExt (path) {
+export function ensureExt(path) {
   if (isExternal(path)) {
     return path
   }
@@ -42,7 +42,7 @@ export function ensureExt (path) {
   return normalized + '.html' + hash
 }
 
-export function isActive (route, path) {
+export function isActive(route, path) {
   const routeHash = route.hash
   const linkHash = getHash(path)
   if (linkHash && routeHash !== linkHash) {
@@ -53,7 +53,7 @@ export function isActive (route, path) {
   return routePath === pagePath
 }
 
-export function resolvePage (pages, rawPath, base) {
+export function resolvePage(pages, rawPath, base) {
   if (base) {
     rawPath = resolvePath(rawPath, base)
   }
@@ -70,7 +70,7 @@ export function resolvePage (pages, rawPath, base) {
   return {}
 }
 
-function resolvePath (relative, base, append) {
+function resolvePath(relative, base, append) {
   const firstChar = relative.charAt(0)
   if (firstChar === '/') {
     return relative
@@ -108,7 +108,7 @@ function resolvePath (relative, base, append) {
   return stack.join('/')
 }
 
-export function resolveSidebarItems (page, route, site, localePath) {
+export function resolveSidebarItems(page, route, site, localePath) {
   const { pages, themeConfig } = site
 
   const localeConfig = localePath && themeConfig.locales
@@ -131,7 +131,7 @@ export function resolveSidebarItems (page, route, site, localePath) {
   }
 }
 
-function resolveHeaders (page) {
+function resolveHeaders(page) {
   const headers = groupHeaders(page.headers || [])
   return [{
     type: 'group',
@@ -147,7 +147,7 @@ function resolveHeaders (page) {
   }]
 }
 
-export function groupHeaders (headers) {
+export function groupHeaders(headers) {
   // group h3s under h2
   headers = headers.map(h => Object.assign({}, h))
   let lastH2
@@ -161,13 +161,13 @@ export function groupHeaders (headers) {
   return headers.filter(h => h.level === 2)
 }
 
-export function resolveNavLinkItem (linkItem) {
+export function resolveNavLinkItem(linkItem) {
   return Object.assign(linkItem, {
     type: linkItem.items && linkItem.items.length ? 'links' : 'link'
   })
 }
 
-export function resolveMatchingConfig (route, config) {
+export function resolveMatchingConfig(route, config) {
   if (Array.isArray(config)) {
     return {
       base: '/',
@@ -185,13 +185,13 @@ export function resolveMatchingConfig (route, config) {
   return {}
 }
 
-function ensureEndingSlash (path) {
+function ensureEndingSlash(path) {
   return /(\.html|\/)$/.test(path)
     ? path
     : path + '/'
 }
 
-function resolveItem (item, pages, base, isNested) {
+function resolveItem(item, pages, base, isNested) {
   if (typeof item === 'string') {
     return resolvePage(pages, item, base)
   } else if (Array.isArray(item)) {
@@ -206,11 +206,18 @@ function resolveItem (item, pages, base, isNested) {
       )
     }
     const children = item.children || []
+    const versions = item.versions || []
     return {
       type: 'group',
-      title: item.title,
+      ...item,
       children: children.map(child => resolveItem(child, pages, base, true)),
-      collapsable: item.collapsable !== false
+      collapsable: item.collapsable !== false,
+      versions: versions.map(version => ({
+        ...version,
+        status: version.name === item.currentVersion ? "current" : version.status,
+        children: version.children.map(child => resolveItem(item.path + version.name + child, pages, base, true))
+      })),
+
     }
   }
 }
