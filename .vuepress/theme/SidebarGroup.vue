@@ -43,7 +43,14 @@ export default {
         this.$router.currentRoute.path.startsWith(this.item.path) &&
         this.selectedVersion.children.length > 0
       ) {
-        this.$router.push(this.selectedVersion.children[0]);
+        // Try to navigate to the same page in the new version, or default to the first one
+        let path = this.$router.currentRoute.path;
+        path = path.substr(path.indexOf(oldVersion) + oldVersion.length);
+        this.$router.push(
+          this.selectedVersion.children.find(c => {
+            return c.path.endsWith(path);
+          }) || this.selectedVersion.children[0]
+        );
       }
     },
     $route(to, from) {
@@ -57,7 +64,7 @@ export default {
   },
   computed: {
     selectedVersion: function() {
-      return this.item.versions.find(v => v.name == this.versionSelect);
+      return this.item.versions.find(v => v.name === this.versionSelect);
     },
     children: function() {
       return this.isVersioned
