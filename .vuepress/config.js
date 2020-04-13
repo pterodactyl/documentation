@@ -155,6 +155,22 @@ module.exports = {
                     ]
                 },
                 {
+                    title: 'Wings',
+                    collapsable: false,
+                    path: '/wings/',
+                    currentVersion: '',
+                    versions: [
+                        {
+                            name: '1.0',
+                            status: 'beta',
+                            children: [
+                                '/installing',
+                                '/upgrading',
+                            ]
+                        }
+                    ]
+                },
+                {
                     title: 'Tutorials',
                     collapsable: false,
                     children: [
