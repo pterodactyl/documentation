@@ -8,7 +8,16 @@ module.exports = {
         },],
         ['@vuepress/search', {
             searchMaxSuggestions: 10
-        }]
+        }],
+        ['vuepress-plugin-container', {
+            type: 'warning',
+        }],
+        ['vuepress-plugin-container', {
+            type: 'tip',
+        }],
+        ['vuepress-plugin-container', {
+            type: 'danger',
+        }],
     ],
     configureWebpack: {
         serve: {
