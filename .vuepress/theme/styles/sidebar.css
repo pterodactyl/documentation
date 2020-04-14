@@ -120,7 +120,7 @@ $arrow-bg: #000;
             }
 
             .items {
-                @apply .absolute .right-0 .bg-white .border .p-1 .mt-1;
+                @apply .absolute .right-0 .bg-white .shadow .p-1 .mt-1;
                 border-radius: 1rem;
                 z-index: 100;
                 
