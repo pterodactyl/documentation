@@ -54,6 +54,11 @@ Pterodactyl's Daemon requires the following dependencies be installed on your sy
 * `make`, `gcc` (`gcc-c++` on CentOS), `g++`
 * `python`
 
+### Example Dependency Installation
+``` bash
+apt install -y zip unzip tar make gcc g++ python
+```
+
 ### Installing Docker
 For a quick install of Docker CE, you can execute the command below:
 ``` bash
