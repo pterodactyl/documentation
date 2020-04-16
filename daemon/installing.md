@@ -6,12 +6,13 @@
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
 | **Ubuntu** | 14.04 | :warning: | Approaching EOL, not recommended for new installations. |
-| | 16.04 | :white_check_mark: | |
+| | 16.04 | :warning: | Ubuntu 16.04 is nearing end of life. |
 | | 18.04 | :white_check_mark: | |
 | **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
 | | 7 | :white_check_mark: | |
 | **Debian** | 8 | :warning: | Requires [kernel modifications](debian_8_docker.md) to run Docker. |
 | | 9 | :white_check_mark: | |
+| | 10 | :white_check_mark: | |
 | **Alpine Linux** | 3.4+ | :warning: | Not officially supported, but reportedly works. |
 | **RHEL** | 7 | :warning: | Not officially supported, should work. |
 | **Fedora** | 28 | :warning: | Not officially supported, should work. |
