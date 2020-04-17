@@ -217,7 +217,6 @@ function resolveItem(item, pages, base, isNested) {
         status: version.name === item.currentVersion ? "current" : version.status,
         children: version.children.map(child => resolveItem(item.path + version.name + child, pages, base, true))
       })),
-
     }
   }
 }
