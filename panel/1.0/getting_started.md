@@ -2,6 +2,11 @@
 
 [[toc]]
 
+::: danger Not for Production Use
+**This is a beta version that should not be used in a production environment.**  
+Features haven't been fully tested and might be incomplete or broken. There is no supported way to upgrade. You should test this version with a separate installation.
+:::
+
 Pterodactyl Panel is designed to run on your own web server. You will need to have root access to your server in order to run and use this panel.
 
 You are expected to understand how to read documentation to use this Panel. We have spent many hours detailing how to install or upgrade our
