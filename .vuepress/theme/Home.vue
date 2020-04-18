@@ -4,7 +4,7 @@
             <div class="container z-10">
                 <div class="text-center">
                     <div>
-                        <img class="max-w-xl w-full" src="https://cdn.pterodactyl.io/logos/new/pterodactyl_logo_transparent.png" alt="Pterodactyl">
+                        <img class="max-w-xl w-full inline-block" src="https://cdn.pterodactyl.io/logos/new/pterodactyl_logo_transparent.png" alt="Pterodactyl">
                     </div>
                     <div class="mt-4">
                         <a class="btn hidden md:inline-block" href="https://demo.pterodactyl.io" target="_blank" rel="nofollow noopener">Demo</a>
