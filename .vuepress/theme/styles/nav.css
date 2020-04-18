@@ -7,7 +7,7 @@
         @apply .px-6;
 
         .logo-container {
-            @apply .flex-no-shrink;
+            @apply .flex-shrink-0;
             width: 18.5rem; /* sidebar is 20rem + 1.5rem padding on each side for nav */
         }
 
@@ -50,7 +50,7 @@
 
         input {
             transition: all 200ms ease-in;
-            @apply .text-grey-lighter .w-1/2 .outline-none .px-4 .py-2 .rounded;
+            @apply .text-grey-lighter .w-1/2 .outline-none .px-4 .py-2 .rounded .leading-tight;
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(0, 0, 0, 0.3);
 

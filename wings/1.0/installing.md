@@ -124,7 +124,7 @@ Once you have done that there will be a tab called Configuration when you view t
 
 Simply copy and paste the code block and paste it into a file called `config.yml` in `/srv/wings` and save it.
 
-![](./../.vuepress/public/wings_configuration_example.png)
+![](./../../.vuepress/public/wings_configuration_example.png)
 
 ### Starting Wings
 To start your daemon simply move into the daemon directory and run the command below which will start the daemon in

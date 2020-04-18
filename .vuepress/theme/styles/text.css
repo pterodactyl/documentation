@@ -14,12 +14,20 @@ a {
     }
 }
 
-kbd {
-    @apply .border .border-grey-lighter .bg-grey-lightest;
-}
+.content {
+    ul, ol {
+        @apply .ml-6 .pl-8 .my-2;
+    }
+    
+    ul {
+        list-style-type: disc;
+        padding-left: theme('padding.4');
+    }
 
-ul, ol {
-    @apply .pl-8 .my-2;
+    ol {
+        list-style-type: decimal;
+        padding-left: theme('padding.4');
+    }
 }
 
 strong {
@@ -65,15 +73,12 @@ h1 {
 }
 
 h2 {
-    @apply .pb-2 .border-b;
+    @apply .text-2xl .pb-2 .border-b .border-grey-light;
 }
 
 p {
     @apply .my-4;
-}
-
-code, kbd, .line-number {
-  @apply font-mono;
+    line-height: 1.7;
 }
 
 p, ul, ol {
@@ -97,7 +102,7 @@ table {
     }
 
     th, td {
-        @apply .border .py-2 .px-4;
+        @apply .border .py-2 .px-4 .border-grey-light;
     }
 
     td {
