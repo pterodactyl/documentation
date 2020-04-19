@@ -7,16 +7,10 @@
 | ---------------- | ------- | :-------: | ----- |
 | **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
 | | 20.04 | :white_check_mark: |
-| **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
-| | 7 | :warning: | Extra repos are required. |
+| **CentOS** | 7 | :warning: | Extra repos are required. |
 | | 8 | :white_check_mark: | |
-| **Debian** | 8 | :warning: | Requires [kernel modifications](debian_8_docker.md) to run Docker. |
-| | 9 | :white_check_mark: | |
+| **Debian** | 9 | :white_check_mark: | |
 | | 10 | :white_check_mark: | |
-| **Alpine Linux** | 3.4+ | :warning: | Not officially supported, but reportedly works. |
-| **RHEL** | 7 | :warning: | Not officially supported, should work. |
-| **Fedora** | 28 | :warning: | Not officially supported, should work. |
-| | 29 | :warning: | Not officially supported, should work. |
 
 ## System Requirements
 In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
