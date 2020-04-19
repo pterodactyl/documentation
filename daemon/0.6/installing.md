@@ -7,7 +7,7 @@
 | ---------------- | ------- | :-------: | ----- |
 | **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
 | | 20.04 | :white_check_mark: |
-| **CentOS** | 7 | :warning: | Extra repos are required. |
+| **CentOS** | 7 | :warning: | Extra repos are required |
 | | 8 | :white_check_mark: | |
 | **Debian** | 9 | :white_check_mark: | |
 | | 10 | :white_check_mark: | |
