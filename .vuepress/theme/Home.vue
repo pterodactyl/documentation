@@ -22,7 +22,7 @@
                     while exposing a beautiful and intuitive UI to administrators and users. Stop wasting time fiddling
                     with other systems &mdash; make game servers a first class citizen on your platform.
                 </h3>
-                <img class="max-w-lg w-full m-4" :src="$withBase('frontpage/mockup-macbook-grey.png')"></div>
+                <img class="max-w-lg w-full m-4 inline-block" :src="$withBase('frontpage/mockup-macbook-grey.png')"></div>
         </div>
         <div class="section bg-blue text-grey-lightest">
             <div class="container text-center">
