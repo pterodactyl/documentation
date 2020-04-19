@@ -5,8 +5,7 @@
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 14.04 | :warning: | Approaching EOL, not recommended for new installations. |
-| | 16.04 | :white_check_mark: | |
+| **Ubuntu** | 16.04 | :white_check_mark: | |
 | | 18.04 | :white_check_mark: | |
 | **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
 | | 7 | :white_check_mark: | |
@@ -191,19 +190,4 @@ Then, run the commands below to reload systemd and start the daemon.
 
 ``` bash
 systemctl enable --now wings
-```
-
-### Daemonizing (using Forever)
-Forever allows us to run the daemon as a pseudo-daemonized application. We can exit our terminal session without
-killing the process, and we don't have to run it in a screen. Inside the daemon directory, run the commands below which
-will install forever and then start the process in the background.
-
-You should use this only if your system does not support systemd.
-
-``` bash
-npm install -g forever
-forever start src/index.js
-
-# To stop the daemon use:
-forever stop src/index.js
 ```
