@@ -14,7 +14,7 @@ This software _requires Pterodactyl 1.0_ in order to run.
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 18.04 | :white_check_mark: | |
+| **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
 | | 20.04 | :white_check_mark: | |
 | **CentOS** | 7 | :white_check_mark: | |
 | | 8 | :white_check_mark: | |
