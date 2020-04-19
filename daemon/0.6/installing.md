@@ -5,8 +5,8 @@
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 16.04 | :warning: | Ubuntu 16.04 is nearing end of life. |
-| | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+| **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+| | 20.04 | :white_check_mark: |
 | **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
 | | 7 | :warning: | Extra repos are required. |
 | | 8 | :white_check_mark: | |
