@@ -14,18 +14,12 @@ This software _requires Pterodactyl 1.0_ in order to run.
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 14.04 | :no_entry_sign: | Does not support `systemd`. |
-| | 16.04 | :white_check_mark: | |
-| | 18.04 | :white_check_mark: | |
-| **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
-| | 7 | :white_check_mark: | |
-| **Debian** | 8 | :warning: | Requires [kernel modifications](/daemon/debian_8_docker.md) to run Docker. |
-| | 9 | :white_check_mark: | |
+| **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+| | 20.04 | :white_check_mark: | |
+| **CentOS** | 7 | :white_check_mark: | |
+| | 8 | :white_check_mark: | |
+| **Debian** | 9 | :white_check_mark: | |
 | | 10 | :white_check_mark: | |
-| **Alpine Linux** | 3.4+ | :warning: | Not officially supported, but reportedly works. |
-| **RHEL** | 7 | :warning: | Not officially supported, should work. |
-| **Fedora** | 28 | :warning: | Not officially supported, should work. |
-| | 29 | :warning: | Not officially supported, should work. |
 
 ## System Requirements
 In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
