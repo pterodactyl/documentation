@@ -18,7 +18,7 @@ Give theme name:
  > (Press Enter)
 
  Where will assets be located? []:
- > /themes/(MyThemeNameHere) (Example: /themes/MyThemeNameHere)
+ > themes/(MyThemeNameHere) (Example: themes/MyThemeNameHere)
 
  Extends an other theme? (yes/no) [no]:
  > (Press Enter)
