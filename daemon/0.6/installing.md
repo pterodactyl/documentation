@@ -5,17 +5,12 @@
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 14.04 | :warning: | Approaching EOL, not recommended for new installations. |
-| | 16.04 | :white_check_mark: | |
-| | 18.04 | :white_check_mark: | |
-| **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
-| | 7 | :white_check_mark: | |
-| **Debian** | 8 | :warning: | Requires [kernel modifications](debian_8_docker.md) to run Docker. |
-| | 9 | :white_check_mark: | |
-| **Alpine Linux** | 3.4+ | :warning: | Not officially supported, but reportedly works. |
-| **RHEL** | 7 | :warning: | Not officially supported, should work. |
-| **Fedora** | 28 | :warning: | Not officially supported, should work. |
-| | 29 | :warning: | Not officially supported, should work. |
+| **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+| | 20.04 | :white_check_mark: |
+| **CentOS** | 7 | :warning: | Extra repos are required |
+| | 8 | :white_check_mark: | |
+| **Debian** | 9 | :white_check_mark: | |
+| | 10 | :white_check_mark: | |
 
 ## System Requirements
 In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
@@ -191,19 +186,4 @@ Then, run the commands below to reload systemd and start the daemon.
 
 ``` bash
 systemctl enable --now wings
-```
-
-### Daemonizing (using Forever)
-Forever allows us to run the daemon as a pseudo-daemonized application. We can exit our terminal session without
-killing the process, and we don't have to run it in a screen. Inside the daemon directory, run the commands below which
-will install forever and then start the process in the background.
-
-You should use this only if your system does not support systemd.
-
-``` bash
-npm install -g forever
-forever start src/index.js
-
-# To stop the daemon use:
-forever stop src/index.js
 ```
