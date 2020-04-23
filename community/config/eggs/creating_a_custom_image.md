@@ -145,3 +145,6 @@ java -Xms128M -Xmx1024M -jar server.jar
 
 ## Run the Command
 The last step is to run this modified startup command, which is done with the line `${MODIFIED_STARTUP}`.
+
+### Note
+Sometimes you may need to change the permissions of the `entrypoint.sh` file, on linux you can do this by executing `chmod +x entrypoint.sh` in the directory where the file is.
