@@ -75,6 +75,7 @@ module.exports = {
                         '/community/installation-guides/panel/debian9.md',
                         '/community/installation-guides/panel/debian10.md',
                         '/community/installation-guides/panel/ubuntu1804.md',
+                        '/community/installation-guides/panel/ubuntu2004.md',
                     ]
                 },
                 {
@@ -86,6 +87,7 @@ module.exports = {
                         '/community/installation-guides/daemon/debian9.md',
                         '/community/installation-guides/daemon/debian10.md',
                         '/community/installation-guides/daemon/ubuntu1804.md',
+                        '/community/installation-guides/daemon/ubuntu2004.md',
                     ]
                 },
                 {
