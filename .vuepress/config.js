@@ -2,7 +2,23 @@ module.exports = {
     base: '/',
     title: 'Pterodactyl',
     description: 'The open-source server management solution.',
-    ga: 'UA-87324178-1',
+    plugins: [
+        ['@vuepress/google-analytics', {
+            ga: 'UA-12345678-9'
+        },],
+        ['@vuepress/search', {
+            searchMaxSuggestions: 10
+        }],
+        ['vuepress-plugin-container', {
+            type: 'warning',
+        }],
+        ['vuepress-plugin-container', {
+            type: 'tip',
+        }],
+        ['vuepress-plugin-container', {
+            type: 'danger',
+        }],
+    ],
     configureWebpack: {
         serve: {
             hot: {
@@ -111,24 +127,63 @@ module.exports = {
                 {
                     title: 'Panel',
                     collapsable: false,
-                    children: [
-                        '/panel/getting_started',
-                        '/panel/webserver_configuration',
-                        '/panel/upgrading',
-                        '/panel/configuration',
-                        '/panel/troubleshooting',
+                    path: '/panel/',
+                    currentVersion: '0.7',
+                    versions: [
+                        {
+                            name: '0.7',
+                            status: 'stable',
+                            children: [
+                                '/getting_started',
+                                '/webserver_configuration',
+                                '/upgrading',
+                                '/configuration',
+                                '/troubleshooting',
+                            ]
+                        },
+                        {
+                            name: '1.0',
+                            status: 'beta',
+                            children: [
+                                '/getting_started',
+                                '/webserver_configuration'
+                            ]
+                        }
                     ]
                 },
                 {
                     title: 'Daemon',
                     collapsable: false,
-                    children: [
-                        '/daemon/installing',
-                        '/daemon/upgrading',
-                        '/daemon/configuration',
-                        '/daemon/kernel_modifications',
-                        '/daemon/debian_8_docker',
-                        '/daemon/standalone_sftp',
+                    path: '/daemon/',
+                    currentVersion: '0.6',
+                    versions: [
+                        {
+                            name: '0.6',
+                            children: [
+                                '/installing',
+                                '/upgrading',
+                                '/configuration',
+                                '/kernel_modifications',
+                                '/debian_8_docker',
+                                '/standalone_sftp',
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: 'Wings',
+                    collapsable: false,
+                    path: '/wings/',
+                    currentVersion: '',
+                    versions: [
+                        {
+                            name: '1.0',
+                            status: 'beta',
+                            children: [
+                                '/installing',
+                                '/upgrading',
+                            ]
+                        }
                     ]
                 },
                 {

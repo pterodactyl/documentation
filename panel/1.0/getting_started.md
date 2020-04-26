@@ -2,6 +2,11 @@
 
 [[toc]]
 
+::: danger Not for Production Use
+**This is a beta version that should not be used in a production environment.**  
+Features haven't been fully tested and might be incomplete or broken. There is no supported way to upgrade. You should test this version with a separate installation.
+:::
+
 Pterodactyl Panel is designed to run on your own web server. You will need to have root access to your server in order to run and use this panel.
 
 You are expected to understand how to read documentation to use this Panel. We have spent many hours detailing how to install or upgrade our
@@ -20,13 +25,11 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 16.04 | :warning: | Ubuntu 16.04 is nearing end of life. |
-| | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
-| **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
-| | 7 | :white_check_mark: | Extra repos are required. |
+| **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+| | 20.04 | :white_check_mark: | |
+| **CentOS** | 7 | :white_check_mark: | Extra repos are required. |
 | | 8 | :white_check_mark: | All required packages are part of the base repos. |
-| **Debian** | 8 | :warning: | Debian 8 may need modifications to work with the latest docker and other requirements for the panel/daemon |
-| | 9 | :white_check_mark: | Extra repos are required. |
+| **Debian** | 9 | :white_check_mark: | Extra repos are required. |
 | | 10 | :white_check_mark: | All required packages are part of the base repos. |
 
 ## Dependencies

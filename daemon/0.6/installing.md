@@ -1,31 +1,16 @@
-# Installing Wings
+# Installation
 
-Wings is the next generation control daemon from Pterodactyl. This daemon has been rebuilt from the
-ground up using Go and lessons learned from our first Nodejs Daemon.
-
-::: danger Not for Production Use
-**Wings is not stable and should not be used in a production environment.** Features are subject
-to change, important features are missing, and the team has not vetted the performance or
-security of the software.
-:::
-
-This software _requires Pterodactyl 1.0_ in order to run.
+[[toc]]
 
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 14.04 | :no_entry_sign: | Does not support `systemd`. |
-| | 16.04 | :white_check_mark: | |
-| | 18.04 | :white_check_mark: | |
-| **CentOS** | 6 | :no_entry_sign: | Does not support all of the required packages. |
-| | 7 | :white_check_mark: | |
-| **Debian** | 8 | :warning: | Requires [kernel modifications](/daemon/debian_8_docker.md) to run Docker. |
-| | 9 | :white_check_mark: | |
+| **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+| | 20.04 | :white_check_mark: |
+| **CentOS** | 7 | :warning: | Extra repos are required |
+| | 8 | :white_check_mark: | |
+| **Debian** | 9 | :white_check_mark: | |
 | | 10 | :white_check_mark: | |
-| **Alpine Linux** | 3.4+ | :warning: | Not officially supported, but reportedly works. |
-| **RHEL** | 7 | :warning: | Not officially supported, should work. |
-| **Fedora** | 28 | :warning: | Not officially supported, should work. |
-| | 29 | :warning: | Not officially supported, should work. |
 
 ## System Requirements
 In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
@@ -54,8 +39,15 @@ VMware, Inc.
 ```
 
 ## Dependencies
-* curl
+Pterodactyl's Daemon requires the following dependencies be installed on your system in order for it to operate.
+
 * Docker
+* Nodejs (`v10`, `v12`, higher versions likely work, but are untested)
+* `node-gyp`
+* `tar`
+* `unzip`
+* `make`, `gcc` (`gcc-c++` on CentOS), `g++`
+* `python`
 
 ### Installing Docker
 For a quick install of Docker CE, you can execute the command below:
@@ -99,13 +91,26 @@ OS specific parameters._
 GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
 ```
 
-## Installing Wings
+### Installing Nodejs
+NodeJS is also super easy to install! Simply run the command below to make the package accessible to your system.
+
+``` bash
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+apt -y install nodejs make gcc g++
+```
+
+::: tip Other OS Distributions
+If you are using CentOS, [please follow these instructions](https://nodejs.org/en/download/package-manager/#enterprise-linux-and-fedora). Ubuntu and Debian users may also follow the [official
+instructions provided by Nodejs](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions).
+:::
+
+## Installing Daemon Software
 The first step for installing the daemon is to make sure we have the required directory structure setup. To do so,
 run the commands below.
 
 ``` bash
-mkdir -p /srv/wings/data/servers /srv/daemon-data
-cd /srv/wings
+mkdir -p /srv/daemon /srv/daemon-data
+cd /srv/daemon
 ```
 
 ::: warning OVH/SYS Servers
@@ -116,29 +121,45 @@ set when creating the node.
 
 The next step is to download the software and unpack the archive.
 ``` bash
-curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.2/wings
+curl -L https://github.com/pterodactyl/daemon/releases/download/v0.6.13/daemon.tar.gz | tar --strip-components=1 -xzv
 ```
+
+Finally, we need to install the dependencies that allow the Daemon to run properly. This command will most likely
+take a few minutes to run, please do not interrupt it.
+
+::: warning Audit Results
+You may see output along the lines of "found 14 vulnerabilities (6 low, 3 moderate, 5 high) in 927 scanned packages".
+You can safely ignore this output. Do not run the audit fix command, you _will_ break your Daemon.
+:::
+
+``` bash
+npm install --only=production --no-audit --unsafe-perm
+```
+
 ## Configure Daemon
 Once you have installed the daemon and required components, the next step is to create a node on your installed Panel
 Once you have done that there will be a tab called Configuration when you view the node.
 
-Simply copy and paste the code block and paste it into a file called `config.yml` in `/srv/wings` and save it.
+Simply copy and paste the code block and paste it into a file called `core.json` in `/srv/daemon/config` and save it.
+You may also use the Auto-Deployment feature rather than manually creating the files.
 
-![](./../.vuepress/public/wings_configuration_example.png)
+![](./../../.vuepress/public/daemon_configuration_example.png)
 
-### Starting Wings
+## Starting the Daemon
 To start your daemon simply move into the daemon directory and run the command below which will start the daemon in
 foreground mode. Once you are done, use `CTRL+C` to terminate the process. Depending on your server's internet connection
 pulling and starting the Daemon for the first time may take a few minutes.
 
 ``` bash
-chmod u+x wings 
-sudo ./wings
+sudo npm start
 ```
 
-You may optionally add the `--debug` flag to run Wings in debug mode.
-
 ### Daemonizing (using systemd)
+::: warning
+If you are using Ubuntu 14 you cannot use `systemd` to manage your Daemon. Please see the instructions below on using
+"forever" to run the daemon.
+:::
+
 Running Pterodactyl Daemon in the background is a simple task, just make sure that it runs without errors before doing
 this. Place the contents below in a file called `wings.service` in the `/etc/systemd/system` directory.
 
@@ -149,10 +170,11 @@ After=docker.service
 
 [Service]
 User=root
-WorkingDirectory=/srv/wings
+#Group=some_group
+WorkingDirectory=/srv/daemon
 LimitNOFILE=4096
 PIDFile=/var/run/wings/daemon.pid
-ExecStart=/srv/wings/wings
+ExecStart=/usr/bin/node /srv/daemon/src/index.js
 Restart=on-failure
 StartLimitInterval=600
 

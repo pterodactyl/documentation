@@ -4,7 +4,7 @@
             <div class="container z-10">
                 <div class="text-center">
                     <div>
-                        <img class="max-w-xl w-full" src="https://cdn.pterodactyl.io/logos/new/pterodactyl_logo_transparent.png" alt="Pterodactyl">
+                        <img class="max-w-xl w-full inline-block" src="https://cdn.pterodactyl.io/logos/new/pterodactyl_logo_transparent.png" alt="Pterodactyl">
                     </div>
                     <div class="mt-4">
                         <a class="btn hidden md:inline-block" href="https://demo.pterodactyl.io" target="_blank" rel="nofollow noopener">Demo</a>
@@ -22,7 +22,7 @@
                     while exposing a beautiful and intuitive UI to administrators and users. Stop wasting time fiddling
                     with other systems &mdash; make game servers a first class citizen on your platform.
                 </h3>
-                <img class="max-w-lg w-full m-4" :src="$withBase('frontpage/mockup-macbook-grey.png')"></div>
+                <img class="max-w-lg w-full m-4 inline-block" :src="$withBase('frontpage/mockup-macbook-grey.png')"></div>
         </div>
         <div class="section bg-blue text-grey-lightest">
             <div class="container text-center">
@@ -116,7 +116,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="footer">MIT Licensed | Copyright © 2015 - 2019 Dane Everitt & Contributors.</div>
+                <div class="footer">MIT Licensed | Copyright © 2015 - 2020 Dane Everitt & Contributors.</div>
             </div>
         </div>
     </div>

@@ -124,6 +124,36 @@ let colors = {
 }
 
 module.exports = {
+    prefix: '',
+    important: false,
+    separator: ':',
+    theme: {
+        colors,
+        screens: {
+            'sm': '576px',
+            'md': '768px',
+            'lg': '992px',
+            'xl': '1200px',
+
+            'xsx': { 'max': '575px' },
+            'smx': { 'max': '767px' },
+            'mdx': { 'max': '991px' },
+            'lgx': { 'max': '1999px' },
+        },
+    },
+    variants: {
+        appearance: ['responsive'],
+        // ...
+        zIndex: ['responsive'],
+    },
+    plugins: [
+        // ...
+    ],
+}
+
+return
+
+module.exports = {
 
     /*
     |-----------------------------------------------------------------------------
@@ -166,10 +196,10 @@ module.exports = {
         'lg': '992px',
         'xl': '1200px',
 
-        'xsx': {'max': '575px'},
-        'smx': {'max': '767px'},
-        'mdx': {'max': '991px'},
-        'lgx': {'max': '1999px'},
+        'xsx': { 'max': '575px' },
+        'smx': { 'max': '767px' },
+        'mdx': { 'max': '991px' },
+        'lgx': { 'max': '1999px' },
     },
 
 

@@ -24,7 +24,6 @@ In addition to our standard nest of supported games, our community is constantly
 and there are plenty more games available provided by the community. Some of these games include:
 
 * Factorio
-* Terraria
 * San Andreas: MP
 * Pocketmine MP
 * Squad

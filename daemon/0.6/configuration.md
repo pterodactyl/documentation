@@ -148,3 +148,9 @@ Starting with `v0.6` of the Daemon, the following previously _dropped_ capabilit
     'setfcap',
 ]
 ```
+
+## Enabling Cloudflare
+
+Enabling Cloudflare on the daemon isn't particularly useful since users do not connect directly to the daemon port, and users need an unproxied hostname to access any servers on the node.  As a result it's not possible to conceal the IP address of your node machine, but some people want to enable it regardless.
+
+Cloudflare only proxies the default daemon port (8080) when using HTTP.  In order to get the daemon to work with Cloudflare when HTTPS is enabled you must change the daemon port to one that Cloudflare will proxy such as 8443.  Since Cloudflare only proxies HTTP/HTTPS traffic for non-enterprise plans you cannot proxy the SFTP port.

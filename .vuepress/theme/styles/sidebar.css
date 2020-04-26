@@ -5,13 +5,13 @@ $arrow-bg: #000;
         @apply .hidden;
     }
 
-    @apply .fixed .pin-l .pin-b .bg-white .overflow-auto .border-r .border-grey-lighter .py-8;
+    @apply .fixed .left-0 .bottom-0 .bg-white .overflow-auto .border-r .border-grey-lighter .py-8;
     top: 56px;
     width: 20rem;
     font-size: 15px;
 
     ul {
-        @apply .list-reset .m-0;
+        @apply .m-0 .p-0;
     }
 
     a {
@@ -90,6 +90,56 @@ $arrow-bg: #000;
         &.open .arrow {
             top: -0.18em;
         }
+
+        .version-select {
+            @apply .relative .inline-block .text-sm;
+
+            &:focus {
+                @apply .outline-none;
+            }
+
+            .selected {
+                @apply .select-none .border .border-grey-lighter .cursor-pointer .px-4;
+                border-radius: 1rem;
+
+                &:hover, &.open {
+                    @apply .bg-grey-lighter .border-grey-lighter;
+                }
+
+                .arrow {
+                    @apply .inline-block .relative;
+                    top: -0.16em;
+                    left: .5em;
+                    width: 0;
+                    height: 0;
+                    border-left: 4px solid transparent;
+                    border-right: 4px solid transparent;
+                    border-top: 6px solid #b8c2cc;
+                }
+                
+            }
+
+            .items {
+                @apply .absolute .right-0 .bg-white .shadow .p-1 .mt-1;
+                border-radius: 1rem;
+                z-index: 100;
+                
+                .item {
+                    @apply .select-none .rounded-full .cursor-pointer .px-2 .border .border-white;
+                    white-space: nowrap;
+                    margin-top: .125rem;
+                    margin-bottom: .125rem;
+
+                    &:hover, &:focus {
+                        @apply .bg-grey-lighter;
+                    }
+
+                    &:last-child {
+                        @apply .mb-0;
+                    }
+                }
+            }
+        }
     }
 
     .sidebar-group-items {
@@ -125,7 +175,7 @@ $arrow-bg: #000;
 }
 
 .sidebar-mask {
-    @apply .fixed .pin-t .pin-l .h-screen .w-screen .hidden;
+    @apply .fixed .top-0 .left-0 .h-screen .w-screen .hidden;
 }
 
 .sidebar-open > .sidebar {
