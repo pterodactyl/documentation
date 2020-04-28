@@ -146,7 +146,8 @@ module.exports = {
                             status: 'beta',
                             children: [
                                 '/getting_started',
-                                '/webserver_configuration'
+                                '/webserver_configuration', 
+                                '/upgrading' 
                             ]
                         }
                     ]
