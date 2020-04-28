@@ -24,4 +24,4 @@ php artisan queue:restart
 
 ## Version Specific Guides
 
-* [1.0.X series](/panel/upgrade/1.0.md) <Badge text="alpha release" vertical="middle"/>
+* [1.0.X series](/panel/1.0/upgrade/1.0.md) <Badge text="alpha release" vertical="middle"/>
