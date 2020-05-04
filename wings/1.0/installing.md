@@ -9,7 +9,11 @@ to change, important features are missing, and the team has not vetted the perfo
 security of the software.
 :::
 
-This software _requires Pterodactyl 1.0_ in order to run.
+::: warning
+You should only install Wings if you are running **Pterodactyl 1.0**. Do not install this software
+for previous versions of Pterodactyl. If you have no idea what this means, you probably do not need
+to be installing this software.
+:::
 
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
@@ -110,7 +114,7 @@ set when creating the node.
 
 The next step is to download the software and unpack the archive.
 ``` bash
-curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.2/wings
+curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.3/wings
 ```
 ## Configure Daemon
 Once you have installed the daemon and required components, the next step is to create a node on your installed Panel
