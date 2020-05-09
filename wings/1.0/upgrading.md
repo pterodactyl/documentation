@@ -5,7 +5,7 @@ Upgrading Wings is a painless process and should take less than a minute to comp
 First, download the updated wings binary into `/srv/wings`.
 
 ``` bash
-curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.3/wings
+curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.4/wings
 chmod u+x wings
 ```
 
