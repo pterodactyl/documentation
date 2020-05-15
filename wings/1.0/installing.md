@@ -102,7 +102,7 @@ The first step for installing the daemon is to make sure we have the required di
 run the commands below.
 
 ``` bash
-mkdir -p /srv/wings/data/servers /srv/daemon-data
+mkdir -p /srv/wings/data/servers /srv/daemon-data /etc/pterodactyl
 cd /srv/wings
 ```
 
@@ -120,7 +120,7 @@ curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-b
 Once you have installed the daemon and required components, the next step is to create a node on your installed Panel
 Once you have done that there will be a tab called Configuration when you view the node.
 
-Simply copy and paste the code block and paste it into a file called `config.yml` in `/srv/wings` and save it.
+Simply copy and paste the code block and paste it into a file called `config.yml` in `/etc/pterodactyl/config.yml` and save it.
 
 ![](./../../.vuepress/public/wings_configuration_example.png)
 
