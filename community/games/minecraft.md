@@ -41,6 +41,19 @@ Create a minecraft server allocating 127.0.0.1 in the panel with any port you wa
 * You should _not_ make any modifications to IPTables.
 * All of the servers behind the proxy are safe from direct _external_ connections, assuming you bind them to `127.0.0.1`.
 
+### Example screenshots
+#### Allocations in panel
+![](./../.vuepress/public/community/games/minecraft/proxy/node-allocations.png)
+
+#### bungeecord config
+![](./../.vuepress/public/community/games/minecraft/proxy/bungee-config.png)
+
+#### server.properties
+![](./../.vuepress/public/community/games/minecraft/proxy/paper-server.properties.png)
+
+#### spigot.yml
+![](./../.vuepress/public/community/games/minecraft/proxy/paper-spigot.yml.png)
+
 ### Firewalls
 
 :::warning
