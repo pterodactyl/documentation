@@ -1,5 +1,5 @@
 # CentOS 7
-In this guide we will install Pterodactyl's Daemon (wings) — including all of it's dependencies — and configure it
+In this guide we will install Pterodactyl's Daemon 0.6.X — including all of it's dependencies — and configure it
 to use a SSL connection.
 
 [[toc]]
