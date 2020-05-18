@@ -1,11 +1,11 @@
-# Ubuntu 18.04
-In this guide we will install Pterodactyl's Daemon 0.6.X - including all of it's dependencies — and configure it
+# Ubuntu 20.04
+In this guide we will install Pterodactyl's Daemon 0.6.X — including all of it's dependencies — and configure it
 to use a SSL connection.
 
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/daemon/installing.md) but is tailored specifically for Ubuntu 18.04.
+This guide is based off the [official installation documentation](/daemon/installing.md) but is tailored specifically for Ubuntu 20.04.
 :::
 
 ## Install Requirements
