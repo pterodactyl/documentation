@@ -99,11 +99,12 @@ GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
 
 ## Installing Wings
 The first step for installing the daemon is to make sure we have the required directory structure setup. To do so,
-run the commands below.
+run the commands below which will create the base directory and download the wings executable.
 
 ``` bash
-mkdir -p /srv/wings/data/servers /srv/daemon-data
-cd /srv/wings
+mkdir -p /etc/pterodactyl
+curl -L -o /etc/pterodactyl/wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.5/wings_linux_amd64
+chmod u+x /etc/pterodactyl/wings
 ```
 
 ::: warning OVH/SYS Servers
@@ -112,15 +113,11 @@ If you are using a server provided by OVH or SoYouStart please be aware that you
 set when creating the node.
 :::
 
-The next step is to download the software and unpack the archive.
-``` bash
-curl -L -o wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.4/wings
-```
 ## Configure Daemon
 Once you have installed the daemon and required components, the next step is to create a node on your installed Panel
 Once you have done that there will be a tab called Configuration when you view the node.
 
-Simply copy and paste the code block and paste it into a file called `config.yml` in `/srv/wings` and save it.
+Simply copy and paste the code block and paste it into a file called `config.yml` in `/etc/pterodactyl` and save it.
 
 ![](./../../.vuepress/public/wings_configuration_example.png)
 
@@ -130,7 +127,7 @@ foreground mode. Once you are done, use `CTRL+C` to terminate the process. Depen
 pulling and starting the Daemon for the first time may take a few minutes.
 
 ``` bash
-chmod u+x wings 
+cd /etc/pterodactyl
 sudo ./wings
 ```
 
@@ -147,10 +144,10 @@ After=docker.service
 
 [Service]
 User=root
-WorkingDirectory=/srv/wings
+WorkingDirectory=/etc/pterodactyl
 LimitNOFILE=4096
 PIDFile=/var/run/wings/daemon.pid
-ExecStart=/srv/wings/wings
+ExecStart=/etc/pterodactyl/wings
 Restart=on-failure
 StartLimitInterval=600
 
