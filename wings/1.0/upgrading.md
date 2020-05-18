@@ -18,7 +18,7 @@ mkdir -p /etc/pterodactyl
 sed -i 's;/srv/wings;/etc/pterodactyl;g' /etc/systemd/system/wings.service
 ```
 
-You may optionally move the configuraion file over into `/etc/pterodactyl` at this time, or allow
+You may optionally move the configuration file over into `/etc/pterodactyl` at this time, or allow
 the daemon to move it automatically for you. I recommend moving it now, and then deleting the `/srv/wings`
 directory as it is no longer needed.
 
