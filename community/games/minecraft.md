@@ -14,35 +14,28 @@ If you are a host you should limit it to a single proxy network on a node if you
 :::
 
 ### Setting up the Network
-The ideal setup for this involves a separated internal network with only one access point — the proxy server —
-which is an easy configuration with Pterodactyl. In order to create a Bungeecord network you'll first need to add an
-allocation to your Node that makes your Bungeecord server publicly accessible. This allocation should be for your
-public IP address and the default port you wish to use — generally `25565`.
+#### Allocations in panel
+When setting up a minecraft network in the panel you will need to add allocations for bungee (external IP 10.1.70.62 in the example), and the game servers (127.0.0.1).
+#### example allocations in panel
+![](../../.vuepress/public/community/games/minecraft/proxy/node-allocations.png)
 
-::: tip
-Create a proxy server allocating the host IP and any port you want (mc default being 25565).
-:::
+#### proxy settings
+##### bungeecord/waterfall config
+This will differ for other proxy software
+![](../../.vuepress/public/community/games/minecraft/proxy/bungee-config.png)
 
-### Adding Additional Servers
-All other servers that are a part of the network should be created on local interfaces — meaning they are not publicly
-accessible. Create new allocations on the localhost IP address `127.0.0.1` with some ports for the servers to use.
-You can also enter a port range, e.g. `30000-30010` which will get you 11 ports. 
+#### paper/spigot/bukkit settings
+This will differ for other server software
 
-Now create new servers and be sure to use your internal allocations — `127.0.0.1` — for each of them. To add the
-servers to your network you'll use `172.18.0.1:<port>` — or `127.0.0.1` which will automatically be resolved to your
-Docker network interface IP — as the IP address in your configuration file.
+##### server.properties
+set online-mode `false`
+![](../../.vuepress/public/community/games/minecraft/proxy/paper-server.properties.png)
 
-::: tip
-Create a minecraft server allocating 127.0.0.1 in the panel with any port you want
-:::
-
-### In Conclusion
-* Only the proxy server (Bungeecord/Hexacord/Waterfall) should be attached to your publically accessible IP address.
-* You should _not_ make any modifications to IPTables.
-* All of the servers behind the proxy are safe from direct _external_ connections, assuming you bind them to `127.0.0.1`.
+##### spigot.yml
+set bungeecord to `true`
+![](../../.vuepress/public/community/games/minecraft/proxy/paper-spigot.yml.png)
 
 ### Firewalls
-
 :::warning
 The ports you open with the following will be accessable by all minecraft servers on the node.
 :::
