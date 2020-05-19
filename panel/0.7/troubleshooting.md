@@ -163,3 +163,17 @@ restart docker and wings after running these to be sure the rules are applied.
 production.ERROR: ErrorException: Undefined variable: host in /var/www/pterodactyl/app/Http/Controllers/Admin/DatabaseController.php:142
 ```
 The database user you are trying to use doesn't have appropriate grants/has used incorrect password.
+
+
+## Disabling reCaptcha
+If you've entered an invalid key for reCaptcha it's possible to become locked out of your panel without the ability to change the key.  If this happens you'll need to disable reCaptcha temporarily so you can login to update the key.
+
+To disable reCaptcha modify the `.env` file and add the following:
+```
+RECAPTCHA_ENABLED=false
+```
+
+After updating the env file run the following command:
+`php artisan config:cache`
+
+You should now be able to login and update the reCaptcha key.  To re-enable the captcha simply remove the RECAPTCHA_ENABLED command from the env file.
