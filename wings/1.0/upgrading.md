@@ -16,6 +16,9 @@ mkdir -p /etc/pterodactyl
 
 # Update the service configuration file to point to the new directory.
 sed -i 's;/srv/wings;/etc/pterodactyl;g' /etc/systemd/system/wings.service
+
+#Reload the Systemd daemon service to update the changed service file
+systemctl daemon-reload
 ```
 
 You may optionally move the configuraion file over into `/etc/pterodactyl` at this time, or allow
