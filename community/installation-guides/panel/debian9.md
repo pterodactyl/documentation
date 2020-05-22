@@ -1,6 +1,5 @@
 # Debian 9
-In this guide we will install Pterodactyl — including all of it's dependencies — and configure our webserver
-to serve it using SSL.
+In this guide we will install Pterodactyl v0.7.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
 
 [[toc]]
 
@@ -18,7 +17,7 @@ apt install -y software-properties-common dirmngr
 ## Get apt updates
 apt update
 
-## Install MariaDB 10.1
+## Install MariaDB
 apt install -y mariadb-common mariadb-server mariadb-client
 
 ## Start maraidb

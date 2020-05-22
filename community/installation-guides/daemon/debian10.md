@@ -1,6 +1,5 @@
 # Debian 10
-In this guide we will install Pterodactyl's Daemon 0.6.X — including all of it's dependencies — and configure it
-to use a SSL connection.
+In this guide we will install Pterodactyl's Daemon v0.6.X — including all of it's dependencies — and configure it to use a SSL connection.
 
 [[toc]]
 

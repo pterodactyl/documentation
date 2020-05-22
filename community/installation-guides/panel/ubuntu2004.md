@@ -1,5 +1,5 @@
 # Ubuntu 20.04
-In this guide we will install Pterodactyl 0.7.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
+In this guide we will install Pterodactyl v0.7.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
 
 [[toc]]
 
@@ -23,8 +23,7 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP
-
+### PHP 7.4
 ```bash
 ## Get apt updates
 apt update -y

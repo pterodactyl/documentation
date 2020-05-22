@@ -1,5 +1,5 @@
 # CentOS 8
-In this guide we will install Pterodactyl's Daemon 0.6.X — including all of it's dependencies — and configure it to use a SSL connection.
+In this guide we will install Pterodactyl's Daemon v0.6.X — including all of it's dependencies — and configure it to use a SSL connection.
 
 [[toc]]
 
@@ -8,7 +8,7 @@ This guide is based off the [official installation documentation](/daemon/instal
 :::
 
 ## Install Requirements
-We will first begin by installing all of the Daemon's [required dependencies](/daemon/installing.md#dependencies).
+We will first begin by installing all of the Daemon's [required](/daemon/installing.md#dependencies) dependencies.
 
 ### General Requirements
 ```bash
