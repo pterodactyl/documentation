@@ -103,8 +103,8 @@ run the commands below which will create the base directory and download the win
 
 ``` bash
 mkdir -p /etc/pterodactyl
-curl -L -o /etc/pterodactyl/wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.5/wings_linux_amd64
-chmod u+x /etc/pterodactyl/wings
+curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.5/wings_linux_amd64
+chmod u+x /usr/local/bin/wings
 ```
 
 ::: warning OVH/SYS Servers
@@ -127,8 +127,7 @@ foreground mode. Once you are done, use `CTRL+C` to terminate the process. Depen
 pulling and starting the Daemon for the first time may take a few minutes.
 
 ``` bash
-cd /etc/pterodactyl
-sudo ./wings
+sudo wings
 ```
 
 You may optionally add the `--debug` flag to run Wings in debug mode.
@@ -147,7 +146,7 @@ User=root
 WorkingDirectory=/etc/pterodactyl
 LimitNOFILE=4096
 PIDFile=/var/run/wings/daemon.pid
-ExecStart=/etc/pterodactyl/wings
+ExecStart=/usr/local/bin/wings
 Restart=on-failure
 StartLimitInterval=600
 
