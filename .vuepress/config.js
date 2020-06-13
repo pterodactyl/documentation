@@ -195,6 +195,7 @@ module.exports = {
                     children: [
                         '/tutorials/mysql_setup.md',
                         '/tutorials/creating_ssl_certificates.md',
+                        '/community/about.md',
                     ],
                 },
                 {
