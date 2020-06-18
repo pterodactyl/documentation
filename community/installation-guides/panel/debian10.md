@@ -18,7 +18,7 @@ apt update
 ## Install MariaDB
 apt install -y mariadb-common mariadb-server mariadb-client
 
-## Start maraidb
+## Start mariadb
 systemctl start mariadb
 systemctl enable mariadb
 ```
