@@ -34,7 +34,7 @@ Once you've done that, restarting the Daemon will apply the change and not boot 
 To download the standalone server, execute the command below in your Daemon's base directory (generally `/srv/daemon`).
 
 ``` sh
-curl -Lo sftp-server https://github.com/pterodactyl/sftp-server/releases/download/v1.0.4/sftp-server
+curl -Lo sftp-server https://github.com/pterodactyl/sftp-server/releases/download/v1.0.5/sftp-server
 chmod +x sftp-server
 ```
 
