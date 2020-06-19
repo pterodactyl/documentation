@@ -1,6 +1,5 @@
 # Ubuntu 18.04
-In this guide we will install Pterodactyl — including all of it's dependencies — and configure our webserver
-to serve it using SSL.
+In this guide we will install Pterodactyl v0.7.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
 
 [[toc]]
 
@@ -16,7 +15,7 @@ We will first begin by installing all of Pterodactyl's [required](/panel/getting
 ## Get apt updates
 apt update -y
 
-## Install MariaDB 10.1
+## Install MariaDB
 apt install -y mariadb-common mariadb-server mariadb-client
 
 ## Start MariaDB
@@ -25,7 +24,6 @@ systemctl enable mariadb
 ```
 
 ### PHP 7.2
-
 ```bash
 ## Get apt updates
 apt update -y
@@ -35,13 +33,11 @@ apt install -y php7.2 php7.2-cli php7.2-gd php7.2-mysql php7.2-pdo php7.2-mbstri
 ```
 
 ### Nginx
-
 ```bash
 apt install -y nginx
 ```
 
 ### Redis
-
 ```bash
 apt install -y redis-server
 

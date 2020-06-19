@@ -1,5 +1,5 @@
 # CentOS 8
-In this guide we will install Pterodactyl's Daemon 0.6.X — including all of it's dependencies — and configure it to use a SSL connection.
+In this guide we will install Pterodactyl's Daemon v0.6.X — including all of it's dependencies — and configure it to use a SSL connection.
 
 [[toc]]
 
@@ -8,7 +8,7 @@ This guide is based off the [official installation documentation](/daemon/instal
 :::
 
 ## Install Requirements
-We will first begin by installing all of the Daemon's [required dependencies](/daemon/installing.md#dependencies).
+We will first begin by installing all of the Daemon's [required](/daemon/installing.md#dependencies) dependencies.
 
 ### General Requirements
 ```bash
@@ -36,11 +36,12 @@ systemctl start docker
 dnf install -y nodejs
 ```
 
-### Server Ports
+### FirewallD changes
 ```bash
 firewall-cmd --add-port 8080/tcp --permanent
 firewall-cmd --add-port 2022/tcp --permanent
-firewall-cmd --permanent --zone=trusted --change-interface=docker0
+firewall-cmd --permanent --zone=trusted --change-interface=pterodactyl0
+firewall-cmd --zone=trusted --add-masquerade --permanent
 firewall-cmd --reload
 ```
 

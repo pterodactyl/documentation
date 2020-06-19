@@ -1,6 +1,5 @@
 # Debian 10
-In this guide we will install Pterodactyl — including all of it's dependencies — and configure our webserver
-to serve it using SSL.
+In this guide we will install Pterodactyl v0.7.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
 
 [[toc]]
 
@@ -16,10 +15,10 @@ We will first begin by installing all of Pterodactyl's [required](/panel/getting
 ## Get apt updates
 apt update
 
-## Install MariaDB 10.3
+## Install MariaDB
 apt install -y mariadb-common mariadb-server mariadb-client
 
-## Start maraidb
+## Start mariadb
 systemctl start mariadb
 systemctl enable mariadb
 ```
