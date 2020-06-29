@@ -76,6 +76,14 @@ h2 {
     @apply .text-2xl .pb-2 .border-b .border-grey-light;
 }
 
+h3 {
+    @apply .text-xl;
+}
+
+h4 {
+    @apply .text-lg;
+}
+
 p {
     @apply .my-4;
     line-height: 1.7;
