@@ -29,7 +29,7 @@ directory as it is no longer needed.
 First, download the updated wings binary into `/usr/local/bin`.
 
 ``` bash
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.6/wings_linux_amd64
+curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.0.0-beta.7/wings_linux_amd64
 chmod u+x /usr/local/bin/wings
 ```
 
