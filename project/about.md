@@ -7,9 +7,10 @@
 | [Dane Everitt](https://daneeveritt.com/) | `Tactical Fish#8008` | Project Maintainer |
 | [Anand Capur](https://anand.io/) | `Arcdigital#1337` | Mobile/Cloud Project Lead |
 | Michael Parker | `parkervcp#6789` | Egg Developer, Docker Integration |
-| [Jakob Schrettenbrunner](https://schrej.net/) | `schrej#1337` | Golang Daemon Lead, Developer |
+| [Jakob Schrettenbrunner](https://schrej.net/) | `schrej#1337` | Developer |
 | Stepan Fedotov | `Trixter#0001` | WHMCS Module Maintainer |
 | [Lance Pioch](https://lancepioch.com/) | `ShadowLancer#5209` | Developer |
+| [Matthew Penner](https://matthewp.io/) | `matthewp#0001` | Developer |
 
 ## Community Team
 Pterodactyl would not be as successful as it is today without the help of our fantastic community support team. These
