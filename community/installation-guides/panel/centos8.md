@@ -28,15 +28,19 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.2
-We recommend the remi repo to get the latest php packages.
+### PHP 7.3 
+We recommend the Remi modular repo to get the latest php packages.
 
 ```bash
 ## Get dnf updates
 dnf update -y
 
-## Install PHP 7.2
-dnf install -y php php-common php-fpm php-cli php-json php-mysqlnd php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
+## Install EPEL & Remi Modular Repository
+dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+dnf -y install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+
+## Install PHP 7.3
+dnf -y module install php:remi-7.3/common
 ```
 
 ### Composer
@@ -50,7 +54,7 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 
 ### Nginx
 ```bash
-dnf install -y nginx
+dnf -y module install nginx:mainline/common
 
 firewall-cmd --add-service=http --permanent
 firewall-cmd --add-service=https --permanent 
@@ -59,7 +63,7 @@ firewall-cmd --reload
 
 ### Redis
 ```bash
-dnf install -y redis
+dnf -y module install redis:remi-6.0/common
 
 systemctl start redis
 systemctl enable redis
