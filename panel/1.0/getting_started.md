@@ -90,7 +90,7 @@ allow us to store files as well as keep a speedy cache available to reduce load 
 
 ``` bash
 curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v1.0.0-beta.6/panel.tar.gz
-tar --strip-components=1 -xzvf panel.tar.gz
+tar -xzvf panel.tar.gz
 chmod -R 755 storage/* bootstrap/cache/
 ```
 
