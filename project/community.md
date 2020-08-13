@@ -5,46 +5,69 @@
     grammar or spelling mistakes.
 -->
 
-Pterodactyl prides itself on providing a warm and welcoming community for all of our members. However, due to the
-sheer size of our community, we have a few rules that we expect all individuals to follow at all times.
+Pterodactyl has grown from a community of tens in 2015 to a community of thousands in 2020. During that time
+there have been countless growing pains and community has changed in an innumerable number of ways. At our heart
+however, Pterodactyl continues to exist for one purpose: to be _the_ platform for running your game servers.
 
-## Statement of Support
-This software is provided to the game community to provide people with the ability to run their servers from a secure
-and modern platform. Pterodactyl is provided free of charge, please refrain from treating us as your personal system
-administrators or being abusive when we do not reply immediately or hold your hand through every step of the process.
-Anyone found to be abusing our support will be removed from this community at the discretion of the Project Team.
+In order to keep true to that goal, and continue to foster one of the largest open-source game panel communities
+out there, we've adopted a simple set of guidelines for participating in this community. The goal of these guidelines
+is to foster an inclusive, welcoming environment for new users, and provide a space for the thousands of existing
+users, administrators, network owners, and hosting companies to co-exist.
 
-You are expected to understand how to read the documentation to use this Panel. We have spent many hours detailing how to
-install or upgrade our software; take some time and read rather than copy and pasting and then complaining when things
-do not work. This panel does not exist as a drag-and-drop service to run your servers. It is a highly complex system
-requiring multiple dependencies and administrators willing to spend some time learning how to use it. If you expect
-to be able to install this with no understanding of basic Linux system administration you should stop and turn
-around now.
+These rules and guidelines extend to all facets of the Pterodactyl Community, including but not limited to our
+Discord Server and all activities within the Github Organization.
 
-## Community Rules
+## Community Guidelines
+At the most basic level, these guidelines can be distilled down to:
+
+1. Be a decent human.
+2. Patience is a virtue.
+
 ### Be Mature
 You are expected to be mature and control your behavior in a manner that adheres to basic human decency. If you are
 unable to do this you will be removed from the community. Personal attacks, spam (in any form), "doxxing", or otherwise
 acting out is not allowed.
+
+This community is fairly lax in regards to moderating language. However, the following are some examples of
+behavior that is absolutely _not_ tolerated and for which you will be removed from the community.
+
+* Racist, sexist, homophobic, transphobic, or otherwise deregatory speech, images, or insinuations.
+* Language whose sole purpose is to denigrate any individual, organization, or class of individual.
+* Threats of violence against any person, group, or organization including "doxxing" of these entities.
+* Pornographic or excessively violent content.
+
+### Limit the Drama
+Discussion, including linking to or discussing sites or software, that exists to cast a negative image of other
+companies or users is not allowed. This includes calling out hosts using nulled software, attempting to elicit negative
+reactions towards services or websites, or otherwise stirring up drama.
+
+Assume someone is acting in good faith when responding to them. You don't have to agree with everyone, and you
+don't need to respond to everything.
+
+### Be Patient
+This is an open-source project. No members of the development team are paid in an official capacity to write,
+maintain, nor support this software. The following actions are discouraged in this community.
+
+* Repeatedly asking identical questions within the same channel (or across channels) within short periods of time.
+  * It is expected that some questions will be missed. If it has been a reasonable amount of time and your question
+    remains unanswered, you're welcome to re-post it.
+* Keep all support questions within the realm of the support channels.
+* Do not interrupt conversations in non-support channels solely to request that someone look in a support channel
+  and help you.
    
 ### No Commercial Services
 Discussion of paid installation/upgrade services, modifications, or any other commercial offerings is strictly
-prohibited. This includes paid modifications or designed for Pterodactyl.
+prohibited unless otherwise noted. This also includes reaching out to individuals via Direct Message and offering
+your services without provocation.
 
-### Respect the Support Channels
-Our support channels — those living under the #support name — exist solely to provide _direct_ Pterodactyl related
-support. They are not to be used for general Linux questions or other purposes. Please keep these channels clear for
-support requests, and be considerate of others by utilizing the emptiest channel at the time. 
+::: warning Check your Username
+Advertising commercial services within your username or display name on Discord is forbidden.
+:::
 
-### No Direct Messaging for Support
-Direct messaging Project Team members or Moderators is forbidden unless you have previously asked for permission.
-This rule does not apply if you are in need of urgent attention — for example, reporting security vulnerabilities,
-other members breaking rules, or other urgent, _non-support_ matters.
+### No Mention or Ping Spam
+Please, do not direct message any administrative, development, or notable community members without first
+checking with them. Keep all support queries within the public support channels unless you have been directly
+asked to move it elsewhere.
 
-### No Drama
-Discussion, including linking to or discussing sites or software, that exists to cast a negative image of other
-companies or users is not allowed. This includes calling out hosts using nulled software, attempting to elicit negative
-reactions towards other sites, or otherwise stirring up drama.
-
-### No Advertising
-Advertising hosting companies in your username is not allowed.
+_But what if I am trying to respond back to someone?_ That is fine! We only ask that you not mention people
+directly if they're not already involved in a discussion with you.
