@@ -9,7 +9,8 @@ the majority of the functions all for you (such as Theme Name, Views Location, A
 php artisan theme:create
 ```
 This command will activate the theme wizard. Besides the name, the defaults will suffice, see the below example.
-::: warning Do not create the theme named as `pterodactyl` as that is Pterodactyl's main design and should NOT be overwritten. :::
+::: warning Do not create the theme named as `pterodactyl` as that is Pterodactyl's main design and should NOT be overwritten.
+:::
 ``` bash
 Give theme name:
 > (Enter Theme Name Here) (Example: MyThemeNameHere)
