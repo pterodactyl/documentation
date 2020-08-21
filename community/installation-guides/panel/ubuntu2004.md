@@ -4,11 +4,11 @@ In this guide we will install Pterodactyl v0.7.X — including all of it's depen
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for Ubuntu 20.04.
+This guide is based off the [official installation documentation](/panel/0.7/getting_started.md) but is tailored specifically for Ubuntu 20.04.
 :::
 
 ## Install Requirements
-We will first begin by installing all of Pterodactyl's [required](/panel/getting_started.md#dependencies) dependencies.
+We will first begin by installing all of Pterodactyl's [required](/panel/0.7/getting_started.md#dependencies) dependencies.
 
 ### MariaDB
 ```bash
@@ -25,6 +25,9 @@ systemctl enable mariadb
 
 ### PHP 7.2
 ```bash
+# Add additional repositorie for PHP
+LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+
 ## Get apt updates
 apt update -y
 
