@@ -23,13 +23,13 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.4
+### PHP 7.2
 ```bash
 ## Get apt updates
 apt update -y
 
-## Install PHP 7.4
-apt install -y php7.4 php7.4-cli php7.4-gd php7.4-mysql php7.4-mbstring php7.4-bcmath php7.4-xml php7.4-fpm php7.4-curl php7.4-zip
+## Install PHP 7.2
+apt -y install php7.2 php7.2-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
 ```
 
 ### Nginx
@@ -96,15 +96,15 @@ The default php-fpm configuration is fine to use and can be started and then ena
 commands below.
 
 ```bash
-systemctl enable php7.4-fpm
-systemctl start php7.4-fpm
+systemctl enable php7.2-fpm
+systemctl start php7.2-fpm
 ```
 
 ### Nginx
 Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
 #### SSL Configuration
-<<< @/.snippets/webservers/nginx-php7.4.conf{5,11,26-27}
+<<< @/.snippets/webservers/nginx-php7.2.conf{5,11,26-27}
 
 ### Redis Setup
 The default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
