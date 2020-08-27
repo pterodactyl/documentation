@@ -74,6 +74,11 @@ If you are on an operating system with systemd (Ubuntu 16+, Debian 8+, CentOS 7+
 ``` bash
 systemctl enable docker
 ```
+#### Create Docker Network for Daemon
+when u not create the Docker Network for the Daemon u may encounter issues when running the Daemon.
+```
+docker network create pterodactyl_nw
+```
 
 #### Enabling Swap
 On most systems, docker will be unable to setup swap space, you can check if this is the case by running `docker info`.
