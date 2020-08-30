@@ -16,12 +16,12 @@
         <div class="section bg-white">
             <div class="container text-center">
                 <h1 class="text-blue mb-4">Pterodactyl Panel</h1>
-                <h3 class="border-0 font-light leading-normal max-w-xl mx-auto">
+                <h3 class="border-0 font-normal leading-normal mx-auto" style="max-width: 50rem">
                     Pterodactyl is an open-source game server management panel built with PHP 7, React, and Go.
-                    Designed with security in mind, Pterodactyl runs all game servers in isolated Docker container
+                    Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers
                     while exposing a beautiful and intuitive UI to end users.
                 </h3>
-                <h3 class="border-0 font-light leading-normal max-w-xl mx-auto mt-4">
+                <h3 class="border-0 leading-normal mx-auto mt-4" style="max-width: 50rem">
                     Stop settling for less. Make game servers a first class citizen on your platform.
                 </h3>
                 <img class="max-w-lg w-full m-4 inline-block" src="https://cdn.pterodactyl.io/site-assets/mockup-macbook-grey-1.0.png">
