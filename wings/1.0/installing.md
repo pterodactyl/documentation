@@ -1,18 +1,10 @@
 # Installing Wings
-
-Wings is the next generation control daemon from Pterodactyl. This daemon has been rebuilt from the
+Wings is the next generation server control plane from Pterodactyl. It has been rebuilt from the
 ground up using Go and lessons learned from our first Nodejs Daemon.
-
-::: danger Not for Production Use
-**Wings is not stable and should not be used in a production environment.** Features are subject
-to change, important features are missing, and the team has not vetted the performance or
-security of the software.
-:::
 
 ::: warning
 You should only install Wings if you are running **Pterodactyl 1.0**. Do not install this software
-for previous versions of Pterodactyl. If you have no idea what this means, you probably do not need
-to be installing this software.
+for previous versions of Pterodactyl.
 :::
 
 ## Supported Systems
@@ -26,11 +18,11 @@ to be installing this software.
 | | 10 | :white_check_mark: | |
 
 ## System Requirements
-In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all
+In order to run Wings you will need a system capable of running Docker containers. Most VPS and almost all
 dedicated servers should be capable of running Docker, but there are edge cases.
 
 If your provider makes use of `Virtuozzo`, `OpenVZ` (or `OVZ`), or `LXC` then you will most likely be unable to
-run the Daemon. If you are unsure what your host is using there are a couple of options. The easiest is to check
+run Wings. If you are unsure what your host is using there are a couple of options. The easiest is to check
 their website, or reach out to their support team.
 
 If you want to take a different approach, try using `lscpu` and checking what the virtualization type listed is. An
@@ -38,7 +30,7 @@ example of this is shown below which shows my hypervisor running with full virtu
 support Docker without issues. If you see `KVM` for the vendor, chances are you're fine as well.
 
 ``` bash
-dane@daemon:~$ lscpu | grep 'vendor\|type'
+dane@pterodactyl:~$ lscpu | grep 'vendor\|type'
 Hypervisor vendor:     VMware
 Virtualization type:   full
 ```
@@ -47,7 +39,7 @@ If that doesn't work for some reason, or you're still unsure, you can also run t
 doesn't report `Xen` or `LXC` you're probably okay to continue.
 
 ``` bash
-dane@daemon:~$ sudo dmidecode -s system-manufacturer
+dane@pterodactyl:~$ sudo dmidecode -s system-manufacturer
 VMware, Inc.
 ```
 
@@ -78,7 +70,7 @@ probably using a non-supported kernel. Check our [Kernel Modifications](kernel_m
 If you are on an operating system with systemd (Ubuntu 16+, Debian 8+, CentOS 7+) run the command below to have Docker start when you boot your machine.
 
 ``` bash
-systemctl enable docker
+systemctl enable --now docker
 ```
 
 #### Enabling Swap
@@ -98,7 +90,7 @@ GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
 ```
 
 ## Installing Wings
-The first step for installing the daemon is to make sure we have the required directory structure setup. To do so,
+The first step for installing Wings is to make sure we have the required directory structure setup. To do so,
 run the commands below which will create the base directory and download the wings executable.
 
 ``` bash
@@ -113,8 +105,8 @@ If you are using a server provided by OVH or SoYouStart please be aware that you
 set when creating the node.
 :::
 
-## Configure Daemon
-Once you have installed the daemon and required components, the next step is to create a node on your installed Panel
+## Configure
+Once you have installed Wings and required components, the next step is to create a node on your installed Panel
 Once you have done that there will be a tab called Configuration when you view the node.
 
 Simply copy and paste the code block and paste it into a file called `config.yml` in `/etc/pterodactyl` and save it.
@@ -122,18 +114,18 @@ Simply copy and paste the code block and paste it into a file called `config.yml
 ![](./../../.vuepress/public/wings_configuration_example.png)
 
 ### Starting Wings
-To start your daemon simply move into the daemon directory and run the command below which will start the daemon in
+To start Wings, simply move into the Wings directory and run the command below which will start it in
 foreground mode. Once you are done, use `CTRL+C` to terminate the process. Depending on your server's internet connection
-pulling and starting the Daemon for the first time may take a few minutes.
+pulling and starting Wings for the first time may take a few minutes.
 
 ``` bash
-sudo wings
+sudo wings --debug
 ```
 
 You may optionally add the `--debug` flag to run Wings in debug mode.
 
 ### Daemonizing (using systemd)
-Running Pterodactyl Daemon in the background is a simple task, just make sure that it runs without errors before doing
+Running Wings in the background is a simple task, just make sure that it runs without errors before doing
 this. Place the contents below in a file called `wings.service` in the `/etc/systemd/system` directory.
 
 ``` text
@@ -154,7 +146,7 @@ StartLimitInterval=600
 WantedBy=multi-user.target
 ```
 
-Then, run the commands below to reload systemd and start the daemon.
+Then, run the commands below to reload systemd and start Wings.
 
 ``` bash
 systemctl enable --now wings

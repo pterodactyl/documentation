@@ -15,7 +15,7 @@ is to foster an inclusive, welcoming environment for new users, and provide a sp
 users, administrators, network owners, and hosting companies to co-exist.
 
 These rules and guidelines extend to all facets of the Pterodactyl Community, including but not limited to our
-Discord Server and all activities within the Github Organization.
+Discord Server and all activities within the GitHub Organization.
 
 ## Community Guidelines
 At the most basic level, these guidelines can be distilled down to:

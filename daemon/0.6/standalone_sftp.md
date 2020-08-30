@@ -49,7 +49,7 @@ Finally, start the SFTP server so that you can then use it to access your files.
 ```
 
 By default, this will start the SFTP server on the old port of `2022`. If you want to use a different port it can be
-specified by passing the `--port` flag. For more advanced usage, please refer to the [Github README](https://github.com/pterodactyl/sftp-server/tree/release/v1.0.4#running)
+specified by passing the `--port` flag. For more advanced usage, please refer to the [GitHub README](https://github.com/pterodactyl/sftp-server/tree/release/v1.0.4#running)
 which includes all of the flags and their default values.
 
 ## Daemonize Server

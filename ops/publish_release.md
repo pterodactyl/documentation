@@ -14,15 +14,15 @@ out for the release. This should be some type of rhyme or otherwise creative nam
 related species name.
 
 ## Create the Release Branch
-Releases should be created as their own branch on Github, following the GitFlow model. This means you'll need to create
+Releases should be created as their own branch on GitHub, following the GitFlow model. This means you'll need to create
 a `release/vX.X.X` branch. Once the branch is created you need to update the version number for the software. For the Panel
 this requires editing `config/app.php` and setting the specific `APP_VERSION` _without_ a preceding `v`. For the Daemon,
 you need to edit `package.json` and set the `version` field, again _without_ a preceding `v`.
 
-Once you've created the branch and update the relevant file publish the branch to Github to begin the next steps.
+Once you've created the branch and update the relevant file publish the branch to GitHub to begin the next steps.
 
 ## Tag a Release
-Once the branch is pushed up you need to tag a release and then configure it on Github. To do so, run the command below
+Once the branch is pushed up you need to tag a release and then configure it on GitHub. To do so, run the command below
 setting the version correctly. This will create a tag for `v0.6.0` on the `release/v0.6.0` branch and sign it using your
 GPG key.
 
@@ -35,13 +35,13 @@ git tag -asm "v0.6.0"
 git push origin v0.6.0
 ```
 
-### Update the Release on Github
-Once you've created and pushed up the tag you need to then go to the Github releases, find the most recent tag, and create
+### Update the Release on GitHub
+Once you've created and pushed up the tag you need to then go to the GitHub releases, find the most recent tag, and create
 a nice release from it. The title should be `v1.2.3 (Codename)`, and the content should be from the Changelog for that release.
 All minor version releases should use the same codename as the major release version.
 
 ## Generate Signatures & Hashes
-Once you've created the release on Github, view it and select the option to download the `.tar.gz` archive of the release.
+Once you've created the release on GitHub, view it and select the option to download the `.tar.gz` archive of the release.
 Once downloaded, rename it to `panel.tar.gz` or `daemon.tar.gz`.
 
 ``` bash
@@ -49,7 +49,7 @@ mv panel-v1.2.3.tar.gz panel.tar.gz
 ```
 
 ### Create Checksum
-Then, create the SHA 256 checksum and write it to a file which will be uploaded to the release on Github.
+Then, create the SHA 256 checksum and write it to a file which will be uploaded to the release on GitHub.
 
 ``` bash
 shasum -a 256 panel.tar.gz > checksum.txt
@@ -96,7 +96,7 @@ git push -u origin release/v1.2.3
 git tag -as v1.2.3 -m "v1.2.3"
 git push origin v1.2.3
 
-# edit release on Github, download files
+# edit release on GitHub, download files
 
 mv panel-1.2.3.tar.gz panel.tar.gz
 shasum -a 256 panel.tar.gz > checksum.txt

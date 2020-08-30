@@ -23,5 +23,5 @@ php artisan queue:restart
 ```
 
 ## Version Specific Guides
-
-* [1.0.X series](/panel/1.0/upgrade/1.0.md) <Badge text="alpha release" vertical="middle"/>
+* [Upgrading from 0.7.X](/panel/1.0/upgrade/0.7_to_1.0.md)
+* [1.0.X series](/panel/1.0/upgrade/1.0.md) <Badge text="release candidate" type="warn" vertical="middle"/>

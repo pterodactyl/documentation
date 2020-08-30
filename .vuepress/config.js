@@ -148,8 +148,8 @@ module.exports = {
                             status: 'beta',
                             children: [
                                 '/getting_started',
-                                '/webserver_configuration', 
-                                '/upgrading' 
+                                '/webserver_configuration',
+                                '/upgrading'
                             ]
                         }
                     ]
@@ -185,6 +185,7 @@ module.exports = {
                             children: [
                                 '/installing',
                                 '/upgrading',
+                                '/migrating',
                             ]
                         }
                     ]
