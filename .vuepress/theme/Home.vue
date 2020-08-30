@@ -75,6 +75,8 @@
                         <a :href="$withBase('frontpage/gallery/screenshot-7.png')"><img :src="$withBase('frontpage/gallery/screenshot-7.png')"></a>
                         <a :href="$withBase('frontpage/gallery/screenshot-8.png')"><img :src="$withBase('frontpage/gallery/screenshot-8.png')"></a>
                         <a :href="$withBase('frontpage/gallery/screenshot-9.png')"><img :src="$withBase('frontpage/gallery/screenshot-9.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-10.png')"><img :src="$withBase('frontpage/gallery/screenshot-10.png')"></a>
+                        <a :href="$withBase('frontpage/gallery/screenshot-11.png')"><img :src="$withBase('frontpage/gallery/screenshot-11.png')"></a>
                     </slick>
                 </div>
             </div>
