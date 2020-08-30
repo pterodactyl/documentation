@@ -66,17 +66,39 @@
                 <h1>Screenshots</h1>
                 <div class="screenshots">
                     <slick ref="slick" :options="slickOptions">
-                        <a :href="$withBase('frontpage/gallery/screenshot-1.png')"><img :src="$withBase('frontpage/gallery/screenshot-1.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-2.png')"><img :src="$withBase('frontpage/gallery/screenshot-2.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-3.png')"><img :src="$withBase('frontpage/gallery/screenshot-3.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-4.png')"><img :src="$withBase('frontpage/gallery/screenshot-4.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-5.png')"><img :src="$withBase('frontpage/gallery/screenshot-5.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-6.png')"><img :src="$withBase('frontpage/gallery/screenshot-6.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-7.png')"><img :src="$withBase('frontpage/gallery/screenshot-7.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-8.png')"><img :src="$withBase('frontpage/gallery/screenshot-8.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-9.png')"><img :src="$withBase('frontpage/gallery/screenshot-9.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-10.png')"><img :src="$withBase('frontpage/gallery/screenshot-10.png')"></a>
-                        <a :href="$withBase('frontpage/gallery/screenshot-11.png')"><img :src="$withBase('frontpage/gallery/screenshot-11.png')"></a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-1">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-1">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-2">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-2">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-3">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-3">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-4">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-4">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-5">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-5">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-6">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-6">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-7">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-7">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-8">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-8">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-9">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-9">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-10">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-10">
+                        </a>
+                        <a href="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-11">
+                            <img src="https://cdn.pterodactyl.io/site-assets/carousel/screenshot-11">
+                        </a>
                     </slick>
                 </div>
             </div>
