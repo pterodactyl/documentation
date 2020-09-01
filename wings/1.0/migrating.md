@@ -51,6 +51,18 @@ rm -rf /srv/daemon
 apt -y remove nodejs # or: yum remove nodejs
 ```
 
+### Remove Standalone SFTP
+If you've used the [standalone SFTP server](/daemon/0.6/standalone_sftp.html) with the old daemon, we need to remove it's systemd service as well, as it's no longer needed.
+You can do so using the following commands.
+
+```bash
+# stop and disable the standalone sftp
+systemctl disable --now pterosftp
+
+# delete the systemd service
+rm /etc/systemd/system/pterosftp.service
+```
+
 ## Daemonize Wings
 You'll then need to edit your existing `systemd` service file for Wings to point to the new control software. To do
 this, open `/etc/systemd/system/wings.service` and replace the entire contents of the file with the following:
