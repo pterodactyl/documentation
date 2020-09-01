@@ -3,9 +3,8 @@ Upgrading the Panel is a relatively simple process. Below you will find a list o
 the upgrade process for each version of the software.
 
 ## Maintenance Mode
-Whenever you are performing an upgrade you should be sure to place your Panel into maintenance mode. This will prevent
-users from encountering unexpected errors and ensure everything can be upgraded before users being encountering
-potentially new features.
+Whenever you are performing an upgrade, you should be sure to place your Panel into "maintenance mode". This will prevent
+users from encountering unexpected errors, and ensure everything can be upgraded before users encounter potentially new features.
 
 ``` bash
 # Put the Panel into maintenance mode and deny user access
@@ -16,7 +15,7 @@ php artisan up
 ```
 
 ## Restarting Queue Workers
-After _every_ update you should restart the queue worker to ensure that the new code is loaded in and used.
+After _every_ update, you should restart the queue worker to ensure that the new code is being loaded in and used.
 
 ``` bash
 php artisan queue:restart
