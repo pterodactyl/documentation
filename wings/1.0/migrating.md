@@ -3,6 +3,10 @@ This guide is for people looking to migrate from the old Node.JS daemon to Wings
 [install guide](/wings/1.0/installing.md) if you are trying to install Wings for the first time on
 a new node.
 
+::: danger Panel Version Requirement
+You **must** be running version 1.0.0 of Pterodactyl Panel in order to use Wings.
+:::
+
 You'll have a brief offline period as you perform this process, however no running game processes
 will be affected. Plus, chances are your Panel will be offline (or in maintenance mode) during this
 so your users should not notice anything out of the ordinary.
