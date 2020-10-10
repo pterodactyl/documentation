@@ -93,7 +93,16 @@ Now that all of the files have been downloaded we need to configure some core as
 
 ::: tip Database Configuration
 You will need a database setup and a user with the correct permissions created for that database before
-continuing any further. If you are unsure how to do this, please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
+continuing any further. See below to quickly create a user and database for your Pterodactyl panel, if you are unsure how to do this or want more information, please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
+```
+$ mysql -u root -p
+
+mysql> CREATE USER 'pterodactyl'@'localhost' IDENTIFIED WITH mysql_native_password BY 'A secure password';
+mysql> CREATE DATABASE panel;
+mysql> GRANT ALL ON panel.* TO 'pterodactyl'@'localhost' WITH GRANT OPTION;
+mysql> FLUSH PRIVILEGES;
+
+```
 :::
 
 First we will copy over our default environment settings file, install core dependencies, and then generate a
