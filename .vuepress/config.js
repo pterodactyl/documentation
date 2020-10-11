@@ -130,11 +130,11 @@ module.exports = {
                     title: 'Panel',
                     collapsable: false,
                     path: '/panel/',
-                    currentVersion: '0.7',
+                    currentVersion: '1.0',
                     versions: [
                         {
                             name: '0.7',
-                            status: 'stable',
+                            status: 'legacy',
                             children: [
                                 '/getting_started',
                                 '/webserver_configuration',
@@ -145,7 +145,7 @@ module.exports = {
                         },
                         {
                             name: '1.0',
-                            status: 'beta',
+                            status: 'stable',
                             children: [
                                 '/getting_started',
                                 '/webserver_configuration',
@@ -162,6 +162,7 @@ module.exports = {
                     versions: [
                         {
                             name: '0.6',
+                            status: 'legacy',
                             children: [
                                 '/installing',
                                 '/upgrading',
@@ -177,11 +178,11 @@ module.exports = {
                     title: 'Wings',
                     collapsable: false,
                     path: '/wings/',
-                    currentVersion: '',
+                    currentVersion: '1.0',
                     versions: [
                         {
                             name: '1.0',
-                            status: 'beta',
+                            status: 'stable',
                             children: [
                                 '/installing',
                                 '/upgrading',
