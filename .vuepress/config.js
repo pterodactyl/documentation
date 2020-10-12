@@ -155,26 +155,6 @@ module.exports = {
                     ]
                 },
                 {
-                    title: 'Daemon',
-                    collapsable: false,
-                    path: '/daemon/',
-                    currentVersion: '0.6',
-                    versions: [
-                        {
-                            name: '0.6',
-                            status: 'legacy',
-                            children: [
-                                '/installing',
-                                '/upgrading',
-                                '/configuration',
-                                '/kernel_modifications',
-                                '/debian_8_docker',
-                                '/standalone_sftp',
-                            ]
-                        }
-                    ]
-                },
-                {
                     title: 'Wings',
                     collapsable: false,
                     path: '/wings/',
@@ -187,6 +167,25 @@ module.exports = {
                                 '/installing',
                                 '/upgrading',
                                 '/migrating',
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: 'Daemon',
+                    collapsable: false,
+                    path: '/daemon/',
+                    versions: [
+                        {
+                            name: '0.6',
+                            status: 'legacy',
+                            children: [
+                                '/installing',
+                                '/upgrading',
+                                '/configuration',
+                                '/kernel_modifications',
+                                '/debian_8_docker',
+                                '/standalone_sftp',
                             ]
                         }
                     ]
