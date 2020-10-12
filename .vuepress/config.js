@@ -55,6 +55,10 @@ module.exports = {
             {
                 text: 'Get Help',
                 link: 'https://pterodactyl.io/discord'
+            },
+            {
+                text: 'API',
+                link: 'https://dashflo.net/docs/api/pterodactyl/v1/'
             }
         ],
         sidebar: {
