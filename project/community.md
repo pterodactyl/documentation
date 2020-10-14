@@ -54,7 +54,7 @@ maintain, nor support this software. The following actions are discouraged in th
 * Keep all support questions within the realm of the support channels.
 * Do not interrupt conversations in non-support channels solely to request that someone look in a support channel
   and help you.
-   
+
 ### No Commercial Services
 Discussion of paid installation/upgrade services, modifications, or any other commercial offerings is strictly
 prohibited unless otherwise noted. This also includes reaching out to individuals via Direct Message and offering
@@ -63,6 +63,8 @@ your services without provocation.
 ::: warning Check your Username
 Advertising commercial services within your username or display name on Discord is forbidden.
 :::
+
+[Sponsors](https://github.com/sponsors/DaneEveritt) at the silver tier and higher are exempt from this rule.
 
 ### No Mention or Ping Spam
 Please, do not direct message any administrative, development, or notable community members without first
