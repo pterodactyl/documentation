@@ -14,7 +14,7 @@
     "autoprefixer": "^9.0.1",
     "cssnano": "^4.0.3",
     "lodash": "^4.17.13",
-    "postcss-import": "^12.0.0",
+    "postcss-import": "^12.0.1",
     "precss": "^4.0.0",
     "tailwindcss": "^1.0.0"
   },
