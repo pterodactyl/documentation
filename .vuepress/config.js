@@ -171,6 +171,7 @@ module.exports = {
                                 '/installing',
                                 '/upgrading',
                                 '/migrating',
+                                '/configuration',
                             ]
                         }
                     ]
