@@ -3,13 +3,13 @@
 [[toc]]
 
 ::: warning
-These are advanced configurations for wings. You risk breaking wings and making containers un-usable if
-you modify something incorrectly. Proceed at your own risk, and only if you know what each configuration value does.
+These are advanced configurations for Wings. You risk breaking Wings and making containers unusable if
+you configure something incorrectly. Proceed only if you know what each configuration value does.
 :::
 
 ## Private Registries
 
-These settings are used to allow usage of private docker registries with pterodactyl.
+These settings can be used to authenticate against (private) docker registries when pulling images.
 
 ### Available Keys
 
