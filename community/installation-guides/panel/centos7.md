@@ -45,7 +45,7 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.4
+### PHP 7.3
 We recommend the remi repo to get the latest php packages.
 
 ```bash
@@ -53,13 +53,13 @@ We recommend the remi repo to get the latest php packages.
 yum install -y epel-release http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum install -y yum-utils
 yum-config-manager --disable remi-php54
-yum-config-manager --enable remi-php74
+yum-config-manager --enable remi-php73
 
 ## Get yum updates
 yum update -y
 
-## Install PHP 7.4
-yum install -y php php-{common,fpm,cli,json,mysqlnd,mcrypt,gd,mbstring,pdo,zip,bcmath,dom,opcache}
+## Install PHP 7.3
+yum install -y php php-common php-fpm php-cli php-json php-mysqlnd php-mcrypt php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
 ```
 
 ### Composer
