@@ -83,15 +83,15 @@ module.exports = {
                     ]
                 },
                 {
-                    title: 'Daemon Installation',
+                    title: 'Wings Installation',
                     collapsable: false,
                     children: [
-                        '/community/installation-guides/daemon/centos7.md',
-                        '/community/installation-guides/daemon/centos8.md',
-                        '/community/installation-guides/daemon/debian9.md',
-                        '/community/installation-guides/daemon/debian10.md',
-                        '/community/installation-guides/daemon/ubuntu1804.md',
-                        '/community/installation-guides/daemon/ubuntu2004.md',
+                        '/community/installation-guides/wings/centos7.md',
+                        '/community/installation-guides/wings/centos8.md',
+                        '/community/installation-guides/wings/debian9.md',
+                        '/community/installation-guides/wings/debian10.md',
+                        '/community/installation-guides/wings/ubuntu1804.md',
+                        '/community/installation-guides/wings/ubuntu2004.md',
                     ]
                 },
                 {
@@ -171,6 +171,7 @@ module.exports = {
                                 '/installing',
                                 '/upgrading',
                                 '/migrating',
+                                '/configuration',
                             ]
                         }
                     ]
