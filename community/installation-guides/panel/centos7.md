@@ -25,11 +25,11 @@ yum install -y policycoreutils policycoreutils-python selinux-policy selinux-pol
 ```bash
 ## Install Repos
 cat <<EOF > /etc/yum.repos.d/mariadb.repo
-# MariaDB 10.2 CentOS repository list - created 2017-07-14 12:40 UTC
+# MariaDB 10.5 CentOS repository list - created 2017-07-14 12:40 UTC
 # http://downloads.mariadb.org/mariadb/repositories/
 [mariadb]
 name = MariaDB
-baseurl = http://yum.mariadb.org/10.2/centos7-amd64
+baseurl = http://yum.mariadb.org/10.5/centos7-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
@@ -37,7 +37,7 @@ EOF
 ## Get yum updates
 yum update -y
 
-## Install MariaDB 10.2
+## Install MariaDB 10.5
 yum install -y MariaDB-common MariaDB-server
 
 ## Start maraidb
