@@ -3,7 +3,7 @@
 [[toc]]
 
 ::: warning
-These are advanced configurations for the daemon. You risk breaking your daemon and making containers un-usable if
+These are advanced configurations for wings. You risk breaking wings and making containers un-usable if
 you modify something incorrectly. Proceed at your own risk, and only if you know what each configuration value does.
 :::
 
