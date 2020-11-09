@@ -84,7 +84,7 @@ and then set the correct permissions on the `storage/` and `bootstrap/cache/` di
 allow us to store files as well as keep a speedy cache available to reduce load times.
 
 ``` bash
-curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v1.0.3/panel.tar.gz
+curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v1.1.1/panel.tar.gz
 tar -xzvf panel.tar.gz
 chmod -R 755 storage/* bootstrap/cache/
 ```
@@ -133,7 +133,7 @@ may take some time to run depending on your machine. Please _DO NOT_ exit the pr
 command will setup the database tables and then add all of the Nests & Eggs that power Pterodactyl.
 
 ``` bash
-php artisan migrate --seed
+php artisan migrate --seed --force
 ```
 
 ### Add The First User
