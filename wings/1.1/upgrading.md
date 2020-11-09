@@ -5,7 +5,7 @@ Upgrading Wings is a painless process and should take less than a minute to comp
 First, download the updated wings binary into `/usr/local/bin`.
 
 ::: warning
-`Wings@1.1.0` requires `Panel@1.1.0` in order to run properly. It will not boot if your Panel is not
+`Wings@1.1.1` requires `Panel@1.1.1` in order to run properly. It will not boot if your Panel is not
 also up-to-date.
 :::
 
