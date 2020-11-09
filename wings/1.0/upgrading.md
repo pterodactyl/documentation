@@ -10,7 +10,7 @@ also up-to-date.
 :::
 
 ``` bash
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.1.0/wings_linux_amd64
+curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.1.1/wings_linux_amd64
 chmod u+x /usr/local/bin/wings
 ```
 
