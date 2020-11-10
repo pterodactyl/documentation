@@ -1,14 +1,14 @@
 # Debian 9
-In this guide we will install Pterodactyl v0.7.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
+In this guide we will install Pterodactyl v1.x — including all of it's dependencies — and configure our webserver to serve it using SSL.
 
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for Debian 9.
+This guide is based off the [official installation documentation](/panel/1.0/etting_started.md) but is tailored specifically for Debian 9.
 :::
 
 ## Install Requirements
-We will first begin by installing all of Pterodactyl's [required](/panel/getting_started.md#dependencies) dependencies.
+We will first begin by installing all of Pterodactyl's [required](/panel/1.0/getting_started.md#dependencies) dependencies.
 
 ### MariaDB
 ```bash
@@ -27,7 +27,7 @@ systemctl enable mariadb
 
 ### PHP 7.3
 ```bash
-## Install the PHP 7.3 repo for debian
+## Install the PHP 7.4 repo for debian
 apt install -y ca-certificates apt-transport-https
 wget -q https://packages.sury.org/php/apt.gpg -O- | apt-key add -
 echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.list.d/php.list
@@ -35,8 +35,8 @@ echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.li
 ## Get apt updates
 apt update
 
-## Install PHP 7.3
-apt install -y php7.3 php7.3-cli php7.3-gd php7.3-mysql php7.3-pdo php7.3-mbstring php7.3-tokenizer php7.3-bcmath php7.3-xml php7.3-fpm php7.3-curl php7.3-zip
+## Install PHP 7.4
+apt install -y php7.4 php7.4-cli php7.4-gd php7.4-mysql php7.4-pdo php7.4-mbstring php7.4-tokenizer php7.4-bcmath php7.4-xml php7.4-fpm php7.4-curl php7.4-zip
 ```
 
 ### Nginx
@@ -101,15 +101,15 @@ The default php-fpm configuration is fine to use and can be started and then ena
 commands below.
 
 ```bash
-systemctl enable php7.3-fpm
-systemctl start php7.3-fpm
+systemctl enable php7.4-fpm
+systemctl start php7.4-fpm
 ```
 
 ### Nginx
 Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
 #### SSL Configuration
-<<< @/.snippets/webservers/nginx-php7.3.conf{5,11,26-27}
+<<< @/.snippets/webservers/nginx-php7.4.conf{5,11,26-27}
 
 
 ### Redis Setup
@@ -117,4 +117,4 @@ The default Redis install is perfectly fine for the panel. If you have Redis alr
 [running another Redis instance](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host).
 
 ## Installing the Panel
-Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#download-files).
+Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/1.0/getting_started.md#download-files).
