@@ -66,7 +66,7 @@ curl https://get.acme.sh | sh
 ```
 
 ### Obtaining CloudFlare API Key
-After installing acme.sh, we need to fetch a CloudFlare API key. Please make sure that a DNS record (A or CNAME record) is pointing to your target node, and set the cloud to grey (bypassing CloudFlare proxy). Then go to My Profile > API keys and on Glocal API Key subtab, click on "view", enter your CloudFlare password, and copy the API key to clipboard.
+After installing acme.sh, we need to fetch a CloudFlare API key. Please make sure that a DNS record (A or CNAME record) is pointing to your target node, and set the cloud to grey (bypassing CloudFlare proxy). Then go to My Profile > API keys and on Global API Key subtab, click on "view", enter your CloudFlare password, and copy the API key to clipboard.
 
 ### Creating a Certificate
 Since the configuration file is based on Certbot, we need to create the folder manually.
