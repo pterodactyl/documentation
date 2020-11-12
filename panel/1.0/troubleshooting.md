@@ -57,7 +57,7 @@ tail -n 1000 /var/www/pterodactyl/storage/logs/laravel-$(date +%F).log | grep "\
 
 ## cURL Error
 
-# cURL (7)
+### cURL (7)
 There is a List of cURL Errors that can be shown up during an update. Here is an example:
 ``` bash
 [2020-11-12 17:38:38] production.WARNING: GuzzleHttp\Exception\ConnectException: cURL error 7: Failed to connect to panel.cr****ns.net port 8080: Connection refused (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) in /var/www/pterodactyl/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php:200
