@@ -56,11 +56,21 @@ tail -n 1000 /var/www/pterodactyl/storage/logs/laravel-$(date +%F).log | grep "\
 ```
 
 ## cURL Error
+
+# cURL (7)
 There is a List of cURL Errors that can be shown up during an update. Here is an example:
 ``` bash
 [2020-11-12 17:38:38] production.WARNING: GuzzleHttp\Exception\ConnectException: cURL error 7: Failed to connect to panel.cr****ns.net port 8080: Connection refused (see https://curl.haxx.se/libcurl/c/libcurl-errors.html) in /var/www/pterodactyl/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php:200
 ```
 
-Goto the curl Website to understand what this error tells you exactly.
+This will reset the the fail counter for wings so you can start it. This is necessary because `wings` tried to start a couple of times before and ran into an error. Wings is only started again when either the counter is set to 0 or after a certain time has elapsed, depending on the configuration. In some cases it is not possible to restart without reset the fail counter.
 
-A way to fix it will be added after I found a way to fix it.
+``` bash
+# Resets fail counter
+systemctl reset-failed wings
+
+# restarts wings
+systemctl restart wings
+```
+
+To check if everything is working fine check the status `systemctl status wings` if it's telling you `Active: active (running)` wings is online. Also keep in mind that you should stop wings before updating to avoid this issue
