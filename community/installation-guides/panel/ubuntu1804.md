@@ -102,6 +102,8 @@ systemctl start php7.2-fpm
 Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
 #### SSL Configuration
+In order to configure nginx, fulfill the example bellow with your domain name and the certificates generated on the previous step.
+The nginx configuration file can be found on ```/etc/nginx/nginx.conf```.
 <<< @/.snippets/webservers/nginx.conf{5,11,26-27}
 
 ### Redis Setup
