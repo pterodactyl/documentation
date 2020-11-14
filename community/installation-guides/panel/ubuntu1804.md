@@ -103,7 +103,18 @@ Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generati
 
 #### SSL Configuration
 In order to configure nginx, fulfill the example bellow with your domain name and the certificates generated on the previous step.
-The nginx configuration file can be found on ```/etc/nginx/nginx.conf```.
+
+You might need to create a new site on ```/etc/nginx/sites-enabled/```, for example:
+```bash
+touch /etc/nginx/sites-enabled/pterodactyl.conf
+```
+And then you can put edited config on the newly created file.
+> If you have problems with port binding, you might want to delete the default site that comes with nginx, to do so, type 
+> ```rm /etc/nginx/sites-enabled/default```
+
+> Also, don't forget to restart nginx to check if the configuration is OK.
+> ```systemctl restart ngnix```
+
 <<< @/.snippets/webservers/nginx.conf{5,11,26-27}
 
 ### Redis Setup
