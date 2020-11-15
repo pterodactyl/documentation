@@ -29,3 +29,24 @@ docker:
       username: "registryusername"
       password: "registrypassword"
 ```
+
+
+## Mount Points
+
+These settings can be used to allow a mounting point on the machine.
+This configuration is mandatory to allow panel users to mount a mount point.
+
+### Available Keys
+
+| Setting Key | Default Value | Notes |
+|-------------|---------------|-------|
+| allowed_mounts        | empty array          | List of fullpath |
+
+### Usage Example
+
+```yml
+allowed_mounts:
+- /var/www/mywebsite/dynmap
+- /srv/schematics
+```
+
