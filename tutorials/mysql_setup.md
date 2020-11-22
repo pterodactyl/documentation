@@ -25,7 +25,7 @@ to our database. You can also use `%` as a wildcard or enter a numeric IP. We wi
 to `somePassword`.
 
 #### Later versions of Maria and MySQL (usually on latest versions of Debian distros)
-If you are using PHP 7.4+ then you should use the method for older vserions, as the default authentication method is correct! Laravel and PHP 7.4 can use the new caching_sha2_password authentication method.
+If you are using PHP 7.4+ then you should use the method for older versions, as the default authentication method is correct! Laravel and PHP 7.4 can use the new caching_sha2_password authentication method.
 
 ``` sql
 USE mysql;
