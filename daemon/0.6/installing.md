@@ -1,5 +1,8 @@
 # Installation
 
+::: warning
+Do not install this Daemon if you are using Pterodactyl 1.0 or higher! You will use [wings](/wings/1.0/installing.html) instead!
+
 [[toc]]
 
 ## Supported Systems
