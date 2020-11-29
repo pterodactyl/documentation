@@ -5,7 +5,10 @@ nodes and servers to the system.
 **Node** — A node is a physical machine that runs an instance of the Daemon.
 
 **Daemon** — A service written in Nodejs that interfaces with Docker and the Panel to provide secure access for
-controlling servers via the Panel.
+controlling servers via the Panel before 1.0.
+
+**Wings** — The newer service written in Go that interfaces with Docker and the Panel to provide secure access for
+controlling servers via the Panel after 1.0.
 
 **Server** — In this case, a server refers to a running instance that is created by the panel. These servers are
 created on nodes, and you can have multiple servers per node.
