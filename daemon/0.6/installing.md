@@ -1,5 +1,9 @@
 # Installation
 
+::: warning
+This specific software is for Pterodactyl v0.7 and **must not be used for Pterodactyl v1.0**. If you have installed 1.0 you should use [Wings](/wings/1.0/installing.html) instead.
+:::
+
 [[toc]]
 
 ## Supported Systems
