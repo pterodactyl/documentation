@@ -40,7 +40,7 @@ This configuration is mandatory to allow panel users to mount a mount point.
 
 | Setting Key | Default Value | Notes |
 |-------------|---------------|-------|
-| allowed_mounts        | empty array          | List of fullpath |
+| allowed_mounts        | empty array          | Avaible mount prefixes |
 
 ### Usage Example
 
