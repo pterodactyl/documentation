@@ -25,11 +25,11 @@ yum install -y policycoreutils policycoreutils-python selinux-policy selinux-pol
 ```bash
 ## Install Repos
 cat <<EOF > /etc/yum.repos.d/mariadb.repo
-# MariaDB 10.2 CentOS repository list - created 2017-07-14 12:40 UTC
+# MariaDB 10.5 CentOS repository list - created 2017-07-14 12:40 UTC
 # http://downloads.mariadb.org/mariadb/repositories/
 [mariadb]
 name = MariaDB
-baseurl = http://yum.mariadb.org/10.2/centos7-amd64
+baseurl = http://yum.mariadb.org/10.5/centos7-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
 EOF
@@ -37,7 +37,7 @@ EOF
 ## Get yum updates
 yum update -y
 
-## Install MariaDB 10.2
+## Install MariaDB 10.5
 yum install -y MariaDB-common MariaDB-server
 
 ## Start maraidb
@@ -45,7 +45,7 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.3
+### PHP 7.4
 We recommend the remi repo to get the latest php packages.
 
 ```bash
@@ -53,13 +53,13 @@ We recommend the remi repo to get the latest php packages.
 yum install -y epel-release http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum install -y yum-utils
 yum-config-manager --disable remi-php54
-yum-config-manager --enable remi-php73
+yum-config-manager --enable remi-php74
 
 ## Get yum updates
 yum update -y
 
-## Install PHP 7.3
-yum install -y php php-common php-fpm php-cli php-json php-mysqlnd php-mcrypt php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
+## Install PHP 7.4
+yum install -y php php-{common,fpm,cli,json,mysqlnd,mcrypt,gd,mbstring,pdo,zip,bcmath,dom,opcache}
 ```
 
 ### Composer
