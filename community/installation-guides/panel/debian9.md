@@ -1,14 +1,14 @@
 # Debian 9
-In this guide we will install Pterodactyl v0.7.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
+In this guide we will install Pterodactyl v1.x — including all of it's dependencies — and configure our webserver to serve it using SSL.
 
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for Debian 9.
+This guide is based off the [official installation documentation](/panel/1.0/etting_started.md) but is tailored specifically for Debian 9.
 :::
 
 ## Install Requirements
-We will first begin by installing all of Pterodactyl's [required](/panel/getting_started.md#dependencies) dependencies.
+We will first begin by installing all of Pterodactyl's [required](/panel/1.0/getting_started.md#dependencies) dependencies.
 
 ### MariaDB
 ```bash
@@ -37,7 +37,6 @@ apt update
 
 ## Install PHP 7.4
 apt install -y php7.4 php7.4-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
-```
 
 ### Nginx
 ```bash
@@ -117,4 +116,4 @@ The default Redis install is perfectly fine for the panel. If you have Redis alr
 [running another Redis instance](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host).
 
 ## Installing the Panel
-Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#download-files).
+Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/1.0/getting_started.md#download-files).
