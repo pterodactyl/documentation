@@ -29,8 +29,7 @@ systemctl enable mariadb
 apt update
 
 ## Install PHP 7.4
-apt install -y php7.4 php7.4-cli php7.4-common php7.4-gd php7.4-mysql php7.4-mbstring php7.4-bcmath php7.4-xml php7.4-fpm php7.4-curl php7.4-zip
-```
+apt install -y php7.4 php7.4-{cli,common,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
 
 ### Nginx
 ```bash

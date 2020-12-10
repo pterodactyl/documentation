@@ -59,8 +59,7 @@ yum-config-manager --enable remi-php74
 yum update -y
 
 ## Install PHP 7.4
-yum install -y php php-common php-fpm php-cli php-json php-mysqlnd php-mcrypt php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
-```
+yum install -y php php-{common,fpm,cli,json,mysqlnd,mcrypt,gd,mbstring,pdo,zip,bcmath,dom,opcache}
 
 ### Composer
 ```bash

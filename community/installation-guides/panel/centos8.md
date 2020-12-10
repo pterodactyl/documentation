@@ -32,12 +32,16 @@ systemctl enable mariadb
 We recommend the remi repo to get the latest php packages.
 
 ```bash
+## Install Repos
+dnf install epel-release
+dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
+dnf module enable php:remi-7.4
+
 ## Get dnf updates
 dnf update -y
 
 ## Install PHP 7.4
-dnf install -y php php-common php-fpm php-cli php-json php-mysqlnd php-gd php-mbstring php-pdo php-zip php-bcmath php-dom php-opcache
-```
+dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache}
 
 ### Composer
 ```bash

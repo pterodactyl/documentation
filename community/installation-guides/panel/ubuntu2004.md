@@ -23,7 +23,7 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.2
+### PHP 7.4
 ```bash
 ## Get apt updates
 apt update -y
@@ -96,8 +96,8 @@ The default php-fpm configuration is fine to use and can be started and then ena
 commands below.
 
 ```bash
-systemctl enable php7.2-fpm
-systemctl start php7.2-fpm
+systemctl enable php7.4-fpm
+systemctl start php7.4-fpm
 ```
 
 ### Nginx

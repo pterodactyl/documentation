@@ -25,7 +25,7 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.3
+### PHP 7.4
 ```bash
 ## Install the PHP 7.4 repo for debian
 apt install -y ca-certificates apt-transport-https
@@ -36,8 +36,7 @@ echo "deb https://packages.sury.org/php/ stretch main" | tee /etc/apt/sources.li
 apt update
 
 ## Install PHP 7.4
-apt install -y php7.4 php7.4-cli php7.4-gd php7.4-mysql php7.4-pdo php7.4-mbstring php7.4-tokenizer php7.4-bcmath php7.4-xml php7.4-fpm php7.4-curl php7.4-zip
-```
+apt install -y php7.4 php7.4-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
 
 ### Nginx
 ```bash
