@@ -60,6 +60,7 @@ yum update -y
 
 ## Install PHP 7.4
 yum install -y php php-{common,fpm,cli,json,mysqlnd,mcrypt,gd,mbstring,pdo,zip,bcmath,dom,opcache}
+```
 
 ### Composer
 ```bash
