@@ -42,6 +42,7 @@ dnf update -y
 
 ## Install PHP 7.4
 dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache}
+```
 
 ### Composer
 ```bash
