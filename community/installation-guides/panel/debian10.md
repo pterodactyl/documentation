@@ -30,6 +30,7 @@ apt update
 
 ## Install PHP 7.4
 apt install -y php7.4 php7.4-{cli,common,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
+```
 
 ### Nginx
 ```bash
