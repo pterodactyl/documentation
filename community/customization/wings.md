@@ -24,7 +24,7 @@ go build
 You should now have a `wings` binary file in your wings directory.
 ## Install the new binary
 
-:::tip User Access
+:::tip Root required
 In order to use the guide bellow you need sudo permission level you can atchive this by placing `sudo` in front of each command or running `sudo su -` in order to become root
 :::
 
