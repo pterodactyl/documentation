@@ -10,7 +10,7 @@ We do not provide a guide at the current time on what files to edit to get certa
 
 ## Building Wings
 :::tip Build output
-GO builds to be run on the build system therefore you **HAVE TO** run the build command on a linux system
+By default, Go targets the system it is executed on. Therefore, the easiest way of building binaries for Linux is to execute the following steps on a Linux system.
 :::
 
 ### Build Requirements
