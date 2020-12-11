@@ -17,7 +17,7 @@ By default, Go targets the system it is executed on. Therefore, the easiest way 
 You need to have an up-to-date version of the Go tools installed. See the [official instructions](https://golang.org/doc/install) for help with setting those up.
 
 ### Building
-Run the following command in your code directory
+Running the following command in your local clone of the repository to compile wings into a binary.
 ```bash
 go build
 ```
