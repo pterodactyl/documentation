@@ -14,7 +14,7 @@ By default, Go targets the system it is executed on. Therefore, the easiest way 
 :::
 
 ### Build Requirements
-GoLang compiler/runtime [https://golang.org/doc/install](https://golang.org/doc/install)
+You need to have an up-to-date version of the Go tools installed. See the [official instructions](https://golang.org/doc/install) for help with setting those up.
 
 ### Building
 Run the following command in your code directory
