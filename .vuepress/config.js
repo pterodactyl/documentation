@@ -205,6 +205,15 @@ module.exports = {
                     ],
                 },
                 {
+                    title: 'Guides',
+                    collapsable: false,
+                    children: [
+                        '/guides/disabling-reCAPTCHA.md',
+                        '/guides/mounts.md',
+                        '/guides/s3-backups.md'
+                    ],
+                },
+                {
                     title: 'Development & Ops',
                     collapsable: true,
                     children: [
