@@ -25,7 +25,7 @@ You should now have a `wings` binary file in your wings directory.
 ## Install the new binary
 
 :::tip Root required
-In order to use the guide bellow you need sudo permission level you can atchive this by placing `sudo` in front of each command or running `sudo su -` in order to become root
+In order to execute the next few commands, you will need root permissions. If you are not logged in as root, either use `sudo` in front of each command, or run `sudo -i` to switch to a root session.
 :::
 
 1. Backup the current installation of wings
