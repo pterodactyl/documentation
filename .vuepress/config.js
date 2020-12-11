@@ -118,6 +118,14 @@ module.exports = {
                         '/community/tutorials/artisan.md',
                     ],
                 },
+                {
+                    title: 'Customization',
+                    collapsable: false,
+                    children: [
+                        '/community/customization/panel.md',
+                        '/community/customization/wings.md',
+                    ],
+                },
             ],
             '/': [
                 {
