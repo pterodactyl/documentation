@@ -34,7 +34,7 @@ In order to execute the next few commands, you will need root permissions. If yo
 # Stop Wings
 systemctl stop wings
 # Backup Wings
-mv /usr/local/bin/wings /usr/local/bin/wingsOld
+mv /usr/local/bin/wings /usr/local/bin/wings-backup
 ```
 2. Place the new binary in `/usr/local/bin`
 3. Ensure aproperiate permissions on the binary `chmod u+x /usr/local/bin/wings`
