@@ -5,7 +5,7 @@ We highly recommend **NOT** performing these actions on production
 
 In order to make changes to wings we recommend forking it to keep your own git version making upgrades easier. <br />
 :::tip Editing Files
-We do not provide a guide at the current time on what files to edit to get certain results. This guide expects a basic knowledge of the `go` language
+We do not provide a guide at the current time on what files to edit to get certain results. This guide expects a basic knowledge of the `Go` language
 :::
 
 ## Building Wings
