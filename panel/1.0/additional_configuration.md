@@ -22,7 +22,8 @@ AWS_BACKUPS_BUCKET=
 
 AWS_ENDPOINT=
 
-# Dunno what these are but maybe you do?
-AWS_USE_PATH_STYLE_ENDPOINT=false
 AWS_BACKUPS_USE_ACCELERATE=false
+
+# This was/is planned to be depreciated by AWS thus if set to true it will fail the request.
+AWS_USE_PATH_STYLE_ENDPOINT=false
 ```

@@ -1,13 +1,13 @@
 # Disabling reCAPTCHA
 
 :::warning SECURITY WARNING
-It is highly reccomended to keep reCAPTCHA enabled, as reCAPTCHA is a security method that can protect your site from some methods of attack!
+It is highly recommended to keep reCAPTCHA enabled, as reCAPTCHA is a security method that can protect your site from some methods of attack!
 Only continue if you intend to re-enable reCAPTCHA after fixing whatever issue you may have!
 :::
 
 ## Disabling via .env
 
-In order to disable reCAPTCHA using this method, you need to find and edit your `.env` file, It is usually located at `/var/www/pterodactyl/.env`
+To disable reCAPTCHA using this method, you need to find and edit your `.env` file, It is usually located at `/var/www/pterodactyl/.env`
 
 :::tip Hidden Files
 In linux, files starting with a `.` are considered to be hidden, so most FTP software may not show it by default. You can see the file by using `ls -a`
@@ -20,6 +20,10 @@ cp .env .env.bkp
 ```
 
 You can now edit the `.env` file using your favorite editor to set the fields below
+
+:::tip Missing Values
+If any of the bellow values are missing from your `.env` file you can add them yourself
+:::
 
 ```bash
 # Ignores database settings
