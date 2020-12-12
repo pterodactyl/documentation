@@ -161,7 +161,8 @@ module.exports = {
                             children: [
                                 '/getting_started',
                                 '/webserver_configuration',
-                                '/upgrading'
+                                '/upgrading',
+                                '/additional_configuration'
                             ]
                         }
                     ]
@@ -218,7 +219,6 @@ module.exports = {
                     children: [
                         '/guides/disabling-reCAPTCHA.md',
                         '/guides/mounts.md',
-                        '/guides/s3-backups.md'
                     ],
                 },
                 {

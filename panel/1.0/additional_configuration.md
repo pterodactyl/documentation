@@ -1,4 +1,10 @@
-# Using S3 Backups
+# Additional Configuration
+
+[[toc]]
+
+## Backup Configuration
+
+### Using S3 Backups
 
 <!--Might need to expand a bit more on here-->
 To use S3 backups you may use the following `.env` variables
@@ -20,4 +26,3 @@ AWS_ENDPOINT=
 AWS_USE_PATH_STYLE_ENDPOINT=false
 AWS_BACKUPS_USE_ACCELERATE=false
 ```
-
