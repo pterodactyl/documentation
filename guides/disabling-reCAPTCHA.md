@@ -22,7 +22,7 @@ cp .env .env.bkp
 You can now edit the `.env` file using your favorite editor to set the fields below
 
 :::tip Missing Values
-If any of the bellow values are missing from your `.env` file you can add them yourself
+If any of the below values are missing from your `.env` file you can add them yourself
 :::
 
 ```bash
