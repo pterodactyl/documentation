@@ -4,7 +4,7 @@ A mount in pterodactyl follows similar principles to a docker mount. Pterodactyl
 
 ## Wings Configuration
 
-In order to use a mount you need to permit wings to use the selected mount path, this is done by editing mounts in `/etc/pterodactyl/config.yml` 
+To use a mount you need to permit wings to use the selected mount path, this is done by editing mounts in `/etc/pterodactyl/config.yml` 
 
 ```yml
 allowed_mounts:
@@ -20,15 +20,15 @@ In the pterodactyl panel you need to create and assign a mount.
 ### Creating a mount
 
 :::tip Mount Paths
-Mounts can not use any path or subpath of `/home/container` due to docker limitations
+Mounts can not use any path of `/home/container` and its subdirectories due to docker limitations
 :::
 
 1. In the admin panel go to **Mounts**
 2. Use the create mount option
 3. Fill in the details as required
    - **Name**: Name for your mount
-   - **Description**:Description for your mount
-   - **Source**:File path on your system to where mount files should be stored
+   - **Description**: Description for your mount
+   - **Source**: File path on your system to where mount files should be stored
    - **Target**: File path where the mount will be placed inside of your server, Can NOT be `/home/container`
    - **Read Only**: Whether to allow servers to write to the directory
    - **User Mountable**: Whether to allow users to self mount this mount
