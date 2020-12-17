@@ -28,7 +28,9 @@ to `somePassword`.
 USE mysql;
 
 # Remember to change 'somePassword' below to be a unique password specific to this account.
-CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'somePassword';
+# Use old_password=0 to use the native mysql password plugin
+SET old_password=0;
+CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'somePassword';
 ```
 
 ### Create a database
