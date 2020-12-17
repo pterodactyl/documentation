@@ -10,12 +10,12 @@ for previous versions of Pterodactyl.
 ## Supported Systems
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
-| | 20.04 | :white_check_mark: | |
-| **CentOS** | 7 | :white_check_mark: | |
-| | 8 | :white_check_mark: | |
-| **Debian** | 9 | :white_check_mark: | |
-| | 10 | :white_check_mark: | |
+| **Ubuntu** | [18.04](/community/installation-guides/wings/ubuntu1804.html) | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+| | [20.04](/community/installation-guides/wings/ubuntu2004.html) | :white_check_mark: | |
+| **CentOS** | [7](/community/installation-guides/wings/centos7.html) | :white_check_mark: | |
+| | [8](/community/installation-guides/wings/centos8.html) | :white_check_mark: | |
+| **Debian** | [9](/community/installation-guides/wings/debian9.html) | :white_check_mark: | |
+| | [10](/community/installation-guides/wings/debian10.html) | :white_check_mark: | |
 
 ## System Requirements
 In order to run Wings you will need a system capable of running Docker containers. Most VPS and almost all
