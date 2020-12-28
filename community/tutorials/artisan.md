@@ -13,7 +13,7 @@ php artisan help <command>
 ```
 
 ::: tip
-To simplify this documentaiton, in command usage you'll see things like the following:
+To simplify this documentation, in command usage you'll see things like the following:
 
 `<hello-world>` - Required argument
 
