@@ -5,12 +5,11 @@ Upgrading Wings is a painless process and should take less than a minute to comp
 First, download the updated wings binary into `/usr/local/bin`.
 
 ::: warning
-`Wings@1.1.0` requires `Panel@1.1.0` in order to run properly. It will not boot if your Panel is not
-also up-to-date.
+`Wings@1.2.0` requires `Panel@1.2.0` in order to run properly.
 :::
 
 ``` bash
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.1.3/wings_linux_amd64
+curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.2.0/wings_linux_amd64
 chmod u+x /usr/local/bin/wings
 ```
 
