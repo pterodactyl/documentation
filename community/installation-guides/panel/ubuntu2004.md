@@ -1,14 +1,14 @@
 # Ubuntu 20.04
-In this guide we will install Pterodactyl v0.7.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
+In this guide we will install Pterodactyl v1.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
 
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/getting_started.md) but is tailored specifically for Ubuntu 20.04.
+This guide is based off the [official installation documentation](/panel/1.0/getting_started.md) but is tailored specifically for Ubuntu 20.04.
 :::
 
 ## Install Requirements
-We will first begin by installing all of Pterodactyl's [required](/panel/getting_started.md#dependencies) dependencies.
+We will first begin by installing all of Pterodactyl's [required](/panel/1.0/getting_started.md#dependencies) dependencies.
 
 ### MariaDB
 ```bash
@@ -23,13 +23,13 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.2
+### PHP 7.4
 ```bash
 ## Get apt updates
 apt update -y
 
-## Install PHP 7.2
-apt -y install php7.2 php7.2-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
+## Install PHP 7.4
+apt -y install php7.4 php7.4-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
 ```
 
 ### Nginx
@@ -96,19 +96,19 @@ The default php-fpm configuration is fine to use and can be started and then ena
 commands below.
 
 ```bash
-systemctl enable php7.2-fpm
-systemctl start php7.2-fpm
+systemctl enable php7.4-fpm
+systemctl start php7.4-fpm
 ```
 
 ### Nginx
 Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
 #### SSL Configuration
-<<< @/.snippets/webservers/nginx-php7.2.conf{5,11,26-27}
+<<< @/.snippets/webservers/nginx-php7.4.conf{5,11,26-27}
 
 ### Redis Setup
 The default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
 [running another Redis instance](https://community.pivotal.io/s/article/How-to-setup-and-run-multiple-Redis-server-instances-on-a-Linux-host).
 
 ## Installing the Panel
-Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/getting_started.md#download-files).
+Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/1.0/getting_started.md#download-files).
