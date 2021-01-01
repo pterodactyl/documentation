@@ -5,10 +5,10 @@ nodes and servers to the system.
 **Node** — A node is a physical machine that runs an instance of the Daemon.
 
 **Daemon** — A service written in Nodejs that interfaces with Docker and the Panel to provide secure access for
-controlling servers via the Panel before 1.0.
+controlling servers via the Panel before `1.X`.
 
 **Wings** — The newer service written in Go that interfaces with Docker and the Panel to provide secure access for
-controlling servers via the Panel after 1.0.
+controlling servers via the Panel after `1.X`.
 
 **Server** — In this case, a server refers to a running instance that is created by the panel. These servers are
 created on nodes, and you can have multiple servers per node.
@@ -19,8 +19,6 @@ created on nodes, and you can have multiple servers per node.
 **Nest** — Each nest is usually used as a specific game or service, for example: Minecraft, Teamspeak or Terraria and can contain many eggs.
 
 **Egg**  — Each egg is usually used to store the configuration of a specific type of game, for example: Vanilla, Spigot or Bungeecord for Minecraft.
-
-
 
 ## Example Setup Diagram
 

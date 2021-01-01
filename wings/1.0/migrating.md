@@ -4,7 +4,7 @@ This guide is for people looking to migrate from the old Node.JS daemon to Wings
 a new node.
 
 ::: danger Panel Version Requirement
-You **must** be running version 1.0.0 of Pterodactyl Panel in order to use Wings.
+You **must** be running version 1.X of Pterodactyl Panel in order to use Wings.
 :::
 
 You'll have a brief offline period as you perform this process, however no running game processes
