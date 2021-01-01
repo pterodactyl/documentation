@@ -13,28 +13,28 @@ We will first begin by installing all of Wings' [required](/wings/1.0/installing
 ### Docker
 
 ```bash
+## Install yum tools
 yum install -y yum-utils device-mapper-persistent-data lvm2
 
-sudo yum remove docker-ce docker-ce-cli containerd.io
+## Add the docker repo
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-yum install -y https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+## Install docker
+yum install -y docker-ce docker-ce-cli
 
-
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-sudo yum install -y docker-ce docker-ce-cli
-
+## Enable docker service
 systemctl enable docker
 systemctl start docker
 ```
 
-### Server Ports
+### FirewallD Changes
 ```bash
 firewall-cmd --add-port 8080/tcp --permanent
 firewall-cmd --add-port 2022/tcp --permanent
 firewall-cmd --permanent --zone=trusted --change-interface=docker0
+firewall-cmd --zone=trusted --add-masquerade --permanent
 firewall-cmd --reload
 ```
 
-## Installing the Wings
+## Installing Wings
 Great, now all of the dependencies and firewall rules have been dealt with. From here follow the [official Wings installation documentation](/wings/1.0/installing.md#installing-wings-1).
