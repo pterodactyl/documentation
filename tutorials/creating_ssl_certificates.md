@@ -12,9 +12,9 @@ sudo add-apt-repository ppa:certbot/certbot
 sudo apt update
 sudo apt install certbot
 # Run this if you use Nginx
-sudo apt install python-certbot-nginx
+sudo apt install python3-certbot-nginx
 # Run this of you use Apache
-sudo apt install python-certbot-apache
+sudo apt install python3-certbot-apache
 ```
 
 ### Creating a Certificate
