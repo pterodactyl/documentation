@@ -7,9 +7,8 @@ cleaner creation of them. The command below is for Ubuntu distributions, but you
 site](https://certbot.eff.org/) for installation instructions.
                                                                                                                
 ``` bash
-sudo add-apt-repository ppa:certbot/certbot
 sudo apt update
-sudo apt install certbot
+sudo apt install -y certbot
 ```
 
 ### Creating a Certificate
