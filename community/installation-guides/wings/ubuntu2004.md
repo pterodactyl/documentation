@@ -1,14 +1,14 @@
 # Ubuntu 20.04
-In this guide we will install Pterodactyl's Wings v0.6.X — including all of it's dependencies — and configure it to use a SSL connection.
+In this guide we will install Pterodactyl's Wings v1.X — including all of it's dependencies — and configure it to use a SSL connection.
 
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/wings/installing.md) but is tailored specifically for Ubuntu 20.04.
+This guide is based off the [official installation documentation](/wings/1.0/installing.md) but is tailored specifically for Ubuntu 20.04.
 :::
 
 ## Install Requirements
-We will first begin by installing all of Wings' [required](/wings/installing.md#dependencies) dependencies.
+We will first begin by installing all of Wings' [required](/wings/1.0/installing.md#dependencies) dependencies.
 
 ### Docker
 
