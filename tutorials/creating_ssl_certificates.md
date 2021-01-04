@@ -8,13 +8,12 @@ site](https://certbot.eff.org/) for installation instructions. We have also incl
 NGINX/Apache plugin so you wont have to stop your webserver.
                                                                                                                
 ``` bash
-sudo add-apt-repository ppa:certbot/certbot
 sudo apt update
-sudo apt install certbot
+sudo apt install -y certbot
 # Run this if you use Nginx
-sudo apt install python3-certbot-nginx
+sudo apt install -y python3-certbot-nginx
 # Run this of you use Apache
-sudo apt install python3-certbot-apache
+sudo apt install -y python3-certbot-apache
 ```
 
 ### Creating a Certificate
@@ -33,6 +32,8 @@ applied (assuming that you've already configured the webservers to use SSL).
 certbot certonly --nginx -d example.com
 # Apache
 certbot certonly --apache -d example.com
+# Standalone - Use this if neither works. Make sure to stop your webserver first when using this method.
+certbot certonly --standalone -d example.com
 ```
 
 ### Auto Renewal
