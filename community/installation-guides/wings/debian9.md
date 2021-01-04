@@ -26,9 +26,10 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(
 apt update -y
 apt install -y docker-ce
 
+## Enable docker service
 systemctl enable docker
 systemctl start docker
 ```
 
-## Installing the Wings
+## Installing Wings
 Great, now all of the dependencies have been dealt with. From here follow the [official Wings installation documentation](/wings/1.0/installing.md#installing-wings-2).
