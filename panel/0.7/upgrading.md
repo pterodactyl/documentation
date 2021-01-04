@@ -25,4 +25,4 @@ php artisan queue:restart
 
 * [0.6.X to 0.7.19](/panel/0.7/upgrade/0.6_to_0.7.md)
 * [0.7.X series](/panel/0.7/upgrade/0.7.md)
-* [0.7.19 to 1.X.X](/panel/1.0/upgrade/0.7_to_1.0) <Badge text="current" vertical="middle"/>
+* [0.7.19 to 1.X.X](/panel/1.X/upgrade/0.7_to_1.x.md) <Badge text="current" vertical="middle"/>
