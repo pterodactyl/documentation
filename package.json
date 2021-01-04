@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@vuepress/plugin-google-analytics": "^1.0.0-rc.1",
+    "caniuse-lite": "^1.0.30001171",
     "jquery": "^3.3.1",
     "slick-carousel": "^1.8.1",
     "vuepress": "^1.5.4",
