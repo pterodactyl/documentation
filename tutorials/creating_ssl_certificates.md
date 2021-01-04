@@ -4,28 +4,35 @@ This tutorial briefly covers creating new SSL certificates for your panel and da
 ## Method 1: Using Certbot
 To begin, we will be installing certbot, a simple script that will automatically renew our certificates and allow much
 cleaner creation of them. The command below is for Ubuntu distributions, but you can always check [Certbot's official
-site](https://certbot.eff.org/) for installation instructions.
+site](https://certbot.eff.org/) for installation instructions. We have also included a command below to install certbot's
+NGINX/Apache plugin so you wont have to stop your webserver.
                                                                                                                
 ``` bash
 sudo add-apt-repository ppa:certbot/certbot
 sudo apt update
 sudo apt install certbot
+# Run this if you use Nginx
+sudo apt install python3-certbot-nginx
+# Run this of you use Apache
+sudo apt install python3-certbot-apache
 ```
 
 ### Creating a Certificate
-After installing certbot, we need to then generate a certificate. There are a couple ways to do that, but the
-easiest is to have letsencrypt spin-up a temporary web-server to do this. In order for this to work, you will
-first need to stop NGINX or Apache.
+After installing certbot, we need to then generate a certificate. There are a couple ways to do that, but the easiest
+is to use the webserver-specific certbot plugin you just installed.
 
 Then, in the command below, you should replace `example.com` with the domain you would like to generate a certificate
 for. If you have multiple domains you would like certificates for, simply add more `-d anotherdomain.com` flags to the
 command. You can also look into generating a wildcard certificate but that is not covered in this tutorial.
 
-Once you've generated the certificate you should start NGINX or Apache again to have the certificates applied (assuming
-that you've already configured the webservers to use SSL).
+Since we are using certbot's NGINX/Apache plugin, you wont need to restart your webserver to have the certificate
+applied (assuming that you've already configured the webservers to use SSL).
 
 ``` bash
-certbot certonly -d example.com
+# Nginx
+certbot certonly --nginx -d example.com
+# Apache
+certbot certonly --apache -d example.com
 ```
 
 ### Auto Renewal
