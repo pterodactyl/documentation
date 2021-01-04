@@ -65,7 +65,7 @@ Composer is a dependency manager for PHP that allows us to ship everything you'l
 need composer installed before continuing in this process.
 
 ``` bash
-curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.16
 ```
 
 ## Download Files

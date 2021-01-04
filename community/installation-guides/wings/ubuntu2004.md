@@ -13,11 +13,13 @@ We will first begin by installing all of Wings' [required](/wings/1.0/installing
 ### Docker
 
 ```bash
+## Install docker
 apt install -y docker.io
 
+## Enable docker service
 systemctl enable docker
 systemctl start docker
 ```
 
-## Installing the Wings
+## Installing Wings
 Great, now all of the dependencies and firewall rules have been dealt with. From here follow the [official Wings installation documentation](/wings/installing.md#installing-wings-2).

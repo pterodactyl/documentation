@@ -97,7 +97,7 @@ systemctl enable --now wings
 ```
 
 ::: warning What if Wings doesn't start?
-If you encounter issues starting Wings at this point, run the following commands to start Wings directly and check
+If you encounter issues starting Wings at this point, run the following command to start Wings directly and check
 for any specific error output.
 
 ```
