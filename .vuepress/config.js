@@ -134,7 +134,7 @@ module.exports = {
                     title: 'Panel',
                     collapsable: false,
                     path: '/panel/',
-                    currentVersion: '1.X',
+                    currentVersion: '1.0',
                     versions: [
                         {
                             name: '0.7',
@@ -148,7 +148,7 @@ module.exports = {
                             ]
                         },
                         {
-                            name: '1.X',
+                            name: '1.0',
                             status: 'stable',
                             children: [
                                 '/getting_started',
@@ -162,10 +162,10 @@ module.exports = {
                     title: 'Wings',
                     collapsable: false,
                     path: '/wings/',
-                    currentVersion: '1.X',
+                    currentVersion: '1.0',
                     versions: [
                         {
-                            name: '1.X',
+                            name: '1.0',
                             status: 'stable',
                             children: [
                                 '/installing',
