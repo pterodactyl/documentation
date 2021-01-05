@@ -154,7 +154,7 @@ use them correctly.
 
 ``` bash
 # If using NGINX or Apache (not on CentOS):
-chown -R www-data:www-data * 
+chown -R www-data:www-data *
 
 # If using NGINX on CentOS:
 chown -R nginx:nginx *
@@ -173,7 +173,7 @@ as session cleanup and sending scheduled tasks to daemons. You'll want to open y
 then paste the line below.
 
 ```bash
-* * * * * php /var/www/pterodactyl/artisan schedule:run >> /dev/null 2>&1
+* * * * * php /var/www/pterodactyl/artisan p:schedule:process >> /dev/null 2>&1
 ```
 
 ### Create Queue Worker
@@ -215,7 +215,7 @@ If you are not using `redis` for anything you should remove the `After=` line, o
 when the service starts.
 :::
 
-If you are are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command: 
+If you are are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command:
 ```bash
 sudo systemctl enable --now redis-server
 ```
