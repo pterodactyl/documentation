@@ -1,6 +1,10 @@
 # Creating a theme for Pterodactyl
 This tutorial briefly covers how to create a theme for Pterodactyl without overwriting the main theme files.
 
+:::warn
+The theming system has not been ported to 1.0+. This guide is only applicable to 0.7.X.
+:::
+
 ## Using CLI
 Begin by going to your panel's main directory typically installed at `/var/www/pterodactyl`. The command below is a straightforward setup that will cover
 the majority of the functions all for you (such as Theme Name, Views Location, Assets Location etc).
@@ -44,7 +48,7 @@ Place your downloaded theme in the correct directory **without overwriting** the
 
 Your `public` folder into `/var/www/pterodactyl/public/themes/MyThemeHere/`
 
-Your `resources` folder into `/var/wwww/pterodactyl/resources/themes/MyThemehere/`
+Your `resources` folder into `/var/www/pterodactyl/resources/themes/MyThemehere/`
 
 ### Setting your theme name in .env
 After creating your theme and uploading those theme files correctly, you need to edit your `.env` (environment) file next.
