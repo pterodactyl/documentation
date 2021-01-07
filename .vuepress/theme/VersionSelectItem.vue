@@ -1,6 +1,6 @@
 <template>
   <div class="inline-block">
-    {{ version.name }}
+    {{ version.title || version.name }}
     <span class="rounded-full ml-2" :class="classes">{{version.status}}</span>
   </div>
 </template>
