@@ -8,8 +8,8 @@ users by default.
 :::
 
 ## NGINX
-You should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
-`pterodactyl.conf` and place it in `/etc/nginx/sites-available/`, or &mdash; if on CentOS, `/etc/nginx/conf.d/`.
+You should paste the contents of the file below, replacing `<domain>` with the domain you intend to use for the panel in a file called
+`pterodactyl.conf`, and place it in `/etc/nginx/sites-available/`, or &mdash; if on CentOS, `/etc/nginx/conf.d/`.
 
 ### NGINX With SSL
 This configuration assumes that you will be using SSL on both the Panel and Daemons for significantly improved communication
@@ -39,8 +39,8 @@ systemctl restart nginx
 ```
 
 ## Apache
-You should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
-`pterodactyl.conf` and place it in `/etc/apache2/sites-available`, or &mdash; if on CentOS, `/etc/httpd/conf.d/`.
+You should paste the contents of the file below, replacing `<domain>` with the domain you intend to use for the panel in a file called
+`pterodactyl.conf`, and place it in `/etc/apache2/sites-available`, or &mdash; if on CentOS, `/etc/httpd/conf.d/`.
 
 Note: When using Apache, make sure you have the `libapache2-mod-php` package installed or else PHP will not display on your webserver.
 
