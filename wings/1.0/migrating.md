@@ -4,7 +4,7 @@ This guide is for people looking to migrate from the old Node.JS daemon to Wings
 a new node.
 
 ::: danger Panel Version Requirement
-You **must** be running version 1.0.0 of Pterodactyl Panel in order to use Wings.
+You **must** be running Pterodactyl Panel 1.X in order to use Wings.
 :::
 
 You'll have a brief offline period as you perform this process, however no running game processes
@@ -17,7 +17,7 @@ run the commands below which will create the base directory and download the win
 
 ``` bash
 mkdir -p /etc/pterodactyl
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.2.2/wings_linux_amd64
+curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.2.3/wings_linux_amd64
 chmod u+x /usr/local/bin/wings
 ```
 
