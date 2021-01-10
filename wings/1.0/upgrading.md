@@ -9,7 +9,7 @@ First, download the updated wings binary into `/usr/local/bin`.
 :::
 
 ``` bash
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/download/v1.2.3/wings_linux_amd64
+curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64
 chmod u+x /usr/local/bin/wings
 ```
 
