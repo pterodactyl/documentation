@@ -1,42 +1,66 @@
-# Customizing Wings
-:::warning Production
-We highly recommend **NOT** performing these actions on the production
+# Building Wings
+
+:::warning
+Do **not** run the following steps on your production nodes.
 :::
 
-We recommend creating a fork of the repo before making changes to wings to make future upgrades easier. <br />
-:::tip Editing Files
-We do not provide a guide at the current time on what files to edit to get certain results. This guide expects a basic knowledge of the `Go` language
-:::
+Wings is written in Go. This makes it very easy to modify and compile it on your own, and distribute your own binaries.
+This guide will cover the steps necessary to build it yourself.
 
-## Building Wings
-:::tip
-By default, Go targets the system it is executed on. Therefore, the easiest way of building binaries for Linux is to execute the following steps on a Linux system.
-:::
+It will not, however, explain where to look for certain aspects of Wings and which changes are necessary to achieve specific results. Knowledge of the Go language is required if you want to modify it.
 
-### Build Requirements
-You need to have an up-to-date version of the Go tools installed. See the [official instructions](https://golang.org/doc/install) for help with setting those up.
+Building Go programs is very easy, and the same also applies to Wings. Go is cross-platform, but Wings only supports Linux at the moment. The easiest way to compile it for Linux is to run the commands on a Linux machine.
 
-### Building
-Execute the following command in your local clone of the repository to compile wings into a binary.
+## Build Requirements
+
+An up to date version of Go is required to compile Wings. The minimum version can be found at the top of the [go.mod](https://github.com/pterodactyl/wings/blob/develop/go.mod) file. See the [official instructions](https://golang.org/doc/install) for help with installing Go.
+
+## Building
+
+Execute the following command in your local clone of the repository to compile Wings into a binary.
+
 ```bash
 go build
 ```
+
 You should now have a `wings` binary file in your wings directory.
+
 ## Install the new binary
 
 :::tip Root required
-To execute the next few commands, you will need root permissions. If you are not logged in as root, either use `sudo` in front of each command, or run `sudo -i` to switch to a root session.
+Some the following commands require root permissions. Prepend them with `sudo` if you are not logged in as root.
 :::
 
 1. Backup the current installation of wings
 
 ```bash
-# Stop Wings
-systemctl stop wings
-# Backup Wings
 mv /usr/local/bin/wings /usr/local/bin/wings-backup
 ```
+
 2. Place the new binary in `/usr/local/bin`
-3. Ensure appropriate permissions on the binary `chmod u+x /usr/local/bin/wings`
-4. Try running the updated binary from the console `wings --debug`
-5. Restore normal operation of Wings `systemctl enable wings --now`
+
+```
+cp ./wings /usr/local/bin
+```
+
+3. Restart wings 
+
+```
+systemctl restart wings
+```
+
+## Troubleshooting
+
+If the wings service does not start properly, you can try to start Wings in a console window.
+
+```
+wings --debug
+```
+
+Remember to stop the system service before, and re-enable it afterwards.
+
+```
+systemctl stop wings
+
+systemctl start wings
+```
