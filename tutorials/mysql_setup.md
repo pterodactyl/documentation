@@ -61,7 +61,7 @@ If your database is on a different host than the one where your Panel or Daemon 
 ```sql
 USE mysql;
 
-# You should change the username and password below to something unique.
+# The username and password should match your panel login details
 CREATE USER 'pterodactyluser'@'127.0.0.1' IDENTIFIED BY 'somepassword';
 ```
 
