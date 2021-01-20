@@ -4,7 +4,7 @@ the upgrade process for each version of the software.
 
 ## Maintenance Mode
 Whenever you are performing an upgrade you should be sure to place your Panel into maintenance mode. This will prevent
-users from encountering unexpected errors and ensure everything can be upgraded before users being encountering
+users from encountering unexpected errors and ensure everything can be upgraded before users encounter
 potentially new features.
 
 ``` bash

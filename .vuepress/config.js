@@ -118,6 +118,14 @@ module.exports = {
                         '/community/tutorials/artisan.md',
                     ],
                 },
+                {
+                    title: 'Customization',
+                    collapsable: false,
+                    children: [
+                        '/community/customization/panel.md',
+                        '/community/customization/wings.md',
+                    ],
+                },
             ],
             '/': [
                 {
@@ -153,7 +161,8 @@ module.exports = {
                             children: [
                                 '/getting_started',
                                 '/webserver_configuration',
-                                '/upgrading'
+                                '/upgrading',
+                                '/additional_configuration'
                             ]
                         }
                     ]
@@ -201,7 +210,13 @@ module.exports = {
                     children: [
                         '/tutorials/mysql_setup.md',
                         '/tutorials/creating_ssl_certificates.md',
-                        '/community/about.md',
+                    ],
+                },
+                {
+                    title: 'Guides',
+                    collapsable: false,
+                    children: [
+                        '/guides/mounts.md',
                     ],
                 },
                 {
