@@ -4,8 +4,8 @@ Upgrading Wings is a painless process and should take less than a minute to comp
 ## Download Updated Binary
 First, download the updated wings binary into `/usr/local/bin`.
 
-::: warning
-`Wings@1.2` requires `Panel@1.2` in order to run properly.
+::: danger
+`Wings@1.3.0` requires `Panel@1.3.0` in order to work properly!
 :::
 
 ``` bash
