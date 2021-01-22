@@ -28,8 +28,8 @@ Mounts can not be mounted at `/home/container` or any subdirectory of it, as mou
 3. Fill in the details as required.
    - **Name**: Name for your mount.
    - **Description**: Description for your mount.
-   - **Source**: The directory where files are stored on the node.
-   - **Target**: The directory where the mount will be placed inside of your server, can **not** be `/home/container`.
+   - **Source**: The directory where files are stored on the node. E.g. `/example`
+   - **Target**: The directory where the mount will be placed inside of your server. E.g. `/home/container/plugins` You can **not** use `/home/container` by itself.
    - **Read Only**: Whether the mount will be read-only for the servers using it.
    - **User Mountable**: Whether to allow users to self mount this mount.
 4. After creating the mount you are required to add **Eggs** and **Nodes** that this mount may be used on.
