@@ -44,23 +44,8 @@ If users have trouble logging in, or your Panel isn't exposed to the internet, i
 
 reCAPTCHA can easily be disabled using the admin panel. In the Settings, select the **Advanced** tab and set the **Status** of reCAPTCHA to **disabled**.
 
-#### Using the .env file
-
-If you cannot access the panel yourself, you can also disable reCAPTCHA using the `.env` file.
-
-```
-# Ignores database settings
-APP_ENVIRONMENT_ONLY=true
-
-# Disable reCAPTCHA. You may need to add this to the end of your file.
-RECAPTCHA_ENABLED=false
-```
-Remove the settings above from your .env file after you have logged into your panel and fixed your problem.
 #### Editing your database
 
-:::danger DANGEROUS: Not Recommended
-Proceed carefully. By running queries on your database directly, you can easily break your setup.
-:::
 If you cannot access your panel, but have used the web panel based settings already, you can modify the database directly using the following commands.
 
 
