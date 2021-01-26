@@ -46,7 +46,7 @@ reCAPTCHA can easily be disabled using the admin panel. In the Settings, select 
 
 #### Editing your database
 
-If you cannot access your panel, but have used the web panel based settings already, you can modify the database directly using the following commands.
+If you cannot access your panel, you can modify the database directly using the following commands.
 
 
 ```sql
