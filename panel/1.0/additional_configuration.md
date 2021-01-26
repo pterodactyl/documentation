@@ -53,5 +53,3 @@ If you cannot access your panel, but have used the web panel based settings alre
 mysql -u root -p
 UPDATE panel.settings SET value = 'false' WHERE `key` = 'settings::recaptcha:enabled';
 ```
-
-If the command returns with `Query OK, 0 rows affected (0.000 sec)` you need to use the `.env` method to disable reCAPTCHA
