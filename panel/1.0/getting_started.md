@@ -154,13 +154,13 @@ use them correctly.
 
 ``` bash
 # If using NGINX or Apache (not on CentOS):
-chown -R www-data:www-data * 
+chown -R www-data:www-data /var/www/pterodactyl/*
 
 # If using NGINX on CentOS:
-chown -R nginx:nginx *
+chown -R nginx:nginx /var/www/pterodactyl/*
 
 # If using Apache on CentOS
-chown -R apache:apache *
+chown -R apache:apache /var/www/pterodactyl/*
 ```
 
 ## Queue Listeners
