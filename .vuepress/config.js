@@ -18,6 +18,7 @@ module.exports = {
         ['vuepress-plugin-container', {
             type: 'danger',
         }],
+        ['tabs'],
     ],
     configureWebpack: {
         serve: {
@@ -237,5 +238,5 @@ module.exports = {
             require('autoprefixer'),
             require('cssnano'),
         ]
-    }
+    },
 };
