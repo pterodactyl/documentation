@@ -5,7 +5,7 @@ This tutorial briefly covers creating new SSL certificates for your panel and da
 To begin, we will be installing certbot, a simple script that will automatically renew our certificates and allow much
 cleaner creation of them. The command below is for Ubuntu distributions, but you can always check [Certbot's official
 site](https://certbot.eff.org/) for installation instructions. We have also included a command below to install certbot's
-NGINX/Apache plugin so you wont have to stop your webserver.
+NGINX/Apache plugin so you won't have to stop your webserver.
                                                                                                                
 ``` bash
 sudo apt update
@@ -24,7 +24,7 @@ Then, in the command below, you should replace `example.com` with the domain you
 for. If you have multiple domains you would like certificates for, simply add more `-d anotherdomain.com` flags to the
 command. You can also look into generating a wildcard certificate but that is not covered in this tutorial.
 
-Since we are using certbot's NGINX/Apache plugin, you wont need to restart your webserver to have the certificate
+Since we are using certbot's NGINX/Apache plugin, you won't need to restart your webserver to have the certificate
 applied (assuming that you've already configured the webservers to use SSL).
 
 ``` bash
