@@ -180,11 +180,6 @@ then paste the line below.
 Next you need to create a new systemd worker to keep our queue process running in the background. This queue is responsible
 for sending emails and handling many other background tasks for Pterodactyl.
 
-::: warning
-If you are using Ubuntu 14.04 you cannot use this method to run your queue worker. Please see these instructions for
-installing Supervisor and setting up your queue. Ensure you use the same ExecStart line as below.
-:::
-
 Create a file called `pteroq.service` in `/etc/systemd/system` with the contents below.
 ``` text
 # Pterodactyl Queue Worker File
