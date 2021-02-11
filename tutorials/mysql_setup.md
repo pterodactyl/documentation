@@ -29,6 +29,9 @@ USE mysql;
 
 # Remember to change 'somePassword' below to be a unique password specific to this account.
 CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'somePassword';
+
+# If you get an error with "You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version..", use the line below.
+CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'somePassword';
 ```
 
 ### Create a database
