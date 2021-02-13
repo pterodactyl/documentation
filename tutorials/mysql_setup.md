@@ -28,7 +28,7 @@ to `somePassword`.
 USE mysql;
 
 # Remember to change 'somePassword' below to be a unique password specific to this account.
-CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED WITH mysql_native_password BY 'somePassword';
+CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'somePassword';
 ```
 
 ### Create a database
@@ -56,7 +56,7 @@ This section covers creating a MySQL user that has permission to create and modi
 :::
 
 ### Creating a user
-If your database is on a different host than the one where your Panel or Daemon is installed make sure to use the IP address of the machine the Panel is running on. If you use `127.0.0.1` and try to connect externally, you will receive a connection refused error.
+If your database is on a different host than the one where your Panel or Daemon is installed make sure to use the IP address of the machine the Panel is running on. If you use `127.0.0.1` and try to connect externally, you will receive a connection refused error. **You will type this username and password into your panel when creating a database host.**
 
 ```sql
 USE mysql;
