@@ -32,7 +32,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | | 10 | :white_check_mark: | All required packages are part of the base repos. |
 
 ## Dependencies
-* PHP `7.3+` (`7.4` recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx
+* PHP `7.4` (`8` recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx
 * MySQL `5.7.22` or higher (MySQL `8` recommended) **or** MariaDB `10.2` or higher.
 * Redis (`redis-server`)
 * A webserver (Apache, NGINX, Caddy, etc.)
@@ -50,19 +50,15 @@ operating system's package manager to determine the correct packages to install.
 # Add "add-apt-repository" command
 apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
 
-# Add additional repositories for PHP, Redis, and MariaDB
+# Add additional repositories for PHP and Redis
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 add-apt-repository -y ppa:chris-lea/redis-server
-curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
-
-# Update repositories list
-apt update
 
 # Add universe repository if you are on Ubuntu 18.04
 apt-add-repository universe
 
 # Install Dependencies
-apt -y install php7.4 php7.4-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
+apt -y install php7.4 php7.4-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mysql-server nginx tar unzip git redis-server
 ```
 
 ### Installing Composer
