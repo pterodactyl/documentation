@@ -106,9 +106,9 @@ set when creating the node.
 :::
 
 ## Configure
-Once you have installed Wings and the required components, the next step is to create a node on your installed Panel. Go to your Panel administrative view, select Nodes from the sidebar, and click create new. 
+Once you have installed Wings and the required components, the next step is to create a node on your installed Panel. Go to your Panel administrative view, select Nodes from the sidebar, and on the right side click Create New button. 
 
-After you have done created a node, click on it and there will be a tab called Configuration. Copy the code block and paste it into a new file called `config.yml` in `/etc/pterodactyl` and save it.
+After you have created a node, click on it and there will be a tab called Configuration. Copy the code block content, paste it into a new file called `config.yml` in `/etc/pterodactyl` and save it.
 
 ![](./../../.vuepress/public/wings_configuration_example.png)
 
