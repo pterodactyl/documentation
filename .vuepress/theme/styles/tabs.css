@@ -1,0 +1,53 @@
+.tabs-component {
+  @apply my-6;
+}
+
+ul.tabs-component-tabs {
+  @apply rounded-t p-1 m-0;
+}
+
+.tabs-component-tab {
+  @apply border-b-2 border-grey-light inline-block text-sm font-bold text-grey-darker mr-0 list-none;
+}
+
+.tabs-component-tab:hover {
+  @apply bg-grey-lighter text-grey-darkest;
+}
+
+.tabs-component-tab.is-active {
+  @apply text-blue border-b-2 border-blue;
+}
+
+.tabs-component-tab.is-disabled * {
+  @apply text-grey-light cursor-not-allowed;
+}
+
+.tabs-component-tab-a {
+  @apply inline-block py-2 px-4;
+  color: inherit;
+}
+.tabs-component-tab-a:hover {
+  @apply no-underline;
+}
+
+.tabs-component-panels {
+  @apply rounded-b py-6 px-4;
+}
+
+@media (min-width: 768px) {
+  ul.tabs-component-tabs {
+    @apply border-0 -mx-2;
+    padding-bottom: 2px;
+  }
+  .tabs-component-tab {
+    @apply border-b-2 border-grey-light px-2;
+  }
+  .tabs-component-tab-a {
+    @apply py-1 px-2;
+  }
+
+  .tabs-component-panels {
+    @apply -mx-5 p-5 rounded;
+
+  }
+}
