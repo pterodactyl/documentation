@@ -9,8 +9,7 @@ When using the SSL configuration you MUST create SSL certificates, otherwise you
 
 :::: tabs
 ::: tab "Nginx With SSL"
-## NGINX With SSL
-
+### NGINX With SSL
 You should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place it in `/etc/nginx/sites-available/`, or &mdash; if on CentOS, `/etc/nginx/conf.d/`.
 
@@ -30,16 +29,12 @@ systemctl restart nginx
 
 :::
 ::: tab "Nginx Without SSL"
-
-## NGINX Without SSL
-
+### NGINX Without SSL
 You should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place it in `/etc/nginx/sites-available/`, or &mdash; if on CentOS, `/etc/nginx/conf.d/`.
 
 <<< @/.snippets/webservers/nginx-php7.4-nossl.conf{3}
-
 ### Enabling Configuration
-
 The final step is to enable your NGINX configuration and restart it.
 
 ```bash
@@ -52,8 +47,7 @@ systemctl restart nginx
 
 :::
 ::: tab "Apache With SSL"
-
-## Apache With SSL
+### Apache With SSL
 
 You should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place it in `/etc/apache2/sites-available`, or &mdash; if on CentOS, `/etc/httpd/conf.d/`.
@@ -75,7 +69,7 @@ systemctl restart apache2
 
 :::
 ::: tab "Apache Without SSL"
-## Apache Without SSL
+### Apache Without SSL
 
 You should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place it in `/etc/apache2/sites-available`, or &mdash; if on CentOS, `/etc/httpd/conf.d/`.
