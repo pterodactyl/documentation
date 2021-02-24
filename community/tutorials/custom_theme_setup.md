@@ -1,8 +1,7 @@
 # Creating a theme for Pterodactyl
 This tutorial briefly covers how to create a theme for Pterodactyl without overwriting the main theme files.
 
-:::warn
-The theming system has not been ported to 1.0+. This guide is only applicable to 0.7.X.
+::: warning The theming system has not been ported to 1.0+. This guide is only applicable to 0.7.X.
 :::
 
 ## Using CLI
