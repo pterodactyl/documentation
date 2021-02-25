@@ -2,6 +2,13 @@
 Upgrading the Panel is a relatively simple process. Below you will find a list of articles that will walk you through
 the upgrade process for each version of the software.
 
+::: danger This Version is End-of-Life
+This documentation is for **end-of-life software** which does not recieve any security updates or support
+from the community. This documentation has been left accessible for historial reasons.
+
+You should be installing and using [Pterodactyl Panel 1.0](/panel/1.0/getting_started.md) in production environments.
+:::
+
 ## Maintenance Mode
 Whenever you are performing an upgrade, you should be sure to place your Panel into "maintenance mode". This will prevent
 users from encountering unexpected errors, and ensure everything can be upgraded before users encounter potentially new features.

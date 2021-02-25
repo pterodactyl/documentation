@@ -1,5 +1,13 @@
 # Installation
 
+::: danger This Software is Abandoned
+This documentation is for **abandoned software** which does not recieve any security updates or support
+from the community. This documentation has been left accessible for historial reasons.
+
+You should be installing and using [Wings](/wings/1.0/installing.md) in production environments with
+[Pterodactyl Panel 1.0](/panel/1.0/getting_started.md).
+:::
+
 ::: warning
 This specific software is for Pterodactyl v0.7 and **must not be used for Pterodactyl v1.0**. If you have installed 1.0 you should use [Wings](/wings/1.0/installing.html) instead.
 :::
@@ -109,6 +117,13 @@ instructions provided by Nodejs](https://nodejs.org/en/download/package-manager/
 :::
 
 ## Installing Daemon Software
+::: danger This Software is Abandoned
+This documentation is for **abandoned software** which does not recieve any security updates or support
+from the community. This documentation has been left accessible for historial reasons.
+
+You should be installing and using [Wings](/wings/1.0/installing.md) in production environments with
+[Pterodactyl Panel 1.0](/panel/1.0/getting_started.md).
+:::
 The first step for installing the daemon is to make sure we have the required directory structure setup. To do so,
 run the commands below.
 

@@ -31,8 +31,8 @@ acting out is not allowed.
 This community is fairly lax in regards to moderating language. However, the following are some examples of
 behavior that is absolutely _not_ tolerated and for which you will be removed from the community.
 
-* Racist, sexist, homophobic, transphobic, or otherwise deregatory speech, images, or insinuations.
-* Language whose sole purpose is to denigrate any individual, organization, or class of individual.
+* Racist, sexist, homophobic, transphobic, or otherwise deregatory speech, images, insinuations, or any language whose
+  sole purpose is to denigrate any individual, organization, or class of individual.
 * Threats of violence against any person, group, or organization including "doxxing" of these entities.
 * Pornographic or excessively violent content.
 
@@ -41,8 +41,10 @@ Discussion, including linking to or discussing sites or software, that exists to
 companies or users is not allowed. This includes calling out hosts using nulled software, attempting to elicit negative
 reactions towards services or websites, or otherwise stirring up drama.
 
+::: tip
 Assume someone is acting in good faith when responding to them. You don't have to agree with everyone, and you
 don't need to respond to everything.
+:::
 
 ### Be Patient
 This is an open-source project. No members of the development team are paid in an official capacity to write,
@@ -64,7 +66,7 @@ your services without provocation.
 Advertising commercial services within your username or display name on Discord is forbidden.
 :::
 
-[Sponsors](https://github.com/sponsors/DaneEveritt) at the silver tier and higher are exempt from this rule.
+[Sponsors](/project/about.html#sponsors) at the silver tier and higher are exempt from this rule.
 
 ### No Mention or Ping Spam
 Please, do not direct message any administrative, development, or notable community members without first

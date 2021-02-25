@@ -1,7 +1,7 @@
 module.exports = {
     base: '/',
     title: 'Pterodactyl',
-    description: 'The open-source server management solution.',
+    description: 'Pterodactyl is an open-source game server management panel built with PHP 7, React, and Go. Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers while exposing a beautiful and intuitive UI to end users.',
     plugins: [
         ['@vuepress/google-analytics', {
             ga: 'UA-12345678-9'
@@ -32,7 +32,7 @@ module.exports = {
         ['link', { rel: 'icon', type: 'image/png', href: '/favicons/favicon-32x32.png', sizes: '32x32' }],
         ['link', { rel: 'icon', type: 'image/png', href: '/favicons/favicon-16x16.png', sizes: '16x16' }],
         ['link', { rel: 'mask-icon', href: '/favicons/safari-pinned-tab.svg', color: '#0e4688' }],
-        ['link', { rel: 'manifest', href: '/favicons/manifest.json' }],
+        ['link', { rel: 'manifest', href: '/favicons/site.webmanifest' }],
         ['link', { rel: 'shortcut icon', href: '/favicons/favicon.ico' }],
         ['meta', { name: 'msapplication-config', content: '/favicons/browserconfig.xml' }],
         ['meta', { name: 'theme-color', content: '#0e4688' }],
@@ -43,7 +43,7 @@ module.exports = {
         repoLabel: 'Contribute',
         editLinkText: 'Help us improve this page.',
         editLinks: true,
-        logo: '/pterodactyl-flat.png',
+        logo: '/logos/pterry.svg',
         nav: [
             {
                 text: 'Documentation',
@@ -55,7 +55,7 @@ module.exports = {
             },
             {
                 text: 'Get Help',
-                link: 'https://pterodactyl.io/discord'
+                link: 'https://discord.gg/pterodactyl'
             },
             {
                 text: 'API',
@@ -146,17 +146,6 @@ module.exports = {
                     currentVersion: '1.0',
                     versions: [
                         {
-                            name: '0.7',
-                            status: 'legacy',
-                            children: [
-                                '/getting_started',
-                                '/webserver_configuration',
-                                '/upgrading',
-                                '/configuration',
-                                '/troubleshooting',
-                            ]
-                        },
-                        {
                             name: '1.0',
                             status: 'stable',
                             children: [
@@ -182,25 +171,6 @@ module.exports = {
                                 '/upgrading',
                                 '/migrating',
                                 '/configuration',
-                            ]
-                        }
-                    ]
-                },
-                {
-                    title: 'Daemon',
-                    collapsable: false,
-                    path: '/daemon/',
-                    versions: [
-                        {
-                            name: '0.6',
-                            status: 'legacy',
-                            children: [
-                                '/installing',
-                                '/upgrading',
-                                '/configuration',
-                                '/kernel_modifications',
-                                '/debian_8_docker',
-                                '/standalone_sftp',
                             ]
                         }
                     ]

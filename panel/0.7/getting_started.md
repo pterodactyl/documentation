@@ -1,4 +1,12 @@
 # Getting Started
+
+::: danger This Version is End-of-Life
+This documentation is for **end-of-life software** which does not recieve any security updates or support
+from the community. This documentation has been left accessible for historial reasons.
+
+You should be installing and using [Pterodactyl Panel 1.0](/panel/1.0/getting_started.md) in production environments.
+:::
+
 Pterodactyl Panel is designed to run on your own web server. You will need to have root access to your server in order
 to run and use this panel.
 
@@ -89,6 +97,13 @@ chmod -R 755 storage/* bootstrap/cache/
 ```
 
 ## Installation
+::: danger This Version is End-of-Life
+This documentation is for **end-of-life software** which does not recieve any security updates or support
+from the community. This documentation has been left accessible for historial reasons.
+
+You should be installing and using [Pterodactyl Panel 1.0](/panel/1.0/getting_started.md) in production environments.
+:::
+
 Now that all of the files have been downloaded we need to configure some core aspects of the Panel.
 
 ::: tip Database Configuration

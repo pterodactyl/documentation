@@ -1,5 +1,13 @@
 # Standalone SFTP Server
 
+::: danger This Software is Abandoned
+This documentation is for **abandoned software** which does not recieve any security updates or support
+from the community. This documentation has been left accessible for historial reasons.
+
+You should be installing and using [Wings](/wings/1.0/installing.md) in production environments with
+[Pterodactyl Panel 1.0](/panel/1.0/getting_started.md).
+:::
+
 ::: warning
 Standalone SFTP support was introduced in `Panel@v0.7.11` and `Daemon@v0.6.8` and will not work with prior versions.
 :::
