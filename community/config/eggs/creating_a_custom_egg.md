@@ -201,3 +201,20 @@ regex as any letters or numbers (`\w\d`) including underscore (`_`), periods (`.
 They will then be visible when managing the startup for a server in both the Admin CP and on the Front-End.
 
 ![](../../../.vuepress/public/community/config/eggs/Pterodactyl_Create_New_Egg_Startup.png)
+
+## List of default variables
+
+The default variables are always accessible to all eggs and don't have to be created separately. They can be used in the egg startup, install script, or the configuration file parser.
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| TZ       | Time Zone set from panels `.env` |  `Etc/UTC` |
+| STARTUP  | Startup command of the egg | `./Process` |
+| SERVER_MEMORY | Memory available for the server in MB | `512` |
+| SERVER_IP | Default ip of the server | `127.0.0.1` |
+| SERVER_PORT | Primary Server Port | `27015` |
+| P_SERVER_LOCATION | Location of the server | `Example City` |
+| P_SERVER_UUID | UUID of the server | `539fdca8-4a08-4551-a8d2-8ee5475b50d9` |
+| P_SERVER_ALLOCATION_LIMIT | Limit of allocations allowed for the server | `0.000000` |
+| USER | User that executes the startup command in the server | `container` |
+| HOME | Home path of the container user | `/home/container` |
