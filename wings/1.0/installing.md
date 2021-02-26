@@ -112,6 +112,10 @@ After you have created a node, click on it and there will be a tab called Config
 
 Alternatively, you can click on the Generate Token button, copy the bash command and paste it into your terminal.
 
+::: warning
+Sometimes hosts don't allow the usage of public DNS servers, ie. the Cloudflare DNS servers that Wings uses by default. If your servers aren't installing properly and giving specific errors that it cannot resolve apt repositories, manually edit **config.yml** and add your host's DNS servers to the beginning of the list, i.e `213.186.33.99` for OVH.
+:::
+
 ![](./../../.vuepress/public/wings_configuration_example.png)
 
 ### Starting Wings
