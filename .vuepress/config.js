@@ -115,7 +115,6 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/community/config/nodes/add_node.md',
-                        '/community/tutorials/custom_theme_setup.md',
                         '/community/tutorials/artisan.md',
                     ],
                 },
