@@ -95,35 +95,3 @@ php artisan p:info
 ```
 
 Displays a variety of panel information which can be used to check the configuation of this like database and email.
-
-## Theme Management
-
-This is a commonly missed section of commands, but they exist and more people should be aware of them. Pterodactyl has a built in theming system and with that comes a variety of commands for managing them easier.
-
-### List All Themes
-
-```bash
-php artisan theme:list
-```
-
-This is will show a table of all currently installed themes along with their views and asset paths. This does not show themes that are ready to be installed, only installed themes.
-
-### Install a Theme
-
-```bash
-php artisan theme:install [theme-name]
-```
-
-This will search for the file with the theme name followed by a `.theme.tar.gz` (standard Igaster theme packaged). If no theme name is provided, it will load all themes and give you a selection to install from.
-
-### Create a Theme
-
-```bash
-php artisan theme:create [theme-name]
-```
-
-### Remove a Theme
-
-```bash
-php artisan theme:remove [theme-name]
-```
