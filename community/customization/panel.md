@@ -17,11 +17,11 @@ The build tools require NodeJS, yarn is used as the package manager.
 
 ```bash
 # Ubuntu/Debian
-curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-apt install -y nodejs yarn
+curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+apt install -y nodejs
 
 # CentOS
-curl -sL https://rpm.nodesource.com/setup_12.x | sudo -E bash -
+curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
 sudo yum install -y nodejs yarn # CentOS 7
 sudo dnf install -y nodejs yarn # CentOS 8
 ```
@@ -29,6 +29,8 @@ sudo dnf install -y nodejs yarn # CentOS 8
 Install required javascript packages.
 
 ```bash
+npm i -g yarn # Install Yarn
+
 cd /var/www/pterodactyl
 yarn # Installs panel build dependencies
 ```
@@ -41,3 +43,5 @@ The following command will rebuild the Panel frontend.
 cd /var/www/pterodactyl
 yarn build:production # Build panel
 ```
+
+You can use command `yarn run watch` to view the progress of your changes in almost real-time for easier development. Once you're satisfied with your changes build the panel using the previously mentioned `yarn build:production` command. 
