@@ -7,7 +7,7 @@ These are advanced configurations for Wings. You risk breaking Wings and making 
 you misconfigure something. Proceed only if you know what each configuration value does.
 :::
 
-You must apply all changes to your wings `config.yml` file located at `/etc/pterodactyl`. Verify your config file using [Yaml Lint](http://www.yamllint.com/) should you receive errors related to YAML parsing.
+You must apply all changes to your Wings `config.yml` file located at `/etc/pterodactyl`. Verify your config file using [Yaml Lint](http://www.yamllint.com/) should you receive errors related to YAML parsing.
 
 ## Private Registries
 
@@ -36,7 +36,7 @@ docker:
 You can change the network interface that Wings uses for all containers by editing the network name; it is by default set to `pterodactyl_nw`. For example, to enable Docker host mode change the network name to `host`.
 
 ::: warning
-Changing network mode to `host` grants Pterodactyl direct access to all machine interfaces and panel users can bind to any IP or Port even if it's not allocated to their container. You will lose all benefits of Docker network isolation. It is not recommended for public installations that are hosting other users' servers.
+Changing network mode to `host` grants Pterodactyl direct access to all machine interfaces and Panel users can bind to any IP or Port even if it's not allocated to their container. You will lose all benefits of Docker network isolation. It is not recommended for public installations that are hosting other users' servers.
 :::
 
 ### Example of usage
@@ -45,7 +45,6 @@ Changing network mode to `host` grants Pterodactyl direct access to all machine 
 docker:
   network:
     name: host
-    network_mode: host
 ```
 
 After making changes, the following commands will stop the Wings, remove the Pterodactyl network, and start the Wings again. Run at your own risk.
@@ -53,9 +52,9 @@ After making changes, the following commands will stop the Wings, remove the Pte
 
 ## Enabling Cloudflare proxy
 
-Cloudflare proxying of the wings isn't beneficial since users will be connecting to the machine directly and bypassing any Cloudflare protection. As such, your Node machine IP will still be exposed.
+Cloudflare proxying of the Wings isn't beneficial since users will be connecting to the machine directly and bypassing any Cloudflare protection. As such, your Node machine IP will still be exposed.
 
-To enable Cloudflare proxy, you must change the Wings port to one of the Cloudflare HTTPS ports, such as 8443, because Cloudflare only supports HTTP on port 8080. Select your Node in the admin panel, and on the settings tab, change the port.
+To enable Cloudflare proxy, you must change the Wings port to one of the Cloudflare HTTPS ports, such as 8443, because Cloudflare only supports HTTP on port 8080. Select your Node in the Admin Panel, and on the settings tab, change the port.
 
 You are unable to proxy the SFTP port through Cloudflare unless you have their enterprise plan.
 
