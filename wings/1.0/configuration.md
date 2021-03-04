@@ -67,7 +67,7 @@ You can use these settings to adjust or completely disable throttling.
 | enabled               |     true      | Whether or not the throttler is enabled                                                                                             |
 | lines                 |     2000      | Total lines that can be output in a given line_reset_interval period                                                                |
 | maximum_trigger_count |       5       | Amount of times throttle limit can be triggered before the server will be stopped                                                   |
-| line_reset_interval   |      10       | Total lines that can be output in a given line_reset_interval period                                                                |
+| line_reset_interval   |      100      | The amount of time after which the number of lines processed is reset to 0                                                          |
 | decay_interval        |     10000     | Time in milliseconds that must pass without triggering throttle limit before trigger count is decremented                           |
 | stop_grace_period     |      15       | Time that a server is allowed to be stopping for before it is terminated forcefully if it triggers output throttle                  |
 | write_limit           |       0       | Impose I/O write limit for backups to the disk, 0 = unlimited. Value greater than 0 throttles write speed to the set value in MiB/s |
