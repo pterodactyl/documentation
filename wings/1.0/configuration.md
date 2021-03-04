@@ -36,7 +36,7 @@ docker:
 You can change the network interface that Wings uses for all containers by editing the network name; it is by default set to `pterodactyl_nw`. For example, to enable Docker host mode change the network name to `host`.
 
 ::: warning
-Changing network mode to `host` grants Pterodactyl direct access to all machine interfaces and binding to any IP or Port even if it's not allocated to the container. You will lose all benefits of Docker network isolation. It is not recommended for public installations that are hosting other users' servers.
+Changing network mode to `host` grants Pterodactyl direct access to all machine interfaces and panel users can bind to any IP or Port even if it's not allocated to their container. You will lose all benefits of Docker network isolation. It is not recommended for public installations that are hosting other users' servers.
 :::
 
 ### Example of usage
@@ -53,9 +53,11 @@ After making changes, the following commands will stop the Wings, remove the Pte
 
 ## Enabling Cloudflare proxy
 
-Cloudflare proxying of the wings isn't beneficial since users will be connecting to the machine directly and bypassing any Cloudflare protection. As such, your Node machine IP will be exposed.
+Cloudflare proxying of the wings isn't beneficial since users will be connecting to the machine directly and bypassing any Cloudflare protection. As such, your Node machine IP will still be exposed.
 
-You must change the Wings port to one of the Cloudflare HTTPS ports, such as 8443, because Cloudflare doesn't support HTTPS on port 8080. You will be unable to connect to the SFTP through the proxy with Cloudflare unless you have their enterprise plan.
+To enable Cloudflare proxy, you must change the Wings port to one of the Cloudflare HTTPS ports, such as 8443, because Cloudflare only supports HTTP on port 8080. Select your Node in the admin panel, and on the settings tab, change the port.
+
+You are unable to proxy the SFTP port through Cloudflare unless you have their enterprise plan.
 
 ## Console Throttles
 
