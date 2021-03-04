@@ -59,18 +59,20 @@ To enable Cloudflare proxy, you must change the Wings port to one of the Cloudfl
 
 You are unable to proxy the SFTP port through Cloudflare unless you have their enterprise plan.
 
-## Console Throttles
+## Throttles Limits
 
 You can use these settings to adjust or completely disable throttling.
 
-| Setting Key           | Default Value | Notes                                                                                                              |
-| :-------------------- | :-----------: | ------------------------------------------------------------------------------------------------------------------ |
-| enabled               |     true      | Whether or not the throttler is enabled                                                                            |
-| lines                 |     2000      | Total lines that can be output in a given line_reset_interval period                                               |
-| maximum_trigger_count |       5       | Amount of times throttle limit can be triggered before the server will be stopped                                  |
-| line_reset_interval   |      10       | Total lines that can be output in a given line_reset_interval period                                               |
-| decay_interval        |     10000     | Time in milliseconds that must pass without triggering throttle limit before trigger count is decremented          |
-| stop_grace_period     |      15       | Time that a server is allowed to be stopping for before it is terminated forcefully if it triggers output throttle |
+| Setting Key           | Default Value | Notes                                                                                                                               |
+| :-------------------- | :-----------: | ----------------------------------------------------------------------------------------------------------------------------------- |
+| enabled               |     true      | Whether or not the throttler is enabled                                                                                             |
+| lines                 |     2000      | Total lines that can be output in a given line_reset_interval period                                                                |
+| maximum_trigger_count |       5       | Amount of times throttle limit can be triggered before the server will be stopped                                                   |
+| line_reset_interval   |      10       | Total lines that can be output in a given line_reset_interval period                                                                |
+| decay_interval        |     10000     | Time in milliseconds that must pass without triggering throttle limit before trigger count is decremented                           |
+| stop_grace_period     |      15       | Time that a server is allowed to be stopping for before it is terminated forcefully if it triggers output throttle                  |
+| write_limit           |       0       | Impose I/O write limit for backups to the disk, 0 = unlimited. Value greater than 0 throttles write speed to the set value in MiB/s |
+| download_limit        |       0       | Impose a Network I/O read limit for archives, 0 = unlimited. Value greater than 0 throttles read speed to the set value in MiB/s.   |
 
 ### Example of usage
 
