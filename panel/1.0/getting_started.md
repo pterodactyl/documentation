@@ -210,7 +210,7 @@ If you are not using `redis` for anything you should remove the `After=` line, o
 when the service starts.
 :::
 
-If you are are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command:
+If you are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command:
 ```bash
 sudo systemctl enable --now redis-server
 ```
