@@ -4,7 +4,7 @@ module.exports = {
     description: 'Pterodactyl is an open-source game server management panel built with PHP 7, React, and Go. Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers while exposing a beautiful and intuitive UI to end users.',
     plugins: [
         ['@vuepress/google-analytics', {
-            ga: 'UA-12345678-9'
+            ga: 'UA-87324178-3'
         },],
         ['@vuepress/search', {
             searchMaxSuggestions: 10
