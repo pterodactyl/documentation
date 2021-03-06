@@ -1,7 +1,8 @@
 # Creating SSL Certificates
 This tutorial briefly covers creating new SSL certificates for your panel and daemon. 
 
-## Method 1: Using Certbot
+:::: tabs
+::: tab "Method 1: Certbot"
 To begin, we will be installing certbot, a simple script that will automatically renew our certificates and allow much
 cleaner creation of them. The command below is for Ubuntu distributions, but you can always check [Certbot's official
 site](https://certbot.eff.org/) for installation instructions. We have also included a command below to install certbot's
@@ -65,8 +66,8 @@ Once the process has complete, you can restart the NGINX service:
 systemctl start nginx
 ```
 
-## Method 2: Using acme.sh (Cloudflare)
-
+:::
+::: tab "Method 2: acme.sh (Cloudflare)"
 This is for advanced users, of which their server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/Neilpang/acme.sh) for installation instructions.
 
 ``` bash
@@ -102,3 +103,6 @@ After running the script for the first time, it will be added to the crontab aut
 ```bash
 sudo crontab -e
 ```
+
+:::
+::::
