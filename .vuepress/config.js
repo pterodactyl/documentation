@@ -153,6 +153,7 @@ module.exports = {
                                 '/webserver_configuration',
                                 '/additional_configuration',
                                 '/updating',
+                                '/troubleshooting',
                                 '/legacy_upgrade',
                             ]
                         }
