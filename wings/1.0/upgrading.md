@@ -1,12 +1,20 @@
 # Upgrading Wings
 Upgrading Wings is a painless process and should take less than a minute to complete.
 
+## Wings Version Requirements
+Each version of Pterodactyl Panel also has a corresponding minimum version of Wings that
+is required for it to run. Please see the chart below for how these versions line up. In
+most cases your base Wings version should match that of your Panel.
+
+| Panel Version | Wings Version | Supported |
+| ------------- | ------------- | --------- |
+| 1.0.x         | 1.0.x         |           |
+| 1.1.x         | 1.1.x         |           |
+| 1.2.x         | 1.2.x         |           |
+| **1.3.x**     | **1.3.x**     | ✅        |
+
 ## Download Updated Binary
 First, download the updated wings binary into `/usr/local/bin`.
-
-::: danger
-`Wings@1.3.0` requires `Panel@1.3.0` in order to work properly!
-:::
 
 ``` bash
 curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64

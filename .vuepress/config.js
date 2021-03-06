@@ -145,14 +145,15 @@ module.exports = {
                     currentVersion: '1.0',
                     versions: [
                         {
-                            title: '1.2',
+                            title: '1.3',
                             name: '1.0',
                             status: 'stable',
                             children: [
                                 '/getting_started',
                                 '/webserver_configuration',
-                                '/upgrading',
-                                '/additional_configuration'
+                                '/additional_configuration',
+                                '/updating',
+                                '/legacy_upgrade',
                             ]
                         }
                     ]
@@ -164,7 +165,7 @@ module.exports = {
                     currentVersion: '1.0',
                     versions: [
                         {
-                            title: '1.2',
+                            title: '1.3',
                             name: '1.0',
                             status: 'stable',
                             children: [

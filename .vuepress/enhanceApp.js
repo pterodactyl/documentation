@@ -20,7 +20,10 @@ export default ({
           ]
         }
         return undefined
-      }).filter(x => x).flat()
+      }).filter(x => x).flat().concat([
+        { path: '/panel/1.0/upgrade/1.0.html', redirect: '/panel/1.0/updating.html' },
+        { path: '/panel/1.0/upgrade/0.7_to_1.0.html', redirect: '/panel/1.0/legacy_upgrade.html' },
+      ])
     )
   })
 }
