@@ -1,6 +1,6 @@
-# Upgrading 0.7 Series to 1.0 Series
-This upgrade guide is for **upgrading from 0.7.X to 1.1.0**. If you are trying to do an upgrade on a 1.X Panel
-please [use this guide instead](/panel/1.0/upgrade/1.0.md). During this upgrade process you will have some periods
+# Legacy Upgrades
+This upgrade guide is for **upgrading from 0.7.X to 1.3.x**. If you are trying to do an upgrade on a 1.X Panel
+please [use this guide instead](/panel/1.0/updating.md). During this upgrade process you will have some periods
 of Panel unavailability, however none of the underlying game server instances will be stopped.
 
 ## Enter Maintenance Mode
@@ -16,7 +16,10 @@ php artisan down
 You'll need to make sure your system dependencies are up to date before performing this upgrade. Please
 reference the list below to ensure you have all of the required versions.
 
-* PHP `7.3+` (`7.4` recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx
+* PHP `7.4` or `8.0` (recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`,
+  `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx. See our guide
+  for [Upgrading PHP](/guides/php_upgrade.md) for details.
+* Composer v2 (`composer self-update --2`)
 
 ::: warning Nginx
 If you upgrade your PHP version and are using nginx as your webserver, you will have to update the
