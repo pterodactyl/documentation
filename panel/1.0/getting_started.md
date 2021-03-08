@@ -25,7 +25,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | Operating System | Version | Supported | Notes |
 | ---------------- | ------- | :-------: | ----- |
 | **Ubuntu** | 18.04 | :white_check_mark: | Extra repos are required. |
-| | 20.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+| | 20.04 | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
 | **CentOS** | 7 | :white_check_mark: | Extra repos are required. |
 | | 8 | :white_check_mark: | |
 | **Debian** | 9 | :white_check_mark: | Extra repos are required. |
