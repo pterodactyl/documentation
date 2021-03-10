@@ -72,7 +72,7 @@ block prior to booting the server to ensure all of the required settings are def
 In this example, we are telling the Daemon to read `server.properties` in `/home/container`. Within this block, we
 define a `parser`, in this case `properties` but the following are [valid parsers](https://github.com/pterodactyl/wings/blob/develop/parser/parser.go#L25-L30):
 
-* `file` — This parser goes based on matching the beginning of lines, and not a specific property like the other four.
+* `file` — This parser goes based on matching the beginning of lines, and not a specific property like the other five.
 Avoid using this parser if possible.
 * `yaml` (supports `*` notation)
 * `properties`
