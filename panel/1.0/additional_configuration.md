@@ -58,7 +58,7 @@ UPDATE panel.settings SET value = 'false' WHERE `key` = 'settings::recaptcha:ena
 
 If possible you should use the panel to update your 2FA settings. If you can't access your panel for what ever reason you can use the following steps.
 
-### Globally disable 2FA
+### Disable 2FA requirement
 
 ```sql
 mysql -u root -p
