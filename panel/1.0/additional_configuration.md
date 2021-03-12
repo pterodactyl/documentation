@@ -62,7 +62,7 @@ If possible you should use the panel to update your 2FA settings. If you can't a
 
 ```sql
 mysql -u root -p
-UPDATE panel.settings SET value = 0 WHERE `key` = 'TODO';
+UPDATE panel.settings SET value = 0 WHERE `key` = 'settings::pterodactyl:auth:2fa_required';
 ```
 
 ### Disable 2FA for a specific user
@@ -70,5 +70,5 @@ UPDATE panel.settings SET value = 0 WHERE `key` = 'TODO';
 Run the following command in your `/var/www/pterodactyl` directory.
 
 ``` bash
-php artisan p:TODO
+php artisan p:user:disable2fa
 ```
