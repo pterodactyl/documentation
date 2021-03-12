@@ -53,3 +53,22 @@ If you cannot access your panel, you can modify the database directly using the 
 mysql -u root -p
 UPDATE panel.settings SET value = 'false' WHERE `key` = 'settings::recaptcha:enabled';
 ```
+
+## 2FA
+
+If possible you should use the panel to update your 2FA settings. If you can't access your panel for what ever reason you can use the following steps.
+
+### Globally disable 2FA
+
+```sql
+mysql -u root -p
+UPDATE panel.settings SET value = 0 WHERE `key` = 'TODO';
+```
+
+## Disable 2FA for a specific user
+
+Run the following command in your `/var/www/pterodactyl` directory.
+
+``` bash
+php artisan p:TODO
+```
