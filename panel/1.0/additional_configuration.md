@@ -4,7 +4,7 @@
 
 ## Backups
 
-Pterodactyl Panel allows users to create backups of their servers. In order to create backups, backup storage has to be configured.
+Pterodactyl Panel allows users to create backups of their servers. In order to create remote backups, a backup storage has to be configured.
 
 ### Using S3 Backups
 
@@ -65,7 +65,7 @@ mysql -u root -p
 UPDATE panel.settings SET value = 0 WHERE `key` = 'TODO';
 ```
 
-## Disable 2FA for a specific user
+### Disable 2FA for a specific user
 
 Run the following command in your `/var/www/pterodactyl` directory.
 
