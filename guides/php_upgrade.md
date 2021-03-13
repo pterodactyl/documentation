@@ -14,6 +14,8 @@ In order to install PHP 8.0, you will need to run the following command. Please 
 may have slightly different requirements for how this command is formatted.
 
 ```bash
+# Add additional repository for PHP
+add-apt-repository -y ppa:ondrej/php
 apt -y update
 apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
 ```
