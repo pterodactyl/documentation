@@ -45,6 +45,7 @@ Changing network mode to `host` grants Pterodactyl direct access to all machine 
 docker:
   network:
     name: host
+    network_mode: host    
 ```
 
 After making changes, the following commands will stop the Wings, remove the Pterodactyl network, and start the Wings again. Run at your own risk.
