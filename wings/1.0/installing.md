@@ -133,6 +133,8 @@ this. Place the contents below in a file called `wings.service` in the `/etc/sys
 [Unit]
 Description=Pterodactyl Wings Daemon
 After=docker.service
+Requires=docker.service
+PartOf=docker.service
 
 [Service]
 User=root
