@@ -6,6 +6,14 @@
 
 Pterodactyl Panel allows users to create backups of their servers. In order to create backups, backup storage has to be configured.
 
+::: tip Backup Limit
+You can limit how many backups an user can make of a specific server. To change this, go to your Panel administrative view, select Servers from the sidebar and click the server you want to change the limit of, under the Build Configuration tab on the Application Feature Limits section you will find the Backup Limit option. 
+Setting this to 0 will prevent users for creating backups of that server.
+:::
+
+### Local Backups
+By default, backups are locally saved as a `.tar.gz` file. 
+
 ### Using S3 Backups
 
 AWS S3 (or compatible storage) can be used to store backups. The following configuration options have to be set in the `.env` file in order to enable it.
