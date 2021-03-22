@@ -10,43 +10,54 @@ In the Wings configuration file (`/etc/pterodactyl/config.yml`) the `allowed_mou
 
 ```yml
 allowed_mounts:
-- /example
+  - /example
 ```
 
 ## Panel Configuration
 
-You have to configure mounts in admin panel in order to use them with your servers. They consist of a source pad on the node and a target path where it will be mounted in the container.
+You have to configure mounts in admin Panel in order to use them with your servers. They consist of a source pad on the node and a target path where it will be mounted in the container.
 
 :::warning Path in the container
-Mounts can not be mounted at `/home/container` or any subdirectory of it, as mounts cannot overlap and the server specific files are mounted at that location.
+Mounts can not contain `/home/container` in its path nor can you cross-mount servers such as Server A directory into Server B.
 :::
 
 ### Creating a Mount
 
-1. In the admin panel go to **Mounts**.
+1. In the admin Panel go to **Mounts**.
 2. Create a new mount.
 3. Fill in the details as required.
    - **Name**: Name for your mount.
    - **Description**: Description for your mount.
-   - **Source**: The directory where files are stored on the node.
-   - **Target**: The directory where the mount will be placed inside of your server, can **not** be `/home/container`.
+   - **Source**: The absolute path to the folder or files on the Node machine.
+   - **Target**: The absolute path where the mount will be placed inside of your server, can **not** include `/home/container` in the path.
    - **Read Only**: Whether the mount will be read-only for the servers using it.
    - **User Mountable**: Whether to allow users to self mount this mount.
 4. After creating the mount you are required to add **Eggs** and **Nodes** that this mount may be used on.
 
 :::warning Mounts used by multiple servers
 All servers using the same mounts will **only** share its contents when they are on the same node. Mounts are not synchronized between servers.
-::: 
+:::
 
 ### Assigning a Mount to a Server
 
-1. In the admin panel navigate to the server you would like to use a mount with
+1. In the admin Panel navigate to the server you would like to use a mount with
 2. Go to the mounts page
 3. Click the **+** button
 4. Restart the server
 
 The files of the mount should become available in the target path in the container.
 
-:::warning Mounts cannot be Accessed
-Mounts do not appear in the Panel's file manager, nor are they accessible via SFTP.
+:::warning Mounts cannot be accessed
+Mounts do not appear in the Panel's file manager, nor are they accessible via SFTP. The server itself will be able to see and use the mounts.
 :::
+
+### Example Mount
+
+The example mount below is stored in the path `/var/lib/pterodactyl/mounts` which we add to the Wings config.yml
+
+```yml
+allowed_mounts:
+  - /var/lib/pterodactyl/mounts
+```
+
+![](./../.vuepress/public/gmod_mount_example.png)
