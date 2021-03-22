@@ -10,7 +10,7 @@ In the Wings configuration file (`/etc/pterodactyl/config.yml`) the `allowed_mou
 
 ```yml
 allowed_mounts:
-  - /example
+- /example
 ```
 
 ## Panel Configuration
