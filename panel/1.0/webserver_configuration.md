@@ -86,4 +86,4 @@ systemctl restart apache2
 :::
 ::::
 
-#### Next Step: [Wings Installation](../../wings/./installing.md)
+#### Next Step: [Wings Installation](../../wings/installing.md)
