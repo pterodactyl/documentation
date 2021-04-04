@@ -97,4 +97,4 @@ More commonly discussed values. View all Wings config values and explanations in
 | websocket_log_count        |      150      | The number of lines to display in the console                                                   |
 | detect_clean_exit_as_crash |     true      | Mark server as crashed if it's stopped without user interaction, e.g., not pressing stop button |
 | (crash detection) timeout  |      60       | Timeout between server crashes that will not cause the server to be automatically restarted     |
-| app_name                   |     null      | Changes the name of the daemon, shown in the panel's game console                               |  
+| app_name                   |  "Pterodactyl" | Changes the name of the daemon, shown in the panel's game console                               |  
