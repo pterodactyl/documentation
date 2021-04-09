@@ -43,7 +43,7 @@ Don't forget to account for OS overhead and other software requirements on machi
 * **Daemon SFTP Port**: the port the Daemon sftp-server or standalone SFTP server should listen on.
 
 ## Install the Daemon
-At this point you'll need to have the Daemon installed on your machine. Check out the [documentation](/wings/1.0/installing.html)
+At this point you'll need to have the Daemon installed on your machine. Check out the [documentation](/wings/installing.html)
 for more information, or try one of the community guides for [CentOS](/community/installation-guides/wings/centos7.html),
 [Ubuntu](/community/installation-guides/wings/ubuntu1804.html), or [Debian](/community/installation-guides/wings/debian9.html).
 
