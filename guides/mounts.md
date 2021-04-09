@@ -18,7 +18,7 @@ allowed_mounts:
 You have to configure mounts in admin Panel in order to use them with your servers. They consist of a source pad on the node and a target path where it will be mounted in the container.
 
 :::warning Path in the container
-Mounts can not contain `/home/container` in its path nor can you cross-mount servers such as Server A directory into Server B.
+Mounts can not contain `/home/container` or any subdirectory of it nor can you cross-mount servers such as Server A directory into Server B.
 :::
 
 ### Creating a Mount
