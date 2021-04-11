@@ -11,7 +11,7 @@ administrators willing to spend some time learning how to use it. **If you expec
 of basic linux system administration you should stop and turn around now.**
 
 ::: tip Looking for something simple to setup?
-[WISP](https://wisp.gg) is a Pterodactyl powered SaaS suitable for enterprise and personal use. Offering all the features without the setup hasstle, and fully compatible with Pterodactyl eggs. Comparable to MultiCraft or TCAdmin while offering new and unique features. Click here to [learn more](https://wisp.gg/features).
+[WISP](https://wisp.gg) is a Pterodactyl powered SaaS suitable for enterprise and personal use. Offering all the features without the setup hassle, and fully compatible with Pterodactyl eggs. Comparable to MultiCraft or TCAdmin while offering new and unique features. Click here to [learn more](https://wisp.gg/features).
 :::
 
 ## Picking a Server OS
