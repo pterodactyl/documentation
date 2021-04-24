@@ -14,6 +14,8 @@ In order to install PHP 8.0, you will need to run the following command. Please 
 may have slightly different requirements for how this command is formatted.
 
 ```bash
+# Add additional repository for PHP
+add-apt-repository -y ppa:ondrej/php
 apt -y update
 apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
 ```
@@ -51,7 +53,7 @@ Run the commands below to disable PHP 7.4 and enable PHP 8.0 when serving reques
 PHP 7.4 change the value in the command below to reflect that.
 
 ``` bash
-# Hint: a2dismod = a2_enable_module 🤯
+# Hint: a2enmod = a2_enable_module 🤯
 a2enmod php8.0
 
 # Hint: a2dismod = a2_disable_module 🤯

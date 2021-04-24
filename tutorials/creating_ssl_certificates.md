@@ -13,7 +13,7 @@ sudo apt update
 sudo apt install -y certbot
 # Run this if you use Nginx
 sudo apt install -y python3-certbot-nginx
-# Run this of you use Apache
+# Run this if you use Apache
 sudo apt install -y python3-certbot-apache
 ```
 

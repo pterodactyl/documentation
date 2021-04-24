@@ -45,6 +45,7 @@ Changing network mode to `host` grants Pterodactyl direct access to all machine 
 docker:
   network:
     name: host
+    network_mode: host    
 ```
 
 After making changes, the following commands will stop the Wings, remove the Pterodactyl network, and start the Wings again. Run at your own risk.
@@ -96,3 +97,4 @@ More commonly discussed values. View all Wings config values and explanations in
 | websocket_log_count        |      150      | The number of lines to display in the console                                                   |
 | detect_clean_exit_as_crash |     true      | Mark server as crashed if it's stopped without user interaction, e.g., not pressing stop button |
 | (crash detection) timeout  |      60       | Timeout between server crashes that will not cause the server to be automatically restarted     |
+| app_name                   |  "Pterodactyl" | Changes the name of the daemon, shown in the panel's game console                               |  

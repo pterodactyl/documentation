@@ -46,7 +46,7 @@ Composer version 2.0.8 2020-12-03 17:20:38
 ### Enter Maintenance Mode
 Whenever you are performing an update you should be sure to place your Panel into maintenance mode. This will prevent
 users from encountering unexpected errors and ensure everything can be updated before users encounter
-potentially new features.
+potentially new features. Now is a good time to ensure that you're in the `/var/www/pterodactyl` directory.
 
 ``` bash
 php artisan down
@@ -54,9 +54,8 @@ php artisan down
 
 ### Download the Update
 The first step in the update process is to download the new panel files from GitHub. The command below will download
-the release archive for the most recent version of Pterodactyl and save it in the current directory. Now is a good time
-to ensure that you're in the `/var/www/pterodactyl` directory as the command below will automatically unpack the archive
-into your current folder.
+the release archive for the most recent version of Pterodactyl, save it in the current directory and will automatically
+unpack the archive into your current folder.
 
 ``` bash
 curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | tar -xzv

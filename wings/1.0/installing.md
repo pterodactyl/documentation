@@ -115,9 +115,7 @@ Alternatively, you can click on the Generate Token button, copy the bash command
 ![](./../../.vuepress/public/wings_configuration_example.png)
 
 ### Starting Wings
-To start Wings, simply move into the Wings directory and run the command below which will start it in
-foreground mode. Once you are done, use `CTRL+C` to terminate the process. Depending on your server's internet connection
-pulling and starting Wings for the first time may take a few minutes.
+To start Wings, simply run the command below, which will start it in a debug mode. Once you confirmed that it is running without errors, use `CTRL+C` to terminate the process and daemonize it by following the instructions below. Depending on your server's internet connection pulling and starting Wings for the first time may take a few minutes.
 
 ``` bash
 sudo wings --debug
@@ -133,6 +131,8 @@ this. Place the contents below in a file called `wings.service` in the `/etc/sys
 [Unit]
 Description=Pterodactyl Wings Daemon
 After=docker.service
+Requires=docker.service
+PartOf=docker.service
 
 [Service]
 User=root
