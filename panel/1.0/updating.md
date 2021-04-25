@@ -43,10 +43,14 @@ Composer version 2.0.8 2020-12-03 17:20:38
 ```
 
 ## Fetch Updated Files
+Before you proceed, make sure that you're in the `/var/www/pterodactyl` directory.
+
+Instead of manually updating, you can use the self-upgrade artisan command `php artisan p:upgrade`. You must be on a panel version that is 1.3.2 or newer.
+
 ### Enter Maintenance Mode
 Whenever you are performing an update you should be sure to place your Panel into maintenance mode. This will prevent
 users from encountering unexpected errors and ensure everything can be updated before users encounter
-potentially new features. Now is a good time to ensure that you're in the `/var/www/pterodactyl` directory.
+potentially new features.
 
 ``` bash
 php artisan down
