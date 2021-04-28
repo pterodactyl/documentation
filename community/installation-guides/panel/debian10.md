@@ -23,13 +23,13 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.4
+### PHP 8.0
 ```bash
 ## Get apt updates
 apt update
 
 ## Install PHP 7.4
-apt install -y php7.4 php7.4-{cli,common,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
+apt install -y php8.0 php8.0-{cli,common,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
 ```
 
 ### Nginx
@@ -94,15 +94,15 @@ The default php-fpm configuration is fine to use and can be started and then ena
 commands below.
 
 ```bash
-systemctl enable php7.4-fpm
-systemctl start php7.4-fpm
+systemctl enable php8.0-fpm
+systemctl start php8.0-fpm
 ```
 
 ### Nginx
 Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
 #### SSL Configuration
-<<< @/.snippets/webservers/nginx-php7.4.conf{5,11,26-27}
+<<< @/.snippets/webservers/nginx-php8.0.conf{5,11,26-27}
 
 
 ### Redis Setup
