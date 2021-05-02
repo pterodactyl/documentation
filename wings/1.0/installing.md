@@ -4,7 +4,7 @@ Wings is the next generation server control plane from Pterodactyl. It has been 
 ground up using Go and lessons learned from our first Nodejs Daemon.
 
 ::: warning
-You should only install Wings if you are running **Pterodactyl 1.0**. Do not install this software
+You should only install Wings if you are running **Pterodactyl 1.x**. Do not install this software
 for previous versions of Pterodactyl.
 :::
 
@@ -171,7 +171,7 @@ systemctl enable --now wings
 
 ### Node Allocations
 
-Allocation is a combination of IP and Port that you can assign to a server. Each created server must have at least one allocation. The allocation would be the IP address of your network interface. In some cases, such as when behind NAT, it would be the internal IP. Go to Nodes > Your Node > Allocation.
+Allocation is a combination of IP and Port that you can assign to a server. Each created server must have at least one allocation. The allocation would be the IP address of your network interface. In some cases, such as when behind NAT, it would be the internal IP. To create new allocations go to Nodes > your node > Allocation.
 
 ![](../../.vuepress/public/node_allocations.png)
 
