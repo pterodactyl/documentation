@@ -95,3 +95,11 @@ php artisan p:info
 ```
 
 Displays a variety of panel information which can be used to check the configuation of this like database and email.
+
+### Update Panel
+
+```bash
+php artisan p:upgrade
+```
+
+Updates the panel to the latest version without having to manually copy the upgrade documentation.
