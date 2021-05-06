@@ -22,4 +22,4 @@ systemctl start docker
 ```
 
 ## Installing Wings
-Great, now all of the dependencies and firewall rules have been dealt with. From here follow the [official Wings installation documentation](/wings/1.0/installing.md#installing-wings-1).
+Great, now all of the dependencies and firewall rules have been dealt with. From here follow the [official Wings installation documentation](/wings/1.0/installing.html#enabling-swap).
