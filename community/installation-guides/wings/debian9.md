@@ -32,4 +32,4 @@ systemctl start docker
 ```
 
 ## Installing Wings
-Great, now all of the dependencies have been dealt with. From here follow the [official Wings installation documentation](/wings/1.0/installing.html#enabling-swa).
+Great, now all of the dependencies have been dealt with. From here follow the [official Wings installation documentation](/wings/1.0/installing.html#enabling-swap).
