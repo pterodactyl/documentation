@@ -25,7 +25,7 @@ Composer v2.
 * Composer `2.X`
 
 Previous versions of Pterodactyl allowed for you to be running PHP 7.3. However, due to dependency updates and
-the fact that 7.3 is now EOL we have bumped the minimum acceptable PHP version to 7.4 — PHP 8 is recommended. You
+the fact that 7.3 is now EOL we have bumped the minimum acceptable PHP version to 7.4 — PHP 8 is recommended if current panel version is 1.3.x. You
 will also need to be using Composer v2.
 
 **Before continuing**, please ensure that your system has been upgraded to at least PHP 7.4 by running `php -v`. You 
