@@ -28,6 +28,8 @@ Previous versions of Pterodactyl allowed for you to be running PHP 7.3. However,
 the fact that 7.3 is now EOL we have bumped the minimum acceptable PHP version to 7.4 — PHP 8 is recommended. You
 will also need to be using Composer v2.
 
+If you are currently running panel version 1.2.2 or older, do not update to PHP 8+ until after running the command to enter maintenance mode.
+
 **Before continuing**, please ensure that your system has been upgraded to at least PHP 7.4 by running `php -v`. You 
 should see output similar to the output below. If you do not see at least PHP 7.4 you will need to upgrade by following
 our [PHP Upgrade Guide](/guides/php_upgrade.md) and then return to this documentation.
@@ -55,6 +57,8 @@ potentially new features.
 ``` bash
 php artisan down
 ```
+
+If you are currently running panel version 1.2.2 or older, it is recommended to update to PHP 8.0 now.
 
 ### Download the Update
 The first step in the update process is to download the new panel files from GitHub. The command below will download
