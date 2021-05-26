@@ -7,6 +7,8 @@ nodes and servers to the system.
 **Wings** — The newer service written in Go that interfaces with Docker and the Panel to provide secure access for
 controlling servers via the Panel.
 
+**Docker** — Docker is a platform that lets you run other applications in isolation, in their own container, with everything they need.
+
 **Server** — In this case, a server refers to a running instance that is created by the panel. These servers are
 created on nodes, and you can have multiple servers per node.
 
