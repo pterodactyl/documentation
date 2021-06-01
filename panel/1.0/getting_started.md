@@ -105,7 +105,7 @@ First we will copy over our default environment settings file, install core depe
 new application encryption key.
 
 ``` bash
-cp .env.example .env
+mv .env.example .env
 composer install --no-dev --optimize-autoloader
 
 # Only run the command below if you are installing this Panel for
