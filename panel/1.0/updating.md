@@ -66,8 +66,7 @@ the documentation below.
 If you've already performed the self-upgrade successfully you do not need to do anything else on this page.
 :::
 
-### Fetch Updated Files
-#### Enter Maintenance Mode
+### Enter Maintenance Mode
 Whenever you are performing an update you should be sure to place your Panel into maintenance mode. This will prevent
 users from encountering unexpected errors and ensure everything can be updated before users encounter
 potentially new features.
@@ -78,7 +77,7 @@ cd /var/www/pterodactyl
 php artisan down
 ```
 
-#### Download the Update
+### Download the Update
 The first step in the update process is to download the new panel files from GitHub. The command below will download
 the release archive for the most recent version of Pterodactyl, save it in the current directory and will automatically
 unpack the archive into your current folder.
@@ -142,7 +141,7 @@ After _every_ update you should restart the queue worker to ensure that the new 
 php artisan queue:restart
 ```
 
-#### Exit Maintenance Mode
+### Exit Maintenance Mode
 Now that everything has been updated you need to exit maintenance mode so that the Panel can resume accepting
 connections.
 
