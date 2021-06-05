@@ -68,7 +68,7 @@ If you've already performed the self-upgrade successfully you do not need to do 
 #### Enter Maintenance Mode
 Whenever you are performing an update you should be sure to place your Panel into maintenance mode. This will prevent
 users from encountering unexpected errors and ensure everything can be updated before users encounter
-potentially new features. Now is a good time to ensure that you're in the `/var/www/pterodactyl` directory.
+potentially new features.
 
 ``` bash
 php artisan down
