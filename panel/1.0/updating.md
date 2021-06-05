@@ -49,11 +49,7 @@ self-upgrade of the Panel. This will download all of the necessary files and per
 in this upgrade documentation.
 
 ```bash
-cd /var/www/pterodactyl
-
-php artisan down
-php artisan p:upgrade
-php artisan up
+cd /var/www/pterodactyl && php artisan p:upgrade
 ```
 
 [Final Step: Upgrade Wings](/wings/1.0/upgrading.md)
