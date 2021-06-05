@@ -52,7 +52,7 @@ in this upgrade documentation.
 cd /var/www/pterodactyl
 
 php artisan down
-php artisan p:self-upgrade
+php artisan p:upgrade
 php artisan up
 ```
 
