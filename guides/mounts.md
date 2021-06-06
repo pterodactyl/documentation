@@ -18,7 +18,7 @@ allowed_mounts:
 You have to configure mounts in admin Panel in order to use them with your servers. They consist of a source pad on the node and a target path where it will be mounted in the container.
 
 :::warning Path in the container
-Mounts can not contain `/home/container` or any subdirectory of it, nor can you cross-mount servers such as server A directory into server B.
+Mounts cannot be mounted to or inside of `/home/container` or any subdirectory of it, nor can you cross-mount servers such as Server A's directory into Server B.
 :::
 
 ### Creating a Mount
@@ -32,10 +32,10 @@ Mounts can not contain `/home/container` or any subdirectory of it, nor can you 
    - **Target**: The absolute path where the mount will be placed inside of your server, can **not** include `/home/container` in the path.
    - **Read Only**: Whether the mount will be read-only for the servers using it.
    - **User Mountable**: Whether to allow users to self mount this mount.
-4. After creating the mount, you are required to add **Eggs** and **Nodes** that this mount may be used on.
+4. After creating the mount, you are required to add both **Eggs** and **Nodes** that this mount may be used on.
 
 :::warning Mounts used by multiple servers
-All servers using the same mounts will **only** share their contents when they are on the same node. Mounts are not synchronized between servers.
+All servers using the same mounts will **only** share their contents when they are on the same node. Mounts are not synchronized between nodes.
 :::
 
 ### Assigning a Mount to a Server
@@ -45,7 +45,7 @@ All servers using the same mounts will **only** share their contents when they a
 3. Click the **+** button
 4. Restart the server
 
-The files of the mount should become available in the target path in the container. You can temporarily change your server startup command to `ls <mount target path>`, which would output the mounted content if configured correctly.
+The files of the mount should become available in the target path in the container. You can temporarily change your server startup command to `ls <mount target>`, should output the contents of the mount if configured correctly.
 
 :::warning Mounts cannot be accessed
 Mounts do not appear in the Panel's file manager, nor are they accessible via SFTP. However, the server itself will be able to see and use the mounts.
