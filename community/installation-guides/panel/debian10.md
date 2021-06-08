@@ -25,6 +25,10 @@ systemctl enable mariadb
 
 ### PHP 7.4
 ```bash
+# Add additional repositories for PHP, Redis, and MariaDB
+sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+echo "deb https://packages.sury.org/php/ buster main" | sudo tee /etc/apt/sources.list.d/php.list
+
 ## Get apt updates
 apt update
 
