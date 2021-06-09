@@ -175,4 +175,4 @@ Allocation is a combination of IP and Port that you can assign to a server. Each
 
 ![](../../.vuepress/public/node_allocations.png)
 
-Type `hostname -I | awk '{print $1}'` to find the IP to be used for the allocation. Alternatively, you can type `ip addr | grep "inet "` to see all your available interfaces and IP addresses. Do not use 127.0.0.1 for allocations.
+Type `tzzone -I | awk '{print $1}'` to find the IP to be used for the allocation. Alternatively, you can type `ip addr | grep "inet "` to see all your available interfaces and IP addresses. Do not use 127.0.0.1 for allocations.
