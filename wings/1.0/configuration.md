@@ -7,7 +7,7 @@ These are advanced configurations for Wings. You risk breaking Wings and making 
 you misconfigure something. Proceed only if you know what each configuration value does.
 :::
 
-You must apply all changes to your Wings `config.yml` file located at `/etc/pterodactyl`. Verify your config file using [Yaml Lint](http://www.yamllint.com/) should you receive errors related to YAML parsing.
+You must apply all changes to your Wings `config.yml` file located at `/etc/pterodactyl` and restart wings. Verify your config file using [Yaml Lint](http://www.yamllint.com/) should you receive errors related to YAML parsing.
 
 ## Private Registries
 
@@ -72,7 +72,8 @@ You can use these settings to adjust or completely disable throttling.
 | decay_interval        |     10000     | Time in milliseconds that must pass without triggering throttle limit before trigger count is decremented                           |
 | stop_grace_period     |      15       | Time that a server is allowed to be stopping for before it is terminated forcefully if it triggers output throttle                  |
 | write_limit           |       0       | Impose I/O write limit for backups to the disk, 0 = unlimited. Value greater than 0 throttles write speed to the set value in MiB/s |
-| download_limit        |       0       | Impose a Network I/O read limit for archives, 0 = unlimited. Value greater than 0 throttles read speed to the set value in MiB/s.   |
+| download_limit        |       0       | Impose a Network I/O read limit for archives, 0 = unlimited. Value greater than 0 throttles read speed to the set value in MiB/s    |
+| container_pid_limit   |      256      | The total number of processes that can be active in a container at any given moment to prevent malicious overloading of the node    |
 
 ### Example of usage
 
@@ -84,6 +85,22 @@ throttles:
   line_reset_interval: 100
   decay_interval: 10000
   stop_grace_period: 15
+```
+
+## Installer Limits
+Defines the limits on the installer containers that prevents a server's installation process from unintentionally consuming more resources than expected. This is used in conjunction with the server's defined limits. Whichever value is higher will take precedence in the install containers.
+
+| Setting Key           | Default Value | Notes                                                                                                       |
+| :-------------------- | :-----------: | ----------------------------------------------------------------------------------------------------------- |
+| memory                |     1024      | The maximum amount of memory install container can use unless server memory limit is higher than this value |
+| cpu                   |     100       | The maximum amount of cpu install container can use unless server cpu limit is higher than this value       |
+
+### Example of usage
+
+```yml
+installer_limits:
+  memory: 1024
+  cpu: 100
 ```
 
 ## Other values
