@@ -126,4 +126,11 @@ firewall-cmd --permanent --zone=trusted --change-interface=pterodactyl0
 firewall-cmd --reload
 ```
 
+If you the error `pterdactylnw already assigned to a zone` you have to add the interface to the docker zone instead
+
+```
+firewall-cmd --permanent --zone=docker --change-interface=pterodactyl0
+firewall-cmd --reload
+```
+
 Restart `docker` and `wings` after running these to be sure the rules are applied.
