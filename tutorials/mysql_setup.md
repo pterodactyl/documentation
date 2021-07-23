@@ -74,15 +74,13 @@ FLUSH PRIVILEGES;
 ```
 
 ### Allowing external database access
-Chances are you'll need to allow external access to this MySQL instance in order to allow servers to connect to it. To do this, open `my.cnf`, which varies in location depending on your OS and how MySQL was installed.
+Chances are you'll need to allow external access to this MySQL instance in order to allow servers to connect to it. To do this, open `my.cnf`, which varies in location depending on your OS and how MySQL was installed. You can type `find /etc -iname my.cnf` to locate it.
 
-More recent versions of MySQL have moved the default configuration to `mysql.conf.d/mysqld.cnf` or for MariaDB installations the default configuration should be in `50-server.cnf`. *However*, `my.cnf` has been changed to update the default configurations so you don't edit your default configuration files (this is now considered bad practice)!
-
-If you open `my.cnf`, you'll want to add the lines:
+Open `my.cnf`, add text below to the bottom of the file and save it:
 ```
 [mysqld]
 bind-address=0.0.0.0
 ```
-This will override the default MySQL configuration, which by default will only accept requests from lo. Updating this will allow connections on all interfaces, and thus, external connections.
+Restart MySQL/MariaDB to apply these changes. This will override the default MySQL configuration, which by default will only accept requests from localhost. Updating this will allow connections on all interfaces, and thus, external connections. Make sure to allow the MySQL port (default 3306) in your firewall.
 
-If your Node and Daemon are on the same machine, and you won't be needing external access, you can also use the `docker0` interface IP address, rather than `127.0.0.1`. This IP address can be found by running `ip addr | grep docker0`, and it likely looks something like `172.x.x.x`.
+If your Database and Wings are on the same machine and won't need external access, you can also use the `docker0` interface IP address rather than `127.0.0.1`. This IP address can be found by running `ip addr | grep docker0`, and it likely looks like `172.x.x.x`.

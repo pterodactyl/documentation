@@ -78,14 +78,6 @@ php artisan p:server:bulk-power <start, stop, kill, restart>
                                 {--nodes=1,2,3}
 ```
 
-### Server Rebuild
-
-```bash
-php artisan p:server:rebuild [server-id] {--node=1}
-```
-
-This will initiate a rebuild on all servers, all servers on a node, or a specific server depending on the information given.
-
 ## Panel Management
 
 ### View Panel Info
