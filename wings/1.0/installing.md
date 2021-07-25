@@ -108,6 +108,14 @@ curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/la
 chmod u+x /usr/local/bin/wings
 ```
 
+If you are using an ARM CPU, download the ARM Wings executable instead by running these commands.
+
+```bash
+mkdir -p /etc/pterodactyl
+curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_arm64
+chmod u+x /usr/local/bin/wings
+```
+
 ::: warning OVH/SYS Servers
 If you are using a server provided by OVH or SoYouStart please be aware that your main drive space is probably allocated to
 `/home`, and not `/` by default. Please consider using `/home/daemon-data` for server data. This can be easily
