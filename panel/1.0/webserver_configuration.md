@@ -84,6 +84,21 @@ systemctl restart apache2
 ```
 
 :::
+::: tab "Caddy"
+Caddy automatically generates SSL certificates, so you do not have to create them separately. You should paste the contents of the file below, replacing `<email>` with your email and `<domain>` with your domain name being used in a file called
+`Caddy` and place it in `/etc/caddy`.
+
+<<< @/.snippets/webservers/caddy-php8.0.conf{2,5}
+
+### Enabling Configuration
+
+The final step is to restart Caddy.
+
+```bash
+systemctl restart caddy
+```
+
+:::
 ::::
 
 #### Next Step: [Wings Installation](../../wings/installing.md)
