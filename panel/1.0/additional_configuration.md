@@ -4,11 +4,29 @@
 
 ## Backups
 
-Pterodactyl Panel allows users to create backups of their servers. In order to create remote backups, a backup storage has to be configured.
+Pterodactyl Panel allows users to create backups of their servers. In order to create backups, a backup storage method has to be configured.
+
+When changing Pterodactyl Panel's backup storage method, users may still download or delete existing backups from the prior storage driver. In the instance of migrating from S3 to local backups, S3 credentials must remain configured after switching to the local backup storage method.
+
+### Using Local Backups
+
+By default, Pterodactyl Panel uses local storage via Wings for backups. That said, this method of backup storage can be explicitly set with the following configuration in the `.env` file:
+
+```bash
+# Sets your panel to use local storage via Wings for backups
+APP_BACKUP_DRIVER=wings
+```
+
+Do note that, when using local storage via Wings, the destination for backups is set in Wings' `config.yml` with the following setting key:
+
+```yml
+system:
+  backup_directory: /path/to/backup/storage
+```
 
 ### Using S3 Backups
 
-AWS S3 (or compatible storage) can be used to store backups. The following configuration options have to be set in the `.env` file in order to enable it.
+AWS S3 (or compatible storage) can be used to store remote or cloud-based backups. The following configuration options have to be set in the `.env` file or as environment variables in order to enable it:
 
 ```bash
 # Sets your panel to use s3 for backups
