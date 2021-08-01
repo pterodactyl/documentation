@@ -1,6 +1,6 @@
 # Using Mounts
 
-Mounts can be used to make directories on a node available to servers running on it.
+Mounts is a feature that allows administrators to mount other directories from the host file-system into a Server's container.
 
 ## Wings Configuration
 
@@ -12,6 +12,8 @@ In the Wings configuration file (`/etc/pterodactyl/config.yml`) the `allowed_mou
 allowed_mounts:
 - /example
 ```
+
+You have to restart Wings to apply new changes to your Wings config.
 
 ## Panel Configuration
 
@@ -45,7 +47,7 @@ All servers using the same mounts will **only** share their contents when they a
 3. Click the **+** button
 4. Restart the server
 
-The files of the mount should become available in the target path in the container. You can temporarily change your server startup command to `ls <mount target>`, should output the contents of the mount if configured correctly.
+The files of the mount should become available in the target path in the container. You can temporarily change your server startup command to `ls <mount target>`, which should output the contents of the mount if configured correctly.
 
 :::warning Mounts cannot be accessed
 Mounts do not appear in the Panel's file manager, nor are they accessible via SFTP. However, the server itself will be able to see and use the mounts.
