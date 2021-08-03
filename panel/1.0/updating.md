@@ -13,7 +13,8 @@ most cases your base Wings version should match that of your Panel.
 | 1.1.x         | 1.1.x         |           | 7.3, 7.4     |
 | 1.2.x         | 1.2.x         |           | 7.3, 7.4     |
 | 1.3.x         | 1.3.x         |           | 7.4, **8.0** |
-| **1.4.x**     | **1.4.x**     | ✅        | 7.4, **8.0** |
+| 1.4.x         | 1.4.x         |           | 7.4, **8.0** |
+| **1.5.x**     | **1.4.x**     | ✅        | 7.4, **8.0** |
 
 ## Update Dependencies
 ::: warning Minimum PHP Version Changed
