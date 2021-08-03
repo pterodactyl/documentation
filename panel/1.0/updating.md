@@ -113,7 +113,7 @@ will update the schema and ensure the default eggs we ship are up to date (and a
 remember, _never edit core eggs we ship_! They will be overwritten by this update process.
 
 ```bash
-php artisan migrate --seed --force
+php artisan migrate --seed
 ```
 
 ### Set Permissions
