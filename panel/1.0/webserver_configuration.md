@@ -4,7 +4,7 @@
 You should remove the default Apache or NGINX configuration as it will expose application secrets to malicious users by default.
 :::
 ::: warning
-When using the SSL configuration you MUST create SSL certificates, otherwise your webserver will fail to start. See [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page for how to create these certificates before continuing.
+When using the SSL configuration you MUST create SSL certificates, otherwise your webserver will fail to start. See the [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page to learn how to create these certificates before continuing.
 :::
 
 :::: tabs
