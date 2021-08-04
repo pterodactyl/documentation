@@ -12,7 +12,9 @@ We will first begin by installing all of Pterodactyl's [required](/panel/1.0/get
 
 ### MariaDB
 ```bash
+## Install the MariaDB repo for debian
 apt install -y software-properties-common dirmngr
+curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 ## Get apt updates
 apt update
