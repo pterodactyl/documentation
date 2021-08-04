@@ -17,7 +17,7 @@ created on nodes, and you can have multiple servers per node.
 
 **Egg**  — Each egg is usually used to store the configuration of a specific type of game, for example: Vanilla, Spigot or Bungeecord for Minecraft.
 
-**Yolk**  — Yolks are docker images specified by the egg. These images provide a foundation for the server inside the container. (e.g. installing Java for Minecraft)
+**Yolks**  — Yolks is a collection of docker images that can be used with Pterodactyl's Egg system. A Docker Image contains everything needed to run a containerized application. (e.g. Java for a Minecraft Server)
 
 
 
