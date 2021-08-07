@@ -10,6 +10,8 @@ controlling servers via the Panel.
 **Server** — In this case, a server refers to a running instance that is created by the panel. These servers are
 created on nodes, and you can have multiple servers per node.
 
+**Docker Image**  — A Docker image contains everything needed to run a containerized application. (e.g. Java for a Minecraft Server).
+
 **Container** — Each server will be running inside an isolated container to enforce hardware limitations
 (such as CPU and RAM) and avoid any interference between servers on one node. These are created by Docker.
 
@@ -17,9 +19,7 @@ created on nodes, and you can have multiple servers per node.
 
 **Egg**  — Each egg is usually used to store the configuration of a specific type of game, for example: Vanilla, Spigot or Bungeecord for Minecraft.
 
-**Docker Image**  — A Docker Image contains everything needed to run a containerized application. (e.g. Java for a Minecraft Server)
-
-**Yolks**  — Yolks is a collection of docker images that can be used with Pterodactyl's Egg system.
+**Yolks**  — A curated collection of core docker images that can be used with Pterodactyl's Egg system.
 
 
 
