@@ -12,6 +12,8 @@ We will first begin by installing all of Pterodactyl's [required](/panel/1.0/get
 
 ### MariaDB
 ```bash
+apt install -y software-properties-common curl apt-transport-https ca-certificates
+
 ## Get apt updates
 apt update
 
@@ -25,9 +27,9 @@ systemctl enable mariadb
 
 ### PHP 7.4
 ```bash
-# Add additional repositories for PHP, Redis, and MariaDB
-sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
-echo "deb https://packages.sury.org/php/ buster main" | sudo tee /etc/apt/sources.list.d/php.list
+# Add repository for PHP
+curl https://packages.sury.org/php/apt.gpg -o /etc/apt/trusted.gpg.d/php.gpg
+echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.list.d/php.list
 
 ## Get apt updates
 apt update
