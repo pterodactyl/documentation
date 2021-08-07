@@ -86,12 +86,16 @@ php artisan p:server:bulk-power <start, stop, kill, restart>
 php artisan p:info
 ```
 
-Displays a variety of panel information which can be used to check the configuation of this like database and email.
+Displays a variety of panel information that can be used to check the configuration of things such as database and email.
 
 ### Update Panel
 
 ```bash
-php artisan p:upgrade
+php artisan p:upgrade   {--user=www-data}
+                        {--group=www-data}
+                        {--url=https://example.com/panel.tar.gz}
+                        {--release=latest}
+                        {--skip-download}
 ```
 
-Updates the panel to the latest version without having to manually copy the upgrade documentation.
+Downloads a new archive for Pterodactyl and executes the normal upgrade commands.
