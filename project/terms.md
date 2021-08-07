@@ -10,6 +10,8 @@ controlling servers via the Panel.
 **Server** — In this case, a server refers to a running instance that is created by the panel. These servers are
 created on nodes, and you can have multiple servers per node.
 
+**Docker** — Docker is a platform that lets you separate the application from your infrastructure into isolated, secure containers.
+
 **Docker Image**  — A Docker image contains everything needed to run a containerized application. (e.g. Java for a Minecraft Server).
 
 **Container** — Each server will be running inside an isolated container to enforce hardware limitations
