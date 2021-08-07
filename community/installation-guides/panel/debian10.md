@@ -28,7 +28,7 @@ systemctl enable mariadb
 ## Get apt updates
 apt update
 
-## Install PHP 7.4
+## Install PHP 8.0
 apt install -y php8.0 php8.0-{cli,common,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
 ```
 
