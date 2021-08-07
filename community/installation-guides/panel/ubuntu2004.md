@@ -23,13 +23,13 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.4
+### PHP 8.0
 ```bash
 ## Get apt updates
 apt update -y
 
-## Install PHP 7.4
-apt -y install php7.4 php7.4-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
+## Install PHP 8.0
+apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
 ```
 
 ### Nginx
@@ -96,15 +96,12 @@ The default php-fpm configuration is fine to use and can be started and then ena
 commands below.
 
 ```bash
-systemctl enable php7.4-fpm
-systemctl start php7.4-fpm
+systemctl enable php8.0-fpm
+systemctl start php8.0-fpm
 ```
 
-### Nginx
-Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
-
-#### SSL Configuration
-<<< @/.snippets/webservers/nginx-php7.4.conf{5,11,26-27}
+### Nginx Configuration
+Follow [this guide](/panel/1.0/webserver_configuration.html) to setup Nginx for Pterodactyl, choose whether to use Nginx with or without SSL.
 
 ### Redis Setup
 The default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
