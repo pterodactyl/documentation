@@ -108,7 +108,7 @@ curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/la
 chmod u+x /usr/local/bin/wings
 ```
 
-If you are using an ARM CPU, download the ARM Wings executable instead by running these commands.
+If you are using an AArch64/ARM64 CPU, download the ARM64 Wings executable instead by running these commands.
 
 ```bash
 mkdir -p /etc/pterodactyl
