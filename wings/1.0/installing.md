@@ -102,11 +102,27 @@ GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
 The first step for installing Wings is to make sure we have the required directory structure setup. To do so,
 run the commands below which will create the base directory and download the wings executable.
 
-```bash
+:::: tabs
+::: tab "Normal Install"
+
+``` bash
 mkdir -p /etc/pterodactyl
 curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64
 chmod u+x /usr/local/bin/wings
 ```
+
+:::
+::: tab "ARM64 Install"
+If you are using an AArch64/ARM64 CPU, download the ARM64 Wings executable instead by running these commands. Be aware that you will need Docker Images built for ARM64, or your servers will not work.
+
+```bash
+mkdir -p /etc/pterodactyl
+curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_arm64
+chmod u+x /usr/local/bin/wings
+```
+
+:::
+::::
 
 ::: warning OVH/SYS Servers
 If you are using a server provided by OVH or SoYouStart please be aware that your main drive space is probably allocated to
