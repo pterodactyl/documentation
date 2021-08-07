@@ -100,11 +100,8 @@ systemctl enable php8.0-fpm
 systemctl start php8.0-fpm
 ```
 
-### Nginx
-Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
-
-#### SSL Configuration
-Follow [this guide](/panel/1.0/webserver_configuration.html) to have NGINX working with Pterodactyl, choose whether using Nginx with or without SSL.
+### Nginx Configuration
+Follow [this guide](/panel/1.0/webserver_configuration.html) to setup Nginx for Pterodactyl, choose whether to use Nginx with or without SSL.
 
 ### Redis Setup
 The default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
