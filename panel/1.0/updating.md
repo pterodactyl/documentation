@@ -7,17 +7,19 @@ Each version of Pterodactyl Panel also has a corresponding minimum version of Wi
 is required for it to run. Please see the chart below for how these versions line up. In
 most cases your base Wings version should match that of your Panel.
 
-| Panel Version | Wings Version | Supported |
-| ------------- | ------------- | --------- |
-| 1.0.x         | 1.0.x         |           |
-| 1.1.x         | 1.1.x         |           |
-| 1.2.x         | 1.2.x         |           |
-| 1.3.x         | 1.3.x         |           |
-| **1.4.x**     | **1.4.x**     | ✅        |
+| Panel Version | Wings Version | Supported | PHP Versions |
+| ------------- | ------------- | --------- | ------------ |
+| 1.0.x         | 1.0.x         |           | 7.3, 7.4     |
+| 1.1.x         | 1.1.x         |           | 7.3, 7.4     |
+| 1.2.x         | 1.2.x         |           | 7.3, 7.4     |
+| 1.3.x         | 1.3.x         |           | 7.4, **8.0** |
+| 1.4.x         | 1.4.x         |           | 7.4, **8.0** |
+| **1.5.x**     | **1.4.x**     | ✅        | 7.4, **8.0** |
 
 ## Update Dependencies
 ::: warning Minimum PHP Version Changed
-The latest versions of Pterodactyl Panel — including the `1.3` release — require a **minimum version of PHP 7.4** and
+If you are upgrading from a version of Pterodactyl _prior to_ `1.3.x` you'll need to update your PHP
+dependencies. The latest versions of Pterodactyl Panel require a **minimum version of PHP 7.4** and
 Composer v2.
 :::
 
@@ -32,7 +34,7 @@ will also need to be using Composer v2.
 should see output similar to the output below. If you do not see at least PHP 7.4 you will need to upgrade by following
 our [PHP Upgrade Guide](/guides/php_upgrade.md) and then return to this documentation.
 
-``` bash
+```
 vagrant@pterodactyl:~/app$ php -v
 PHP 8.0.1 (cli) (built: Jan 13 2021 08:22:35) ( NTS )
 Copyright (c) The PHP Group
@@ -42,17 +44,33 @@ vagrant@pterodactyl:~/app$ composer --version
 Composer version 2.0.8 2020-12-03 17:20:38
 ```
 
-## Fetch Updated Files
-Before you proceed, make sure that you're in the `/var/www/pterodactyl` directory.
+## Self Upgrade
+If your version of Pterodactyl Panel is `1.3.2` or higher you can simply run the following command to perform a
+self-upgrade of the Panel. This will download all of the necessary files and perform all of the actions listed
+in this upgrade documentation.
 
-Instead of manually updating, you can use the self-upgrade artisan command `php artisan p:upgrade`. You must be on a panel version that is 1.3.2 or newer.
+```bash
+cd /var/www/pterodactyl && php artisan p:upgrade
+```
+
+[Final Step: Upgrade Wings](/wings/1.0/upgrading.md)
+
+## Manual Upgrade
+If you prefer not to perform the automatic self-upgrade, or need to reference any upgrade steps you can follow
+the documentation below.
+
+::: warning
+If you've already performed the self-upgrade successfully you do not need to do anything else on this page.
+:::
 
 ### Enter Maintenance Mode
 Whenever you are performing an update you should be sure to place your Panel into maintenance mode. This will prevent
 users from encountering unexpected errors and ensure everything can be updated before users encounter
 potentially new features.
 
-``` bash
+```bash
+cd /var/www/pterodactyl
+
 php artisan down
 ```
 
@@ -61,48 +79,48 @@ The first step in the update process is to download the new panel files from Git
 the release archive for the most recent version of Pterodactyl, save it in the current directory and will automatically
 unpack the archive into your current folder.
 
-``` bash
+```bash
 curl -L https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz | tar -xzv
 ```
 
 Once all of the files are downloaded we need to set the correct permissions on the cache and storage directories to avoid
 any webserver related errors.
 
-``` bash
+```bash
 chmod -R 755 storage/* bootstrap/cache
 ```
 
-## Update Dependencies
+### Update Dependencies
 After you've downloaded all of the new files you will need to upgrade the core components of the panel. To do this,
 simply run the commands below and follow any prompts.
 
-``` bash
+```bash
 composer install --no-dev --optimize-autoloader
 ```
 
-## Clear Compiled Template Cache
+### Clear Compiled Template Cache
 You'll also want to clear the compiled template cache to ensure that new and modified templates show up correctly for
 users.
 
-``` bash
+```bash
 php artisan view:clear
 php artisan config:clear
 ```
 
-## Database Updates
+### Database Updates
 You'll also need to update your database schema for the newest version of Pterodactyl. Running the command below
 will update the schema and ensure the default eggs we ship are up to date (and add any new ones we might have). Just
 remember, _never edit core eggs we ship_! They will be overwritten by this update process.
 
-``` bash
+```bash
 php artisan migrate --seed --force
 ```
 
-## Set Permissions
+### Set Permissions
 The last step is to set the proper owner of the files to be the user that runs your webserver. In most cases this
 is `www-data` but can vary from system to system &mdash; sometimes being `nginx`, `caddy`, `apache`, or even `nobody`.
 
-``` bash
+```bash
 # If using NGINX or Apache (not on CentOS):
 chown -R www-data:www-data /var/www/pterodactyl/*
 
@@ -113,10 +131,10 @@ chown -R nginx:nginx /var/www/pterodactyl/*
 chown -R apache:apache /var/www/pterodactyl/*
 ```
 
-## Restarting Queue Workers
+### Restarting Queue Workers
 After _every_ update you should restart the queue worker to ensure that the new code is loaded in and used.
 
-``` bash
+```bash
 php artisan queue:restart
 ```
 
@@ -124,8 +142,8 @@ php artisan queue:restart
 Now that everything has been updated you need to exit maintenance mode so that the Panel can resume accepting
 connections.
 
-``` bash
+```bash
 php artisan up
 ```
 
-#### [Final Step: Upgrade Wings](/wings/1.0/upgrading.md)
+[Final Step: Upgrade Wings](/wings/1.0/upgrading.md)

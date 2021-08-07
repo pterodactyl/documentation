@@ -1,10 +1,10 @@
-# CentOS 8
+# CentOS 8, Rocky Linux 8, AlmaLinux 8
 In this guide we will install Pterodactyl v1.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
 
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/1.0/etting_started.md) but is tailored specifically for CentOS 8.
+This guide is based off the [official installation documentation](/panel/1.0/etting_started.md) but is tailored specifically for Enterprise Linux 8.
 :::
 
 ## Install Requirements and Additional Utilities
