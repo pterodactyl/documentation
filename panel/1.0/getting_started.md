@@ -161,6 +161,9 @@ chown -R nginx:nginx /var/www/pterodactyl/*
 
 # If using Apache on CentOS
 chown -R apache:apache /var/www/pterodactyl/*
+
+# If using Caddy
+chown -R caddy:caddy /var/www/pterodactyl/*
 ```
 
 ## Queue Listeners
