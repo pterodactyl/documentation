@@ -84,11 +84,26 @@ systemctl restart apache2
 ```
 
 :::
-::: tab "Caddy"
+::: tab "Caddy With SSL"
 Caddy automatically generates SSL certificates, so you do not have to create them separately. You should paste the contents of the file below, replacing `<email>` with your email and `<domain>` with your domain name being used in a file called
-`Caddy` and place it in `/etc/caddy`.
+`Caddyfile` and place it in `/etc/caddy`.
 
 <<< @/.snippets/webservers/caddy-php8.0.conf{2,5}
+
+### Enabling Configuration
+
+The final step is to restart Caddy.
+
+```bash
+systemctl restart caddy
+```
+
+:::
+::: tab "Caddy Without SSL"
+You should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
+`Caddyfile` and place it in `/etc/caddy`.
+
+<<< @/.snippets/webservers/caddy-php8.0-nossl.conf{1}
 
 ### Enabling Configuration
 
