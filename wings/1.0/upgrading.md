@@ -17,25 +17,10 @@ most cases your base Wings version should match that of your Panel.
 ## Download Updated Binary
 First, download the updated wings binary into `/usr/local/bin`.
 
-:::: tabs
-::: tab "Normal Upgrade"
-
 ``` bash
 curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64
 chmod u+x /usr/local/bin/wings
 ```
-
-:::
-::: tab "ARM64 Upgrade"
-When using an AArch64/ARM64 CPU, download the ARM64 Wings executable with the commands below.
-
-```bash
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_arm64
-chmod u+x /usr/local/bin/wings
-```
-
-:::
-::::
 
 ## Restart Process
 Finally, restart the wings process. Your running servers will not be affected and any open
