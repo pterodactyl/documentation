@@ -115,7 +115,6 @@ $ mysql -u root -p
 mysql> CREATE USER 'pterodactyl'@'localhost' IDENTIFIED WITH mysql_native_password BY 'A secure password';
 mysql> CREATE DATABASE panel;
 mysql> GRANT ALL ON panel.* TO 'pterodactyl'@'localhost' WITH GRANT OPTION;
-mysql> FLUSH PRIVILEGES;
 
 ```
 :::

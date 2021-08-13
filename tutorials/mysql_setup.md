@@ -47,7 +47,6 @@ you can remove that.
 
 ``` sql
 GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
 ```
 
 ## Creating a Database Host for Nodes
@@ -70,7 +69,6 @@ The command below will give your newly created user the ability to create additi
 
 ```sql
 GRANT ALL PRIVILEGES ON *.* TO 'pterodactyluser'@'127.0.0.1' WITH GRANT OPTION;
-FLUSH PRIVILEGES;
 ```
 
 ### Allowing external database access
