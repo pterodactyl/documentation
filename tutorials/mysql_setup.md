@@ -25,8 +25,6 @@ to our database. You can also use `%` as a wildcard or enter a numeric IP. We wi
 to `somePassword`.
 
 ``` sql
-USE mysql;
-
 # Remember to change 'somePassword' below to be a unique password specific to this account.
 CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'somePassword';
 ```
@@ -58,8 +56,6 @@ This section covers creating a MySQL user that has permission to create and modi
 If your database is on a different host than the one where your Panel or Daemon is installed make sure to use the IP address of the machine the Panel is running on. If you use `127.0.0.1` and try to connect externally, you will receive a connection refused error.
 
 ```sql
-USE mysql;
-
 # You should change the username and password below to something unique.
 CREATE USER 'pterodactyluser'@'127.0.0.1' IDENTIFIED BY 'somepassword';
 ```
