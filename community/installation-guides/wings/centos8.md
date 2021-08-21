@@ -38,3 +38,7 @@ firewall-cmd --reload
 
 ## Installing Wings
 Great, now all of the dependencies and firewall rules have been dealt with. From here follow the [official Wings installation documentation](/wings/1.0/installing.html#enabling-swap).
+
+::: tip
+If you have SELinux enforcement enabled and you are getting AVC denials from your containers, try relocating your Wings data directory from `/var/lib/pterodactyl` to `/var/srv/containers/pterodactyl`. That is where the targeted policy expects Docker to read and write data from.
+:::
