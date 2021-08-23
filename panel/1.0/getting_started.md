@@ -14,7 +14,11 @@ of basic linux system administration you should stop and turn around now.**
 [WISP](https://wisp.gg) is a Pterodactyl powered SaaS suitable for enterprise and personal use. Offering all the features without the setup hassle, and fully compatible with Pterodactyl eggs. Comparable to MultiCraft or TCAdmin while offering new and unique features. Click here to [learn more](https://wisp.gg/features).
 :::
 
-## Picking a Server OS
+## Hardware requirements
+A web server that is just running Pterodactyl will require 2 to 4 GB RAM and 1 to 2 (v)Cores of any half-decent CPU. Approximately 500 MB of disk space will be used.
+These values may vary depending on traffic/ usage and other web applications that might run on the same web server.
+
+### Picking a Server OS
 Pterodactyl runs on a wide range of operating systems, so pick whichever you are most comfortable using.
 
 ::: warning
