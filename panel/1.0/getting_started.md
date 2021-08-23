@@ -18,6 +18,10 @@ of basic linux system administration you should stop and turn around now.**
 A web server that is just running Pterodactyl will require 2 to 4 GB RAM and 1 to 2 (v)Cores of any half-decent CPU. Approximately 500 MB of disk space will be used.
 These values may vary depending on traffic/ usage and other web applications that might run on the same web server.
 
+::: warning
+This does not include the required resources for wings or any game server!
+:::
+
 ### Picking a Server OS
 Pterodactyl runs on a wide range of operating systems, so pick whichever you are most comfortable using.
 
