@@ -98,11 +98,8 @@ GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
 ```
 
 ::: warning
-On some systems `GRUB_CMDLINE_LINUX_DEFAULT` can be ignored. So even after manipulations above you will
-still see `WARNING: No swap limit support`. So it would be more appropriate to use `GRUB_CMDLINE_LINUX` instead. You
-can figure out what line to modify by looking at `cat /proc/cmdline` output and comparing it to `/etc/default/grub`. 
-So if you don't see arguments from `GRUB_CMDLINE_LINUX_DEFAULT` in your system you most likely need to use
-`GRUB_CMDLINE_LINUX`.
+On some systems (Ubuntu 20.04) `GRUB_CMDLINE_LINUX_DEFAULT` is ignored. So it would be more appropriate to use
+`GRUB_CMDLINE_LINUX` instead.
 :::
 
 ## Installing Wings
