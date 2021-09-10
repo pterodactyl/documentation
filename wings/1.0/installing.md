@@ -18,28 +18,20 @@ for previous versions of Pterodactyl.
 |                  | 8       | :white_check_mark: |                                                             |
 | **Debian**       | 9       | :white_check_mark: |                                                             |
 |                  | 10      | :white_check_mark: |                                                             |
+| **Windows**      | All     | :x:                | Windows is **not** supported.                                   |
 
 ## System Requirements
 
-In order to run Wings you will need a system capable of running Docker containers. Most VPS and almost all
+To run Wings, you will need a Linux system capable of running Docker containers. Most VPS and almost all
 dedicated servers should be capable of running Docker, but there are edge cases.
 
-If your provider makes use of `Virtuozzo`, `OpenVZ` (or `OVZ`), or `LXC` then you will most likely be unable to
-run Wings. If you are unsure what your host is using there are a couple of options. The easiest is to check
-their website, or reach out to their support team.
+When your provider uses `Virtuozzo`, `OpenVZ` (or `OVZ`), or `LXC` virtualization, you will most likely be unable to
+run Wings. Some providers have made the necessary changes for nested virtualization to support Docker. Ask your provider's support team to make sure. KVM is guaranteed to work.
 
-If you want to take a different approach, try using `lscpu` and checking what the virtualization type listed is. An
-example of this is shown below which shows my hypervisor running with full virtualization — this means it will
-support Docker without issues. If you see `KVM` for the vendor, chances are you're fine as well.
+The easiest way to check is to type `systemd-detect-virt`.
+If the result doesn't contain `OpenVZ` or`LXC`, it should be fine. The result of `none` will appear when running dedicated hardware without any virtualization.
 
-```bash
-dane@pterodactyl:~$ lscpu | grep 'vendor\|type'
-Hypervisor vendor:     VMware
-Virtualization type:   full
-```
-
-If that doesn't work for some reason, or you're still unsure, you can also run the command below and as long as it
-doesn't report `Xen` or `LXC` you're probably okay to continue.
+Should that not work for some reason, or you're still unsure, you can also run the command below.
 
 ```bash
 dane@pterodactyl:~$ sudo dmidecode -s system-manufacturer
@@ -69,7 +61,7 @@ are listed below for commonly supported systems.
 ::: warning Check your Kernel
 Please be aware that some hosts install a modified kernel that does not support important docker features. Please
 check your kernel by running `uname -r`. If your kernel ends in `-xxxx-grs-ipv6-64` or `-xxxx-mod-std-ipv6-64` you're
-probably using a non-supported kernel. Check our [Kernel Modifications](kernel_modifications.md) guide for details.
+probably using a non-supported kernel. Check our [Kernel Modifications](../../../daemon/0.6/kernel_modifications.md) guide for details.
 :::
 
 #### Start Docker on Boot
