@@ -9,6 +9,11 @@ for previous versions of Pterodactyl.
 :::
 
 ## Supported Systems
+The following is a list of supported operating systems. Please be aware that this is not an exhaustive list,
+there is a high probability that you can run the software on other Linux distributions without much effort.
+You are responsible for determining which packages may be necessary on those systems. There is also a very
+high probability that new releases of the supported OSes below will work just fine, you are not restricted to
+only the versions listed below.
 
 | Operating System | Version |     Supported      | Notes                                                       |
 | ---------------- | ------- | :----------------: | ----------------------------------------------------------- |
@@ -18,7 +23,7 @@ for previous versions of Pterodactyl.
 |                  | 8       | :white_check_mark: |                                                             |
 | **Debian**       | 9       | :white_check_mark: |                                                             |
 |                  | 10      | :white_check_mark: |                                                             |
-| **Windows**      | All     | :x:                | Windows is **not** supported.                                   |
+| **Windows**      | All     | :x:                | This software will not run in Windows environments.         |
 
 ## System Requirements
 

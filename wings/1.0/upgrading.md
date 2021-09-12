@@ -12,7 +12,9 @@ most cases your base Wings version should match that of your Panel.
 | 1.1.x         | 1.1.x         |           |
 | 1.2.x         | 1.2.x         |           |
 | 1.3.x         | 1.3.x         |           |
-| **1.4.x**     | **1.4.x**     | ✅        |
+| 1.4.x         | 1.4.x         |           |
+| 1.5.x         | 1.4.x         |           |
+| **1.6.x**     | **1.5.x**     | ✅        |
 
 ## Download Updated Binary
 First, download the updated wings binary into `/usr/local/bin`.
