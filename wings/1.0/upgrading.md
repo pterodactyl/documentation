@@ -16,8 +16,15 @@ most cases your base Wings version should match that of your Panel.
 | 1.5.x         | 1.4.x         |           |
 | **1.6.x**     | **1.5.x**     | ✅        |
 
+## Stopping Process
+First, stop the running wings instance.
+
+```bash
+systemctl stop wings
+```
+
 ## Download Updated Binary
-First, download the updated wings binary into `/usr/local/bin`.
+Second, download the updated wings binary into `/usr/local/bin`.
 
 ``` bash
 curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64
