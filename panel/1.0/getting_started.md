@@ -94,11 +94,23 @@ chmod -R 755 storage/* bootstrap/cache/
 ```
 
 ## Installation
+
 Now that all of the files have been downloaded we need to configure some core aspects of the Panel.
 
 ::: tip Database Configuration
 You will need a database setup and a user with the correct permissions created for that database before
-continuing any further. If you are unsure how to do this, please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
+continuing any further. See below to create a user and database for your Pterodactyl panel quickly. To find more detailed information
+please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
+
+```sql
+mysql -u root -p
+
+# Remember to change 'yourPassword' below to be a unique password
+CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'yourPassword';
+CREATE DATABASE panel;
+GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
+```
+
 :::
 
 First we will copy over our default environment settings file, install core dependencies, and then generate a
