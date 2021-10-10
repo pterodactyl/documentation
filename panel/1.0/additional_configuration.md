@@ -40,6 +40,39 @@ AWS_BACKUPS_BUCKET=
 AWS_ENDPOINT=
 ```
 
+## Reverse Proxy Setup
+
+When running Pterodactyl behind a reverse proxy, such as [Cloudflare's Flexible SSL](https://support.cloudflare.com/hc/en-us/articles/200170416-What-do-the-SSL-options-mean-)
+or Nginx/Apache/Caddy, etc., you will need to make a quick modification to the Panel to ensure things continue to work as expected. By default, when using these reverse proxies,
+your Panel will not correctly handle requests. You'll most likely be unable to login or see security warnings in your browser console as it attempts to load insecure assets.
+This is because the internal logic the Panel uses to determine how links should be generated thinks it is running over HTTP and not over HTTPS.
+
+You will need to edit the `.env` file in the Panel's root directory to contain `TRUSTED_PROXIES=*` at minimum. We highly suggest providing a specific IP address
+(or comma-separated list of IPs) rather than allowing `*`. For example, if your proxy is running on the same machine as the server,
+the chances are that something like `TRUSTED_PROXIES=127.0.0.1` will work for you.
+
+### NGINX Specific Configuration
+
+For Pterodactyl to properly respond to an NGINX reverse proxy, the NGINX `location` config must contain the following lines:
+
+```Nginx
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header Host $host;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+proxy_redirect off;
+proxy_buffering off;
+proxy_request_buffering off;
+```
+
+### Cloudflare Specific Configuration
+If you're using Cloudflare's Flexible SSL you should set `TRUSTED_PROXIES` to contain [their IP addresses](https://www.cloudflare.com/ips/).
+Below is an example of how to set this.
+
+```text
+TRUSTED_PROXIES=173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/13,104.24.0.0/14,172.64.0.0/13,131.0.72.0/22
+```
+
 ## reCAPTCHA
 
 The Panel uses invisible reCAPTCHA to secure the login page from brute-force attacks. If the login attempt is considered suspicious, users may be required to perform a reCAPTCHA challenge.
