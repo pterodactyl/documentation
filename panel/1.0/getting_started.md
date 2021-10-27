@@ -48,12 +48,12 @@ operating system's package manager to determine the correct packages to install.
 
 ``` bash
 # Add "add-apt-repository" command
-apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
+apt install software-properties-common curl apt-transport-https ca-certificates gnupg -y
 
 # Add additional repositories for PHP, Redis, and MariaDB
 ## For Ubuntu
-LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
-add-apt-repository -y ppa:chris-lea/redis-server
+LC_ALL=C.UTF-8 add-apt-repository ppa:ondrej/php -y
+add-apt-repository ppa:chris-lea/redis-server -y
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 ## For Debian
@@ -69,13 +69,13 @@ apt-add-repository universe
 
 # Installing certbot
 
-apt -y install certbot python-certbot-apache
+apt install certbot python-certbot-apache -y
 
 # Install Dependencies for Apache2
-apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server mariadb-client apache2 tar unzip git redis-server
+apt install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server mariadb-client apache2 tar unzip git redis-server -y
 
 # Install Dependencies for Nginx
-apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server mariadb-client nginx tar unzip git redis-server
+apt install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server mariadb-client nginx tar unzip git redis-server -y
 ```
 
 ### Installing Composer
