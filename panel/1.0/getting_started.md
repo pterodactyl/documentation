@@ -65,6 +65,14 @@ apt-add-repository universe
 apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
 ```
 
+### Complete MariaDB installation
+
+Now the installation of MariaDB has to be completed.
+
+``` bash
+mysql_secure_installation
+```
+
 ### Installing Composer
 Composer is a dependency manager for PHP that allows us to ship everything you'll need code wise to operate the Panel. You'll
 need composer installed before continuing in this process.
