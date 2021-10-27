@@ -67,6 +67,10 @@ apt update
 # Add universe repository if you are on Ubuntu 18.04
 apt-add-repository universe
 
+# Installing certbot
+
+apt -y install certbot python-certbot-apache
+
 # Install Dependencies for Apache2
 apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server mariadb-client apache2 tar unzip git redis-server
 
