@@ -4,7 +4,7 @@ In this guide we will install Pterodactyl v1.x — including all of it's depende
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/1.0/etting_started.md) but is tailored specifically for Debian 9.
+This guide is based off the [official installation documentation](/panel/1.0/getting_started.md) but is tailored specifically for Debian 9.
 :::
 
 ## Install Requirements
