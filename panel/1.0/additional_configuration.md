@@ -39,6 +39,7 @@ AWS_SECRET_ACCESS_KEY=
 AWS_BACKUPS_BUCKET=
 AWS_ENDPOINT=
 ```
+For some configurations, you might have to change your S3 URL from `bucket.domain.com` to `domain.com/bucket`. To accomplish this, add `AWS_USE_PATH_STYLE_ENDPOINT=true` to your `.env` file.
 
 ## Reverse Proxy Setup
 
@@ -83,7 +84,7 @@ While we provide a global Site Key and Secret Key by default, we highly recommen
 
 You can generate your own keys in the [reCAPTCHA Admin Console](https://www.google.com/recaptcha/admin).
 
-The keys can then be applied using the Settings in the admin panel. The reCAPTCHA settings can be found on the **Advanced** 
+The keys can then be applied using the Settings in the admin panel. The reCAPTCHA settings can be found on the **Advanced** tab.
 
 ### Disabling reCAPTCHA
 
