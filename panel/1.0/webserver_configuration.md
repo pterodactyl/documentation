@@ -1,8 +1,16 @@
 # Webserver Configuration
 
-::: danger
-You should remove the default Apache or NGINX configuration as it will expose application secrets to malicious users by default.
-:::
+## Removing the default configuration
+First of all you should remove the default Apache or NGINX configuration as it will expose application secrets to malicious users by default.
+``` bash
+# If using NGINX:
+rm /etc/nginx/sites-available/default && rm /etc/nginx/sites-enabled/default
+
+# If using Apache:
+rm /etc/apache2/sites-enabled 000-default.conf 
+```
+
+## Creating Pterodactyl configuration
 ::: warning
 When using the SSL configuration you MUST create SSL certificates, otherwise your webserver will fail to start. See the [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page to learn how to create these certificates before continuing.
 :::
@@ -13,7 +21,6 @@ You should paste the contents of the file below, replacing `<domain>` with your 
 `pterodactyl.conf` and place it in `/etc/nginx/sites-available/`, or &mdash; if on CentOS, `/etc/nginx/conf.d/`.
 
 <<< @/.snippets/webservers/nginx-php8.0.conf{5,11,26-27}
-
 ### Enabling Configuration
 
 The final step is to enable your NGINX configuration and restart it.
