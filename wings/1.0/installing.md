@@ -102,14 +102,16 @@ Some Linux distros may ignore `GRUB_CMDLINE_LINUX_DEFAULT`. Therefore you might 
 The first step for installing Wings is to make sure we have the required directory structure setup. To do so,
 run the commands below which will create the base directory and download the wings executable.
 
+### For AMD64:
 ```bash
 mkdir -p /etc/pterodactyl
-
-# For AMD64 use:
 curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64
-# For ARM64/AARCH64 use:
+chmod u+x /usr/local/bin/wings
+```
+### For ARM64/AARCH64:
+```bash
+mkdir -p /etc/pterodactyl
 curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_arm64
-
 chmod u+x /usr/local/bin/wings
 ```
 
