@@ -22,7 +22,7 @@ most cases your base Wings version should match that of your Panel.
 
 First, download the updated wings binary into `/usr/local/bin`.
 
-::: tip Run `uname -m` to figure out what build you need. :::
+::: tip Run `uname -m` to figure out what build you need. Unless it returns something like `arm` or `aarch` you need to use the AMD64 build. :::
 
 ### For AMD64
 
