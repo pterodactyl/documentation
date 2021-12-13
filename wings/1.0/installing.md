@@ -103,7 +103,7 @@ Some Linux distros may ignore `GRUB_CMDLINE_LINUX_DEFAULT`. Therefore you might 
 The first step for installing Wings is to make sure we have the required directory structure setup. To do so,
 run the commands below which will create the base directory and download the wings executable.
 
-::: tip Run `uname -m` to figure out what build you need. :::
+::: tip Run `uname -m` to figure out what build you need. Unless it returns something like `arm` or `aarch` you need to use the AMD64 build. :::
 
 ### For AMD64
 
