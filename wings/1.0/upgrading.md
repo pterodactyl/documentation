@@ -22,17 +22,8 @@ most cases your base Wings version should match that of your Panel.
 
 First, download the updated wings binary into `/usr/local/bin`.
 
-### For AMD64
-
-```bash
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64
-chmod u+x /usr/local/bin/wings
-```
-
-### For ARM64/AARCH64
-
-```bash
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_arm64
+``` bash
+curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")
 chmod u+x /usr/local/bin/wings
 ```
 
