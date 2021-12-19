@@ -100,22 +100,12 @@ Some Linux distros may ignore `GRUB_CMDLINE_LINUX_DEFAULT`. Therefore you might 
 
 ## Installing Wings
 
-The first step for installing Wings is to make sure we have the required directory structure setup. To do so,
-run the commands below which will create the base directory and download the wings executable.
-
-### For AMD64
+The first step for installing Wings is to ensure we have the required directory structure setup. To do so,
+run the commands below, which will create the base directory and download the wings executable.
 
 ```bash
 mkdir -p /etc/pterodactyl
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_amd64
-chmod u+x /usr/local/bin/wings
-```
-
-### For ARM64/AARCH64
-
-```bash
-mkdir -p /etc/pterodactyl
-curl -L -o /usr/local/bin/wings https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_arm64
+curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
 chmod u+x /usr/local/bin/wings
 ```
 
@@ -133,7 +123,7 @@ After you have created a node, click on it and there will be a tab called Config
 
 Alternatively, you can click on the Generate Token button, copy the bash command and paste it into your terminal.
 
-![](./../../.vuepress/public/wings_configuration_example.png)
+![example image of wings configuration](./../../.vuepress/public/wings_configuration_example.png)
 
 ::: warning
 When your Panel is using SSL, the Wings must also have one created for its FQDN. See [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page for how to create these certificates before continuing.
@@ -186,6 +176,6 @@ systemctl enable --now wings
 
 Allocation is a combination of IP and Port that you can assign to a server. Each created server must have at least one allocation. The allocation would be the IP address of your network interface. In some cases, such as when behind NAT, it would be the internal IP. To create new allocations go to Nodes > your node > Allocation.
 
-![](../../.vuepress/public/node_allocations.png)
+![example image of node allocations](../../.vuepress/public/node_allocations.png)
 
 Type `hostname -I | awk '{print $1}'` to find the IP to be used for the allocation. Alternatively, you can type `ip addr | grep "inet "` to see all your available interfaces and IP addresses. Do not use 127.0.0.1 for allocations.
