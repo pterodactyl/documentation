@@ -91,6 +91,7 @@ allow us to store files as well as keep a speedy cache available to reduce load 
 curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz
 tar -xzvf panel.tar.gz
 chmod -R 755 storage/* bootstrap/cache/
+rm panel.tar.gz
 ```
 
 ## Installation
