@@ -107,9 +107,9 @@ please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
 mysql -u root -p
 
 # Remember to change 'yourPassword' below to be a unique password
-CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'yourPassword';
+CREATE USER 'pterodactyl'@'localhostr' IDENTIFIED BY 'yourPassword';
 CREATE DATABASE panel;
-GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'localhost' WITH GRANT OPTION;
 exit
 ```
 
