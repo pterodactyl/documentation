@@ -31,7 +31,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 |                  | 8       | :white_check_mark: |                                                             |
 | **Debian**       | 9       | :white_check_mark: | Extra repos are required.                                   |
 |                  | 10      | :white_check_mark: |                                                             |
-|                  | 11      | :white_check_mark: |                                                             |
+|                  | 11      | :white_check_mark: | Only with PHP 8.0 or higher                                 |
 
 ## Dependencies
 
