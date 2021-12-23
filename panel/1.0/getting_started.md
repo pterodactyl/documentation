@@ -15,23 +15,26 @@ of basic linux system administration you should stop and turn around now.**
 :::
 
 ## Picking a Server OS
+
 Pterodactyl runs on a wide range of operating systems, so pick whichever you are most comfortable using.
 
 ::: warning
-Pterodactyl does not support most OpenVZ systems due to incompatabilities with Docker. If you are planning on running
+Pterodactyl does not support most OpenVZ systems due to incompatibilities with Docker. If you are planning on running
 this software on an OpenVZ based system you will &mdash; most likely &mdash; not be successful.
 :::
 
-| Operating System | Version | Supported | Notes |
-| ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
-| | 20.04 | :white_check_mark: | |
-| **CentOS** | 7 | :white_check_mark: | Extra repos are required. |
-| | 8 | :white_check_mark: | |
-| **Debian** | 9 | :white_check_mark: | Extra repos are required. |
-| | 10 | :white_check_mark: | |
+| Operating System | Version |     Supported      | Notes                                                       |
+| ---------------- | ------- | :----------------: | ----------------------------------------------------------- |
+| **Ubuntu**       | 18.04   | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+|                  | 20.04   | :white_check_mark: |                                                             |
+| **CentOS**       | 7       | :white_check_mark: | Extra repos are required.                                   |
+|                  | 8       | :white_check_mark: |                                                             |
+| **Debian**       | 9       | :white_check_mark: | Extra repos are required.                                   |
+|                  | 10      | :white_check_mark: |                                                             |
+|                  | 11      | :white_check_mark: |                                                             |
 
 ## Dependencies
+
 * PHP `7.4` or `8.0` (recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use NGINX.
 * MySQL `5.7.22` or higher (MySQL `8` recommended) **or** MariaDB `10.2` or higher.
 * Redis (`redis-server`)
@@ -43,6 +46,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 * `composer` v2
 
 ### Example Dependency Installation
+
 The commands below are simply an example of how you might install these dependencies. Please consult with your
 operating system's package manager to determine the correct packages to install.
 
@@ -66,6 +70,7 @@ apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm
 ```
 
 ### Installing Composer
+
 Composer is a dependency manager for PHP that allows us to ship everything you'll need code wise to operate the Panel. You'll
 need composer installed before continuing in this process.
 
@@ -74,6 +79,7 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 ```
 
 ## Download Files
+
 The first step in this process is to create the folder where the panel will live and then move ourselves into that
 newly created folder. Below is an example of how to perform this operation.
 
@@ -132,6 +138,7 @@ Store it somewhere safe - not just on your server. If you lose it all encrypted 
 :::
 
 ### Environment Configuration
+
 Pterodactyl's core environment is easily configured using a few different CLI commands built into the app. This step
 will cover setting up things such as sessions, caching, database credentials, and email sending.
 
@@ -145,6 +152,7 @@ php artisan p:environment:mail
 ```
 
 ### Database Setup
+
 Now we need to setup all of the base data for the Panel in the database you created earlier. **The command below
 may take some time to run depending on your machine. Please _DO NOT_ exit the process until it is completed!** This
 command will setup the database tables and then add all of the Nests & Eggs that power Pterodactyl.
@@ -154,6 +162,7 @@ php artisan migrate --seed --force
 ```
 
 ### Add The First User
+
 You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
 At this time passwords **must** meet the following requirements: 8 characters, mixed case, at least one number.
 
@@ -162,6 +171,7 @@ php artisan p:user:make
 ```
 
 ### Set Permissions
+
 The last step in the installation process is to set the correct permissions on the Panel files so that the webserver can
 use them correctly.
 
@@ -177,10 +187,12 @@ chown -R apache:apache /var/www/pterodactyl/*
 ```
 
 ## Queue Listeners
+
 We make use of queues to make the application faster and handle sending emails and other actions in the background.
 You will need to setup the queue worker for these actions to be processed.
 
 ### Crontab Configuration
+
 The first thing we need to do is create a new cronjob that runs every minute to process specific Pterodactyl tasks, such
 as session cleanup and sending scheduled tasks to daemons. You'll want to open your crontab using `sudo crontab -e` and
 then paste the line below.
@@ -190,10 +202,12 @@ then paste the line below.
 ```
 
 ### Create Queue Worker
+
 Next you need to create a new systemd worker to keep our queue process running in the background. This queue is responsible
 for sending emails and handling many other background tasks for Pterodactyl.
 
 Create a file called `pteroq.service` in `/etc/systemd/system` with the contents below.
+
 ``` text
 # Pterodactyl Queue Worker File
 # ----------------------------------
@@ -227,6 +241,7 @@ when the service starts.
 :::
 
 If you are using redis for your system, you will want to make sure to enable that it will start on boot. You can do that by running the following command:
+
 ```bash
 sudo systemctl enable --now redis-server
 ```
