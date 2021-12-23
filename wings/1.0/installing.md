@@ -24,7 +24,8 @@ only the versions listed below.
 |                  | 8       | :white_check_mark: |                                                             |
 | **Debian**       | 9       | :white_check_mark: |                                                             |
 |                  | 10      | :white_check_mark: |                                                             |
-| **Windows**      | All     | :x:                | This software will not run in Windows environments.         |
+|                  | 11      | :white_check_mark: |                                                             |
+| **Windows**      | All     |        :x:         | This software will not run in Windows environments.         |
 
 ## System Requirements
 
