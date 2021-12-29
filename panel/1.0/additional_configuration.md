@@ -92,7 +92,7 @@ The keys can then be applied using the Settings in the admin panel. The reCAPTCH
 We do not recommend disabling reCAPTCHA. It is a security mechanism that makes it harder to perform brute-force attacks on user accounts.
 :::
 
-If users have trouble logging in, or your Panel isn't exposed to the internet, in can make sense to disable reCAPTCHA.
+If users have trouble logging in, or your Panel isn't exposed to the internet, it can make sense to disable reCAPTCHA.
 
 reCAPTCHA can easily be disabled using the admin panel. In the Settings, select the **Advanced** tab and set the **Status** of reCAPTCHA to **disabled**.
 
