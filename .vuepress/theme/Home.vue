@@ -17,7 +17,7 @@
             <div class="container text-center">
                 <h1 class="text-blue mb-4">Pterodactyl Panel</h1>
                 <h3 class="border-0 font-normal leading-normal mx-auto" style="max-width: 50rem">
-                    Pterodactyl is a free, open-source game server management panel built with PHP, React, and Go.
+                    Pterodactyl&reg; is a free, open-source game server management panel built with PHP, React, and Go.
                     Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers
                     while exposing a beautiful and intuitive UI to end users.
                 </h3>
@@ -29,7 +29,7 @@
         </div>
         <div class="section bg-blue text-grey-lightest">
             <div class="container text-center">
-                <h1 class="mb-4">Why Pterodactyl</h1>
+                <h1 class="mb-4">Why Pterodactyl&reg;</h1>
                 <div class="flex flex-wrap">
                     <div class="feature">
                         <span><i class="icon icon-lock"></i></span>
@@ -124,12 +124,12 @@
                 <div class="text-left md:flex">
                     <div class="flex-none w-full md:w-1/2 md:pr-12">
                         <p class="my-4">
-                            Since 2015 Pterodactyl has been delivering robust, performant, and secure software that allows
+                            Since 2015 Pterodactyl&reg; has been delivering robust, performant, and secure software that allows
                             individuals, networks, and hosting companies to run game servers at scale; easily. Best of all?
                             No exorbitant monthly costs.
                         </p>
                         <p class="my-4">
-                            Take the plunge today and discover why thousands of users trust Pterodactyl to manage their
+                            Take the plunge today and discover why thousands of users trust Pterodactyl&reg; to manage their
                             game servers.
                         </p>
                     </div>
@@ -146,7 +146,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="footer">MIT Licensed | Pterodactyl® Copyright © 2015 - 2022 Dane Everitt & contributors.</div>
+                <div class="footer">MIT Licensed | Pterodactyl&reg; Copyright &copy; 2015 - 2022 Dane Everitt & contributors.</div>
             </div>
         </div>
     </div>
