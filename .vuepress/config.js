@@ -40,7 +40,7 @@ module.exports = {
     themeConfig: {
         repo: 'pterodactyl/panel',
         docsRepo: 'pterodactyl/documentation',
-        repoLabel: 'Contribute',
+        repoLabel: 'GitHub',
         editLinkText: 'Help us improve this page.',
         editLinks: true,
         logo: '/logos/pterry.svg',
