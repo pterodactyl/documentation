@@ -17,7 +17,7 @@
             <div class="container text-center">
                 <h1 class="text-blue mb-4">Pterodactyl Panel</h1>
                 <h3 class="border-0 font-normal leading-normal mx-auto" style="max-width: 50rem">
-                    Pterodactyl is an open-source game server management panel built with PHP 7, React, and Go.
+                    Pterodactyl is a free, open-source game server management panel built with PHP, React, and Go.
                     Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers
                     while exposing a beautiful and intuitive UI to end users.
                 </h3>
@@ -146,7 +146,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="footer">MIT Licensed | Copyright © 2015 - 2021 Dane Everitt & Contributors.</div>
+                <div class="footer">MIT Licensed | Pterodactyl® Copyright © 2015 - 2022 Dane Everitt & contributors.</div>
             </div>
         </div>
     </div>
