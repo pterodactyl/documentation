@@ -35,8 +35,8 @@ the fact that 7.3 is now EOL we have bumped the minimum acceptable PHP version t
 will also need to be using Composer v2.
 
 **Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 7.4 by running `php -v` and Composer 2 by running `composer --version`. You
-should see an output similar to the result below. If you do not see at least PHP 7.4 or Composer 2 you will need to upgrade by following
-our [PHP Upgrade Guide](/guides/php_upgrade.md) and afterward return to this documentation.
+should see an output similar to the result below. If you do not see at least PHP 7.4 and Composer 2, you will need to upgrade by following
+our [PHP Upgrade Guide](/guides/php_upgrade.md) and return to this documentation afterward.
 
 ```
 vagrant@pterodactyl:~/app$ php -v
