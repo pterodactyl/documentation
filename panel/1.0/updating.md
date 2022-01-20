@@ -34,9 +34,9 @@ Previous versions of Pterodactyl allowed for you to be running PHP 7.3. However,
 the fact that 7.3 is now EOL we have bumped the minimum acceptable PHP version to 7.4 — PHP 8 is recommended. You
 will also need to be using Composer v2.
 
-**Before continuing**, please ensure that your system has been upgraded to at least PHP 7.4 by running `php -v`. You
-should see output similar to the output below. If you do not see at least PHP 7.4 you will need to upgrade by following
-our [PHP Upgrade Guide](/guides/php_upgrade.md) and then return to this documentation.
+**Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 7.4 by running `php -v` and Composer 2 by running `composer --version`. You
+should see an output similar to the result below. If you do not see at least PHP 7.4 and Composer 2, you will need to upgrade by following
+our [PHP Upgrade Guide](/guides/php_upgrade.md) and return to this documentation afterward.
 
 ```
 vagrant@pterodactyl:~/app$ php -v
@@ -44,15 +44,18 @@ PHP 8.0.1 (cli) (built: Jan 13 2021 08:22:35) ( NTS )
 Copyright (c) The PHP Group
 Zend Engine v4.0.1, Copyright (c) Zend Technologies
     with Zend OPcache v8.0.1, Copyright (c), by Zend Technologies
+
 vagrant@pterodactyl:~/app$ composer --version
 Composer version 2.0.8 2020-12-03 17:20:38
 ```
 
 ## Self Upgrade
 
-If your version of Pterodactyl Panel is `1.3.2` or higher you can simply run the following command to perform a
+If your version of Pterodactyl Panel is `1.3.2` or higher, you can simply run the following command to perform a
 self-upgrade of the Panel. This will download all of the necessary files and perform all of the actions listed
 in this upgrade documentation.
+
+**Note:** You must have `php-posix` extension for the self-upgrade to detect file ownership.
 
 ```bash
 cd /var/www/pterodactyl && php artisan p:upgrade
