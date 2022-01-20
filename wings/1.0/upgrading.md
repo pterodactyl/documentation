@@ -16,7 +16,7 @@ most cases your base Wings version should match that of your Panel.
 | 1.3.x         | 1.3.x         |           |
 | 1.4.x         | 1.4.x         |           |
 | 1.5.x         | 1.4.x         |           |
-| **1.6.x**     | **1.5.x**     | ✅        |
+| **1.7.x**     | **1.5.x**     | ✅        |
 
 ## Download Updated Binary
 

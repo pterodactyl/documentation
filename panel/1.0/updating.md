@@ -17,7 +17,7 @@ most cases your base Wings version should match that of your Panel.
 | 1.3.x         | 1.3.x         |           | 7.4, 8.0     |
 | 1.4.x         | 1.4.x         |           | 7.4, 8.0     |
 | 1.5.x         | 1.4.x         |           | 7.4, 8.0     |
-| **1.6.x**     | **1.5.x**     | ✅        | 7.4, 8.0     |
+| **1.7.x**     | **1.5.x**     | ✅        | 7.4, 8.0     |
 
 ## Update Dependencies
 
