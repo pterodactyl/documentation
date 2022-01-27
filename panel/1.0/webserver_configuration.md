@@ -24,7 +24,7 @@ The final step is to enable your NGINX configuration and restart it.
 sudo ln -s /etc/nginx/sites-available/pterodactyl.conf /etc/nginx/sites-enabled/pterodactyl.conf
 
 # You need to restart nginx regardless of OS.
-systemctl restart nginx
+sudo systemctl restart nginx
 ```
 
 :::
@@ -47,7 +47,7 @@ The final step is to enable your NGINX configuration and restart it.
 sudo ln -s /etc/nginx/sites-available/pterodactyl.conf /etc/nginx/sites-enabled/pterodactyl.conf
 
 # You need to restart nginx regardless of OS.
-systemctl restart nginx
+sudo systemctl restart nginx
 ```
 
 :::
@@ -72,7 +72,7 @@ below!_ You only need to run `systemctl restart httpd`.
 # You do not need to run any of these commands on CentOS
 sudo ln -s /etc/apache2/sites-available/pterodactyl.conf /etc/apache2/sites-enabled/pterodactyl.conf
 sudo a2enmod rewrite
-systemctl restart apache2
+sudo systemctl restart apache2
 ```
 
 :::
@@ -96,7 +96,7 @@ below!_ You only need to run `systemctl restart httpd`.
 # You do not need to run any of these commands on CentOS
 sudo ln -s /etc/apache2/sites-available/pterodactyl.conf /etc/apache2/sites-enabled/pterodactyl.conf
 sudo a2enmod rewrite
-systemctl restart apache2
+sudo systemctl restart apache2
 ```
 
 :::
