@@ -7,13 +7,17 @@ MySQL is a core component of Pterodactyl Panel but it can be confusing to setup 
 This is a very basic tutorial that skims just enough of the surface to set MySQL up and running with the panel.
 If you're interested in learning more, there are some great tutorials available on the Internet.
 
+### Secure your mysql installation (optional)
+Before starting the Pterodactyl mySQL/mariaDB setup, consider first running `sudo mysql_secure_installation`. This is a
+shell script available for Unix systems that helps secure your installation. [See here for more information](https://mariadb.com/kb/en/mysql_secure_installation) and a how-to.
+
 ### Logging In
 The first step in this process is to login to the MySQL command line where we will be executing some statements to get
 things setup. To do so, simply run the command below and provide the Root MySQL account's password that you setup when
 installing MySQL. If you do not remember doing this, chances are you can just hit enter as no password is set.
 
 ``` bash
-mysql -u root -p
+sudo mysql -u root -p
 ```
 
 ### Creating a user
