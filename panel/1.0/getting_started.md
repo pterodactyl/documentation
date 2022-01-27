@@ -52,21 +52,24 @@ operating system's package manager to determine the correct packages to install.
 
 ``` bash
 # Add "add-apt-repository" command
-apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
+sudo apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
 
 # Add additional repositories for PHP, Redis, and MariaDB
-LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
-add-apt-repository -y ppa:chris-lea/redis-server
+sudo LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+sudo add-apt-repository -y ppa:chris-lea/redis-server
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 # Update repositories list
-apt update
+sudo apt update
 
 # Add universe repository if you are on Ubuntu 18.04
-apt-add-repository universe
+sudo apt-add-repository universe
 
 # Install Dependencies
-apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
+sudo apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
+
+# Update repositories and update packages
+sudo apt update && sudo apt upgrade
 ```
 
 ### Installing Composer
@@ -84,7 +87,7 @@ The first step in this process is to create the folder where the panel will live
 newly created folder. Below is an example of how to perform this operation.
 
 ``` bash
-mkdir -p /var/www/pterodactyl
+sudo mkdir -p /var/www/pterodactyl
 cd /var/www/pterodactyl
 ```
 
@@ -94,9 +97,9 @@ and then set the correct permissions on the `storage/` and `bootstrap/cache/` di
 allow us to store files as well as keep a speedy cache available to reduce load times.
 
 ``` bash
-curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz
-tar -xzvf panel.tar.gz
-chmod -R 755 storage/* bootstrap/cache/
+sudo curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/latest/download/panel.tar.gz
+sudo tar -xzvf panel.tar.gz
+sudo chmod -R 755 storage/* bootstrap/cache/
 ```
 
 ## Installation
@@ -124,12 +127,12 @@ First we will copy over our default environment settings file, install core depe
 new application encryption key.
 
 ``` bash
-cp .env.example .env
-composer install --no-dev --optimize-autoloader
+sudo cp .env.example .env
+sudo composer install --no-dev --optimize-autoloader
 
 # Only run the command below if you are installing this Panel for
 # the first time and do not have any Pterodactyl Panel data in the database.
-php artisan key:generate --force
+sudo php artisan key:generate --force
 ```
 
 ::: danger
@@ -143,12 +146,12 @@ Pterodactyl's core environment is easily configured using a few different CLI co
 will cover setting up things such as sessions, caching, database credentials, and email sending.
 
 ``` bash
-php artisan p:environment:setup
-php artisan p:environment:database
+sudo php artisan p:environment:setup
+sudo php artisan p:environment:database
 
 # To use PHP's internal mail sending (not recommended), select "mail". To use a
 # custom SMTP server, select "smtp".
-php artisan p:environment:mail
+sudo php artisan p:environment:mail
 ```
 
 ### Database Setup
@@ -158,7 +161,7 @@ may take some time to run depending on your machine. Please _DO NOT_ exit the pr
 command will setup the database tables and then add all of the Nests & Eggs that power Pterodactyl.
 
 ``` bash
-php artisan migrate --seed --force
+sudo php artisan migrate --seed --force
 ```
 
 ### Add The First User
@@ -177,13 +180,13 @@ use them correctly.
 
 ``` bash
 # If using NGINX or Apache (not on CentOS):
-chown -R www-data:www-data /var/www/pterodactyl/*
+sudo chown -R www-data:www-data /var/www/pterodactyl/*
 
 # If using NGINX on CentOS:
-chown -R nginx:nginx /var/www/pterodactyl/*
+sudo chown -R nginx:nginx /var/www/pterodactyl/*
 
 # If using Apache on CentOS
-chown -R apache:apache /var/www/pterodactyl/*
+sudo chown -R apache:apache /var/www/pterodactyl/*
 ```
 
 ## Queue Listeners
