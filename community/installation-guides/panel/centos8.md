@@ -34,8 +34,8 @@ We recommend the remi repo to get the latest php packages.
 ```bash
 ## Install Repos
 dnf install epel-release
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
-dnf module enable php:remi-7.4
+dnf install https://rpms.remirepo.net/enterprise/remi-release-9.rpm
+dnf module enable php:remi-8.0
 
 ## Get dnf updates
 dnf update -y
