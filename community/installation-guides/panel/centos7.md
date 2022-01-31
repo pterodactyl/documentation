@@ -45,7 +45,7 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.4
+### PHP 8.0
 We recommend the remi repo to get the latest php packages.
 
 ```bash
