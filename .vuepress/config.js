@@ -79,8 +79,6 @@ module.exports = {
                         '/community/installation-guides/panel/centos8.md',
                         '/community/installation-guides/panel/debian9.md',
                         '/community/installation-guides/panel/debian10.md',
-                        '/community/installation-guides/panel/ubuntu1804.md',
-                        '/community/installation-guides/panel/ubuntu2004.md',
                     ]
                 },
                 {
@@ -91,8 +89,6 @@ module.exports = {
                         '/community/installation-guides/wings/centos8.md',
                         '/community/installation-guides/wings/debian9.md',
                         '/community/installation-guides/wings/debian10.md',
-                        '/community/installation-guides/wings/ubuntu1804.md',
-                        '/community/installation-guides/wings/ubuntu2004.md',
                     ]
                 },
                 {
