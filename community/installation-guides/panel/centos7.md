@@ -58,7 +58,7 @@ yum-config-manager --enable remi-php80
 ## Get yum updates
 yum update -y
 
-## Install PHP 7.4
+## Install PHP 8.0
 yum install -y php php-{common,fpm,cli,json,mysqlnd,mcrypt,gd,mbstring,pdo,zip,bcmath,dom,opcache}
 ```
 
