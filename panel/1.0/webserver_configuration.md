@@ -62,7 +62,7 @@ Now you should paste the contents of the file below, replacing `<domain>` with y
 
 Note: When using Apache, make sure you have the `libapache2-mod-php` package installed or else PHP will not display on your webserver.
 
-<<< @/.snippets/webservers/apache.conf{2,8,17-18}
+<<< @/.snippets/webservers/apache.conf{2,10,24-25}
 ### Enabling Configuration
 
 Once you've created the file above, simply run the commands below. If you are on CentOS _you do not need to run the commands
