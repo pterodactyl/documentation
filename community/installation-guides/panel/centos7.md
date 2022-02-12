@@ -45,20 +45,20 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 7.4
+### PHP 8.0
 We recommend the remi repo to get the latest php packages.
 
 ```bash
 ## Install Repos
-yum install -y epel-release http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum install -y epel-release http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 yum install -y yum-utils
 yum-config-manager --disable remi-php54
-yum-config-manager --enable remi-php74
+yum-config-manager --enable remi-php80
 
 ## Get yum updates
 yum update -y
 
-## Install PHP 7.4
+## Install PHP 8.0
 yum install -y php php-{common,fpm,cli,json,mysqlnd,mcrypt,gd,mbstring,pdo,zip,bcmath,dom,opcache}
 ```
 
