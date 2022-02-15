@@ -25,6 +25,9 @@ systemctl enable mariadb
 
 ### PHP 8.0
 ```bash
+## Add the repo
+add-apt-repository ppa:ondrej/php
+
 ## Get apt updates
 apt update -y
 
