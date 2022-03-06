@@ -1,35 +1,46 @@
 <template>
-  <div
-    class="theme-container"
-    :class="pageClasses"
-    @touchstart="onTouchStart"
-    @touchend="onTouchEnd"
-  >
-    <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar" />
-    <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
-    <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
-      <slot name="sidebar-top" slot="top" />
-      <slot name="sidebar-bottom" slot="bottom" />
-    </Sidebar>
-    <div class="custom-layout" v-if="$page.frontmatter.layout">
-      <component :is="$page.frontmatter.layout" />
+  <div>
+    <div class="fixed h-12 w-full z-50 top-0">
+      <div class="h-12 w-full bg-black flex items-center justify-center px-4">
+        <p class="text-grey-lightest font-semibold">
+          Stand with Ukraine 🇺🇦&nbsp;
+          <a class="text-blue-lighter" href="https://www.savethechildren.org/us/where-we-work/ukraine" target="_blank" rel="noindex nofollow noopener">Donate</a>
+          <a class="text-blue-lighter" href="https://razomforukraine.org/" target="_blank" rel="noindex nofollow noopener">Today.</a>
+        </p>
+      </div>
     </div>
-    <Home v-else-if="$page.frontmatter.home" />
-    <Page v-else :sidebar-items="sidebarItems">
-      <slot name="page-top" slot="top" />
-      <slot name="page-bottom" slot="bottom" />
-    </Page>
+    <div
+        class="theme-container mt-12"
+        :class="pageClasses"
+        @touchstart="onTouchStart"
+        @touchend="onTouchEnd"
+    >
+      <Navbar v-if="shouldShowNavbar" @toggle-sidebar="toggleSidebar"/>
+      <div class="sidebar-mask" @click="toggleSidebar(false)"></div>
+      <Sidebar :items="sidebarItems" @toggle-sidebar="toggleSidebar">
+        <slot name="sidebar-top" slot="top"/>
+        <slot name="sidebar-bottom" slot="bottom"/>
+      </Sidebar>
+      <div class="custom-layout" v-if="$page.frontmatter.layout">
+        <component :is="$page.frontmatter.layout"/>
+      </div>
+      <Home v-else-if="$page.frontmatter.home"/>
+      <Page v-else :sidebar-items="sidebarItems">
+        <slot name="page-top" slot="top"/>
+        <slot name="page-bottom" slot="bottom"/>
+      </Page>
+    </div>
   </div>
 </template>
 
 <script>
-import Vue from "vue";
-import nprogress from "nprogress";
-import Home from "./Home.vue";
-import Navbar from "./Navbar.vue";
-import Page from "./Page.vue";
-import Sidebar from "./Sidebar.vue";
-import { resolveSidebarItems } from "./util";
+import Vue from 'vue';
+import nprogress from 'nprogress';
+import Home from './Home.vue';
+import Navbar from './Navbar.vue';
+import Page from './Page.vue';
+import Sidebar from './Sidebar.vue';
+import { resolveSidebarItems } from './util';
 
 export default {
   components: { Home, Page, Sidebar, Navbar },
@@ -47,37 +58,37 @@ export default {
         return false;
       }
       return (
-        this.$title ||
-        themeConfig.logo ||
-        themeConfig.repo ||
-        themeConfig.nav ||
-        this.$themeLocaleConfig.nav
+          this.$title ||
+          themeConfig.logo ||
+          themeConfig.repo ||
+          themeConfig.nav ||
+          this.$themeLocaleConfig.nav
       );
     },
     shouldShowSidebar() {
       const { frontmatter } = this.$page;
       return (
-        !frontmatter.layout &&
-        !frontmatter.home &&
-        frontmatter.sidebar !== false &&
-        this.sidebarItems.length
+          !frontmatter.layout &&
+          !frontmatter.home &&
+          frontmatter.sidebar !== false &&
+          this.sidebarItems.length
       );
     },
     sidebarItems() {
       return resolveSidebarItems(
-        this.$page,
-        this.$route,
-        this.$site,
-        this.$localePath
+          this.$page,
+          this.$route,
+          this.$site,
+          this.$localePath
       );
     },
     pageClasses() {
       const userPageClass = this.$page.frontmatter.pageClass;
       return [
         {
-          "no-navbar": !this.shouldShowNavbar,
-          "sidebar-open": this.isSidebarOpen,
-          "no-sidebar": !this.shouldShowSidebar
+          'no-navbar': !this.shouldShowNavbar,
+          'sidebar-open': this.isSidebarOpen,
+          'no-sidebar': !this.shouldShowSidebar
         },
         userPageClass
       ];
@@ -85,7 +96,7 @@ export default {
   },
 
   mounted() {
-    window.addEventListener("scroll", this.onScroll);
+    window.addEventListener('scroll', this.onScroll);
 
     // configure progress bar
     nprogress.configure({ showSpinner: false });
@@ -105,7 +116,7 @@ export default {
 
   methods: {
     toggleSidebar(to) {
-      this.isSidebarOpen = typeof to === "boolean" ? to : !this.isSidebarOpen;
+      this.isSidebarOpen = typeof to === 'boolean' ? to : !this.isSidebarOpen;
     },
     // side swipe
     onTouchStart(e) {

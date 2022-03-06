@@ -6,7 +6,7 @@ $arrow-bg: #000;
     }
 
     @apply .fixed .left-0 .bottom-0 .bg-white .overflow-auto .border-r .border-grey-lighter .py-8;
-    top: 56px;
+    top: calc(3rem + 56px);
     width: 20rem;
     font-size: 15px;
 
@@ -116,14 +116,14 @@ $arrow-bg: #000;
                     border-right: 4px solid transparent;
                     border-top: 6px solid #b8c2cc;
                 }
-                
+
             }
 
             .items {
                 @apply .absolute .right-0 .bg-white .shadow .p-1 .mt-1;
                 border-radius: 1rem;
                 z-index: 100;
-                
+
                 .item {
                     @apply .select-none .rounded-full .cursor-pointer .px-2 .border .border-white;
                     white-space: nowrap;
