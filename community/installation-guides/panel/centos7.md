@@ -52,7 +52,7 @@ We recommend the remi repo to get the latest php packages.
 ## Install Repos
 yum install -y epel-release http://rpms.remirepo.net/enterprise/remi-release-8.rpm
 yum install -y yum-utils
-yum-config-manager --disable remi-php54
+yum-config-manager --disable 'remi-php*'
 yum-config-manager --enable remi-php80
 
 ## Get yum updates
