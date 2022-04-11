@@ -121,28 +121,13 @@ The last block to configure is the `Start Configuration` for servers running usi
 
 ```json
 {
-    "done": ")! For help, type ",
-    "userInteraction": [
-        "Go to eula.txt for more info."
-    ]
+    "done": ")! For help, type "
 }
 ```
 
 In the example block above, we define `done` as the entire line, or part of a line that indicates a server is done
 starting, and is ready for players to join. When the Daemon sees this output, it will mark the server as `ON` rather
-than `STARTING`. We can also define `userInteraction` as an array of lines that should indicate that the server
-*did not crash*, but rather stopped because the user needs to perform some action.
-
-In this case, we define it as the line asking users to agree to the EULA. You are not required to have
-`userInteraction` lines, however if you are going to leave it empty, it should still be defined with an empty array,
-as shown below:
-
-```json
-{
-    "done": ")! For help, type ",
-    "userInteraction": []
-}
-```
+than `STARTING`.
 
 That concludes basic service option configuration.
 
