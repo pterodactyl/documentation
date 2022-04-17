@@ -70,6 +70,9 @@ apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm
 ```
 
 ### Installing Composer
+::: warning
+Do not run ```composer update``` as the updated dependancies will break the panel.
+:::
 
 Composer is a dependency manager for PHP that allows us to ship everything you'll need code wise to operate the Panel. You'll
 need composer installed before continuing in this process.
