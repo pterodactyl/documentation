@@ -26,5 +26,8 @@ created on nodes, and you can have multiple servers per node.
 
 
 ## Example Setup Diagram
-
+::: tip Panel and Wings on the same machine
+It is also possible to install wings on the panel machine so it acts as panel and node machine at once.
+However, you can only install wings once per machine.
+:::
 ![](./../.vuepress/public/example_setup.png)
