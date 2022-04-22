@@ -94,8 +94,8 @@ Then create the certificate.
 
 ```bash
 acme.sh --issue --dns dns_cf -d "example.com" \
---key-file /etc/letsencrypt/live/example.com/privkey.pem \
---fullchain-file /etc/letsencrypt/live/example.com/fullchain.pem 
+--keypath /etc/letsencrypt/live/example.com/privkey.pem \
+--fullchainpath /etc/letsencrypt/live/example.com/fullchain.pem 
 ```
 ### Auto Renewal
 After running the script for the first time, it will be added to the crontab automatically. You may edit the auto renewal interval by editing the crontab.
