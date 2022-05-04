@@ -72,6 +72,7 @@ below!_ You only need to run `systemctl restart httpd`.
 # You do not need to run any of these commands on CentOS
 sudo ln -s /etc/apache2/sites-available/pterodactyl.conf /etc/apache2/sites-enabled/pterodactyl.conf
 sudo a2enmod rewrite
+sudo a2enmod ssl
 sudo systemctl restart apache2
 ```
 
