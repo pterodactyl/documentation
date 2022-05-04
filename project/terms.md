@@ -25,7 +25,7 @@ created on nodes, and you can have multiple servers per node.
 
 
 ## Simple Setup Diagram
-![](./../.simple_setup_diagram.png)
+![](./../.vuepress/public/simple_setup_diagram.png)
 
 
 ## Advanced Setup Diagram
