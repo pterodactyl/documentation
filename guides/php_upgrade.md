@@ -41,7 +41,7 @@ is most likely called `pterodactyl.conf` and located in the `/etc/nginx/sites-av
 Make sure to update the path in the command below to reflect the actual location of your configuration file.
 
 ``` bash
-sed -i -e 's/php7.[0-4]-fpm.sock/php8.1-fpm.sock/' /etc/nginx/sites-available/pterodactyl.conf
+sed -i -e 's/php[7|8].[0-9]-fpm.sock/php8.1-fpm.sock/' /etc/nginx/sites-available/pterodactyl.conf
 ```
 
 Once you have edited the file run the command below to reload nginx and apply your changes.
@@ -52,15 +52,15 @@ systemctl reload nginx
 
 :::
 ::: tab "Apache"
-Run the commands below to disable PHP 7.4 and enable PHP 8.1 when serving requests. If you are upgrading from
-PHP 7.4 change the value in the command below to reflect that.
+Run the commands below to disable all previous PHP versions and enable PHP 8.1 when serving requests.
 
 ``` bash
+# Hint: a2dismod = a2_disable_module 🤯
+a2dismod php*
+
 # Hint: a2enmod = a2_enable_module 🤯
 a2enmod php8.1
 
-# Hint: a2dismod = a2_disable_module 🤯
-a2dismod php7.3
 ```
 
 :::
