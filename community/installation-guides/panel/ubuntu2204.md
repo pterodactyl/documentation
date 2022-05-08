@@ -47,4 +47,4 @@ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/loca
 ```
 
 # Return to offical guide
-Now you continue to the offical guide [here] (/panel/1.0/getting_started.md#download-files)
+Now you continue to the offical guide [here](/panel/1.0/getting_started.md#download-files)
