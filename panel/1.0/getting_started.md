@@ -132,6 +132,10 @@ composer install --no-dev --optimize-autoloader
 php artisan key:generate --force
 ```
 
+::: warning
+Do not run `composer update` or you will break your panel!
+:::
+
 ::: danger
 Back up your encryption key (APP_KEY in the `.env` file). It is used as an encryption key for all data that needs to be stored securely (e.g. api keys).
 Store it somewhere safe - not just on your server. If you lose it all encrypted data is irrecoverable -- even if you have database backups.
