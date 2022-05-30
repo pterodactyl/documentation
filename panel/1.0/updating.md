@@ -60,7 +60,8 @@ in this upgrade documentation.
 **Note:** You must have `php-posix` extension for the self-upgrade to detect file ownership.
 
 ```bash
-cd /var/www/pterodactyl && php artisan p:upgrade
+cd /var/www/pterodactyl
+composer install --optimize-autoloaded --no-dev && php artisan p:upgrade
 ```
 
 [Final Step: Upgrade Wings](/wings/1.0/upgrading.md)
