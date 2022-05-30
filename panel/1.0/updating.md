@@ -9,15 +9,17 @@ Each version of Pterodactyl Panel also has a corresponding minimum version of Wi
 is required for it to run. Please see the chart below for how these versions line up. In
 most cases your base Wings version should match that of your Panel.
 
-| Panel Version | Wings Version | Supported | PHP Versions |
-| ------------- | ------------- | --------- | ------------ |
-| 1.0.x         | 1.0.x         |           | 7.3, 7.4     |
-| 1.1.x         | 1.1.x         |           | 7.3, 7.4     |
-| 1.2.x         | 1.2.x         |           | 7.3, 7.4     |
-| 1.3.x         | 1.3.x         |           | 7.4, 8.0     |
-| 1.4.x         | 1.4.x         |           | 7.4, 8.0     |
-| 1.5.x         | 1.4.x         |           | 7.4, 8.0     |
-| **1.7.x**     | **1.5.x**     | ✅        | 7.4, 8.0     |
+| Panel Version | Wings Version | Supported | PHP Versions  |
+| ------------- | ------------- | --------- | ------------- |
+| 1.0.x         | 1.0.x         |           | 7.3, 7.4      |
+| 1.1.x         | 1.1.x         |           | 7.3, 7.4      |
+| 1.2.x         | 1.2.x         |           | 7.3, 7.4      |
+| 1.3.x         | 1.3.x         |           | 7.4, 8.0      |
+| 1.4.x         | 1.4.x         |           | 7.4, 8.0      |
+| 1.5.x         | 1.4.x         |           | 7.4, 8.0      |
+| 1.6.x         | 1.4.x         |           | 7.4, 8.0      |
+| 1.7.x         | 1.5.x         |           | 7.4, 8.0      |
+| **1.8.x**     | **1.6.x**     | ✅        | 7.4, 8.0, 8,1 |
 
 ## Update Dependencies
 
@@ -27,7 +29,7 @@ dependencies. The latest versions of Pterodactyl Panel require a **minimum versi
 Composer v2.
 :::
 
-* PHP `7.4` or `8.0` (recommended)
+* PHP `7.4`, `8.0` or `8.1` (recommended)
 * Composer `2.X`
 
 Previous versions of Pterodactyl allowed for you to be running PHP 7.3. However, due to dependency updates and
@@ -40,13 +42,13 @@ our [PHP Upgrade Guide](/guides/php_upgrade.md) and return to this documentation
 
 ```
 vagrant@pterodactyl:~/app$ php -v
-PHP 8.0.1 (cli) (built: Jan 13 2021 08:22:35) ( NTS )
+PHP 8.1.5 (cli) (built: Apr 21 2022 10:32:13) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.0.1, Copyright (c) Zend Technologies
-    with Zend OPcache v8.0.1, Copyright (c), by Zend Technologies
+Zend Engine v4.1.5, Copyright (c) Zend Technologies
+    with Zend OPcache v8.1.5, Copyright (c), by Zend Technologies
 
 vagrant@pterodactyl:~/app$ composer --version
-Composer version 2.0.8 2020-12-03 17:20:38
+Composer version 2.3.5 2022-04-13 16:43:00
 ```
 
 ## Self Upgrade

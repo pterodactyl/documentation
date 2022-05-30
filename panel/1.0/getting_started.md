@@ -27,6 +27,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | ---------------- | ------- | :----------------: | ----------------------------------------------------------- |
 | **Ubuntu**       | 18.04   | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
 |                  | 20.04   | :white_check_mark: |                                                             |
+|                  | 22.04   | :white_check_mark: | MariaDB can be installed without the repo setup script.     |
 | **CentOS**       | 7       | :white_check_mark: | Extra repos are required.                                   |
 |                  | 8       | :white_check_mark: | Note that CentOS 8 is EOL. Use Rocky or Alma Linux.         |
 | **Debian**       | 9       | :white_check_mark: | Extra repos are required.                                   |
@@ -35,8 +36,8 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 
 ## Dependencies
 
-* PHP `7.4` or `8.0` (recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use NGINX.
-* MySQL `5.7.22` or higher (MySQL `8` recommended) **or** MariaDB `10.2` or higher.
+* PHP `7.4`, `8.0` or `8.1` (recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use NGINX.
+* MySQL `5.7.22` and higher (MySQL `8` recommended) **or** MariaDB `10.2` and higher.
 * Redis (`redis-server`)
 * A webserver (Apache, NGINX, Caddy, etc.)
 * `curl`
@@ -56,7 +57,9 @@ apt -y install software-properties-common curl apt-transport-https ca-certificat
 
 # Add additional repositories for PHP, Redis, and MariaDB
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
-add-apt-repository -y ppa:chris-lea/redis-server
+add-apt-repository ppa:redislabs/redis -y
+
+# MariaDB repo setup script can be skipped on Ubuntu 22.04
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 # Update repositories list
@@ -66,7 +69,7 @@ apt update
 apt-add-repository universe
 
 # Install Dependencies
-apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
+apt -y install php8.1 php8.1-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
 ```
 
 ### Installing Composer
