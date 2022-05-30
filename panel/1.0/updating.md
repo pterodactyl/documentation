@@ -61,7 +61,7 @@ in this upgrade documentation.
 
 ```bash
 cd /var/www/pterodactyl
-composer install --optimize-autoloaded --no-dev && php artisan p:upgrade
+composer install --optimize-autoloader --no-dev && php artisan p:upgrade
 ```
 
 [Final Step: Upgrade Wings](/wings/1.0/upgrading.md)
