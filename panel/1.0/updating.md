@@ -53,18 +53,10 @@ Composer version 2.3.5 2022-04-13 16:43:00
 
 ## Self Upgrade
 
-If your version of Pterodactyl Panel is `1.3.2` or higher, you can simply run the following command to perform a
-self-upgrade of the Panel. This will download all of the necessary files and perform all of the actions listed
-in this upgrade documentation.
-
-**Note:** You must have `php-posix` extension for the self-upgrade to detect file ownership.
-
-```bash
-cd /var/www/pterodactyl
-composer install --optimize-autoloader --no-dev && php artisan p:upgrade
-```
-
-[Final Step: Upgrade Wings](/wings/1.0/upgrading.md)
+::: warning
+The self-upgrade is currently in-operable due to issues with some dependencies we make use of.
+For the time being please perform a manual upgrade until this issue can be resolved.
+:::
 
 ## Manual Upgrade
 
