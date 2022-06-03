@@ -90,12 +90,7 @@ Displays a variety of panel information that can be used to check the configurat
 
 ### Update Panel
 
-```bash
-php artisan p:upgrade   {--user=www-data}
-                        {--group=www-data}
-                        {--url=https://example.com/panel.tar.gz}
-                        {--release=latest}
-                        {--skip-download}
-```
-
-Downloads a new archive for Pterodactyl and executes the normal upgrade commands.
+::: warning
+The self-upgrade is currently in-operable due to issues with some dependencies we make use of.
+For the time being please perform a manual upgrade, as documented in the [upgrade documentation](/panel/1.0/updating.md), until this issue can be resolved.
+:::
