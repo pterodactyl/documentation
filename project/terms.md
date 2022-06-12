@@ -24,7 +24,12 @@ created on nodes, and you can have multiple servers per node.
 **Yolks**  — A curated collection of core docker images that can be used with Pterodactyl's Egg system.
 
 
+## Simple Setup Diagram
+![](./../.vuepress/public/simple_setup_diagram.png)
 
-## Example Setup Diagram
 
+## Advanced Setup Diagram
+::: tip Panel and Wings on the same machine
+It is also possible to install wings on the panel machine so it acts as panel and node machine at once.
+:::
 ![](./../.vuepress/public/example_setup.png)
