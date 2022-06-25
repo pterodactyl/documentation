@@ -4,8 +4,8 @@ This tutorial briefly covers creating new SSL certificates for your panel and wi
 
 :::: tabs
 ::: tab "Method 1: Certbot"
-To begin, we will be installing certbot, a simple script that will automatically renew our certificates and allow much
-cleaner creation of them. The command below is for Ubuntu distributions, but you can always check [Certbot's official
+To begin, we will install certbot, a simple script that automatically renews our certificates and allows much
+easier creation of them. The command below is for Ubuntu distributions, but you can always check [Certbot's official
 site](https://certbot.eff.org/) for installation instructions. We have also included a command below to install certbot's
 Nginx/Apache plugin so you won't have to stop your webserver.
 
@@ -32,7 +32,7 @@ applied assuming that you've already configured the webservers to use SSL as ins
 
 ### HTTP challenge
 
-HTTP challenge requires you to expose the port 80 for the challenge verification.
+HTTP challenge requires you to expose port 80 for the challenge verification.
 
 ``` bash
 # Nginx
@@ -45,7 +45,7 @@ certbot certonly --standalone -d example.com
 
 ### DNS challenge
 
-DNS challenge requires you to create a new TXT DNS record to verify domain ownership. The instructions are displayed when you run the certbot command below.
+DNS challenge requires you to create a new TXT DNS record to verify domain ownership, instead of having to expose port 80. The instructions are displayed when you run the certbot command below.
 
 ```bash
 certbot -d example.com --manual --preferred-challenges dns certonly
@@ -92,7 +92,7 @@ systemctl start nginx
 
 :::
 ::: tab "Method 2: acme.sh (Cloudflare)"
-This is for advanced users, of which their server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/Neilpang/acme.sh) for installation instructions.
+This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/Neilpang/acme.sh) for installation instructions.
 
 ``` bash
 curl https://get.acme.sh | sh
@@ -110,7 +110,7 @@ Since the configuration file is based on Certbot, we need to create the folder m
 sudo mkdir /etc/letsencrypt/live/example.com
 ```
 
-After installing certbot and obtaining CloudFlare API key, we need to then generate a certificate. First input the CloudFlare API credentials.
+After installing acme.sh and obtaining CloudFlare API key, we need to then generate a certificate. First input the CloudFlare API credentials.
 
 ```bash
 export CF_Key="Your_CloudFlare_API_Key"
