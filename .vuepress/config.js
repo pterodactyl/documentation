@@ -141,7 +141,7 @@ module.exports = {
                     currentVersion: '1.0',
                     versions: [
                         {
-                            title: '1.8',
+                            title: '1.9',
                             name: '1.0',
                             status: 'stable',
                             children: [
