@@ -1,7 +1,7 @@
 module.exports = {
     base: '/',
     title: 'Pterodactyl',
-    description: 'Pterodactyl is an open-source game server management panel built with PHP 7, React, and Go. Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers while exposing a beautiful and intuitive UI to end users.',
+    description: 'Pterodactyl is an open-source game server management panel built with PHP, React, and Go. Designed with security in mind, Pterodactyl runs all game servers in isolated Docker containers while exposing a beautiful and intuitive UI to end users.',
     plugins: [
         ['@vuepress/google-analytics', {
             ga: 'UA-87324178-3'
@@ -141,7 +141,7 @@ module.exports = {
                     currentVersion: '1.0',
                     versions: [
                         {
-                            title: '1.8',
+                            title: '1.9',
                             name: '1.0',
                             status: 'stable',
                             children: [

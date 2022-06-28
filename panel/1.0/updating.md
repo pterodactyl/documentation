@@ -10,7 +10,7 @@ is required for it to run. Please see the chart below for how these versions lin
 most cases your base Wings version should match that of your Panel.
 
 | Panel Version | Wings Version | Supported | PHP Versions  |
-| ------------- | ------------- | --------- | ------------- |
+|---------------|---------------|-----------|---------------|
 | 1.0.x         | 1.0.x         |           | 7.3, 7.4      |
 | 1.1.x         | 1.1.x         |           | 7.3, 7.4      |
 | 1.2.x         | 1.2.x         |           | 7.3, 7.4      |
@@ -19,7 +19,8 @@ most cases your base Wings version should match that of your Panel.
 | 1.5.x         | 1.4.x         |           | 7.4, 8.0      |
 | 1.6.x         | 1.4.x         |           | 7.4, 8.0      |
 | 1.7.x         | 1.5.x         |           | 7.4, 8.0      |
-| **1.8.x**     | **1.6.x**     | ✅        | 7.4, 8.0, 8,1 |
+| 1.8.x         | 1.6.x         |           | 7.4, 8.0, 8,1 |
+| **1.9.x**     | **1.6.x**     | ✅         | 7.4, 8.0, 8,1 |
 
 ## Update Dependencies
 
