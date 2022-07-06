@@ -54,7 +54,7 @@ certbot -d example.com --manual --preferred-challenges dns certonly
 ### Auto Renewal
 
 You'll also probably want to configure the automatic renewal of certificates to prevent unexpected certificate expirations.
-You can open crontab with `sudo crontab- e` and add the line from below to the bottom of it for attempting renewal every day at 23 (11 PM).
+You can open crontab with `sudo crontab -e` and add the line from below to the bottom of it for attempting renewal every day at 23 (11 PM).
 
 Deploy hook would restart the Nginx service to apply a new certificate when it's renewed successfully. Change `nginx` in the restart command to suit your own needs, such as to `apache` or `wings`.
 
