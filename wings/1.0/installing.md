@@ -130,6 +130,45 @@ Alternatively, you can click on the Generate Token button, copy the bash command
 When your Panel is using SSL, the Wings must also have one created for its FQDN. See [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page for how to create these certificates before continuing.
 :::
 
+### Using a proxy
+
+If you are using a proxy, set the Daemon Port to match the port on which your outside facing proxy is listening. You need to forward http traffic as well as websockets! Wings need to be accessible from the outside of your machine, so you cannot use a private IP in the FQDN field. Do not use localhost.
+
+In case you are running the Panel and Wings on the same machine, change the port in `/etc/pterodactyl/config.yml` to avoid conflicts.
+
+The following is a sample config of Panel and Wings running on the same machine with SSL and Apache proxy.
+This assumes you are running Apache on port 443 with a domain name and valid certificates.
+
+```text
+Node settings in the Panel
+
+  FQDN: wings.yourdomain.tld
+  Daemon Port: 443
+```
+
+```text
+config.yml
+
+  host: 0.0.0.0
+  port: 8080
+  ssl:
+    enabled: false
+```
+
+```text
+Apache [wings.yourdomain.tld]
+
+  RewriteEngine On
+  RewriteCond %{HTTP:Upgrade} websocket [NC]
+  RewriteCond %{HTTP:Connection} upgrade [NC]
+  RewriteRule ^/?(.*) "ws://127.0.0.1:8080/$1" [P,L]
+
+  ProxyPreserveHost On
+  ProxyPass / http://127.0.0.1:8080/
+  ProxyPassReverse / http://127.0.0.1:8080/
+  ProxyRequests off `
+```
+
 ### Starting Wings
 
 To start Wings, simply run the command below, which will start it in a debug mode. Once you confirmed that it is running without errors, use `CTRL+C` to terminate the process and daemonize it by following the instructions below. Depending on your server's internet connection pulling and starting Wings for the first time may take a few minutes.
