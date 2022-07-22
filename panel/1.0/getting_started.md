@@ -70,6 +70,8 @@ apt-add-repository universe
 
 # Install Dependencies
 apt -y install php8.1 php8.1-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
+# Install Dependencies if using apache2 as webserver
+apt -y install php8.1 php8.1-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip} mariadb-server apache2 tar unzip git redis-server
 ```
 
 ### Installing Composer
