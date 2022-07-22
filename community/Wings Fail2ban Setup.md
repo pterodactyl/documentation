@@ -2,7 +2,7 @@
 
 Fail2ban is a program that works with iptables to better secure your server and services from brute force login attempts
 
-### Step 1: if you havent already Using your preferred package manager
+### Step 1: if you havent already Using your preferred package manager instal Fail2Ban
 (to my best knowledge, iptables will come with fail2ban when you install it, but if not install that too)
 
 `apt-get install fail2ban`
@@ -64,3 +64,17 @@ Copy this text into the newly created file, Save then exit
 ### Step 5 enable the Fail2ban service to boot on startup and your done :D
 
 `systemctl enable fail2ban`
+
+
+Notes:  
+The rules applied to wings are fairly strict so if you feel like you need to adjust them, the settings are as follows  
+Max retry is the number of failed attempts someone can do within the time defined in "findtime" before they are banned 
+ 
+example: maxretry = 4 with findtime = 3600 with bantime = -1  
+this will allow 4 failed login attempts within 3600 seconds (1 hour) before permanently banning someone  
+
+
+
+
+
+
