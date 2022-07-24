@@ -9,33 +9,28 @@ Each version of Pterodactyl Panel also has a corresponding minimum version of Wi
 is required for it to run. Please see the chart below for how these versions line up. In
 most cases your base Wings version should match that of your Panel.
 
-| Panel Version | Wings Version | Supported | PHP Versions  |
-|---------------|---------------|-----------|---------------|
-| 1.0.x         | 1.0.x         |           | 7.3, 7.4      |
-| 1.1.x         | 1.1.x         |           | 7.3, 7.4      |
-| 1.2.x         | 1.2.x         |           | 7.3, 7.4      |
-| 1.3.x         | 1.3.x         |           | 7.4, 8.0      |
-| 1.4.x         | 1.4.x         |           | 7.4, 8.0      |
-| 1.5.x         | 1.4.x         |           | 7.4, 8.0      |
-| 1.6.x         | 1.4.x         |           | 7.4, 8.0      |
-| 1.7.x         | 1.5.x         |           | 7.4, 8.0      |
-| 1.8.x         | 1.6.x         |           | 7.4, 8.0, 8,1 |
-| **1.9.x**     | **1.6.x**     | ✅         | 7.4, 8.0, 8,1 |
+| Panel Version | Wings Version | Supported | PHP Versions                   |
+|---------------|---------------|-----------|--------------------------------|
+| 1.0.x         | 1.0.x         |           | 7.3, 7.4                       |
+| 1.1.x         | 1.1.x         |           | 7.3, 7.4                       |
+| 1.2.x         | 1.2.x         |           | 7.3, 7.4                       |
+| 1.3.x         | 1.3.x         |           | 7.4, 8.0                       |
+| 1.4.x         | 1.4.x         |           | 7.4, 8.0                       |
+| 1.5.x         | 1.4.x         |           | 7.4, 8.0                       |
+| 1.6.x         | 1.4.x         |           | 7.4, 8.0                       |
+| 1.7.x         | 1.5.x         |           | 7.4, 8.0                       |
+| 1.8.x         | 1.6.x         |           | 7.4, 8.0, 8.1                  |
+| 1.9.x         | 1.6.x         |           | 7.4, 8.0, 8.1                  |
+| **1.10.x**    | **1.7.x**     | ✅         | **8.1** (7.4 & 8.0 deprecated) |
 
 ## Update Dependencies
-
-::: warning Minimum PHP Version Changed
-If you are upgrading from a version of Pterodactyl _prior to_ `1.3.x` you'll need to update your PHP
-dependencies. The latest versions of Pterodactyl Panel require a **minimum version of PHP 7.4** and
-Composer v2.
-:::
-
 * PHP `7.4`, `8.0` or `8.1` (recommended)
 * Composer `2.X`
 
-Previous versions of Pterodactyl allowed for you to be running PHP 7.3. However, due to dependency updates and
-the fact that 7.3 is now EOL we have bumped the minimum acceptable PHP version to 7.4 — PHP 8 is recommended. You
-will also need to be using Composer v2.
+::: warning Future PHP Version Changes
+**Support for PHP 7.4 and 8.0 is deprecated**. Please plan accordingly — PHP 8.1 will be the only
+ supported version in future releases.
+:::
 
 **Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 7.4 by running `php -v` and Composer 2 by running `composer --version`. You
 should see an output similar to the result below. If you do not see at least PHP 7.4 and Composer 2, you will need to upgrade by following

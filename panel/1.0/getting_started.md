@@ -24,7 +24,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 :::
 
 | Operating System | Version |     Supported      | Notes                                                       |
-| ---------------- | ------- | :----------------: | ----------------------------------------------------------- |
+|------------------|---------|:------------------:|-------------------------------------------------------------|
 | **Ubuntu**       | 18.04   | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
 |                  | 20.04   | :white_check_mark: |                                                             |
 |                  | 22.04   | :white_check_mark: | MariaDB can be installed without the repo setup script.     |

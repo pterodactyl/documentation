@@ -17,7 +17,7 @@ high probability that new releases of the supported OSes below will work just fi
 only the versions listed below.
 
 | Operating System | Version |     Supported      | Notes                                                       |
-| ---------------- | ------- | :----------------: | ----------------------------------------------------------- |
+|------------------|---------|:------------------:|-------------------------------------------------------------|
 | **Ubuntu**       | 18.04   | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
 |                  | 20.04   | :white_check_mark: |                                                             |
 | **CentOS**       | 7       | :white_check_mark: |                                                             |
