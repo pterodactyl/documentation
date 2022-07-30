@@ -187,6 +187,7 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/guides/mounts.md',
+                        '/guides/php_upgrade.md',
                     ],
                 },
                 {
