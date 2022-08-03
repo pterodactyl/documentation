@@ -29,7 +29,7 @@ sudo dnf install -y nodejs yarn # CentOS 8
 Install required javascript packages.
 
 ```bash
-npm i --location=global yarn # Install Yarn
+npm i -g yarn # Install Yarn
 
 cd /var/www/pterodactyl
 yarn # Installs panel build dependencies
