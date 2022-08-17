@@ -3,6 +3,9 @@
 ::: warning
 When using the SSL configuration you MUST create SSL certificates, otherwise your webserver will fail to start. See the [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page to learn how to create these certificates before continuing.
 :::
+::: note
+If you are running the panel behind a reverse proxy, take a look at [this page](/guides/proxy.html)
+:::
 
 :::: tabs
 ::: tab "Nginx With SSL"

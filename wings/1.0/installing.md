@@ -29,6 +29,10 @@ only the versions listed below.
 
 ## System Requirements
 
+::: note
+If you are installing your wing behind a reverse proxy, please see [this guide](/guides/proxy.html)
+:::
+
 To run Wings, you will need a Linux system capable of running Docker containers. Most VPS and almost all
 dedicated servers should be capable of running Docker, but there are edge cases.
 
