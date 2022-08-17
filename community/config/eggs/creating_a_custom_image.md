@@ -57,7 +57,7 @@ Within this `RUN` block, you'll notice the `useradd` command.
 ```bash
 adduser -D -h /home/container container
 ```
-<p class="callout warning">All Pterodactyl containers must have a user named `container`, and the user home **must** be `/home/container`.</p>
+::: warning All Pterodactyl containers must have a user named `container`, and the user home **must** be `/home/container`. :::
 
 After we create that user, we then define the default container [`USER`](https://docs.docker.com/engine/reference/builder/#user)
 as well as a few [`ENV`](https://docs.docker.com/engine/reference/builder/#env) settings to be applied to things running
