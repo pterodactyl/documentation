@@ -57,7 +57,7 @@ single [`RUN`](https://docs.docker.com/engine/reference/builder/#run) block.
 Within this `RUN` block, you'll notice the `useradd` command.
 
 ```bash
-adduser -D -h /home/container container
+useradd -ms /home/container container
 ```
 
 ::: warning
