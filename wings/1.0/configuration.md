@@ -73,7 +73,7 @@ You can use these settings to adjust or completely disable throttling.
 | stop_grace_period     |      15       | Time that a server is allowed to be stopping for before it is terminated forcefully if it triggers output throttle                  |
 | write_limit           |       0       | Impose I/O write limit for backups to the disk, 0 = unlimited. Value greater than 0 throttles write speed to the set value in MiB/s |
 | download_limit        |       0       | Impose a Network I/O read limit for archives, 0 = unlimited. Value greater than 0 throttles read speed to the set value in MiB/s    |
-| container_pid_limit   |      256      | The total number of processes that can be active in a container at any given moment to prevent malicious overloading of the node    |
+| container_pid_limit   |      512      | The total number of processes that can be active in a container at any given moment to prevent malicious overloading of the node    |
 
 ### Example of usage
 
