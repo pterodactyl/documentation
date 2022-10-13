@@ -9,7 +9,7 @@ This guide is based off the [official installation documentation](/panel/1.0/get
 
 ## Install Requirements
 ```bash
-apt -y install software-properties-common curl ca-certificates gnupg lsb-release sudo
+apt -y install software-properties-common curl ca-certificates gnupg lsb-release sudo wget
 ```
 
 ### php 8.1
