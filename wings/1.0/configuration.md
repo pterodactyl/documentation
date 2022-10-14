@@ -45,7 +45,7 @@ Changing network mode to `host` grants Pterodactyl direct access to all machine 
 docker:
   network:
     name: host
-    network_mode: host    
+    network_mode: host
 ```
 
 After making changes, the following commands will stop the Wings, remove the Pterodactyl network, and start the Wings again. Run at your own risk.
@@ -58,6 +58,21 @@ Cloudflare proxying of the Wings isn't beneficial since users will be connecting
 To enable Cloudflare proxy, you must change the Wings port to one of the Cloudflare HTTPS ports, such as 8443, because Cloudflare only supports HTTP on port 8080. Select your Node in the Admin Panel, and on the settings tab, change the port.
 
 You are unable to proxy the SFTP port through Cloudflare unless you have their enterprise plan.
+
+## Container PID Limit
+
+You can change the total number of processes that can be active in a container at any given moment by changing the `container_pid_limit` value. The default value is `512`.
+You can set it to `0` to disable the limit completely. However, this is _not_ recommended as the limit prevents malicious overloading of the node.
+Restart wings and your game server to apply the new limit.
+
+### Example of usage
+
+```yml
+docker:
+  ...
+  container_pid_limit: 512
+  ...
+```
 
 ## Throttles Limits
 
@@ -73,7 +88,6 @@ You can use these settings to adjust or completely disable throttling.
 | stop_grace_period     |      15       | Time that a server is allowed to be stopping for before it is terminated forcefully if it triggers output throttle                  |
 | write_limit           |       0       | Impose I/O write limit for backups to the disk, 0 = unlimited. Value greater than 0 throttles write speed to the set value in MiB/s |
 | download_limit        |       0       | Impose a Network I/O read limit for archives, 0 = unlimited. Value greater than 0 throttles read speed to the set value in MiB/s    |
-| container_pid_limit   |      256      | The total number of processes that can be active in a container at any given moment to prevent malicious overloading of the node    |
 
 ### Example of usage
 
@@ -88,12 +102,13 @@ throttles:
 ```
 
 ## Installer Limits
+
 Defines the limits on the installer containers that prevents a server's installation process from unintentionally consuming more resources than expected. This is used in conjunction with the server's defined limits. Whichever value is higher will take precedence in the install containers.
 
-| Setting Key           | Default Value | Notes                                                                                                       |
-| :-------------------- | :-----------: | ----------------------------------------------------------------------------------------------------------- |
-| memory                |     1024      | The maximum amount of memory install container can use unless server memory limit is higher than this value |
-| cpu                   |     100       | The maximum amount of cpu install container can use unless server cpu limit is higher than this value       |
+| Setting Key | Default Value | Notes                                                                                                       |
+| :---------- | :-----------: | ----------------------------------------------------------------------------------------------------------- |
+| memory      |     1024      | The maximum amount of memory install container can use unless server memory limit is higher than this value |
+| cpu         |      100      | The maximum amount of cpu install container can use unless server cpu limit is higher than this value       |
 
 ### Example of usage
 
@@ -107,12 +122,12 @@ installer_limits:
 
 More commonly discussed values. View all Wings config values and explanations in [these two files.](https://github.com/pterodactyl/wings/tree/develop/config)
 
-| Setting Key                | Default Value | Notes                                                                                           |
-| -------------------------- | :-----------: | ----------------------------------------------------------------------------------------------- |
-| debug                      |     false     | Force Wings to run in debug mode                                                                |
-| tmpfs_size                 |      100      | The size of the /tmp directory in MB when mounted into a container                              |
-| websocket_log_count        |      150      | The number of lines to display in the console                                                   |
-| detect_clean_exit_as_crash |     true      | Mark server as crashed if it's stopped without user interaction, e.g., not pressing stop button |
-| (crash detection) timeout  |      60       | Timeout between server crashes that will not cause the server to be automatically restarted     |
-| app_name                   | "Pterodactyl" | Changes the name of the daemon, shown in the panel's game console                               |
-| check_permissions_on_boot  |     true      | Check all file permissions on each boot. Disable this when you have a very large amount of files and the server startup is hanging on checking permissions|
+| Setting Key                | Default Value | Notes                                                                                                                                                      |
+| -------------------------- | :-----------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| debug                      |     false     | Force Wings to run in debug mode                                                                                                                           |
+| tmpfs_size                 |      100      | The size of the /tmp directory in MB when mounted into a container                                                                                         |
+| websocket_log_count        |      150      | The number of lines to display in the console                                                                                                              |
+| detect_clean_exit_as_crash |     true      | Mark server as crashed if it's stopped without user interaction, e.g., not pressing stop button                                                            |
+| (crash detection) timeout  |      60       | Timeout between server crashes that will not cause the server to be automatically restarted                                                                |
+| app_name                   | "Pterodactyl" | Changes the name of the daemon, shown in the panel's game console                                                                                          |
+| check_permissions_on_boot  |     true      | Check all file permissions on each boot. Disable this when you have a very large amount of files and the server startup is hanging on checking permissions |
