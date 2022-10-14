@@ -25,7 +25,7 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 8.0
+### PHP 8.1
 ```bash
 # Add repository for PHP
 curl https://packages.sury.org/php/apt.gpg -o /etc/apt/trusted.gpg.d/php.gpg
@@ -34,8 +34,8 @@ echo "deb https://packages.sury.org/php/ buster main" | tee /etc/apt/sources.lis
 ## Get apt updates
 apt update
 
-## Install PHP 8.0
-apt install -y php8.0 php8.0-{cli,common,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
+## Install PHP 8.1
+apt install -y php8.1 php8.1-{cli,common,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
 ```
 
 ### Nginx
@@ -100,16 +100,15 @@ The default php-fpm configuration is fine to use and can be started and then ena
 commands below.
 
 ```bash
-systemctl enable php8.0-fpm
-systemctl start php8.0-fpm
+systemctl enable php8.1-fpm
+systemctl start php8.1-fpm
 ```
 
 ### Nginx
 Please check our [tutorial](/tutorials/creating_ssl_certificates.md) on generating SSL certificates for more information.
 
 #### SSL Configuration
-<<< @/.snippets/webservers/nginx-php8.0.conf{5,11,26-27}
-
+<<< @/.snippets/webservers/nginx-php8.1.conf{5,11,26-27}
 
 ### Redis Setup
 The default Redis install is perfectly fine for the panel. If you have Redis already in use you may want to look into
