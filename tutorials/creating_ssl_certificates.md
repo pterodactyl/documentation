@@ -89,6 +89,11 @@ Once the process has complete, you can restart the Nginx service:
 ```bash
 systemctl start nginx
 ```
+You may also need to restart Wings as not every service is able to automatically apply an updated certificate:
+
+```bash
+systemctl restart wings
+```
 
 :::
 ::: tab "Method 2: acme.sh (Cloudflare)"
