@@ -39,7 +39,17 @@ AWS_SECRET_ACCESS_KEY=
 AWS_BACKUPS_BUCKET=
 AWS_ENDPOINT=
 ```
+
 For some configurations, you might have to change your S3 URL from `bucket.domain.com` to `domain.com/bucket`. To accomplish this, add `AWS_USE_PATH_STYLE_ENDPOINT=true` to your `.env` file.
+
+The S3 backup is using the S3 multipart upload capabilities. In rare situations, you might want to adjust the size of a single part or the lifespan of the generated pre-signed URLs. The default part size is 5GB, and the default pre-signed URL lifespan is 60 minutes. You can configure the maximal part size using the `BACKUP_MAX_PART_SIZE` environment variable. You must specify the size in bytes. To define the pre-signed URL lifespan, use the `BACKUP_PRESIGNED_URL_LIFESPAN` variable. The expected unit is minutes.
+
+The following `.env` snippet configures 1GB parts and uses 120 minutes as the pre-signed URL lifespan:
+
+```bash
+BACKUP_MAX_PART_SIZE=1073741824
+BACKUP_PRESIGNED_URL_LIFESPAN=120
+```
 
 ## Reverse Proxy Setup
 
@@ -67,6 +77,7 @@ proxy_request_buffering off;
 ```
 
 ### Cloudflare Specific Configuration
+
 If you're using Cloudflare's Flexible SSL you should set `TRUSTED_PROXIES` to contain [their IP addresses](https://www.cloudflare.com/ips/).
 Below is an example of how to set this.
 
@@ -99,7 +110,6 @@ reCAPTCHA can easily be disabled using the admin panel. In the Settings, select 
 #### Editing your database
 
 If you cannot access your panel, you can modify the database directly using the following commands.
-
 
 ```sql
 mysql -u root -p
