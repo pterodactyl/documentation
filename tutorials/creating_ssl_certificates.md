@@ -121,7 +121,7 @@ export CF_Email="Your_CloudFlare_Account@example.com"
 Then create the certificate.
 
 ```bash
-acme.sh --issue --dns dns_cf -d "example.com" \
+acme.sh --issue --dns dns_cf -d "example.com" --server letsencrypt \
 --key-file /etc/letsencrypt/live/example.com/privkey.pem \
 --fullchain-file /etc/letsencrypt/live/example.com/fullchain.pem
 ```
