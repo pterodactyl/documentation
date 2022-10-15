@@ -9,7 +9,7 @@ This guide is based off the [official installation documentation](/panel/1.0/get
 
 ## Install Requirements
 ```bash
-apt -y install software-properties-common curl ca-certificates gnupg lsb-release sudo wget
+apt -y install software-properties-common curl ca-certificates gnupg2 sudo lsb-release
 ```
 
 ### php 8.1
@@ -17,7 +17,7 @@ apt -y install software-properties-common curl ca-certificates gnupg lsb-release
 # Add repository for PHP
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
 
-wget -qO - https://packages.sury.org/php/apt.gpg | sudo apt-key add -
+curl -fsSL  https://packages.sury.org/php/apt.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/sury-keyring.gpg
 
 apt update
 
