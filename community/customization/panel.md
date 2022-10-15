@@ -37,10 +37,11 @@ yarn # Installs panel build dependencies
 
 ## Build Panel Assets
 
-The following command will rebuild the Panel frontend.
+The following command will rebuild the Panel frontend. For NodeJS version 15 and above, you must enable the `--openssl-legacy-provider` option before building.
 
 ```bash
 cd /var/www/pterodactyl
+export NODE_OPTIONS=--openssl-legacy-provider # for NodeJS v15+
 yarn build:production # Build panel
 ```
 
