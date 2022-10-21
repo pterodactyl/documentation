@@ -42,6 +42,10 @@ Don't forget to account for OS overhead and other software requirements on machi
 * **Daemon Port**: the port that the Daemon should listen on.
 * **Daemon SFTP Port**: the port the Daemon sftp-server or standalone SFTP server should listen on.
 
+::: tip
+If you are experiencing trouble connecting to the node from the panel, ensure the above ports are properly forwarded in your router settings if applicable
+:::
+
 ## Install the Daemon
 At this point you'll need to have the Daemon installed on your machine. Check out the [documentation](/wings/installing.html)
 for more information, or try one of the community guides for [CentOS](/community/installation-guides/wings/centos7.html),
