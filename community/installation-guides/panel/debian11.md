@@ -1,5 +1,4 @@
 # Debian 11
-In this guide we will install Pterodactyl v1.X — including all of it's dependencies
 
 [[toc]]
 
@@ -7,50 +6,39 @@ In this guide we will install Pterodactyl v1.X — including all of it's depende
 This guide is based off the [official installation documentation](/panel/1.0/getting_started.md) but is tailored specifically for Debian 11.
 :::
 
-## Install Requirements
-```bash
-apt -y install software-properties-common curl ca-certificates gnupg2 sudo lsb-release
-```
+## Dependency Installation
 
-### php 8.1
+In this guide, we will install the required dependencies for the Pterodactyl panel. After that, you can follow the official installation documentation.
+
 ```bash
+# Update  package lists
+apt update -y
+
+# Install necessary packages
+apt -y install software-properties-common curl ca-certificates gnupg2 sudo lsb-release
+
 # Add repository for PHP
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
 
 curl -fsSL  https://packages.sury.org/php/apt.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/sury-keyring.gpg
 
-apt update
-
-apt -y install php8.1 php8.1-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip} 
-``` 
-
-### MariaDB
-```bash
-# MariaDB repo setup script
-curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
-```
-
-### redis
-```bash
-#Add repository for redis
+# Add repository for Redis
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
 
 echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
 
-apt-get update
+# Update  package lists
+apt update -y
 
-apt-get install -y redis-server
-```
+# Install PHP and required extensions
+apt install -y php8.1 php8.1-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
 
-### Get apt updates
-```bash
-# Update repositories list
-apt update
-```
+# MariaDB repo setup script
+curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
-### Install Dependencies
-```bash
-apt install -y mariadb-server nginx tar unzip git 
+# Install the rest of dependencies
+apt install -y mariadb-server nginx tar unzip git redis-server
+
 ```
 
 ### Installing Composer
@@ -62,4 +50,6 @@ need composer installed before continuing in this process.
 curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
-You can now continue here: [Download Files](/panel/1.0/getting_started.md#download-files)
+### Download Files
+
+Great, now all of the dependencies have been dealt with. Continue the installation by following the [official documentation Download Files section](/panel/1.0/getting_started.md#download-files).
