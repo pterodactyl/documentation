@@ -48,7 +48,7 @@ used anymore. To do this, simply execute the following commands — assuming you
 systemctl stop wings
 
 # Delete the entire directory. There is nothing stored in here that we actually need for the
-# purposes of this migration. Remeber, server data is stored in /srv/daemon-data.
+# purposes of this migration. Remember, server data is stored in /srv/daemon-data.
 rm -rf /srv/daemon
 
 # Optionally, remove NodeJS from your system if it was not used for anything else.
