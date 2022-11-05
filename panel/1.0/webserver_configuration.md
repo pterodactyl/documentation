@@ -62,6 +62,12 @@ First, remove the default Apache configuration.
 a2dissite 000-default.conf
 ```
 
+Second, enable the `rewrite`-module of Apache.
+
+``` bash
+a2enmod rewrite
+```
+
 Now, you should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place the file in `/etc/apache2/sites-available`, or &mdash; if on CentOS, `/etc/httpd/conf.d/`.
 
