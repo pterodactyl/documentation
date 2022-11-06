@@ -42,13 +42,28 @@ AWS_ENDPOINT=
 
 For some configurations, you might have to change your S3 URL from `bucket.domain.com` to `domain.com/bucket`. To accomplish this, add `AWS_USE_PATH_STYLE_ENDPOINT=true` to your `.env` file.
 
-The S3 backup is using the S3 multipart upload capabilities. In rare situations, you might want to adjust the size of a single part or the lifespan of the generated pre-signed URLs. The default part size is 5GB, and the default pre-signed URL lifespan is 60 minutes. You can configure the maximal part size using the `BACKUP_MAX_PART_SIZE` environment variable. You must specify the size in bytes. To define the pre-signed URL lifespan, use the `BACKUP_PRESIGNED_URL_LIFESPAN` variable. The expected unit is minutes.
+#### Multipart Upload
+
+The S3 backup is using the S3 multipart upload capabilities. In rare situations, you might want to adjust the size of a single part or the lifespan of the generated pre-signed URLs. The default part size is 5GB, and the default pre-signed URL lifespan is 60 minutes.
+
+You can configure the maximal part size using the `BACKUP_MAX_PART_SIZE` environment variable. You must specify the size in bytes. To define the pre-signed URL lifespan, use the `BACKUP_PRESIGNED_URL_LIFESPAN` variable. The expected unit is minutes.
 
 The following `.env` snippet configures 1GB parts and uses 120 minutes as the pre-signed URL lifespan:
 
 ```bash
 BACKUP_MAX_PART_SIZE=1073741824
 BACKUP_PRESIGNED_URL_LIFESPAN=120
+```
+
+#### Storage Class
+
+Should you need to specify a storage class, use the `AWS_BACKUPS_STORAGE_CLASS` environment variable. Default option is `STANDARD` (S3 Standard).
+
+The following `.env` snippet sets the class to `STANDARD_IA` (this is an example).
+
+```bash
+# STANDARD_IA is an example.
+AWS_BACKUPS_STORAGE_CLASS=STANDARD_IA
 ```
 
 ## Reverse Proxy Setup
