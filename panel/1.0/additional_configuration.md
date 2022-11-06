@@ -50,6 +50,14 @@ The following `.env` snippet configures 1GB parts and uses 120 minutes as the pr
 BACKUP_MAX_PART_SIZE=1073741824
 BACKUP_PRESIGNED_URL_LIFESPAN=120
 ```
+If you need to specify a storage class, use the `AWS_BACKUPS_STORAGE_CLASS` configuration option.
+
+The following `.env` snippet sets the class to `STANDARD_IA` (this is an example).
+
+```bash
+# STANDARD_IA is an example.
+AWS_BACKUPS_STORAGE_CLASS=STANDARD_IA
+```
 
 ## Reverse Proxy Setup
 
