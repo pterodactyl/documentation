@@ -44,7 +44,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 * `tar`
 * `unzip`
 * `git`
-* `composer` v2
+* `composer v2`
 
 ### Example Dependency Installation
 
