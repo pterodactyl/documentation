@@ -1,27 +1,31 @@
 # About
+
 [[toc]]
 
 ## Core Project Team
-| Name | Discord Name | Primary Role |
-| ---- | ------------ | ---- |
-| [Dane Everitt](https://daneeveritt.com/) | `Tactical Fish#8008` | Founder & Former Project Maintainer |
-| [Matthew Penner](https://matthewp.io/) | `matthewp#0001` | Project Maintainer |
-| Stepan Fedotov | `Trixter#0001` | WISP & WHMCS Module Maintainer |
-| Michael Parker | `parkervcp#6789` | Egg Developer, Docker Integration |
-| [Jakob Schrettenbrunner](https://schrej.net/) | `schrej#1337` | Developer |
-| [Lance Pioch](https://lancepioch.com/) | `ShadowLancer#5209` | Developer |
+
+| Name                                          | Discord Name         | Primary Role                        |
+| --------------------------------------------- | -------------------- | ----------------------------------- |
+| [Dane Everitt](https://daneeveritt.com/)      | `Tactical Fish#8008` | Founder & Former Project Maintainer |
+| [Matthew Penner](https://matthewp.io/)        | `matthewp#0001`      | Project Maintainer                  |
+| Stepan Fedotov                                | `Trixter#0001`       | WISP & WHMCS Module Maintainer      |
+| Michael Parker                                | `parkervcp#6789`     | Egg Developer, Docker Integration   |
+| [Jakob Schrettenbrunner](https://schrej.net/) | `schrej#1337`        | Developer                           |
+| [Lance Pioch](https://lancepioch.com/)        | `ShadowLancer#5209`  | Developer                           |
 
 Members of the project team have a red username in our Discord server.
 
 ## Community Team
+
 Pterodactyl would not be as successful as it is today without the help of our fantastic community support team. These
 members can be found in our Discord server and are distinguished with a yellow username.
 
 ## Sponsors
-The following companies help to fund Pterodactyl's developement. [Interested in becoming a sponsor?](https://github.com/sponsors/matthewpi)
+
+The following companies help to fund Pterodactyl's development. [Interested in becoming a sponsor?](https://github.com/sponsors/matthewpi)
 
 | Company                                                   | About                                                                                                                                                                                                                           |
-|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [**WISP**](https://wisp.gg)                               | Extra features.                                                                                                                                                                                                                 |
 | [**Fragnet**](https://fragnet.net)                        | Providing low latency, high-end game hosting solutions to gamers, game studios and eSports platforms.                                                                                                                           |
 | [**RocketNode**](https://rocketnode.com/)                 | Innovative game server hosting combined with a straightforward control panel, affordable prices, and Rocket-Fast support.                                                                                                       |
@@ -34,6 +38,7 @@ The following companies help to fund Pterodactyl's developement. [Interested in 
 | [**UltraServers**](https://ultraservers.com/)             | Deploy premium games hosting with the click of a button. Manage and swap games with ease and let us take care of the rest. We currently support Minecraft, Rust, ARK, 7 Days to Die, Garys MOD, CS:GO, Satisfactory and others. |
 
 ## License
+
 ``` text
 Copyright (c) 2015 - 2022 Dane Everitt <dane@daneeveritt.com>.
 
@@ -57,6 +62,7 @@ SOFTWARE.
 ```
 
 ## GPG Signature
+
 Starting with Panel `v0.4.0` all releases are signed with the GPG key below. All releases include a detached key as
 well to verify your download against.
 
