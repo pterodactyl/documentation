@@ -5,7 +5,7 @@
 ## Core Project Team
 
 | Name                                          | Discord Name         | Primary Role                        |
-| --------------------------------------------- | -------------------- | ----------------------------------- |
+|-----------------------------------------------|----------------------|-------------------------------------|
 | [Dane Everitt](https://daneeveritt.com/)      | `Tactical Fish#8008` | Founder & Former Project Maintainer |
 | [Matthew Penner](https://matthewp.io/)        | `matthewp#0001`      | Project Maintainer                  |
 | Stepan Fedotov                                | `Trixter#0001`       | WISP & WHMCS Module Maintainer      |
@@ -25,7 +25,7 @@ members can be found in our Discord server and are distinguished with a yellow u
 The following companies help to fund Pterodactyl's development. [Interested in becoming a sponsor?](https://github.com/sponsors/matthewpi)
 
 | Company                                                   | About                                                                                                                                                                                                                           |
-| --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [**WISP**](https://wisp.gg)                               | Extra features.                                                                                                                                                                                                                 |
 | [**Fragnet**](https://fragnet.net)                        | Providing low latency, high-end game hosting solutions to gamers, game studios and eSports platforms.                                                                                                                           |
 | [**RocketNode**](https://rocketnode.com/)                 | Innovative game server hosting combined with a straightforward control panel, affordable prices, and Rocket-Fast support.                                                                                                       |
@@ -42,12 +42,3 @@ The following companies help to fund Pterodactyl's development. [Interested in b
 Pterodactyl® Copyright © 2015 - 2022 Dane Everitt and contributors.
 
 Code released under the [MIT License](https://github.com/pterodactyl/panel/blob/develop/LICENSE.md).
-
-## GPG Signature
-
-Starting with Panel `v0.4.0` all releases are signed with the GPG key below. All releases include a detached key as
-well to verify your download against.
-
-Releases also include a SHA256 checksum.
-
-<<< @/.snippets/gpg.txt

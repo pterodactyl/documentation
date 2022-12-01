@@ -38,7 +38,8 @@ function findVersionedPaths(paths) {
 
 // https://stackoverflow.com/a/29855282/4430124
 function pathJoin(...parts) {
-  var separator = '/';
-  var replace = new RegExp(separator + '{1,}', 'g');
+  const separator = '/';
+  const replace = new RegExp(separator + '{1,}', 'g');
+
   return parts.join(separator).replace(replace, separator);
 }

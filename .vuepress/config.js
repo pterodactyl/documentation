@@ -186,13 +186,6 @@ module.exports = {
                         '/guides/mounts.md',
                     ],
                 },
-                {
-                    title: 'Development & Ops',
-                    collapsable: true,
-                    children: [
-                        '/ops/publish_release.md',
-                    ],
-                },
             ],
         },
     },
