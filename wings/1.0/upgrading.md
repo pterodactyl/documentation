@@ -21,6 +21,9 @@ most cases your base Wings version should match that of your Panel.
 | 1.8.x         | 1.6.x         |           |
 | 1.9.x         | 1.6.x         |           |
 | **1.10.x**    | **1.7.x**     | ✅         |
+| **1.11.x**    | **1.11.x**    | ✅         |
+
+*NOTE: There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.*
 
 ## Download Updated Binary
 
