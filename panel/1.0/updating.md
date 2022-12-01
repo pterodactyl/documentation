@@ -162,4 +162,10 @@ connections.
 php artisan up
 ```
 
+### Telemetry
+
+Since 1.11, Pterodactyl will collect anonymous telemetry to help us better understand how the
+software is being used. To learn more about this feature and to opt-out, please see our [Telemetry](./additional_configuration.md#telemetry)
+documentation. Remember to continue with the rest of the upgrade.
+
 [Final Step: Upgrade Wings](/wings/1.0/upgrading.md)
