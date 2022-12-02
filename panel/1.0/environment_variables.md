@@ -33,3 +33,16 @@
 | `AWS_USE_PATH_STYLE_ENDPOINT` | false | true, false | |
 | `AWS_BACKUPS_USE_ACCELERATE` | false | true, false | |
 | `AWS_BACKUPS_STORAGE_CLASS` | | Any | |
+
+## Broadcasting Variables
+
+| Name | Default Value | Allowed Values | Description |
+| `BROADCAST_DRIVER` | "null" | "ably", "log", "null", "pusher", "redis" | The broadcaster to use for events. |
+| `PUSHER_APP_KEY` | | Any | The connection key for the Pusher driver. |
+| `PUSHER_APP_SECRET` | | Any | |
+| `PUSHER_APP_ID` | | Any | |
+| `PUSHER_HOST` | "api-mt1.pusher.com" | URL | |
+| `PUSHER_CLUSTER` | "mt1" | Cluster ID | The ID of the pusher cluster. |
+| `PUSHER_PORT` | 443 | Any Port | The port to listen on. |
+| `PUSHER_SCHEME` | "https" | "http", "https" | The HTTP scheme to use. |
+| `ABLY_KEY` | | Any | The key for the Ably driver. |
