@@ -37,6 +37,7 @@
 ## Broadcasting Variables
 
 | Name | Default Value | Allowed Values | Description |
+|------|---------------|----------------|-------------|
 | `BROADCAST_DRIVER` | "null" | "ably", "log", "null", "pusher", "redis" | The broadcaster to use for events. |
 | `PUSHER_APP_KEY` | | Any | The connection key for the Pusher driver. |
 | `PUSHER_APP_SECRET` | | Any | |
@@ -50,11 +51,13 @@
 ## CORS Variables
 
 | Name | Default Value | Allowed Values | Description |
+|------|---------------|----------------|-------------|
 | `APP_CORS_ALLOWED_ORIGINS` | "" | Any URI | The allowed origins for CORS, separated by commas. |
 
 ## Filesystem Variables
 
 | Name | Default Value | Allowed Values | Description |
+|------|---------------|----------------|-------------|
 | `FILESYSTEM_DISK` | "local" | "local", "ftp", "sftp", "s3" | The default filesystem disk to use. |
 | `AWS_ACCESS_KEY_ID` | | Any | The access key ID for the AWS driver. |
 | `AWS_SECRET_ACCESS_KEY` | | Any | The secret key for the AWS driver. |
@@ -63,3 +66,11 @@
 | `AWS_URL` | | URL | The URL to the AWS bucket. |
 | `AWS_ENDPOINT` | | URI | The endpoint to the AWS bucket. |
 | `AWS_USE_PATH_STYLE_ENDPOINT` | false | true, false | Whether to use the path style endpoint. |
+
+## Hashids Variables
+
+| Name | Default Value | Allowed Values | Description |
+|------|---------------|----------------|-------------|
+| `HASHIDS_SALT` | | Any | The salt to use for hashing. |
+| `HASHIDS_LENGTH` 8 | Number | The length of the hash. |
+| `HASHIDS_ALPHABET` | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 | Any | The character range to use for hashing. |
