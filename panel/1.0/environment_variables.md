@@ -96,3 +96,9 @@
 | `RECAPTCHA_DOMAIN` | "https://www.google.com/recaptcha/api/siteverify" | URL | The API endpoint to use for reCAPTCHA checks. |
 | `RECAPTCHA_SECRET_KEY` | "6LcJcjwUAAAAALOcDJqAEYKTDhwELCkzUkNDQ0J5" | Any | The secret key to use for the reCAPTCHA API. |
 | `RECAPTCHA_WEBSITE_KEY` | "6LcJcjwUAAAAAO_Xqjrtj9wWufUpYRnK6BW8lnfn" | Any | The site key to use for the reCAPTCHA API. |
+
+## Trusted Proxy Variables
+
+| Name | Default Value | Allowed Values | Description |
+|------|---------------|----------------|-------------|
+| `TRUSTED_PROXIES` | | Any | The proxy IP addresses to allow, separated by commas. |
