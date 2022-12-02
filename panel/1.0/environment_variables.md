@@ -51,3 +51,15 @@
 
 | Name | Default Value | Allowed Values | Description |
 | `APP_CORS_ALLOWED_ORIGINS` | "" | Any URI | The allowed origins for CORS, separated by commas. |
+
+## Filesystem Variables
+
+| Name | Default Value | Allowed Values | Description |
+| `FILESYSTEM_DISK` | "local" | "local", "ftp", "sftp", "s3" | The default filesystem disk to use. |
+| `AWS_ACCESS_KEY_ID` | | Any | The access key ID for the AWS driver. |
+| `AWS_SECRET_ACCESS_KEY` | | Any | The secret key for the AWS driver. |
+| `AWS_DEFAULT_REGION` | | Any | The default region of the AWS driver. |
+| `AWS_BUCKET` | | Any | The name of the AWS bucket. |
+| `AWS_URL` | | URL | The URL to the AWS bucket. |
+| `AWS_ENDPOINT` | | URI | The endpoint to the AWS bucket. |
+| `AWS_USE_PATH_STYLE_ENDPOINT` | false | true, false | Whether to use the path style endpoint. |
