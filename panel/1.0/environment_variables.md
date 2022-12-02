@@ -74,3 +74,9 @@
 | `HASHIDS_SALT` | | Any | The salt to use for hashing. |
 | `HASHIDS_LENGTH` 8 | Number | The length of the hash. |
 | `HASHIDS_ALPHABET` | abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890 | Any | The character range to use for hashing. |
+
+## Hasing Variables
+
+| Name | Default Value | Allowed Values | Description |
+|------|---------------|----------------|-------------|
+| `BCRYPT_ROUNDS` | 10 | Number | The number of rounds to perform when hashing. |
