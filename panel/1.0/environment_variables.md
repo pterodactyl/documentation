@@ -80,3 +80,10 @@
 | Name | Default Value | Allowed Values | Description |
 |------|---------------|----------------|-------------|
 | `BCRYPT_ROUNDS` | 10 | Number | The number of rounds to perform when hashing. |
+
+## HTTP Variables
+
+| Name | Default Value | Allowed Values | Description |
+|------|---------------|----------------|-------------|
+| `APP_API_CLIENT_RATELIMIT` | 720 | Number | The number of requests to allow per minute for the client API. |
+| `APP_API_APPLICATION_RATELIMIT` | 240 | Number | The number of requests to allow per minute for the application API. |
