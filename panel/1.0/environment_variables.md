@@ -46,3 +46,8 @@
 | `PUSHER_PORT` | 443 | Any Port | The port to listen on. |
 | `PUSHER_SCHEME` | "https" | "http", "https" | The HTTP scheme to use. |
 | `ABLY_KEY` | | Any | The key for the Ably driver. |
+
+## CORS Variables
+
+| Name | Default Value | Allowed Values | Description |
+| `APP_CORS_ALLOWED_ORIGINS` | "" | Any URI | The allowed origins for CORS, separated by commas. |
