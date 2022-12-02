@@ -87,3 +87,12 @@
 |------|---------------|----------------|-------------|
 | `APP_API_CLIENT_RATELIMIT` | 720 | Number | The number of requests to allow per minute for the client API. |
 | `APP_API_APPLICATION_RATELIMIT` | 240 | Number | The number of requests to allow per minute for the application API. |
+
+## reCAPTCHA Variables
+
+| Name | Default Value | Allowed Values | Description |
+|------|---------------|----------------|-------------|
+| `RECAPTCHA_ENABLED` | true | true, false | Whether reCAPTCHA should be enabled. |
+| `RECAPTCHA_DOMAIN` | "https://www.google.com/recaptcha/api/siteverify" | URL | The API endpoint to use for reCAPTCHA checks. |
+| `RECAPTCHA_SECRET_KEY` | "6LcJcjwUAAAAALOcDJqAEYKTDhwELCkzUkNDQ0J5" | Any | The secret key to use for the reCAPTCHA API. |
+| `RECAPTCHA_WEBSITE_KEY` | "6LcJcjwUAAAAAO_Xqjrtj9wWufUpYRnK6BW8lnfn" | Any | The site key to use for the reCAPTCHA API. |
