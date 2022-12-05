@@ -33,7 +33,7 @@ most cases your base Wings version should match that of your Panel.
 ::: danger PHP 7.4
 Support for PHP 7.4 has been removed with the release of 1.11.0. Please upgrade
 to PHP 8.0, 8.1 or newer.
-::
+:::
 
 ::: warning Future PHP Version Changes
 **Support for PHP 8.0 is deprecated**. Please plan accordingly — PHP 8.1 or newer
