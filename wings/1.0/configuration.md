@@ -137,7 +137,7 @@ More commonly discussed values. View all Wings config values and explanations in
 ### Solution to Cgroup v2 issues
 
 If you are using Fedora or CentOS and run into issues related to cgroup, you may have to switch to v1.
-To do this, run the following command followed by `grub2-mkconfig -o /boot/grub2/grub.cfg` and `reboot`:
+To do this, run the command below followed by `grub2-mkconfig -o /boot/grub2/grub.cfg` and `reboot`:
 ```
 sed -i '/^GRUB_CMDLINE_LINUX/ s/"$/ systemd.unified_cgroup_hierarchy=0"/' /etc/default/grub
 ```
