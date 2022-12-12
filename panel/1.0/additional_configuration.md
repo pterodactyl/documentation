@@ -177,7 +177,7 @@ If you wish to see the full data that is collected, please look at the Telemetry
 (as linked above), or use the `php artisan p:telemetry` command to view the exact data that will
 be sent to the remote server.
 
-As of 2022-12-01, the data collected consists of:
+As of 2022-12-12, the data collected consists of:
 
 * Unique identifier for the Panel
 * Version of the Panel
@@ -194,14 +194,14 @@ As of 2022-12-01, the data collected consists of:
     * Sum of the total amount of bytes stored by backups
   * Eggs
     * Total number
-    * Map of egg UUIDs to the number of servers using that egg
+    * ~~Map of egg UUIDs to the number of servers using that egg~~ (removed in 1.11.2)
   * Locations
     * Total number
   * Mounts
     * Total number
   * Nests
     * Total number
-    * Map of nest UUIDs to the number of servers using eggs in that nest
+    * ~~Map of nest UUIDs to the number of servers using eggs in that nest~~ (removed in 1.11.2)
   * Nodes
     * Total number
   * Servers
@@ -238,11 +238,11 @@ As of 2022-12-01, the data collected consists of:
 
 ### How is the data stored?
 
-Currently, the data is stored with Cloudflare, exact specifics about the format and products used
-is not available at this time as our implementation is still very much an alpha.  Right now, there
-is **NO** way to query or view this information, both for project team members and the public.  We
-expect this to change in the future, but for now we are not making any guarantees about the data
-being publicly available.
+Currently, the data is stored with Cloudflare, we ingest all telemetry data with a Worker which does
+basic processing such as validation and then inserts it into Cloudflare D1.  Right now, there is not
+an API or visualization for any of the data collected, and it can only be manually queried.  Only
+Matthew is able to query the data at this time, but we are working on alternatives to make this data
+more accessible.
 
 ### Why?
 
@@ -276,6 +276,9 @@ and either remove the `PTERODACTYL_TELEMETRY_ENABLED` line, or set it to `true`.
 PTERODACTYL_TELEMETRY_ENABLED=true
 ```
 
+You may also use the `php artisan p:environment:setup` command to enable telemetry, optionally with
+the `--telemetry` flag for a non-interactive setup.
+
 ### Disabling Telemetry
 
 To disable telemetry, edit your `.env` file and set `PTERODACTYL_TELEMETRY_ENABLED` to `false`.
@@ -283,3 +286,6 @@ To disable telemetry, edit your `.env` file and set `PTERODACTYL_TELEMETRY_ENABL
 ```text
 PTERODACTYL_TELEMETRY_ENABLED=false
 ```
+
+You may also use the `php artisan p:environment:setup` command to disable telemetry, optionally with
+the `--telemetry=false` flag for a non-interactive setup.
