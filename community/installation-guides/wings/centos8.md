@@ -31,7 +31,6 @@ systemctl start docker
 ```bash
 firewall-cmd --add-port 8080/tcp --permanent
 firewall-cmd --add-port 2022/tcp --permanent
-firewall-cmd --permanent --zone=trusted --change-interface=pterodactyl0
 firewall-cmd --zone=trusted --add-masquerade --permanent
 firewall-cmd --reload
 ```
