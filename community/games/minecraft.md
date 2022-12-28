@@ -18,7 +18,7 @@ If you are a hosting provider, you should only allow a single proxy network per 
 
 Create a regular allocation for the proxy server which uses the external IP of the node, so users can reach it.
 
-The actual game servers behind the proxy should use allocations with `127.0.0.1` as the address, so they are only reachable on the node, and not from the public.
+The actual game servers behind the proxy should use allocations with `172.18.0.1` as the address, so they are only reachable on the node, and not from the public.
 
 #### Example
 
