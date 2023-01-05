@@ -58,6 +58,7 @@ If your database is on a different host than the one where your Panel or Daemon 
 ```sql
 # You should change the username and password below to something unique.
 CREATE USER 'pterodactyluser'@'127.0.0.1' IDENTIFIED BY 'somepassword';
+CREATE USER 'pterodactyluser'@'%' IDENTIFIED BY 'somepassword';
 ```
 
 ### Assigning permissions
@@ -65,6 +66,7 @@ The command below will give your newly created user the ability to create additi
 
 ```sql
 GRANT ALL PRIVILEGES ON *.* TO 'pterodactyluser'@'127.0.0.1' WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON *.* TO 'pterodactyluser'@'%' WITH GRANT OPTION;
 ```
 
 ### Allowing external database access
