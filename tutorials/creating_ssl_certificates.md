@@ -96,7 +96,7 @@ systemctl restart wings
 ```
 
 :::
-::: tab "Method 2: acme.sh (Cloudflare)"
+::: tab "Method 2: acme.sh (using Cloudflare API)"
 This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/Neilpang/acme.sh) for installation instructions.
 
 ``` bash
