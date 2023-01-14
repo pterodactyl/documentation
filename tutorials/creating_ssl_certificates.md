@@ -120,7 +120,6 @@ After installing acme.sh and obtaining CloudFlare API key, we need to then gener
 ```bash
 export CF_Key="Your_CloudFlare_API_Key"
 export CF_Email="Your_CloudFlare_Account@example.com"
-
 ```
 
 Then create the certificate.
