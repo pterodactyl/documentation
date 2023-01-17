@@ -32,7 +32,7 @@ systemctl enable mariadb
 We recommend the remi repo to get the latest php packages.
 
 ```bash
-## Install Repos
+## Install Repos (If on Fedora Server 37, skip the "Install Repos" step and instead install php-process with "dnf install php-process". Then, continue at the "Get dnf updates" step.)
 dnf install epel-release
 dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm
 dnf module enable php:remi-8.0
