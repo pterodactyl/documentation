@@ -53,7 +53,7 @@ operating system's package manager to determine the correct packages to install.
 
 ``` bash
 # Add "add-apt-repository" command
-apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
+apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg lsb-release
 
 # Add additional repositories for PHP, Redis, and MariaDB
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
