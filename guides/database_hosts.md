@@ -28,4 +28,4 @@ Fill in the inputs of the modal:
 Users will later see the host as their database endpoint. Therefore you should set it to a public ip or FQDN and not to `localhost` for example.
 :::
 
-Hit "Create" and if everything was entered correctly you should be redirected the database hosts list and see your new database host.
+Hit "Create" and if everything was entered correctly you should be redirected to the database host list and see your new database host.
