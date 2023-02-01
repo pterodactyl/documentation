@@ -21,7 +21,7 @@ exit
 
 In the admin area of the panel, go to "Databases" and click the "Create New" button.
 
-Fill in the inputs of the modal:
+Fill in the inputs of the modal:  
 ![](./../.vuepress/public/create_new_database_host.png)
 
 ::: tip Set the Host to a public ip or FQDN
