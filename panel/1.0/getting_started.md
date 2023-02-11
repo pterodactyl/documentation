@@ -1,6 +1,20 @@
 # Getting Started
 
-[[toc]]
+## Table of Contents
+- [Picking a Server OS](#picking-a-server-os)
+- [Dependencies](#dependencies)
+    - [Example Dependency Installation](#example-dependency-installation)
+    - [Installing Composer](#installing-composer)
+- [Download Files](#download-files)
+- [Installation](#installation)
+    - [Environment Configuration](#environment-configuration)
+    - [Database Setup](#database-setup)
+    - [Add The First User](#add-the-first-user)
+    - [Set Permissions](#set-permissions)
+- [Queue Listeners](#queue-listeners)
+    - [Crontab Configuration](#crontab-configuration)
+    - [Create Queue Worker](#create-queue-worker)
+    - [Telemetry](#telemetry)
 
 Pterodactyl Panel is designed to run on your own web server. You will need to have root access to your server in order to run and use this panel.
 

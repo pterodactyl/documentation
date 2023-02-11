@@ -1,6 +1,11 @@
 # About
 
-[[toc]]
+## Table of Contents
+- [Core Project Team](#core-project-team)
+- [Community Team](#community-team)
+- [Sponsors](#sponsors)
+- [License](#license)
+- [Release Signing](#release-signing)
 
 ## Core Project Team
 
