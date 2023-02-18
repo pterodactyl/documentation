@@ -131,3 +131,26 @@ More commonly discussed values. View all Wings config values and explanations in
 | (crash detection) timeout  |      60       | Timeout between server crashes that will not cause the server to be automatically restarted                                                                |
 | app_name                   | "Pterodactyl" | Changes the name of the daemon, shown in the panel's game console                                                                                          |
 | check_permissions_on_boot  |     true      | Check all file permissions on each boot. Disable this when you have a very large amount of files and the server startup is hanging on checking permissions |
+
+## Podman Compatibility
+
+### Solution to Cgroup v2 issues
+
+If you are using Fedora or CentOS and run into issues related to cgroup, you may have to switch to v1.
+To do this, run the command below followed by `grub2-mkconfig -o /boot/grub2/grub.cfg` and `reboot`:
+```
+sed -i '/^GRUB_CMDLINE_LINUX/ s/"$/ systemd.unified_cgroup_hierarchy=0"/' /etc/default/grub
+```
+
+::: warning
+The commands above have only been tested on Fedora 37 and may be different on Ubuntu or Debian.
+:::
+
+### Wings configuration edits
+
+At the Docker section in your `config.yml` file at `/etc/pterodactyl`, change the log driver value to the following:
+```
+json-file
+```
+
+
