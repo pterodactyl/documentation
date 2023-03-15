@@ -182,10 +182,10 @@ The last step in the installation process is to set the correct permissions on t
 use them correctly.
 
 ``` bash
-# If using NGINX or Apache (not on CentOS):
+# If using NGINX or Apache (not on CentOS)
 chown -R www-data:www-data /var/www/pterodactyl/*
 
-# If using NGINX on CentOS:
+# If using NGINX on CentOS
 chown -R nginx:nginx /var/www/pterodactyl/*
 
 # If using Apache on CentOS
