@@ -135,7 +135,7 @@
                     </div>
                     <div class="hidden md:block md:flex-1 md:pr-12">
                         <p><a class="text-grey-lightest" href="https://github.com/pterodactyl">GitHub</a></p>
-                        <p><a class="text-grey-lightest" href="https://github.com/sponsors/DaneEveritt">Sponsor</a></p>
+                        <p><a class="text-grey-lightest" href="https://github.com/sponsors/matthewpi">Sponsor</a></p>
                         <p><a class="text-grey-lightest" href="https://paypal.me/PterodactylSoftware">Donate</a></p>
                         <p><a class="text-grey-lightest" href="/panel/troubleshooting.html">Troubleshooting</a></p>
                         <p><a class="text-grey-lightest" href="https://github.com/parkervcp/eggs">Additional Game Configurations</a></p>
