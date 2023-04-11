@@ -12,6 +12,7 @@ please have a look at [Setting up MySQL](/tutorials/mysql_setup.html#creating-a-
 mysql -u root -p
 
 # Remember to change 'yourPassword' below to be a unique password
+# Replace 127.0.0.1 with your panel ip if your panel and wings are on different machines
 CREATE USER 'pterodactyluser'@'127.0.0.1' IDENTIFIED BY 'yourPassword';
 GRANT ALL PRIVILEGES ON *.* TO 'pterodactyluser'@'127.0.0.1' WITH GRANT OPTION;
 exit
@@ -36,7 +37,7 @@ Hit "Create" and if everything was entered correctly you should be redirected to
 Make sure that your database server is running and that you allowed external access to your database.
 
 `Host 'X' is not allowed to connect to this MariaDB server`:  
-This error appears to be due to insufficient permissions for your database.
+You most likely created the database user with a 127.0.0.1 host and are trying to connect from a different host.
 
 `Access denied for user 'X'@'Y'`:  
 You either entered a wrong password or something is wrong with the database user you entered. Make sure that the database user exists and has the required permissions.
