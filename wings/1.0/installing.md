@@ -147,9 +147,9 @@ If you are using a host that blocks Cloudflare DNS, you will have to use differe
 You can view what DNS Servers your host uses through a number of ways depending on how your operating system handles networking. If one of these doesn't work, try another one.
 ```bash
 # Systemd-Resolve
-systemd-resolve --status | grep "DNS Servers"
+systemd-resolve --status"
 # Network Manager
-nmcli dev show | grep DNS
+nmcli dev show
 # Raw file locations for various distributions
 /etc/resolv.conf
 /etc/network/interfaces
