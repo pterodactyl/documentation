@@ -143,10 +143,16 @@ You may optionally add the `--debug` flag to run Wings in debug mode.
 ### Configuring DNS (Usually not needed, refer back to this if your containers have no internet connection)
 Now that Wings has run successfully and you have gotten the green heart on your Nodes page, the wings config at '/etc/pterodactyl/config.yml' will have new values.
 One of those values is DNS, which by default will be 1.1.1.1 and 1.0.0.1
-For your containers to have internet, your DNS Servers in your wings config MUST match your DNS Servers on your host system.
-To view what DNS Servers your host system is using, you can use systemd-resolve, which typically will be on any system that uses systemd.
+If you are using a host that blocks Cloudflare DNS, you will have to use different DNS Servers; typically the same ones your host system is using.
+You can view what DNS Servers your host uses through a number of ways depending on how your operating system handles networking. If one of these doesn't work, try another one.
 ```bash
+# Systemd-Resolve
 systemd-resolve --status | grep "DNS Servers"
+# Network Manager
+nmcli dev show | grep DNS
+# Raw file locations for various distributions
+/etc/resolv.conf
+/etc/network/interfaces
 ```
 If this returns different DNS Servers than 1.1.1.1 and 1.0.0.1 you'll need to edit the wings 'config.yml' file to use the DNS servers that were returned from the command. If you see output that looks like an IPV6 address in addition to your IPV4 DNS Servers, make sure you put that in the IPV6 section and not the IPV4 section.
 
