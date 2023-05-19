@@ -118,6 +118,22 @@ audit2allow -a -M http_port_t
 semodule -i http_port_t.pp
 ```
 
+### Containers don't have internet? Probably a DNS issue!
+Now that Wings has run successfully and you have gotten the green heart on your Nodes page, the wings config at '/etc/pterodactyl/config.yml' will have new values.
+One of those values is DNS, which by default will be 1.1.1.1 and 1.0.0.1
+If you are using a host that blocks Cloudflare DNS, you will have to use different DNS Servers; typically the same ones your host system is using.
+You can view what DNS Servers your host uses through a number of ways depending on how your operating system handles networking. If one of these doesn't work, try another one.
+```bash
+# Systemd-Resolve
+systemd-resolve --status"
+# Network Manager
+nmcli dev show
+# Raw file locations that may have your host system's DNS Servers for various distributions
+/etc/resolv.conf
+/etc/network/interfaces
+```
+If this returns different DNS Servers than 1.1.1.1 and 1.0.0.1 you'll need to edit the wings 'config.yml' file to use the DNS servers that were returned from the command. If you see output that looks like an IPV6 address in addition to your IPV4 DNS Servers, make sure you put that in the IPV6 section and not the IPV4 section. To be clear, if you have to use different DNS Servers than the default, make sure to REMOVE 1.1.1.1 and 1.0.0.1 from the wings config; don't just add the new servers, replace the old servers.
+
 ## FirewallD issues
 If you are on a RHEL/CentOS server with `firewalld` installed you may have broken DNS.
 
