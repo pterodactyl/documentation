@@ -124,8 +124,10 @@ One of those values is DNS, which by default will be 1.1.1.1 and 1.0.0.1
 If you are using a host that blocks Cloudflare DNS, you will have to use different DNS Servers; typically the same ones your host system is using.
 You can view what DNS Servers your host uses through a number of ways depending on how your operating system handles networking. If one of these doesn't work, try another one.
 ```bash
-# Systemd-Resolve
+# Systemd-Resolve (Ubuntu 18.04 and 20.04)
 systemd-resolve --status"
+# Resolve-CTL (Newer Version of Ubuntu)
+resolvectl status
 # Network Manager
 nmcli dev show
 # Raw file locations that may have your host system's DNS Servers for various distributions
