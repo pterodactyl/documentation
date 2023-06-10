@@ -124,12 +124,12 @@ One of those values is DNS, which by default will be 1.1.1.1 and 1.0.0.1
 If you are using a host that blocks Cloudflare DNS, you will have to use different DNS Servers; typically the same ones your host system is using.
 You can view what DNS Servers your host uses through a number of ways depending on how your operating system handles networking. If one of these doesn't work, try another one.
 ```bash
+# Network Manager (This will show both your IPV4 DNS and IPV6 DNS Servers in case you want to add the IPV6 DNS Server(s) from your host to your Wings Config as well.
+nmcli -g ip4.dns,ip6.dns dev show
 # Systemd-Resolve (Ubuntu 18.04 and 20.04)
 systemd-resolve --status"
-# Resolve-CTL (Newer Version of Ubuntu)
+# Resolve-CTL (Newer Versions of Ubuntu)
 resolvectl status
-# Network Manager
-nmcli dev show
 # Raw file locations that may have your host system's DNS Servers for various distributions
 /etc/resolv.conf
 /etc/network/interfaces
