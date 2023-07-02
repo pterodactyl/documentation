@@ -4,6 +4,10 @@
 When using the SSL configuration you MUST create SSL certificates, otherwise your webserver will fail to start. See the [Creating SSL Certificates](/tutorials/creating_ssl_certificates.html) documentation page to learn how to create these certificates before continuing.
 :::
 
+::: tip
+If you are using [Caddy With Automatic SSL](#caddy-with-automatic-ssl), you do not have to create SSL certificates manually, Caddy will take care of it automatically.
+:::
+
 :::: tabs
 ::: tab "Nginx With SSL"
 First, remove the default NGINX configuration.
@@ -107,6 +111,50 @@ below!_ You only need to run `systemctl restart httpd`.
 sudo ln -s /etc/apache2/sites-available/pterodactyl.conf /etc/apache2/sites-enabled/pterodactyl.conf
 sudo a2enmod rewrite
 sudo systemctl restart apache2
+```
+
+:::
+::: tab "Caddy With Automatic SSL"
+
+You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
+
+The default config path is `/etc/caddy/Caddyfile`.
+
+<<< @/.snippets/webservers/Caddyfile{9}
+
+::: tip
+If you are using Cloudflare DNS in proxy mode, refer to [this tutorial](/tutorials/creating_ssl_certificates.html#method-3:-caddy-(using-cloudflare-api)), to see how to configure Caddy to use DNS challenge for obtaining SSL certificates.
+:::
+
+### Enabling Configuration
+
+The final step is to validate configuration and restart Caddy.
+
+```bash
+caddy validate --config /etc/caddy/Caddyfile
+
+systemctl restart caddy
+```
+
+:::
+::: tab "Caddy Without SSL"
+
+You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
+
+The default config path is `/etc/caddy/Caddyfile`.
+
+The only two differences are that we have prefixed the `<domain>` with `http://` (or you can use `:80` suffix behind the `<domain>`) and in the global config at `servers` directive, we have changed the port from `:443` to `:80`.
+
+<<< @/.snippets/webservers/Caddyfile-nossl{2,9}
+
+### Enabling Configuration
+
+The final step is to validate configuration and restart Caddy.
+
+```bash
+caddy validate --config /etc/caddy/Caddyfile
+
+systemctl restart caddy
 ```
 
 :::
