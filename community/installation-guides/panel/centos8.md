@@ -47,8 +47,8 @@ dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,d
 ### If using Fedora Server 38 install PHP 8.1 and Dependencies from this section. If not, skip this section.
 ```bash
 dnf install https://rpms.remirepo.net/fedora/remi-release-38.rpm
-dnf module install php:remi-8.1
-dnf install php81-php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache,process}
+dnf module enable php:remi-8.1
+dnf install php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache,process}
 ```
 
 ### Composer
