@@ -29,8 +29,7 @@ systemctl enable mariadb
 ```
 
 ### PHP 8.0
-We recommend the remi repo to get the latest php packages.
-If on Fedora Server 37, skip the "Install Repos" step and instead install php-process with "dnf install php-process". Then, continue at the "Get dnf updates" step.
+We recommend the remi repo to get the latest php packages. (Skip to next section if on Fedora 38)
 
 ```bash
 ## Install Repos
@@ -43,6 +42,13 @@ dnf update -y
 
 ## Install PHP 8.0
 dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache}
+```
+
+### If using Fedora Server 38 install PHP 8.1 and Dependencies from this section. If not, skip this section.
+```bash
+dnf install https://rpms.remirepo.net/fedora/remi-release-38.rpm
+dnf module install php:remi-8.1
+dnf install php81-php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache,process}
 ```
 
 ### Composer
