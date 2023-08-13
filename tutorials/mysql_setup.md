@@ -7,6 +7,10 @@ MySQL is a core component of Pterodactyl Panel but it can be confusing to setup 
 This is a very basic tutorial that skims just enough of the surface to set MySQL up and running with the panel.
 If you're interested in learning more, there are some great tutorials available on the Internet.
 
+Please note that, while Pterodactyl can create per-server databases (Discussed later in this tutorial), it cannot spin up new database
+_instances_. A MySQL instance may also simply be called a "database", which can be ambiguous. Don't get the two
+confused! We will be configuring a MySQL _instance_ here, which requires some command line knowledge and a bit of time.
+
 ### Logging In
 The first step in this process is to login to the MySQL command line where we will be executing some statements to get
 things setup. To do so, simply run the command below and provide the Root MySQL account's password that you setup when
