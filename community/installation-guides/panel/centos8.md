@@ -46,7 +46,7 @@ dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,d
 
 ### Composer
 ```bash
-dnf install -y zip unzip tar # Required for Composer
+dnf install -y zip unzip tar php-posix # Required for Composer
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
