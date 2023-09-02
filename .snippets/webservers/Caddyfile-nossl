@@ -1,56 +1,56 @@
 {
-	servers :80 {
-		timeouts {
-			read_body 120s
-		}
-	}
+    servers :80 {
+        timeouts {
+            read_body 120s
+        }
+    }
 }
 
 http://<domain> {
-	root * /var/www/pterodactyl/public
+    root * /var/www/pterodactyl/public
 
-	file_server
+    file_server
 
-	php_fastcgi unix//run/php/php8.1-fpm.sock {
-		root /var/www/pterodactyl/public
-		index index.php
+    php_fastcgi unix//run/php/php8.1-fpm.sock {
+        root /var/www/pterodactyl/public
+        index index.php
 
-		env PHP_VALUE "upload_max_filesize = 100M \n post_max_size = 100M"
-		env HTTP_PROXY ""
-		# env HTTPS "on"
+        env PHP_VALUE "upload_max_filesize = 100M \n post_max_size = 100M"
+        env HTTP_PROXY ""
+        # env HTTPS "on"
 
-		read_timeout 300s
-		dial_timeout 300s
-		write_timeout 300s
-	}
+        read_timeout 300s
+        dial_timeout 300s
+        write_timeout 300s
+    }
 
-	header Strict-Transport-Security "max-age=16768000; preload;"
-	header X-Content-Type-Options "nosniff"
-	header X-XSS-Protection "1; mode=block;"
-	header X-Robots-Tag "none"
-	header Content-Security-Policy "frame-ancestors 'self'"
-	header X-Frame-Options "DENY"
-	header Referrer-Policy "same-origin"
+    header Strict-Transport-Security "max-age=16768000; preload;"
+    header X-Content-Type-Options "nosniff"
+    header X-XSS-Protection "1; mode=block;"
+    header X-Robots-Tag "none"
+    header Content-Security-Policy "frame-ancestors 'self'"
+    header X-Frame-Options "DENY"
+    header Referrer-Policy "same-origin"
 
-	request_body {
-		max_size 100m
-	}
+    request_body {
+        max_size 100m
+    }
 
-	respond /.ht* 403
+    respond /.ht* 403
 
-	log {
-		output file /var/log/caddy/pterodactyl.app-access.log {
-			roll_size 100MiB
-			roll_keep_for 7d
-		}
-		level INFO
-	}
+    log {
+        output file /var/log/caddy/pterodactyl.app-access.log {
+            roll_size 100MiB
+            roll_keep_for 7d
+        }
+        level INFO
+    }
 
-	log {
-		output file /var/log/caddy/pterodcatyl.app-error.log {
-			roll_size 100MiB
-			roll_keep_for 7d
-		}
-		level ERROR
-	}
+    log {
+        output file /var/log/caddy/pterodcatyl.app-error.log {
+            roll_size 100MiB
+            roll_keep_for 7d
+        }
+        level ERROR
+    }
 }
