@@ -4,7 +4,7 @@
 Do **not** run the following steps on your production nodes.
 :::
 
-Instructions on how to build the panel are also available in the [BUILDING.md](https://github.com/pterodactyl/panel/blob/v1.11.3/BUILDING.md) file.
+Instructions on how to build the panel are also available in the [BUILDING.md](https://github.com/pterodactyl/panel/blob/1.0-develop/BUILDING.md) file.
 
 The frontend of the Panel is built with React. Any changes to the source files require to recompile it.
 This also applies to style sheets. The following sections explain how to do so.
