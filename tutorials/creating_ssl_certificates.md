@@ -105,7 +105,7 @@ curl https://get.acme.sh | sh
 
 ### Obtaining CloudFlare API Key
 
-After installing acme.sh, we need to fetch a CloudFlare API key. Please make sure that a DNS record (A or CNAME record) is pointing to your target node, and set the cloud to grey (bypassing CloudFlare proxy). Then go to My Profile > API keys and on Global API Key subtab, click on "view", enter your CloudFlare password, and copy the API key to clipboard.
+After installing acme.sh, we need to fetch a CloudFlare API key. On Cloudfare's website, select your domain, then on the right side, copy your "Zone ID" and "Account ID" then click on "Get your API token", click on "Create Token" > select the template "Edit zone DNS" > select the scope of "Zone Ressources" and then click on "Continue to summary", copy your token.
 
 ### Creating a Certificate
 
@@ -118,8 +118,9 @@ sudo mkdir /etc/letsencrypt/live/example.com
 After installing acme.sh and obtaining CloudFlare API key, we need to then generate a certificate. First input the CloudFlare API credentials.
 
 ```bash
-export CF_Key="Your_CloudFlare_API_Key"
-export CF_Email="Your_CloudFlare_Account@example.com"
+export CF_Token="Your_CloudFlare_API_Key"
+export CF_Account_ID="Your_CloudFlare_Account_ID"
+export CF_Zone_ID="Your_CloudFlare_Zone_ID"
 
 ```
 
