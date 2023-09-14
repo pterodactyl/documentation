@@ -127,7 +127,7 @@ reCAPTCHA can easily be disabled using the admin panel. In the Settings, select 
 If you cannot access your panel, you can modify the database directly using the following commands.
 
 ```sql
-mysql -u root -p
+mariadb -u root -p
 UPDATE panel.settings SET value = 'false' WHERE `key` = 'settings::recaptcha:enabled';
 ```
 
@@ -138,7 +138,7 @@ If possible you should use the panel to update your 2FA settings. If you can't a
 ### Disable 2FA requirement
 
 ```sql
-mysql -u root -p
+mariadb -u root -p
 UPDATE panel.settings SET value = 0 WHERE `key` = 'settings::pterodactyl:auth:2fa_required';
 ```
 

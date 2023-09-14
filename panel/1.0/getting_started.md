@@ -115,7 +115,7 @@ continuing any further. See below to create a user and database for your Pteroda
 please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
 
 ```sql
-mysql -u root -p
+mariadb -u root -p
 
 # Remember to change 'yourPassword' below to be a unique password
 CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'yourPassword';
