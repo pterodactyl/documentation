@@ -144,7 +144,13 @@ If possible you should use the panel to update your 2FA settings. If you can't a
 ### Disable 2FA requirement
 
 ```sql
+# If using MySQL
+mysql -u root -p
+
+# If using MariaDB (V11.0.0+)
 mariadb -u root -p
+```
+```sql
 UPDATE panel.settings SET value = 0 WHERE `key` = 'settings::pterodactyl:auth:2fa_required';
 ```
 
