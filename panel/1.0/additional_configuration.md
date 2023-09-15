@@ -127,7 +127,13 @@ reCAPTCHA can easily be disabled using the admin panel. In the Settings, select 
 If you cannot access your panel, you can modify the database directly using the following commands.
 
 ```sql
+# If using MySQL
+mysql -u root -p
+
+# If using MariaDB (V11.0.0+)
 mariadb -u root -p
+```
+```sql
 UPDATE panel.settings SET value = 'false' WHERE `key` = 'settings::recaptcha:enabled';
 ```
 
