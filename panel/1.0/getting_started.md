@@ -115,11 +115,11 @@ continuing any further. See below to create a user and database for your Pteroda
 please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
 
 ```sql
-# If using MySQL
-mysql -u root -p
-
 # If using MariaDB (V11.0.0+)
 mariadb -u root -p
+
+# If using MySQL
+mysql -u root -p
 ```
 ```sql
 
