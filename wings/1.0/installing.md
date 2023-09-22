@@ -180,3 +180,10 @@ Allocation is a combination of IP and Port that you can assign to a server. Each
 ![example image of node allocations](../../.vuepress/public/node_allocations.png)
 
 Type `hostname -I | awk '{print $1}'` to find the IP to be used for the allocation. Alternatively, you can type `ip addr | grep "inet "` to see all your available interfaces and IP addresses. Do not use 127.0.0.1 for allocations.
+
+### Wings Ports
+
+Ptero Wings communicates with the Panel and game servers on the following ports:
+
+- Panel Communication: Port 5656 (Default, configurable)
+- Game Server Communication: Ports 8081-8083 (Default, configurable)
