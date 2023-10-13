@@ -13,7 +13,7 @@ things setup. To do so, simply run the command below and provide the Root MySQL 
 installing MySQL. If you do not remember doing this, chances are you can just hit enter as no password is set.
 
 ```sql
-# If using MariaDB (V11.0.0+)
+# If using MariaDB (v11.0.0+)
 mariadb -u root -p
 
 # If using MySQL
