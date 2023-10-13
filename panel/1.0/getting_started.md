@@ -115,7 +115,7 @@ continuing any further. See below to create a user and database for your Pteroda
 please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
 
 ```sql
-# If using MariaDB (v11.0.0+)
+# If using MariaDB (v11.0.0+) (This is the default when installing Pterodactyl by following the documentation.)
 mariadb -u root -p
 
 # If using MySQL
