@@ -127,7 +127,7 @@ reCAPTCHA can easily be disabled using the admin panel. In the Settings, select 
 If you cannot access your panel, you can modify the database directly using the following commands.
 
 ```sql
-# If using MariaDB (V11.0.0+)
+# If using MariaDB (v11.0.0+)
 mariadb -u root -p
 
 # If using MySQL
@@ -144,7 +144,7 @@ If possible you should use the panel to update your 2FA settings. If you can't a
 ### Disable 2FA requirement
 
 ```sql
-# If using MariaDB (V11.0.0+)
+# If using MariaDB (v11.0.0+)
 mariadb -u root -p
 
 # If using MySQL
