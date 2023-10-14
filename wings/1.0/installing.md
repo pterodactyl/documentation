@@ -170,7 +170,7 @@ WantedBy=multi-user.target
 Then, run the commands below to reload systemd and start Wings.
 
 ```bash
-systemctl enable --now wings
+sudo systemctl enable --now wings
 ```
 
 ### Node Allocations
