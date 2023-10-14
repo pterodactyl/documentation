@@ -56,7 +56,7 @@ dnf module enable php:remi-8.1
 dnf update -y
 
 ## Install PHP 8.1
-dnf install php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache,process}
+dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache,process}
 ```
 
 ### Composer
