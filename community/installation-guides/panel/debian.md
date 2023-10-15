@@ -1,4 +1,4 @@
-# Debian 11
+# Debian 11 & 12
 
 [[toc]]
 
