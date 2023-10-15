@@ -3,7 +3,7 @@
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/1.0/getting_started.md) but is tailored specifically for Debian 11.
+This guide is based off the [official installation documentation](/panel/1.0/getting_started.md) but is tailored specifically for Debian 11 and 12.
 :::
 
 ## Dependency Installation
