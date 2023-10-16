@@ -1,4 +1,4 @@
-# CentOS 8, Rocky Linux 8, AlmaLinux 8, Fedora Server 38
+# CentOS 8, Rocky Linux 8, AlmaLinux 8, Fedora 38
 In this guide we will install Pterodactyl v1.X — including all of it's dependencies — and configure our webserver to serve it using SSL.
 
 [[toc]]
@@ -44,11 +44,19 @@ dnf update -y
 dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache}
 ```
 
-### If using Fedora Server 38 install PHP 8.1 and Dependencies from this section. If not, skip this section.
+### PHP 8.1 (Fedora 38)
+If you're using Fedora 38 you want to install PHP 8.1 and its Dependencies from this section. If not, skip this section!
+
 ```bash
+## Install Repos
 dnf install https://rpms.remirepo.net/fedora/remi-release-38.rpm
 dnf module enable php:remi-8.1
-dnf install php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache,process}
+
+## Get dnf updates
+dnf update -y
+
+## Install PHP 8.1
+dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache,process}
 ```
 
 ### Composer
