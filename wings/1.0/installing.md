@@ -23,8 +23,8 @@ only the versions listed below.
 |                  | 22.04   | :white_check_mark: |                                                             |
 | **CentOS**       | 7       | :white_check_mark: |                                                             |
 |                  | 8       | :white_check_mark: | Note that CentOS 8 is EOL. Use Rocky or Alma Linux.         |
-| **Debian**       | 10      | :white_check_mark: |                                                             |
-|                  | 11      | :white_check_mark: |                                                             |
+| **Debian**       | 11      | :white_check_mark: |                                                             |
+|                  | 12      | :white_check_mark: |                                                             |
 | **Windows**      | All     |        :x:         | This software will not run in Windows environments.         |
 
 ## System Requirements
