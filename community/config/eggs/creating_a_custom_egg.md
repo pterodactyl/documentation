@@ -6,8 +6,8 @@ changes to these, and you'll lose any changes you've made.
 
 [[toc]]
 
-The first thing you'll need to do is create a new service. In this case, the name and description speak for themselves
-in this case. The `Folder Name` _must be a unique name_ not being used by any other service, and should only
+The first thing you'll need to do is create a new service. In this case, the name and description speak for themselves.
+The `Folder Name` _must be a unique name_ not being used by any other service, and should only
 contain letters, numbers, underscores, and dashes. This is the name of the folder where the daemon will be storing
 the service options on the daemon.
 
