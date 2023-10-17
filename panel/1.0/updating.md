@@ -138,10 +138,10 @@ The last step is to set the proper owner of the files to be the user that runs y
 is `www-data` but can vary from system to system &mdash; sometimes being `nginx`, `caddy`, `apache`, or even `nobody`.
 
 ```bash
-# If using NGINX or Apache (not on CentOS):
+# If using NGINX or Apache (not on CentOS)
 chown -R www-data:www-data /var/www/pterodactyl/*
 
-# If using NGINX on CentOS:
+# If using NGINX on CentOS
 chown -R nginx:nginx /var/www/pterodactyl/*
 
 # If using Apache on CentOS
