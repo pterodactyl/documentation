@@ -24,7 +24,9 @@ most cases your base Wings version should match that of your Panel.
 | 1.10.x        | 1.7.x         |           | 7.4, 8.0, 8.1                 |
 | **1.11.x**    | **1.11.x**    | ✅        | 8.0, **8.1** (8.0 deprecated) |
 
-_NOTE: There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings._
+::: tip Wings releases
+There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.
+:::
 
 ## Update Dependencies
 
