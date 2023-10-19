@@ -1,9 +1,9 @@
-# Debian 11
+# Debian 11 & 12
 
 [[toc]]
 
 ::: tip
-This guide is based off the [official installation documentation](/panel/1.0/getting_started.md) but is tailored specifically for Debian 11.
+This guide is based off the [official installation documentation](/panel/1.0/getting_started.md) but is tailored specifically for Debian 11 and 12.
 :::
 
 ## Dependency Installation
@@ -20,7 +20,7 @@ apt -y install software-properties-common curl ca-certificates gnupg2 sudo lsb-r
 # Add repository for PHP
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
 
-curl -fsSL  https://packages.sury.org/php/apt.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/sury-keyring.gpg
+curl -fsSL https://packages.sury.org/php/apt.gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/sury-keyring.gpg
 
 # Add repository for Redis
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg

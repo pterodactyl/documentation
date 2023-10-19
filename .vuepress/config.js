@@ -74,8 +74,7 @@ module.exports = {
                     children: [
                         '/community/installation-guides/panel/centos7.md',
                         '/community/installation-guides/panel/centos8.md',
-                        '/community/installation-guides/panel/debian10.md',
-                        '/community/installation-guides/panel/debian11.md',
+                        '/community/installation-guides/panel/debian.md',
                     ]
                 },
                 {
@@ -84,8 +83,7 @@ module.exports = {
                     children: [
                         '/community/installation-guides/wings/centos7.md',
                         '/community/installation-guides/wings/centos8.md',
-                        '/community/installation-guides/wings/debian10.md',
-                        '/community/installation-guides/wings/debian11.md',
+                        '/community/installation-guides/wings/debian.md',
                     ]
                 },
                 {
