@@ -13,7 +13,7 @@ things setup. To do so, simply run the command below and provide the Root MySQL 
 installing MySQL. If you do not remember doing this, chances are you can just hit enter as no password is set.
 
 ``` bash
-mysql -u root -p
+/usr/bin/mariadb
 ```
 
 ### Creating a user
