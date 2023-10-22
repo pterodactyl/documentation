@@ -41,7 +41,7 @@ Please be aware of how the pterodactyl install proces works!
     Creates a new container using an install image which runs as root.
     Uses a volume mount on `/mnt/server` for the server files, which is the working directory during installation.
     The volume will be later mounted as `/home/container` for the server container. Any files outside of `/mnt/server` will be gone after installation.
-    The installation script can set up everything that's required to run the server, such as writing files, creating directories, or compiling apps."
+    The installation script can set up everything that's required to run the server, such as writing files, creating directories, or compiling apps.
     It is regularly used to just download the files required, such as server files and configs.
     
 2. Stop and destroy install container
