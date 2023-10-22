@@ -45,7 +45,7 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 8.0
+### PHP 8.1
 We recommend the remi repo to get the latest php packages.
 
 ```bash
@@ -54,12 +54,12 @@ yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarc
 yum -y install https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 yum install -y yum-utils
 yum-config-manager --disable 'remi-php*'
-yum-config-manager --enable remi-php80
+yum-config-manager --enable remi-php81
 
 ## Get yum updates
 yum update -y
 
-## Install PHP 8.0
+## Install PHP 8.1
 yum install -y php php-{common,fpm,cli,json,mysqlnd,mcrypt,gd,mbstring,pdo,zip,bcmath,dom,opcache}
 ```
 
