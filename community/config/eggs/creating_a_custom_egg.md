@@ -33,7 +33,7 @@ our [Creating a Docker Image](/community/config/eggs/creating_a_custom_image.md)
 ## The Pterodactyl Install Procces
 
 ::: warning
-Please be aware of how the pterodactyl install proces works!
+Please be aware of how the pterodactyl install process works!
 :::
 
 ```
@@ -104,7 +104,7 @@ Avoid using this parser if possible.
 * `xml`
 
 ::: tip
-If you want to use egg non stock variables in the configuration parser you must reference them as `{{server.build.env.ENVNAME}}` or just `{{env.ENVNAME}}`. Do not forget to to replace `ENVNAME` with the actual enviroment name you have setup.
+If you want to use egg non stock variables in the configuration parser you must reference them as `{{server.build.env.ENVNAME}}` or just `{{env.ENVNAME}}`. Do not forget to to replace `ENVNAME` with the actual environment name you have setup.
 :::
 
 Once you have defined a parser, we then define a `find` block which tells the Daemon what specific elements to find
@@ -144,7 +144,7 @@ docker interface defined in the configuration file using `{{config.docker.interf
 :::
 
 #### File Parser
-The file parser  the whole line that you are trying to edit. For example:
+The file parser replaces the whole line that you are trying to edit. So you have to use it like this:
 
 ```json
 {
@@ -176,7 +176,7 @@ In the example block above, we define `done` as the entire line, or part of a li
 starting, and is ready for players to join. When the Daemon sees this output, it will mark the server as `ON` rather
 than `STARTING`. 
 
-If your aplication has multiple messages that mean that it is fully startup then you can also do it like this:
+If your application has multiple messages that mean that it is fully startup then you can also do it like this:
 ```json
 {
   "done":[
