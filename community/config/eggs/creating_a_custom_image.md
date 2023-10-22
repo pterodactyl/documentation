@@ -68,7 +68,7 @@ Within this `RUN` block, you'll notice the `useradd` command.
 
 ```bash
  useradd -d /home/container -m container
- ```
+```
 
 ::: warning
 All Pterodactyl containers must have a user named `container`, and the user home **must** be `/home/container`.
