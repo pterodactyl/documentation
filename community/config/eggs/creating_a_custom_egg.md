@@ -32,7 +32,7 @@ our [Creating a Docker Image](/community/config/eggs/creating_a_custom_image.md)
 
 ## The Pterodactyl Install Procces
 
-:: warning
+::: warning
 Please be aware of how the pterodactyl install proces works!
 :::
 

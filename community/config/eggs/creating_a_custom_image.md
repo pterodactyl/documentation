@@ -15,7 +15,7 @@ that will be used by the Daemon. Due to heavy restrictions on server containers,
 
 In most images we try to use a [Debian based OS](https://www.debian.org) as much as possible for our images.
 
-```dockerfile
+```bash
 FROM        --platform=$TARGETOS/$TARGETARCH eclipse-temurin:17-jdk-jammy
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
@@ -49,7 +49,11 @@ In this case, we are using [`eclipse-temurin:17-jdk-jammy`](https://github.com/a
 
 The next thing we do is install the dependencies we will need using Debian/Ubuntu's package manager: `apt`. You'll notice some
 specific flags `-y` as the docker build is non interactive, as well as everything being contained in a
-single [`RUN`](https://docs.docker.com/engine/reference/builder/#run) block.
+single [`RUN`](https://docs.docker.com/engine/reference/builder/#run) block. 
+
+::: warning
+The dependencie `iproute2` is required in every docker container to make the ip command work
+:::
 
 ## Files In The Docker Image
 ::: warning
@@ -125,7 +129,19 @@ printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0m%s\n" "$PARSED"
 exec env ${PARSED}
 ```
 
-The second command, `cd /home/container`, simply ensures we are in the correct directory when running the rest of the
+First we set the timezone.
+```bash
+TZ=${TZ:-UTC}
+export TZ
+```
+
+Then we make the internal ip avaible in the docker container.
+```bash
+INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
+export INTERNAL_IP
+```
+
+The third command, `cd /home/container`, simply ensures we are in the correct directory when running the rest of the
 commands. We then follow that up with `java -version` to output this information to end-users, but that is not necessary.
 
 ## Modifying the Startup Command
