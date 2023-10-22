@@ -22,7 +22,7 @@ most cases your base Wings version should match that of your Panel.
 | 1.8.x         | 1.6.x         |           | 7.4, 8.0, 8.1                 |
 | 1.9.x         | 1.6.x         |           | 7.4, 8.0, 8.1                 |
 | 1.10.x        | 1.7.x         |           | 7.4, 8.0, 8.1                 |
-| **1.11.x**    | **1.11.x**    | ✅        |8.1                            |
+| **1.11.x**    | **1.11.x**    | ✅        | **8.1**                       |
 
 _NOTE: There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings._
 
@@ -32,7 +32,7 @@ _NOTE: There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings._
 - Composer `2.X`
 
 ::: danger PHP 7.4
-Support for PHP 7.4 has been removed with the release of 1.11.0. Please upgrade to PHP 8.1
+Support for PHP 7.4 & 8.0 has been removed with the release of 1.11.4. Please upgrade to PHP 8.1
 :::
 
 ::: warning Future PHP Version Changes
