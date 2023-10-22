@@ -151,7 +151,7 @@ is parsing the environment `STARTUP` that is passed into the container by the Da
 looks something like the example below:
 
 ```bash
-STARTUP="java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}"
+STARTUP="java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}"
 ```
 
 ::: v-pre
@@ -176,13 +176,13 @@ curly braces `{{EXAMPLE}}` with a matching environment variable (such as `EXAMPL
 :::
 
 ```bash
-java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar {{SERVER_JARFILE}}
+java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}
 ```
 
 Becomes:
 
 ```bash
-java -Xms128M -XX:MaxRAMPercentage=95.0 -Dterminal.jline=false -Dterminal.ansi=true -jar server.jar
+java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}} server.jar
 ```
 
 ## Run the Command
