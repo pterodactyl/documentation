@@ -13,7 +13,7 @@ reading up if this all looks foreign to you.
 The most important part of this process is to create the [`Dockerfile`](https://docs.docker.com/engine/reference/builder/)
 that will be used by the Daemon. Due to heavy restrictions on server containers, you must setup this file in a specific manner.
 
-In most images we try to use a [Debian based OS](https://www.debian.org) as much as possible for our images.
+We try to use a [Debian based OS](https://www.debian.org) as much as possible for our images
 
 ```bash
 FROM        --platform=$TARGETOS/$TARGETARCH eclipse-temurin:17-jdk-jammy
@@ -52,12 +52,12 @@ specific flags `-y` as the docker build is non interactive, as well as everythin
 single [`RUN`](https://docs.docker.com/engine/reference/builder/#run) block. 
 
 ::: warning
-The dependencie `iproute2` is required in every docker container to make the ip command work
+The dependency `iproute2` is required in every docker container to make the ip command work
 :::
 
 ## Files In The Docker Image
 ::: warning
-Because the way that Pterodactyl works no files can be placed in the docker container in `/home/container`.
+Because the way that Pterodactyl works, no files can be placed in the docker container in `/home/container`.
 :::
 
 All files must be downloaded with the egg install script, this means for example that you can not put your bot files or minecraft server jar can not be put in the image as you can with regular docker images

@@ -38,16 +38,16 @@ Please be aware of how the pterodactyl install proces works!
 
 ```
 1. Spin up install container
-    Creates a new container using an install image that's run as root.
+    Creates a new container using an install image which runs as root.
     Uses a volume mount on `/mnt/server` for the server files, which is the working directory during installation.
     The volume will be later mounted as `/home/container` for the server container. Any files outside of `/mnt/server` will be gone after installation.
-    Install script can pull files or set up all that is needed to run the server, such as writing files, directories or compiling apps.
-    It is regularly used to just download the files required. Such as server files and configs.
+    The installation script can set up everything that's required to run the server, such as writing files, creating directories, or compiling apps."
+    It is regularly used to just download the files required, such as server files and configs.
     
 2. Stop and destroy install container
 
 3. Start a new container with the server files in /home/container
-    This is where the server is actually run. No root privileges.
+    This is where the server is is actually ran, without root privileges.
     Any dependencies installed during the install process are gone.
     The container that is started should have everything you need.
     No packages can be installed. Any required dependencies must exist in the used Docker image.
@@ -161,7 +161,7 @@ The file parser  the whole line that you are trying to edit. For example:
 }
 ```
 
-The `"` on the right side are escaped with a `\` because else they would brake the json syntax for the parser.
+The `"` on the right side are escaped with a `\` because else they would break the json syntax for the parser.
 
 ### Start Configuration
 The last block to configure is the `Start Configuration` for servers running using this service option.
