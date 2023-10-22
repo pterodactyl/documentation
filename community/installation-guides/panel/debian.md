@@ -31,7 +31,7 @@ echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://pack
 apt update -y
 
 # Install PHP and required extensions
-apt install -y php8.1 php8.1-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
+apt install -y php8.2 php8.2-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip}
 
 # MariaDB repo setup script
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
