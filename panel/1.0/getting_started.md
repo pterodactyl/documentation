@@ -28,7 +28,20 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | **Ubuntu**       | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
 |                  | 22.04   | :white_check_mark: |     MariaDB can be installed without the repo setup script. |
 | **CentOS**       | 7       | :white_check_mark: | Extra repos are required.                                   |
-|                  | 8       | :white_check_mark: | Note that CentOS 8 is EOL. Use Rocky or Alma Linux.         |
+| **Rocky Linux**  | 8       | :white_check_mark: | Extra repos are required.                                   |
+|                  | 9       | :white_check_mark: |                                                             |
+| **AlmaLinux**    | 8       | :white_check_mark: | Extra repos are required.                                   |
+|                  | 9       | :white_check_mark: |                                                             |
+| **Debian**       | 11      | :white_check_mark: |                                                             |
+|                  | 12      | :white_check_mark: |                                                             |
+
+| Operating System | Version |     Supported      | Notes                                                       |
+|------------------|---------|:------------------:|-------------------------------------------------------------|
+| **Ubuntu**       | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
+|                  | 22.04   | :white_check_mark: |     MariaDB can be installed without the repo setup script. |
+| **RHEL**         | 7       | :white_check_mark: | CentOS. Extra repos are required.                           |
+|                  | 8       | :white_check_mark: | Rocky Linux and AlmaLinux. Extra repos are required.        |
+|                  | 9       | :white_check_mark: | Rocky Linux and AlmaLinux. Extra repos are required.        |
 | **Debian**       | 11      | :white_check_mark: |                                                             |
 |                  | 12      | :white_check_mark: |                                                             |
 
