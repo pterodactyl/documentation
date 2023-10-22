@@ -182,7 +182,7 @@ java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}
 Becomes:
 
 ```bash
-java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}} server.jar
+java -Xms128M -XX:MaxRAMPercentage=95.0 -jar server.jar
 ```
 
 ## Run the Command
