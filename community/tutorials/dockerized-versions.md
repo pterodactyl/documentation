@@ -26,7 +26,7 @@ docker-compose exec panel php artisan p:user:make
 ## Environment Variables
 There are multiple environment variables to configure the panel when not providing your own `.env` file, see the following table for details on each available option.
 
-Note: If your `APP_URL` starts with `https://` you need to provide an `LE_EMAIL` as well so Certificates can be generated.
+::: warning If your `APP_URL` starts with `https://` you need to provide an `LE_EMAIL` as well so certificates can be generated. :::
 
 | Variable            | Description                                                                    | Required |
 | ------------------- | ------------------------------------------------------------------------------ | -------- |
@@ -78,6 +78,8 @@ Every driver requires `MAIL_FROM` to be set.
 
 ## Requirements
 The docker image doesn't require any additional software to function. See the [docker-compose.yml](https://github.com/pterodactyl/wings/blob/develop/docker-compose.example.yml) as an example) or as existing instances.
+
+::: warning If your panel uses SSL your wings need to use SSL as well. Make sure you generated and provided the needed certificates in that case. :::
 
 ## Environment Variables
 There are some environment variables to configure wings, see the following table for details on each available option.
