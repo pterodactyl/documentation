@@ -1,3 +1,4 @@
+# Dockerized versions
 [[toc]]
 
 ::: warning
@@ -5,10 +6,10 @@ To use the dockerized versions of Pterodactyl you need to install Docker!
 For a quick start you can run `curl -sSL https://get.docker.com/ | CHANNEL=stable bash`. For more information refer to the official [Docker documentation](https://docs.docker.com/engine/install/).
 :::
 
-# Panel Image
+## Panel Image
 `ghcr.io/pterodactyl/panel` is a ready to use docker image for the panel.
 
-## Requirements
+### Requirements
 The docker image requires some additional software to function. The software can either be provided in other containers (see the [docker-compose.yml](https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml) as an example) or as existing instances.
 
 A mysql database is required. We recommend the stock [MariaDB Image](https://hub.docker.com/_/mariadb/) image if you prefer to run it in a docker container. As a non-containerized option we recommend mariadb.
@@ -18,15 +19,14 @@ A caching software is required as well. We recommend the stock [Redis Image](htt
 You can provide additional settings using a custom `.env` file or by setting the appropriate environment variables in the docker-compose file.
 If using the docker-compose file the location of a custom `.env` file would be `/srv/pterodactyl/var/.env`. 
 
-## Setup
+### Setup
 Start the docker container and the required dependencies (either provide existing ones or start containers as well, see the [docker-compose.yml](https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml) file as an example).
 ```bash
-## If you are using docker compose
+# If you are using docker compose
 wget -O docker-compose.yml https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml
 docker-compose up -d
 
-## If you are running the docker container without docker compose
-# Start the containers of the dependencies
+# If you are running the docker container without docker compose
 docker create -it --name panel ghcr.io/pterodactyl/panel
 ```
 
@@ -39,7 +39,7 @@ docker-compose exec panel php artisan p:user:make
 docker exec -it panel php artisan p:user:make
 ```
 
-## Environment Variables
+### Environment Variables
 There are multiple environment variables to configure the panel when not providing your own `.env` file, see the following table for details on each available option.
 
 ::: warning If your `APP_URL` starts with `https://` you need to provide an `LE_EMAIL` as well so certificates can be generated. :::
@@ -71,7 +71,7 @@ There are multiple environment variables to configure the panel when not providi
 | `MAIL_USERNAME`      | The username for your mail driver                                              | maybe    |
 | `MAIL_PASSWORD`      | The password for your mail driver                                              | maybe    |
 
-### Cache drivers
+#### Cache drivers
 You can choose between different cache drivers depending on what you prefer.
 We recommend `redis` when using docker as it can be started in a container easily.
 
@@ -82,7 +82,7 @@ We recommend `redis` when using docker as it can be started in a container easil
 | memcached | [Memcached](https://memcached.org/) | `MEMCACHED_HOST`, `MEMCACHED_PORT`, `MEMCACHED_USERNAME`, `MEMCACHED_PASSWORD` |
 | file      | Filesystem                          |                                                                                |
 
-### Session drivers
+#### Session drivers
 You can choose between different session drivers depending on what you prefer.
 We recommend `redis` when using docker as it can be started in a container easily.
 
@@ -94,7 +94,7 @@ We recommend `redis` when using docker as it can be started in a container easil
 | file      | Filesystem                          |                                                                                |
 | cookie    | Cookies                             |                                                                                |
 
-### Queue drivers
+#### Queue drivers
 You can choose between different queue drivers depending on what you prefer.
 We recommend `redis` when using docker as it can be started in a container easily.
 
@@ -104,7 +104,7 @@ We recommend `redis` when using docker as it can be started in a container easil
 | database  | MySQL database                      | `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` |
 | sync      | Run tasks synchronously             |                                                                   |
 
-### Mail drivers
+#### Mail drivers
 You can choose between different mail drivers according to your needs.
 Every driver requires `MAIL_FROM` to be set.
 
@@ -115,26 +115,26 @@ Every driver requires `MAIL_FROM` to be set.
 | mailgun  | [Mailgun](https://www.mailgun.com/)  | `MAIL_USERNAME`, `MAIL_HOST`                                  |
 | smtp     | Any SMTP server can be configured    | `MAIL_USERNAME`, `MAIL_HOST`, `MAIL_PASSWORD`, `MAIL_PORT`    |
 
-# Wings Image
+## Wings Image
 `ghcr.io/pterodactyl/wings` is a ready to use docker image for wings.
 
-## Requirements
+### Requirements
 The docker image doesn't require any additional software to function. See the [docker-compose.yml](https://github.com/pterodactyl/wings/blob/develop/docker-compose.example.yml) as an example.
 
 ::: warning If your panel uses SSL your wings need to use SSL as well. Make sure you generated and provided the needed certificates in that case. :::
 
-## Setup
+### Setup
 Start the docker container.
 ```bash
-## If you are using docker compose
+# If you are using docker compose
 wget -O docker-compose.yml https://github.com/pterodactyl/wings/blob/develop/docker-compose.example.yml
 docker-compose up -d
 
-## If you are running the docker container without docker compose
+# If you are running the docker container without docker compose
 docker create -it --name wings ghcr.io/pterodactyl/wings
 ```
 
-## Environment Variables
+### Environment Variables
 There are some environment variables to configure wings, see the following table for details on each available option.
 
 | Variable            | Description                                                                    | Required |
