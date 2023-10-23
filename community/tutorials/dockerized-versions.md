@@ -1,3 +1,5 @@
+[[toc]]
+
 ::: warning
 To use the dockerized versions of Pterodactyl you need to install Docker!
 For a quick start you can run `curl -sSL https://get.docker.com/ | CHANNEL=stable bash`. For more information refer to the official [Docker documentation](https://docs.docker.com/engine/install/).
