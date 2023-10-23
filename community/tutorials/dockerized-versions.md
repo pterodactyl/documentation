@@ -86,7 +86,7 @@ We recommend `redis` when using docker as it can be started in a container easil
 You can choose between different session drivers depending on what you prefer.
 We recommend `redis` when using docker as it can be started in a container easily.
 
-| Driver    | Description                          | Required variables                                                            |
+| Driver    | Description                         | Required variables                                                             |
 | --------- | ----------------------------------- | ------------------------------------------------------------------------------ |
 | redis     | [Redis](https://redis.io/)          | `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`                                   |
 | database  | MySQL database                      | `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`              |
@@ -98,7 +98,7 @@ We recommend `redis` when using docker as it can be started in a container easil
 You can choose between different queue drivers depending on what you prefer.
 We recommend `redis` when using docker as it can be started in a container easily.
 
-| Driver    | Description                          | Required variables                                               |
+| Driver    | Description                         | Required variables                                                |
 | --------- | ----------------------------------- | ----------------------------------------------------------------- |
 | redis     | [Redis](https://redis.io/)          | `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`                      |
 | database  | MySQL database                      | `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` |
@@ -127,7 +127,7 @@ The docker image doesn't require any additional software to function. See the [d
 Start the docker container.
 ```bash
 ## If you are using docker compose
-wget -O docker-compose.yml https://github.com/pterodactyl/wings/blob/evelop/docker-compose.example.yml
+wget -O docker-compose.yml https://github.com/pterodactyl/wings/blob/develop/docker-compose.example.yml
 docker-compose up -d
 
 ## If you are running the docker container without docker compose
