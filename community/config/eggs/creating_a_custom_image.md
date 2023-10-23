@@ -60,7 +60,7 @@ The dependency `iproute2` is required in every docker container to make the ip c
 Because the way that Pterodactyl works, it is not possible to store any files within the Docker image at `/home/container`.
 :::
 
-All files must be downloaded with the egg install script, this means for example that you can not put your bot files or minecraft server jars in the Docker image as you can with regular docker images
+All files must be downloaded with the egg install script, this means for example that you can not put your bot files or minecraft server jars in the Docker image as you can with regular docker images.
 
 ## Creating a Container User
 
