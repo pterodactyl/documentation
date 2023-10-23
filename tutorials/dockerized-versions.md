@@ -23,7 +23,7 @@ If using the docker-compose file the location of a custom `.env` file would be `
 Start the docker container and the required dependencies (either provide existing ones or start containers as well, see the [docker-compose.yml](https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml) file as an example).
 ```bash
 # If you are using docker compose
-wget -O docker-compose.yml https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml
+wget -O docker-compose.yml https://raw.githubusercontent.com/pterodactyl/panel/1.0-develop/docker-compose.example.yml
 docker-compose up -d
 
 # If you are running the docker container without docker compose
@@ -127,7 +127,7 @@ The docker image doesn't require any additional software to function. See the [d
 Start the docker container.
 ```bash
 # If you are using docker compose
-wget -O docker-compose.yml https://github.com/pterodactyl/wings/blob/develop/docker-compose.example.yml
+wget -O docker-compose.yml https://raw.githubusercontent.com/pterodactyl/wings/develop/docker-compose.example.yml
 docker-compose up -d
 
 # If you are running the docker container without docker compose
