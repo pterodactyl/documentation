@@ -28,39 +28,65 @@ There are multiple environment variables to configure the panel when not providi
 
 ::: warning If your `APP_URL` starts with `https://` you need to provide an `LE_EMAIL` as well so certificates can be generated. :::
 
-| Variable            | Description                                                                    | Required |
-| ------------------- | ------------------------------------------------------------------------------ | -------- |
-| `APP_URL`           | The URL the panel will be reachable with (including protocol)                  | yes      |
-| `APP_TIMEZONE`      | The timezone to use for the panel                                              | yes      |
-| `LE_EMAIL`          | The email used for letsencrypt certificate generation                          | yes      |
-| `DB_HOST`           | The host of the mysql instance                                                 | yes      |
-| `DB_PORT`           | The port of the mysql instance                                                 | yes      |
-| `DB_DATABASE`       | The name of the mysql database                                                 | yes      |
-| `DB_USERNAME`       | The mysql user                                                                 | yes      |
-| `DB_PASSWORD`       | The mysql password for the specified user                                      | yes      |
-| `CACHE_DRIVER`      | The cache driver        (see [Cache drivers](#cache-drivers) for detais)       | yes      |
-| `SESSION_DRIVER`    |                                                                                | yes      |
-| `QUEUE_DRIVER`      |                                                                                | yes      |
-| `REDIS_HOST`        | The hostname or IP address of the redis database                               | yes      |
-| `REDIS_PASSWORD`    | The password used to secure the redis database                                 | maybe    |
-| `REDIS_PORT`        | The port the redis database is using on the host                               | maybe    |
-| `MAIL_DRIVER`       | The email driver (see [Mail drivers](#mail-drivers) for details)               | yes      |
-| `MAIL_FROM`         | The email that should be used as the sender email                              | yes      |
-| `MAIL_HOST`         | The host of your mail driver instance                                          | maybe    |
-| `MAIL_PORT`         | The port of your mail driver instance                                          | maybe    |
-| `MAIL_USERNAME`     | The username for your mail driver                                              | maybe    |
-| `MAIL_PASSWORD`     | The password for your mail driver                                              | maybe    |
-
+| Variable             | Description                                                                    | Required |
+| -------------------- | ------------------------------------------------------------------------------ | -------- |
+| `APP_URL`            | The URL the panel will be reachable with (including protocol)                  | yes      |
+| `APP_TIMEZONE`       | The timezone to use for the panel                                              | yes      |
+| `LE_EMAIL`           | The email used for letsencrypt certificate generation                          | maybe    |
+| `DB_HOST`            | The host of the mysql instance                                                 | yes      |
+| `DB_PORT`            | The port of the mysql instance                                                 | yes      |
+| `DB_DATABASE`        | The name of the mysql database                                                 | yes      |
+| `DB_USERNAME`        | The mysql user                                                                 | yes      |
+| `DB_PASSWORD`        | The mysql password for the specified user                                      | yes      |
+| `CACHE_DRIVER`       | The cache driver        (see [Cache drivers](#cache-drivers) for detais)       | yes      |
+| `SESSION_DRIVER`     | The session driver      (see [Session drivers](#session-drivers) for detais)   | yes      |
+| `QUEUE_DRIVER`       | The queue driver        (see [Queue drivers](#queue-drivers) for detais)       | yes      |
+| `REDIS_HOST`         | The hostname or IP address of the redis database                               | maybe    |
+| `REDIS_PORT`         | The port the redis database is using on the host                               | maybe    |
+| `REDIS_PASSWORD`     | The password used to secure the redis database                                 | maybe    |
+| `MEMCACHED_HOST`     | The hostname or IP address of memcached                                        | maybe    |
+| `MEMCACHED_PORT`     | The port of memcached                                                          | maybe    |
+| `MEMCACHED_USERNAME` | The memcached user                                                             | maybe    |
+| `MEMCACHED_PASSWORD` | The memcached password for the specified user                                  | maybe    |
+| `MAIL_DRIVER`        | The email driver (see [Mail drivers](#mail-drivers) for details)               | yes      |
+| `MAIL_FROM`          | The email that should be used as the sender email                              | yes      |
+| `MAIL_HOST`          | The host of your mail driver instance                                          | maybe    |
+| `MAIL_PORT`          | The port of your mail driver instance                                          | maybe    |
+| `MAIL_USERNAME`      | The username for your mail driver                                              | maybe    |
+| `MAIL_PASSWORD`      | The password for your mail driver                                              | maybe    |
 
 ### Cache drivers
 You can choose between different cache drivers depending on what you prefer.
-We recommend redis when using docker as it can be started in a container easily.
+We recommend `redis` when using docker as it can be started in a container easily.
 
-| Driver   | Description                          | Required variables                                     |
-| -------- | ------------------------------------ | ------------------------------------------------------ |
-| redis    | host where redis is running          | `REDIS_HOST`                                           |
-| redis    | port redis is running on             | `REDIS_PORT`                                           |
-| redis    | redis database password              | `REDIS_PASSWORD`                                       |
+| Driver    | Description                         | Required variables                                                             |
+| --------- | ----------------------------------- | ------------------------------------------------------------------------------ |
+| redis     | [Redis](https://redis.io/)          | `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`                                   |
+| database  | MySQL database                      | `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`              |
+| memcached | [Memcached](https://memcached.org/) | `MEMCACHED_HOST`, `MEMCACHED_PORT`, `MEMCACHED_USERNAME`, `MEMCACHED_PASSWORD` |
+| file      | Filesystem                          |                                                                                |
+
+### Session drivers
+You can choose between different session drivers depending on what you prefer.
+We recommend `redis` when using docker as it can be started in a container easily.
+
+| Driver    | Description                          | Required variables                                                            |
+| --------- | ----------------------------------- | ------------------------------------------------------------------------------ |
+| redis     | [Redis](https://redis.io/)          | `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`                                   |
+| database  | MySQL database                      | `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`              |
+| memcached | [Memcached](https://memcached.org/) | `MEMCACHED_HOST`, `MEMCACHED_PORT`, `MEMCACHED_USERNAME`, `MEMCACHED_PASSWORD` |
+| file      | Filesystem                          |                                                                                |
+| cookie    | Cookies                             |                                                                                |
+
+### Queue drivers
+You can choose between different queue drivers depending on what you prefer.
+We recommend `redis` when using docker as it can be started in a container easily.
+
+| Driver    | Description                          | Required variables                                               |
+| --------- | ----------------------------------- | ----------------------------------------------------------------- |
+| redis     | [Redis](https://redis.io/)          | `REDIS_HOST`, `REDIS_PORT`, `REDIS_PASSWORD`                      |
+| database  | MySQL database                      | `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` |
+| sync      | Run tasks synchronously             |                                                                   |
 
 ### Mail drivers
 You can choose between different mail drivers according to your needs.
@@ -77,7 +103,7 @@ Every driver requires `MAIL_FROM` to be set.
 `ghcr.io/pterodactyl/wings` is a ready to use docker image for wings.
 
 ## Requirements
-The docker image doesn't require any additional software to function. See the [docker-compose.yml](https://github.com/pterodactyl/wings/blob/develop/docker-compose.example.yml) as an example) or as existing instances.
+The docker image doesn't require any additional software to function. See the [docker-compose.yml](https://github.com/pterodactyl/wings/blob/develop/docker-compose.example.yml) as an example.
 
 ::: warning If your panel uses SSL your wings need to use SSL as well. Make sure you generated and provided the needed certificates in that case. :::
 
