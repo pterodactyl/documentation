@@ -1,4 +1,4 @@
-# Pterodactyl Panel - Docker Image
+# Panel Image
 `ghcr.io/pterodactyl/panel` is a ready to use docker image for the panel.
 
 ## Requirements
@@ -11,7 +11,6 @@ A caching software is required as well. We recommend the stock [Redis Image](htt
 You can provide additional settings using a custom `.env` file or by setting the appropriate environment variables in the docker-compose file.
 
 ## Setup
-
 Start the docker container and the required dependencies (either provide existing ones or start containers as well, see the [docker-compose.yml](https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml) file as an example.
 
 After the startup is complete you'll need to create a user.
@@ -69,8 +68,23 @@ Every driver requires `MAIL_FROM` to be set.
 
 | Driver   | Description                          | Required variables                                            |
 | -------- | ------------------------------------ | ------------------------------------------------------------- |
-| mail     | uses the installed php mail          |                                                               |
 | mandrill | [Mandrill](http://www.mandrill.com/) | `MAIL_USERNAME`                                               |
 | postmark | [Postmark](https://postmarkapp.com/) | `MAIL_USERNAME`                                               |
 | mailgun  | [Mailgun](https://www.mailgun.com/)  | `MAIL_USERNAME`, `MAIL_HOST`                                  |
 | smtp     | Any SMTP server can be configured    | `MAIL_USERNAME`, `MAIL_HOST`, `MAIL_PASSWORD`, `MAIL_PORT`    |
+
+# Wings Image
+`ghcr.io/pterodactyl/wings` is a ready to use docker image for wings.
+
+## Requirements
+The docker image doesn't require any additional software to function. See the [docker-compose.yml](https://github.com/pterodactyl/wings/blob/develop/docker-compose.example.yml) as an example) or as existing instances.
+
+## Environment Variables
+There are some environment variables to configure wings, see the following table for details on each available option.
+
+| Variable            | Description                                                                    | Required |
+| ------------------- | ------------------------------------------------------------------------------ | -------- |
+| `TZ`                | The timezone to use for wings                                                  | yes      |
+| `WINGS_UID`         | The UID of the wings user                                                      | yes      |
+| `WINGS_GID`         | The GID of the wings user                                                      | yes      |
+| `WINGS_USERNAME`    | The username of the wings user                                                 | yes      |
