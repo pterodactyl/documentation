@@ -31,7 +31,7 @@ _NOTE: There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings._
 - PHP `8.1`
 - Composer `2.X`
 
-::: danger PHP 7.4
+::: danger PHP 7.4 & 8.0
 Support for PHP 7.4 & 8.0 has been removed with the release of 1.11.4. Please upgrade to PHP 8.1
 :::
 
