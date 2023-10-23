@@ -1,3 +1,8 @@
+::: warning
+To use the dockerized versions of Pterodactyl you need to install Docker!
+For a quick start you can run `curl -sSL https://get.docker.com/ | CHANNEL=stable bash`. For more information refer to the official [Docker documentation](https://docs.docker.com/engine/install/).
+:::
+
 # Panel Image
 `ghcr.io/pterodactyl/panel` is a ready to use docker image for the panel.
 
@@ -9,18 +14,27 @@ A mysql database is required. We recommend the stock [MariaDB Image](https://hub
 A caching software is required as well. We recommend the stock [Redis Image](https://hub.docker.com/_/redis/) image. You can choose any of the [supported options](#cache-drivers).
 
 You can provide additional settings using a custom `.env` file or by setting the appropriate environment variables in the docker-compose file.
+If using the docker-compose file the location of a custom `.env` file would be `/srv/pterodactyl/var/.env`. 
 
 ## Setup
-Start the docker container and the required dependencies (either provide existing ones or start containers as well, see the [docker-compose.yml](https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml) file as an example.
+Start the docker container and the required dependencies (either provide existing ones or start containers as well, see the [docker-compose.yml](https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml) file as an example).
+```bash
+## If you are using docker compose
+wget -O docker-compose.yml https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml
+docker-compose up -d
 
-After the startup is complete you'll need to create a user.
-If you are running the docker container without docker-compose, use:
+## If you are running the docker container without docker compose
+# Start the containers of the dependencies
+docker create -it --name panel ghcr.io/pterodactyl/panel
 ```
-docker exec -it <container id> php artisan p:user:make
-```
-If you are using docker compose use
-```
+
+After the startup is complete you'll need to create a panel user.
+```bash
+# If you are using docker compose
 docker-compose exec panel php artisan p:user:make
+
+# If you are running the docker container without docker compose
+docker exec -it panel php artisan p:user:make
 ```
 
 ## Environment Variables
@@ -31,7 +45,7 @@ There are multiple environment variables to configure the panel when not providi
 | Variable             | Description                                                                    | Required |
 | -------------------- | ------------------------------------------------------------------------------ | -------- |
 | `APP_URL`            | The URL the panel will be reachable with (including protocol)                  | yes      |
-| `APP_TIMEZONE`       | The timezone to use for the panel                                              | yes      |
+| `APP_TIMEZONE`       | The [timezone](http://php.net/manual/en/timezones.php) to use for the panel    | yes      |
 | `LE_EMAIL`           | The email used for letsencrypt certificate generation                          | maybe    |
 | `DB_HOST`            | The host of the mysql instance                                                 | yes      |
 | `DB_PORT`            | The port of the mysql instance                                                 | yes      |
@@ -106,6 +120,17 @@ Every driver requires `MAIL_FROM` to be set.
 The docker image doesn't require any additional software to function. See the [docker-compose.yml](https://github.com/pterodactyl/wings/blob/develop/docker-compose.example.yml) as an example.
 
 ::: warning If your panel uses SSL your wings need to use SSL as well. Make sure you generated and provided the needed certificates in that case. :::
+
+## Setup
+Start the docker container.
+```bash
+## If you are using docker compose
+wget -O docker-compose.yml https://github.com/pterodactyl/wings/blob/evelop/docker-compose.example.yml
+docker-compose up -d
+
+## If you are running the docker container without docker compose
+docker create -it --name wings ghcr.io/pterodactyl/wings
+```
 
 ## Environment Variables
 There are some environment variables to configure wings, see the following table for details on each available option.
