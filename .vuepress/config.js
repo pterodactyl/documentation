@@ -107,7 +107,6 @@ module.exports = {
                     children: [
                         '/community/config/nodes/add_node.md',
                         '/community/tutorials/artisan.md',
-                        '/community/tutorials/dockerized-versions.md',
                     ],
                 },
                 {
@@ -176,6 +175,7 @@ module.exports = {
                     children: [
                         '/tutorials/mysql_setup.md',
                         '/tutorials/creating_ssl_certificates.md',
+                        '/tutorials/dockerized-versions.md',
                     ],
                 },
                 {
