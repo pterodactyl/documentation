@@ -6,7 +6,7 @@
     }
 }
 
-http://<domain> {
+<domain>:80 {
     root * /var/www/pterodactyl/public
 
     file_server

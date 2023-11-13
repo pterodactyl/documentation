@@ -141,7 +141,7 @@ You should paste the contents of the file bellow, replacing `<domain>` with your
 
 The default config path is `/etc/caddy/Caddyfile`.
 
-The only two differences are that we have prefixed the `<domain>` with `http://` (or you can use `:80` suffix behind the `<domain>`) and in the global config at `servers` directive, we have changed the port from `:443` to `:80`.
+The only two differences are that we have suffixed the `<domain>` with `:80` and in the global config at `servers` directive, we have changed the port from `:443` to `:80`.
 
 <<< @/.snippets/webservers/Caddyfile-nossl{2,9}
 
