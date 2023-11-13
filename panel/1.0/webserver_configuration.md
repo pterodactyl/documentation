@@ -128,11 +128,9 @@ If you are using Cloudflare DNS in proxy mode, refer to [this tutorial](/tutoria
 
 ### Enabling Configuration
 
-The final step is to validate configuration and restart Caddy.
+The final step is to restart Caddy.
 
 ```bash
-caddy validate --config /etc/caddy/Caddyfile
-
 systemctl restart caddy
 ```
 
@@ -149,11 +147,9 @@ The only two differences are that we have prefixed the `<domain>` with `http://`
 
 ### Enabling Configuration
 
-The final step is to validate configuration and restart Caddy.
+The final step is to restart Caddy.
 
 ```bash
-caddy validate --config /etc/caddy/Caddyfile
-
 systemctl restart caddy
 ```
 
