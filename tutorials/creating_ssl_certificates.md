@@ -149,9 +149,9 @@ Caddy does not come by default with Cloudflare DNS plugin, you need to install i
 
 There are two main methods:
 
-1. using `xcaddy` - CLI tool to build your own Caddy build
-2. downloading prebuilt binary from [Caddy's download page](https://caddyserver.com/download).
-3. using Ansible to download and install Caddy with plugins. See [caddy-ansible](https://github.com/caddy-ansible/caddy-ansible)
+1. Using `xcaddy` - CLI tool to build your own Caddy build
+2. Downloading prebuilt binary from [Caddy's download page](https://caddyserver.com/download).
+3. Using Ansible to download and install Caddy with plugins. See [caddy-ansible](https://github.com/caddy-ansible/caddy-ansible)
 
 #### Build Caddy using `xcaddy` on your server
 
