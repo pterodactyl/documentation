@@ -39,18 +39,10 @@ http://<domain> {
     respond /.ht* 403
 
     log {
-        output file /var/log/caddy/pterodactyl.app-access.log {
+        output file /var/log/caddy/pterodactyl.log {
             roll_size 100MiB
             roll_keep_for 7d
         }
         level INFO
-    }
-
-    log {
-        output file /var/log/caddy/pterodcatyl.app-error.log {
-            roll_size 100MiB
-            roll_keep_for 7d
-        }
-        level ERROR
     }
 }
