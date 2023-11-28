@@ -118,7 +118,15 @@ sudo systemctl restart apache2
 
 You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
 
-The default config path is `/etc/caddy/Caddyfile`.
+Before adding our custom configuration, let's remove the default one. You can do it either by deleting the contents of config file or by deleting the config file completely and than creating a new one from scratch. The config file path is `/etc/caddy/Caddyfile`.
+
+To delete the config file completely, run the following command:
+
+```shell
+rm /etc/caddy/Caddyfile
+```
+
+Than continue with an editor of your choice to write the config.
 
 <<< @/.snippets/webservers/Caddyfile{9}
 
@@ -139,7 +147,15 @@ systemctl restart caddy
 
 You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
 
-The default config path is `/etc/caddy/Caddyfile`.
+Before adding our custom configuration, let's remove the default one. You can do it either by deleting the contents of config file or by deleting the config file completely and than creating a new one from scratch. The config file path is `/etc/caddy/Caddyfile`.
+
+To delete the config file completely, run the following command:
+
+```shell
+rm /etc/caddy/Caddyfile
+```
+
+Than continue with an editor of your choice to write the config.
 
 The only two differences are that we have suffixed the `<domain>` with `:80` and in the global config at `servers` directive, we have changed the port from `:443` to `:80`.
 
