@@ -8,8 +8,8 @@ When using the SSL configuration you MUST create SSL certificates, otherwise you
 If you are using [Caddy With Automatic SSL](#caddy-with-automatic-ssl), you do not have to create SSL certificates manually, Caddy will take care of it automatically.
 :::
 
-:::: tabs
-::: tab "Nginx With SSL"
+::::: tabs
+:::: tab "Nginx With SSL"
 First, remove the default NGINX configuration.
 
 ``` bash
@@ -33,8 +33,8 @@ sudo ln -s /etc/nginx/sites-available/pterodactyl.conf /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 ```
 
-:::
-::: tab "Nginx Without SSL"
+::::
+:::: tab "Nginx Without SSL"
 First, remove the default NGINX configuration.
 
 ``` bash
@@ -58,8 +58,8 @@ sudo ln -s /etc/nginx/sites-available/pterodactyl.conf /etc/nginx/sites-enabled/
 sudo systemctl restart nginx
 ```
 
-:::
-::: tab "Apache With SSL"
+::::
+:::: tab "Apache With SSL"
 First, remove the default Apache configuration.
 
 ``` bash
@@ -86,8 +86,8 @@ sudo a2enmod ssl
 sudo systemctl restart apache2
 ```
 
-:::
-::: tab "Apache Without SSL"
+::::
+:::: tab "Apache Without SSL"
 First, remove the default Apache configuration.
 
 ``` bash
@@ -113,8 +113,8 @@ sudo a2enmod rewrite
 sudo systemctl restart apache2
 ```
 
-:::
-::: tab "Caddy With Automatic SSL"
+::::
+:::: tab "Caddy With Automatic SSL"
 
 You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
 
@@ -142,8 +142,8 @@ The final step is to restart Caddy.
 systemctl restart caddy
 ```
 
-:::
-::: tab "Caddy Without SSL"
+::::
+:::: tab "Caddy Without SSL"
 
 You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
 
@@ -169,7 +169,7 @@ The final step is to restart Caddy.
 systemctl restart caddy
 ```
 
-:::
 ::::
+:::::
 
 #### Next Step: [Wings Installation](../../wings/installing.md)
