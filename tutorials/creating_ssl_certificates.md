@@ -167,8 +167,9 @@ After install Caddy with Cloudflare DNS plugin, we need to fetch a Cloudflare AP
 
 Create an environment variable file (like `.env`), keep in mind that this file contains secrets and should not be accessed by public.
 
+We recommend that you create the secret file in the following location: `/etc/caddy/.secrets.env`.
+
 ```bash
-# /etc/caddy/.secrets.env
 CLOUDFLARE_API_TOKEN=<your cloudflare api token>
 ```
 
@@ -182,10 +183,9 @@ chown caddy:caddy /etc/caddy/.secrets.env
 chmod 0600 /etc/caddy/.secrets.env
 ```
 
-Modify the systemd unit file, to load environment variables from file (add `--envfile /etc/caddy/.secrets.env` flag to `ExecStart`):
+Modify the systemd unit file, to load environment variables from file (add `--envfile /etc/caddy/.secrets.env` flag to `ExecStart`), the default systemd unit file location is `/etc/systemd/system/caddy.service`:
 
 ```unit{12}
-# /etc/systemd/system/caddy.service
 [Unit]
 Description=Caddy
 Documentation=https://caddyserver.com/docs/
@@ -209,10 +209,9 @@ AmbientCapabilities=CAP_NET_BIND_SERVICE
 WantedBy=multi-user.target
 ```
 
-You can add a `tls` block to your `Caddyfile`, under the `<domain>` block of your panel configuration:
+You can add a `tls` block to your `Caddyfile`, under the `<domain>` block of your panel configuration, the Caddy config file location is `/etc/caddy/Caddyfile`:
 
 ```caddyfile{5-7}
-# /etc/caddy/Caddyfile
 <domain> {
   # ...
 
