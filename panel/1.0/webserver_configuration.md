@@ -116,8 +116,6 @@ sudo systemctl restart apache2
 ::::
 :::: tab "Caddy With Automatic SSL"
 
-You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
-
 Before adding our custom configuration, let's remove the default one. You can do it either by deleting the contents of config file or by deleting the config file completely and than creating a new one from scratch. The config file path is `/etc/caddy/Caddyfile`.
 
 To delete the config file completely, run the following command:
@@ -127,6 +125,8 @@ rm /etc/caddy/Caddyfile
 ```
 
 Then continue with an editor of your choice to write the config.
+
+You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
 
 <<< @/.snippets/webservers/Caddyfile{9}
 
@@ -145,8 +145,6 @@ systemctl restart caddy
 ::::
 :::: tab "Caddy Without SSL"
 
-You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
-
 Before adding our custom configuration, let's remove the default one. You can do it either by deleting the contents of config file or by deleting the config file completely and than creating a new one from scratch. The config file path is `/etc/caddy/Caddyfile`.
 
 To delete the config file completely, run the following command:
@@ -156,6 +154,8 @@ rm /etc/caddy/Caddyfile
 ```
 
 Then continue with an editor of your choice to write the config.
+
+You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
 
 The only two differences are that we have suffixed the `<domain>` with `:80` and in the global config at `servers` directive, we have changed the port from `:443` to `:80`.
 
