@@ -115,7 +115,6 @@ sudo systemctl restart apache2
 
 ::::
 :::: tab "Caddy With Automatic SSL"
-
 Before adding our custom configuration, let's remove the default one. You can do it either by deleting the contents of config file or by deleting the config file completely and than creating a new one from scratch. The config file path is `/etc/caddy/Caddyfile`.
 
 To delete the config file completely, run the following command:
@@ -144,7 +143,6 @@ systemctl restart caddy
 
 ::::
 :::: tab "Caddy Without SSL"
-
 Before adding our custom configuration, let's remove the default one. You can do it either by deleting the contents of config file or by deleting the config file completely and than creating a new one from scratch. The config file path is `/etc/caddy/Caddyfile`.
 
 To delete the config file completely, run the following command:
