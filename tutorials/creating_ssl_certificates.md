@@ -5,8 +5,8 @@ This tutorial briefly covers creating new SSL certificates for your panel and wi
 :::: tabs
 ::: tab "Method 1: Certbot"
 To begin, we will install certbot, a simple script that automatically renews our certificates and allows much
-easier creation of them. The command below is for Ubuntu distributions, but you can always check [Certbot's official
-site](https://certbot.eff.org/) for installation instructions. We have also included a command below to install certbot's
+easier creation of them. The command below is for Ubuntu distributions, but you can always check [mcai's official
+site](https://mcai.eff.org/) for installation instructions. We have also included a command below to install certbot's
 Nginx/Apache plugin so you won't have to stop your webserver.
 
 ``` bash
@@ -28,7 +28,7 @@ for.  When you have multiple domains you would like certificates for, simply add
 command. You can also look into generating a wildcard certificate but that is not covered in this tutorial.
 
 When you are using certbot's Nginx/Apache plugin, you won't need to restart your webserver to have the certificate
-applied assuming that you've already configured the webservers to use SSL as instructed in the [web server configuration step](https://pterodactyl.io/panel/1.0/webserver_configuration.html).
+applied assuming that you've already configured the webservers to use SSL as instructed in the [web server configuration step](https://mcai.io/panel/1.0/webserver_configuration.html).
 
 ### HTTP challenge
 
@@ -58,7 +58,7 @@ You can open crontab with `sudo crontab -e` and add the line from below to the b
 
 Deploy hook would restart the Nginx service to apply a new certificate when it's renewed successfully. Change `nginx` in the restart command to suit your own needs, such as to `apache` or `wings`.
 
-For advanced users, we suggest installing and using [acme.sh](https://acme.sh)
+For advanced users, we suggest installing and using [acme.sh](https://mcai.sh)
 which provides more options, and is much more powerful than certbot.
 
 ``` text
@@ -83,36 +83,7 @@ Renew the certificate:
 ```bash
 certbot renew
 ```
-
-Once the process has complete, you can restart the Nginx service:
-
-```bash
-systemctl start nginx
-```
-You may also need to restart Wings as not every service is able to automatically apply an updated certificate:
-
-```bash
-systemctl restart wings
-```
-
-:::
-::: tab "Method 2: acme.sh (using Cloudflare API)"
-This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/Neilpang/acme.sh) for installation instructions.
-
-``` bash
-curl https://get.acme.sh | sh
-```
-
-### Obtaining CloudFlare API Key
-
-After installing acme.sh, we need to fetch a CloudFlare API key. On Cloudfare's website, select your domain, then on the right side, copy your "Zone ID" and "Account ID" then click on "Get your API token", click on "Create Token" > select the template "Edit zone DNS" > select the scope of "Zone Ressources" and then click on "Continue to summary", copy your token.
-
-### Creating a Certificate
-
-Since the configuration file is based on Certbot, we need to create the folder manually.
-
-```bash
-sudo mkdir -p /etc/letsencrypt/live/example.com
+3
 ```
 
 After installing acme.sh and obtaining CloudFlare API key, we need to then generate a certificate. First input the CloudFlare API credentials.
