@@ -41,7 +41,7 @@ dnf module enable php:remi-8.0
 dnf update -y
 
 ## Install PHP 8.0
-dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache}
+dnf install -y php php-{common,fpm,cli,json,mysqlnd,gd,mbstring,pdo,zip,bcmath,dom,opcache,process}
 ```
 
 ### If using Fedora Server 38 install PHP 8.1 and Dependencies from this section. If not, skip this section.
