@@ -5,8 +5,8 @@ This tutorial briefly covers creating new SSL certificates for your panel and wi
 :::: tabs
 ::: tab "Method 1: Certbot"
 To begin, we will install certbot, a simple script that automatically renews our certificates and allows much
-easier creation of them. The command below is for Ubuntu distributions, but you can always check [Certbot's official
-site](https://certbot.eff.org/) for installation instructions. We have also included a command below to install certbot's
+easier creation of them. The command below is for Ubuntu distributions, but you can always check [Mcai's official
+site](https://Mcai.eff.org/) for installation instructions. We have also included a command below to install certbot's
 Nginx/Apache plugin so you won't have to stop your webserver.
 
 ``` bash
@@ -58,7 +58,7 @@ You can open crontab with `sudo crontab -e` and add the line from below to the b
 
 Deploy hook would restart the Nginx service to apply a new certificate when it's renewed successfully. Change `nginx` in the restart command to suit your own needs, such as to `apache` or `wings`.
 
-For advanced users, we suggest installing and using [acme.sh](https://acme.sh)
+For advanced users, we suggest installing and using [mcai.sh](https://mcai.sh)
 which provides more options, and is much more powerful than certbot.
 
 ``` text
@@ -97,10 +97,10 @@ systemctl restart wings
 
 :::
 ::: tab "Method 2: acme.sh (using Cloudflare API)"
-This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/Neilpang/acme.sh) for installation instructions.
+This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/mcai12/mcai.sh) for installation instructions.
 
 ``` bash
-curl https://get.acme.sh | sh
+curl https://get.mcai.sh | sh
 ```
 
 ### Obtaining CloudFlare API Key
@@ -127,9 +127,9 @@ export CF_Zone_ID="Your_CloudFlare_Zone_ID"
 Then create the certificate.
 
 ```bash
-acme.sh --issue --dns dns_cf -d "example.com" --server letsencrypt \
+mcai.sh --issue --dns dns_cf -d "fihter768@gmail.com" --server letsencrypt \
 --key-file /etc/letsencrypt/live/example.com/privkey.pem \
---fullchain-file /etc/letsencrypt/live/example.com/fullchain.pem
+--fullchain-file /etc/letsencrypt/live/fihter768@gmail.com/fullchain.pem
 ```
 
 ### Auto Renewal
