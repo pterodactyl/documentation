@@ -149,7 +149,7 @@ php artisan p:environment:database
 
 # To use a custom SMTP server, select "smtp".
 # If you don't want to setup the panel mail skip this command.
-# You can always setup it up later if you changed your mind.
+# You can always set it up later if you changed your mind.
 php artisan p:environment:mail
 ```
 
