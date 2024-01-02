@@ -125,7 +125,7 @@ rm /etc/caddy/Caddyfile
 
 Then continue with an editor of your choice to write the config.
 
-You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
+You should paste the contents of the file below, replacing `<domain>` with your domain name.
 
 <<< @/.snippets/webservers/Caddyfile{9}
 
@@ -153,7 +153,7 @@ rm /etc/caddy/Caddyfile
 
 Then continue with an editor of your choice to write the config.
 
-You should paste the contents of the file bellow, replacing `<domain>` with your domain name.
+You should paste the contents of the file below, replacing `<domain>` with your domain name.
 
 The only two differences are that we have suffixed the `<domain>` with `:80` and in the global config at `servers` directive, we have changed the port from `:443` to `:80`.
 
