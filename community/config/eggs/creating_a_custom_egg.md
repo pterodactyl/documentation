@@ -72,7 +72,7 @@ This can be set like below.
 
 ```json
 {}
-``` 
+```
 
 ### Configuration Files
 The next block is one of the most complex blocks, the `Configuration Files` descriptor. The Daemon will process this
@@ -104,7 +104,15 @@ Avoid using this parser if possible.
 * `xml`
 
 ::: tip
-If you want to use egg non stock variables in the configuration parser you must reference them as `{{server.build.env.ENVNAME}}` or just `{{env.ENVNAME}}`. Do not forget to to replace `ENVNAME` with the actual environment name you have setup.
+If you want to use egg non stock variables in the configuration parser you must reference them as 
+```text
+{{server.build.env.ENVNAME}}
+``` 
+or just 
+```text
+{{env.ENVNAME}}
+```
+Do not forget to to replace `ENVNAME` with the actual environment name you have setup.
 :::
 
 Once you have defined a parser, we then define a `find` block which tells the Daemon what specific elements to find
