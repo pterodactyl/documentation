@@ -10,7 +10,7 @@
 | [Matthew Penner](https://matthewp.io/)        | `matthewp`      | Project Maintainer                  |
 | Stepan Fedotov                                | `trixter`       | WHMCS Module Maintainer             |
 | Michael Parker                                | `parkervcp`     | Egg Developer, Docker Integration   |
-| [Lance Pioch](https://lancepioch.com/)        | `shadowlancer`  | Developer                           |
+| [Lance Pioch](https://lancepioch.com)         | `lance`         | Panel Maintainer                    |
 
 Members of the project team have a red username in our Discord server.
 
