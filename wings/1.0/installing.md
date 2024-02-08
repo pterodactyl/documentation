@@ -23,8 +23,8 @@ only the versions listed below.
 |                  | 22.04   | :white_check_mark: |                                                             |
 | **CentOS**       | 7       | :white_check_mark: |                                                             |
 |                  | 8       | :white_check_mark: | Note that CentOS 8 is EOL. Use Rocky or Alma Linux.         |
-| **Debian**       | 10      | :white_check_mark: |                                                             |
-|                  | 11      | :white_check_mark: |                                                             |
+| **Debian**       | 11      | :white_check_mark: |                                                             |
+|                  | 12      | :white_check_mark: |                                                             |
 | **Windows**      | All     |        :x:         | This software will not run in Windows environments.         |
 
 ## System Requirements
@@ -76,7 +76,7 @@ probably using a non-supported kernel. Check our [Kernel Modifications](../../..
 If you are on an operating system with systemd (Ubuntu 16+, Debian 8+, CentOS 7+) run the command below to have Docker start when you boot your machine.
 
 ```bash
-systemctl enable --now docker
+sudo systemctl enable --now docker
 ```
 
 #### Enabling Swap
@@ -105,9 +105,9 @@ The first step for installing Wings is to ensure we have the required directory 
 run the commands below, which will create the base directory and download the wings executable.
 
 ```bash
-mkdir -p /etc/pterodactyl
+sudo mkdir -p /etc/pterodactyl
 curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
-chmod u+x /usr/local/bin/wings
+sudo chmod u+x /usr/local/bin/wings
 ```
 
 ::: warning OVH/SYS Servers

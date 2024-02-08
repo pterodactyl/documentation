@@ -105,21 +105,22 @@ curl https://get.acme.sh | sh
 
 ### Obtaining CloudFlare API Key
 
-After installing acme.sh, we need to fetch a CloudFlare API key. Please make sure that a DNS record (A or CNAME record) is pointing to your target node, and set the cloud to grey (bypassing CloudFlare proxy). Then go to My Profile > API keys and on Global API Key subtab, click on "view", enter your CloudFlare password, and copy the API key to clipboard.
+After installing acme.sh, we need to fetch a CloudFlare API key. On Cloudfare's website, select your domain, then on the right side, copy your "Zone ID" and "Account ID" then click on "Get your API token", click on "Create Token" > select the template "Edit zone DNS" > select the scope of "Zone Ressources" and then click on "Continue to summary", copy your token.
 
 ### Creating a Certificate
 
 Since the configuration file is based on Certbot, we need to create the folder manually.
 
 ```bash
-sudo mkdir /etc/letsencrypt/live/example.com
+sudo mkdir -p /etc/letsencrypt/live/example.com
 ```
 
 After installing acme.sh and obtaining CloudFlare API key, we need to then generate a certificate. First input the CloudFlare API credentials.
 
 ```bash
-export CF_Key="Your_CloudFlare_API_Key"
-export CF_Email="Your_CloudFlare_Account@example.com"
+export CF_Token="Your_CloudFlare_API_Key"
+export CF_Account_ID="Your_CloudFlare_Account_ID"
+export CF_Zone_ID="Your_CloudFlare_Zone_ID"
 
 ```
 
@@ -137,6 +138,88 @@ After running the script for the first time, it will be added to the crontab aut
 
 ```bash
 sudo crontab -e
+```
+
+:::
+::: tab "Method 3: Caddy (using Cloudflare API)"
+This is for advanced users, who are running Cloudflare in proxy mode or do not have access to port `80`.
+
+### Installing Caddy with Cloudflare DNS plugin
+
+Caddy does not come by default with Cloudflare DNS plugin, you need to install it yourself.
+
+There are two main methods:
+
+1. Using `xcaddy` - CLI tool to build your own Caddy build
+2. Downloading prebuilt binary from [Caddy's download page](https://caddyserver.com/download).
+3. Using Ansible to download and install Caddy with plugins. See [caddy-ansible](https://github.com/caddy-ansible/caddy-ansible)
+
+#### Build Caddy using `xcaddy` on your server
+
+Please refer to [Caddy docs on building Caddy](https://caddyserver.com/docs/build#xcaddy).
+
+### Obtaining CloudFlare API Token
+
+After installing acme.sh, we need to fetch a CloudFlare API key. Please make sure that a DNS record (A or CNAME record) is pointing to your target node, and set the cloud to grey (bypassing CloudFlare proxy). Then go to My Profile > API keys and on Global API Key subtab, click on "view", enter your CloudFlare password, and copy the API key to clipboard.
+
+After install Caddy with Cloudflare DNS plugin, we need to fetch a Cloudflare API token. Please make sure that a DNS record (A or CNAME record) is pointing at your target node. Then go to My Profile > API Tokens and on API Tokens click "Create Token". Create API Token > API token templates, at the end of line with "Edit zone DNS", click "Use template". Under **Zone Resources**, select your DNS zone for which you wish to create the API token, click "Continue to summary". Review the API token summary and click "Create Token". And finally copy the API token to clipboard.
+
+### Reconfiguring Caddy to use Cloudflare DNS for obtaining certificates
+
+Create an environment variable file (like `.env`), keep in mind that this file contains secrets and should not be accessed by public.
+
+We recommend that you create the secret file in the following location: `/etc/caddy/.secrets.env`.
+
+```bash
+CLOUDFLARE_API_TOKEN=<your cloudflare api token>
+```
+
+For security reasons, we recommend setting permissions to `0600` (only owner can read or write to the file).
+
+```bash
+# Set ownership of the `.secrets.env` file to `caddy` system user
+chown caddy:caddy /etc/caddy/.secrets.env
+
+# Set read-write permissions only to owner - the `caddy` system user
+chmod 0600 /etc/caddy/.secrets.env
+```
+
+Modify the systemd unit file, to load environment variables from file (add `--envfile /etc/caddy/.secrets.env` flag to `ExecStart`), the default systemd unit file location is `/etc/systemd/system/caddy.service`:
+
+```unit{12}
+[Unit]
+Description=Caddy
+Documentation=https://caddyserver.com/docs/
+After=network.target network-online.target
+Requires=network-online.target
+
+[Service]
+Type=notify
+User=caddy
+Group=caddy
+ExecStart=/usr/bin/caddy run --environ --envfile /etc/caddy/.secrets.env --config /etc/caddy/Caddyfile
+ExecReload=/usr/bin/caddy reload --config /etc/caddy/Caddyfile
+TimeoutStopSec=5s
+LimitNOFILE=1048576
+LimitNPROC=512
+PrivateTmp=true
+ProtectSystem=full
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+
+[Install]
+WantedBy=multi-user.target
+```
+
+You can add a `tls` block to your `Caddyfile`, under the `<domain>` block of your panel configuration, the Caddy config file location is `/etc/caddy/Caddyfile`:
+
+```caddyfile{5-7}
+<domain> {
+  # ...
+
+  tls {
+    dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+  }
+}
 ```
 
 :::
