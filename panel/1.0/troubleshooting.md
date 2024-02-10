@@ -118,6 +118,41 @@ audit2allow -a -M http_port_t
 semodule -i http_port_t.pp
 ```
 
+## Containers don't have internet? Probably a DNS issue!
+Now that Wings has run successfully and you have gotten the green heart on your Nodes page, the wings config at '/etc/pterodactyl/config.yml' will have new values.
+One of those values is DNS, which by default will be 1.1.1.1 and 1.0.0.1
+If you are using a host that blocks Cloudflare DNS, you will have to use different DNS Servers; typically the same ones your host system is using.
+You can view what DNS Servers your host uses through a number of ways depending on how your operating system handles networking. If one of these doesn't work, try another one.
+```bash
+# Network Manager (This will show both your IPV4 DNS and IPV6 DNS Servers in case you want to add the IPV6 DNS Server(s) from your host to your Wings Config as well.
+nmcli -g ip4.dns,ip6.dns dev show
+# Systemd-Resolve (Ubuntu 18.04 and 20.04)
+systemd-resolve --status
+# Resolve-CTL (Newer Versions of Ubuntu)
+resolvectl status
+# Raw file locations that may have your host system's DNS Servers for various distributions
+/etc/resolv.conf
+/etc/network/interfaces
+```
+If this returns different DNS Servers than 1.1.1.1 and 1.0.0.1 you'll need to edit the wings 'config.yml' file to use the DNS servers that were returned from the command. If you see output that looks like an IPV6 address in addition to your IPV4 DNS Servers, make sure you put that in the IPV6 section and not the IPV4 section. To be clear, if you have to use different DNS Servers than the default, make sure to REMOVE 1.1.1.1 and 1.0.0.1 from the wings config; don't just add the new servers, replace the old servers.
+
+## Schedule Troubleshooting
+- Check logs from your queue manager ``journalctl -xeu pteroq``
+- Restart pteroq ``systemctl restart pteroq``
+- Clear schedule cache ``php /var/www/pterodactyl/artisan schedule:clear-cache``
+- Check your php version - up to 8.1 is supported ``php -v``
+- Check your crontab syntax using <https://crontab.guru/> - make sure it's what you intended
+- Verify the problem is with the schedule and not with the tasks you have set up (Set the first task in your schedule to something you know prints a message in the console, ie. run ``say test`` in the console for a Minecraft server, if the text "test" shows up in the console successfully, set the first task to ``say test`` so you know if it runs
+- Are your tasks off by a bit? Make sure you on the latest version of the panel? In version 1.11.5 there was a fix for schedules running at the wrong time. Alternatively, you may have the wrong timezone set. Make sure your timezones all match.
+ - System Timezone ``timedatectl``
+ - Panel Timezone ``nano /var/www/pterodactyl/.env``
+ - Wings Timezone (Passed to containers as the TZ environmental variable, unrelated to schedules but while you're checking timezones you may as well set this too) ``nano /etc/pterodactyl/config.yml``
+- Check your database where schedules are stored - MariaDB by default
+ - ``systemctl status mariadb`` - if it's not active, ``journalctl -xeu mariadb``
+- Check queue handler - Redis by default
+ - ``systemctl status redis`` - if it's not active, ``journalctl -xeu redis`` (On some distributions the service will be named ``redis-server`` instead)
+- Check for panel errors ``tail -n 150 /var/www/pterodactyl/storage/logs/laravel-$(date +%F).log | nc pteropaste.com 99``
+
 ## FirewallD issues
 If you are on a RHEL/CentOS server with `firewalld` installed you may have broken DNS.
 
