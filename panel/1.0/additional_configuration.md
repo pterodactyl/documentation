@@ -44,7 +44,7 @@ AWS_SECRET_ACCESS_KEY=
 # The name of the bucket
 AWS_BACKUPS_BUCKET=
 
-# The URL of the S3 storage (including http:// or http:// respectively)
+# The URL of the S3 storage (including https:// or http:// respectively)
 # If you use AWS you can leave this empty
 AWS_ENDPOINT=
 ```
