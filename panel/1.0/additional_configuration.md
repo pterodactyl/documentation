@@ -8,7 +8,7 @@ Pterodactyl Panel allows users to create backups of their servers. In order to c
 
 When changing Pterodactyl Panel's backup storage method, users may still download or delete existing backups from the prior storage driver. In the instance of migrating from S3 to local backups, S3 credentials must remain configured after switching to the local backup storage method.
 
-Make sure to restart Wings (`systemctl restart wings`) after changing the backup driver to apply the changes.
+Make sure to restart the queue worker (`systemctl restart pteroq`) after changing the backup driver to apply the changes.
 
 ### Using Local Backups
 
