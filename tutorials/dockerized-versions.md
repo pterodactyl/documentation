@@ -42,7 +42,10 @@ docker exec -it panel php artisan p:user:make
 ### Environment Variables
 There are multiple environment variables to configure the panel when not providing your own `.env` file, see the following table for details on each available option.
 
-::: warning If your `APP_URL` starts with `https://` you need to provide an `LE_EMAIL` as well so certificates can be generated. :::
+::: warning SSL Setup
+If you want to use ssl for your panel you need to provide a `LE_EMAIL`. This will enable the ssl webserver config and automatically generate a Let's Encrypt certificate.
+You can also put custom certs in `/srv/pterodactyl/certs/`.
+:::
 
 | Variable             | Description                                                                    | Required |
 | -------------------- | ------------------------------------------------------------------------------ | -------- |
