@@ -27,7 +27,7 @@ curl -L -o docker-compose.yml https://raw.githubusercontent.com/pterodactyl/pane
 docker-compose up -d
 
 # Docker container without compose:
-docker create -it --name panel ghcr.io/pterodactyl/panel
+docker run -d -it --name panel ghcr.io/pterodactyl/panel
 ```
 
 After the startup is complete you'll need to create a panel user.
@@ -134,7 +134,7 @@ curl -L -o docker-compose.yml https://raw.githubusercontent.com/pterodactyl/wing
 docker-compose up -d
 
 # Docker container without compose:
-docker create -it --name wings ghcr.io/pterodactyl/wings
+docker run -d -it --name wings ghcr.io/pterodactyl/wings
 ```
 
 After the startup is complete you can follow the [normal wings setup guide](/wings/1.0/installing.md#configure) to create a new node.
@@ -148,3 +148,30 @@ There are some environment variables to configure wings, see the following table
 | `WINGS_UID`         | The UID of the wings user                                                      | yes      |
 | `WINGS_GID`         | The GID of the wings user                                                      | yes      |
 | `WINGS_USERNAME`    | The username of the wings user                                                 | yes      |
+
+## Updating
+Note: Updating will not affect running gameservers.
+
+### Panel
+```bash
+# With docker compose:
+docker-compose pull
+docker-compose down
+docker-compose up -d
+
+# Docker container without compose:
+docker pull ghcr.io/pterodactyl/panel
+docker restart panel
+```
+
+### Wings
+```bash
+# With docker compose:
+docker-compose pull
+docker-compose down
+docker-compose up -d
+
+# Docker container without compose:
+docker pull ghcr.io/pterodactyl/wings
+docker restart wings
+```
