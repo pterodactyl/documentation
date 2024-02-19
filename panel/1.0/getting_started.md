@@ -147,8 +147,9 @@ will cover setting up things such as sessions, caching, database credentials, an
 php artisan p:environment:setup
 php artisan p:environment:database
 
-# To use PHP's internal mail sending (not recommended), select "mail". To use a
-# custom SMTP server, select "smtp".
+# To use a custom SMTP server, select "smtp".
+# If you don't want to setup the panel mail skip this command.
+# You can always set it up later if you changed your mind.
 php artisan p:environment:mail
 ```
 
