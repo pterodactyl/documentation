@@ -142,11 +142,10 @@ There are some environment variables to configure wings, see the following table
 | `WINGS_USERNAME`    | The username of the wings user                                                 | yes      |
 
 ## Updating
-Note: Updating will *not* affect running gameservers.
-
 Run the following commands in the directory of your compose file. The steps are the same for the Panel and Wings.
 ```bash
 docker-compose pull
 docker-compose down
 docker-compose up -d
 ```
+Note: Updating will *not* affect running gameservers.
