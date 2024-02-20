@@ -22,21 +22,15 @@ If using the example docker-compose file the location of a custom `.env` file wo
 ### Setup
 Start the docker container and the required dependencies (either provide existing ones or start containers as well, see the [docker-compose.yml](https://github.com/pterodactyl/panel/blob/1.0-develop/docker-compose.example.yml) file as an example).
 ```bash
-# With docker compose:
 curl -L -o docker-compose.yml https://raw.githubusercontent.com/pterodactyl/panel/1.0-develop/docker-compose.example.yml
-docker-compose up -d
 
-# Docker container without compose:
-docker run -d -it --name panel ghcr.io/pterodactyl/panel
+# Make sure you fill the environment variables in the compose file first
+docker-compose up -d
 ```
 
 After the startup is complete you'll need to create a panel user.
 ```bash
-# With docker compose:
 docker-compose exec panel php artisan p:user:make
-
-# Docker container without compose:
-docker exec -it panel php artisan p:user:make
 ```
 
 ### Environment Variables
@@ -129,12 +123,10 @@ The docker image doesn't require any additional software to function. See the [d
 ### Setup
 Start the docker container.
 ```bash
-# With docker compose:
 curl -L -o docker-compose.yml https://raw.githubusercontent.com/pterodactyl/wings/develop/docker-compose.example.yml
-docker-compose up -d
 
-# Docker container without compose:
-docker run -d -it --name wings ghcr.io/pterodactyl/wings
+# If you want to use SSL for wings you need to edit the compose file first and uncomment the let's encrypt volume
+docker-compose up -d
 ```
 
 After the startup is complete you can follow the [normal wings setup guide](/wings/1.0/installing.md#configure) to create a new node.
@@ -150,28 +142,11 @@ There are some environment variables to configure wings, see the following table
 | `WINGS_USERNAME`    | The username of the wings user                                                 | yes      |
 
 ## Updating
-Note: Updating will not affect running gameservers.
+Note: Updating will *not* affect running gameservers.
 
-### Panel
+Run the following commands in the directory of your compose file. The steps are the same for the Panel and Wings.
 ```bash
-# With docker compose:
 docker-compose pull
 docker-compose down
 docker-compose up -d
-
-# Docker container without compose:
-docker pull ghcr.io/pterodactyl/panel
-docker restart panel
-```
-
-### Wings
-```bash
-# With docker compose:
-docker-compose pull
-docker-compose down
-docker-compose up -d
-
-# Docker container without compose:
-docker pull ghcr.io/pterodactyl/wings
-docker restart wings
 ```
