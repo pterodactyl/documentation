@@ -22,18 +22,17 @@ most cases your base Wings version should match that of your Panel.
 | 1.8.x         | 1.6.x         |           | 7.4, 8.0, 8.1                 |
 | 1.9.x         | 1.6.x         |           | 7.4, 8.0, 8.1                 |
 | 1.10.x        | 1.7.x         |           | 7.4, 8.0, 8.1                 |
-| **1.11.x**    | **1.11.x**    | ✅        | 8.0, **8.1** (8.0 deprecated) |
+| **1.11.x**    | **1.11.x**    | ✅        | **8.1**                       |
 
 _NOTE: There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings._
 
 ## Update Dependencies
 
-- PHP `8.0` or `8.1` (recommended)
+- PHP `8.1`
 - Composer `2.X`
 
-::: danger PHP 7.4
-Support for PHP 7.4 has been removed with the release of 1.11.0. Please upgrade
-to PHP 8.0, 8.1 or newer.
+::: danger PHP 7.4 & 8.0
+Support for PHP 7.4 & 8.0 has been removed with the release of 1.11.4. Please upgrade to PHP 8.1
 :::
 
 ::: warning Future PHP Version Changes
@@ -41,8 +40,8 @@ to PHP 8.0, 8.1 or newer.
 will be the only supported version in 1.12 and beyond.
 :::
 
-**Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 8.0 by running `php -v` and Composer 2 by running `composer --version`. You
-should see an output similar to the result below. If you do not see at least PHP 8.0 and Composer 2, you will need to upgrade by following
+**Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 8.1 by running `php -v` and Composer 2 by running `composer --version`. You
+should see an output similar to the result below. If you do not see at least PHP 8.1 and Composer 2, you will need to upgrade by following
 our [PHP Upgrade Guide](/guides/php_upgrade.md) and return to this documentation afterward.
 
 ```

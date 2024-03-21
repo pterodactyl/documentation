@@ -16,7 +16,7 @@ php artisan down
 You'll need to make sure your system dependencies are up to date before performing this upgrade. Please
 reference the list below to ensure you have all of the required versions.
 
-* PHP `8.0` or `8.1` (recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`,
+* PHP `8.1` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`,
   `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx. See our guide
   for [Upgrading PHP](/guides/php_upgrade.md) for details.
 * Composer v2 (`composer self-update --2`)
