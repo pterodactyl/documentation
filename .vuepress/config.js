@@ -182,6 +182,7 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/guides/mounts.md',
+                        '/guides/database_hosts.md',
                     ],
                 },
             ],
