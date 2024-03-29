@@ -17,16 +17,12 @@ The build tools require NodeJS, yarn is used as the package manager.
 
 ```bash
 # Ubuntu/Debian
-sudo mkdir -p /etc/apt/keyrings
-curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
-echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-
-sudo apt update
+curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
 
 # CentOS
-sudo yum install https://rpm.nodesource.com/pub_16.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
-sudo yum install nodejs -y
+curl -fsSL https://rpm.nodesource.com/setup_16.x | bash -
+yum install -y nodejs
 ```
 
 Install required javascript packages.
