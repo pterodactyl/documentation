@@ -15,7 +15,8 @@
         root /var/www/pterodactyl/public
         index index.php
 
-        env PHP_VALUE "upload_max_filesize = 100M \n post_max_size = 100M"
+        env PHP_VALUE "upload_max_filesize = 100M
+        post_max_size = 100M"
         env HTTP_PROXY ""
         # env HTTPS "on" # IMPORTANT: this is commented out, to disable HTTPS
 
