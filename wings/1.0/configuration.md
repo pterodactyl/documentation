@@ -57,7 +57,8 @@ Cloudflare proxying of the Wings isn't beneficial since users will be connecting
 
 To enable Cloudflare proxy, you must change the Wings port to one of the Cloudflare HTTPS ports with caching enabled (more info [here](https://developers.cloudflare.com/fundamentals/get-started/reference/network-ports/)), such as 8443, because Cloudflare only supports HTTP on port 8080. Select your Node in the Admin Panel, and on the settings tab, change the port. Make sure that you set "Not Behind Proxy" when using Full SSL settings in Cloudflare. Then on Cloudflare dashboard, your FQDN must have an orange cloud enabled beside it.
 
-You are unable to proxy the SFTP port through Cloudflare unless you have their enterprise plan.
+You are unable to proxy the SFTP port through Cloudflare unless you have their enterprise plan.  
+Server transfers will most likely not work either due to [Cloudflare's request body limits](https://developers.cloudflare.com/workers/platform/limits/#request-limits).
 
 ## Container PID Limit
 
