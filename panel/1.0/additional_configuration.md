@@ -8,6 +8,8 @@ Pterodactyl Panel allows users to create backups of their servers. In order to c
 
 When changing Pterodactyl Panel's backup storage method, users may still download or delete existing backups from the prior storage driver. In the instance of migrating from S3 to local backups, S3 credentials must remain configured after switching to the local backup storage method.
 
+Make sure to clear the config cache (`cd /var/www/pterodactyl && php artisan config:clear`) and to restart the queue worker (`systemctl restart pteroq`) after changing the backup driver to apply the changes.
+
 ### Using Local Backups
 
 By default, Pterodactyl Panel uses local storage via Wings for backups. That said, this method of backup storage can be explicitly set with the following configuration in the `.env` file:
@@ -32,15 +34,33 @@ AWS S3 (or compatible storage) can be used to store remote or cloud-based backup
 # Sets your panel to use s3 for backups
 APP_BACKUP_DRIVER=s3
 
-# Info to actually use s3
+# The default region
 AWS_DEFAULT_REGION=
+
+# Your access key id & secret
 AWS_ACCESS_KEY_ID=
 AWS_SECRET_ACCESS_KEY=
+
+# The name of the bucket
 AWS_BACKUPS_BUCKET=
+
+# The URL of the S3 storage (including https:// or http:// respectively)
+# If you use AWS you can leave this empty
 AWS_ENDPOINT=
 ```
 
 For some configurations, you might have to change your S3 URL from `bucket.domain.com` to `domain.com/bucket`. To accomplish this, add `AWS_USE_PATH_STYLE_ENDPOINT=true` to your `.env` file.
+
+Example configuration:
+```bash
+APP_BACKUP_DRIVER=s3
+
+AWS_DEFAULT_REGION=eu-west-1
+AWS_ACCESS_KEY_ID=xxxx
+AWS_SECRET_ACCESS_KEY=xxxx
+AWS_BACKUPS_BUCKET=pterodactyl-backups
+AWS_ENDPOINT=https://pterodactyl-backups.s3.domain.com
+```
 
 #### Multipart Upload
 
