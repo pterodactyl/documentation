@@ -180,3 +180,40 @@ Allocation is a combination of IP and Port that you can assign to a server. Each
 ![example image of node allocations](../../.vuepress/public/node_allocations.png)
 
 Type `hostname -I | awk '{print $1}'` to find the IP to be used for the allocation. Alternatively, you can type `ip addr | grep "inet "` to see all your available interfaces and IP addresses. Do not use 127.0.0.1 for allocations.
+wings/1.0/installing.md
+
+dane@pterodactyl:~$ sudo dmidecode -s system-manufacturer
+VMware, Inc.
+
+
+curl -sSL https://get.docker.com/ | CHANNEL=stable bash
+
+sudo systemctl enable --now docker
+GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
+sudo mkdir -p /etc/pterodactyl
+curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
+sudo chmod u+x /usr/local/bin/wings
+
+sudo wings --debug
+
+[Unit]
+Description=Pterodactyl Wings Daemon
+After=docker.service
+Requires=docker.service
+PartOf=docker.service
+
+[Service]
+User=root
+WorkingDirectory=/etc/pterodactyl
+LimitNOFILE=4096
+PIDFile=/var/run/wings/daemon.pid
+ExecStart=/usr/local/bin/wings
+Restart=on-failure
+StartLimitInterval=180
+StartLimitBurst=30
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+
+systemctl enable --now wings
