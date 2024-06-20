@@ -97,7 +97,7 @@ a2dissite 000-default.conf
 Now, you should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place the file in `/etc/apache2/sites-available`, or &mdash; if on CentOS, `/etc/httpd/conf.d/`.
 
-Note: When using Apache, make sure you have the `libapache2-mod-php` package installed or else PHP will not display on your webserver.
+Note: When using Apache, make sure you have the `libapache2-mod-php` and `libapache2-mod-php8.1` package installed or else PHP will not display on your webserver.
 
 <<< @/.snippets/webservers/apache-nossl.conf{2}
 
