@@ -10,7 +10,6 @@
 | [Matthew Penner](https://matthewp.io/)        | `matthewp`      | Project Maintainer                  |
 | Stepan Fedotov                                | `trixter`       | WHMCS Module Maintainer             |
 | Michael Parker                                | `parkervcp`     | Egg Developer, Docker Integration   |
-| [Lance Pioch](https://lancepioch.com)         | `lance`         | Panel Maintainer                    |
 
 Members of the project team have a red username in our Discord server.
 
@@ -23,20 +22,21 @@ members can be found in our Discord server and are distinguished with a yellow u
 
 The following companies help fund Pterodactyl's development. [Interested in becoming a sponsor?](https://github.com/sponsors/matthewpi)
 
-| Company                                                   | About                                                                                                                                                                                                                                           |
-|-----------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [**Aussie Server Hosts**](https://aussieserverhosts.com/) | No frills Australian Owned and operated High Performance Server hosting for some of the most demanding games serving Australia and New Zealand.                                                                                                 |
-| [**BisectHosting**](https://www.bisecthosting.com/)       | BisectHosting provides Minecraft, Valheim and other server hosting services with the highest reliability and lightning fast support since 2012.                                                                                                 |
-| [**MineStrator**](https://minestrator.com/)               | Looking for the most highend French hosting company for your minecraft server? More than 24,000 members on our discord trust us. Give us a try!                                                                                                 |
-| [**VibeGAMES**](https://vibegames.net/)                   | VibeGAMES is a game server provider that specializes in DDOS protection for the games we offer. We have multiple locations in the US, Brazil, France, Germany, Singapore, Australia and South Africa.                                           |
-| [**HostEZ**](https://hostez.io)                           | US & EU Rust & Minecraft Hosting. DDoS Protected bare metal, VPS and colocation with low latency, high uptime and maximum availability. EZ!                                                                                                     |
-| [**Blueprint**](https://blueprint.zip/?pterodactyl=true)  | Create and install Pterodactyl addons and themes with the growing Blueprint framework - the package-manager for Pterodactyl. Use multiple modifications at once without worrying about conflicts and make use of the large extension ecosystem. |
+| Company                                                      | About                                                                                                                                                                                                                                           |
+|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [**Aussie Server Hosts**](https://aussieserverhosts.com/)    | No frills Australian Owned and operated High Performance Server hosting for some of the most demanding games serving Australia and New Zealand.                                                                                                                       |
+| [**CodeNode LLC**](https://codenode.gg/)                     | Looking for simplicity? Well, look no further! CodeNode has got you covered with everything you need at the rock-bottom price of $1.75 per GB, including dedicated IPs in Dallas, Texas, and Amsterdam, Netherlands. We're not just good, we're the best in the game! |
+| [**BisectHosting**](https://www.bisecthosting.com/)          | BisectHosting provides Minecraft, Valheim and other server hosting services with the highest reliability and lightning fast support since 2012.                                                                                                                       |
+| [**MineStrator**](https://minestrator.com/)                  | Looking for the most highend French hosting company for your minecraft server? More than 24,000 members on our discord trust us. Give us a try!                                                                                                                       |
+| [**HostEZ**](https://hostez.io)                              | US & EU Rust & Minecraft Hosting. DDoS Protected bare metal, VPS and colocation with low latency, high uptime and maximum availability. EZ!                                                                                                                           |
+| [**Blueprint**](https://blueprint.zip/?pterodactyl=true)     | Create and install Pterodactyl addons and themes with the growing Blueprint framework - the package-manager for Pterodactyl. Use multiple modifications at once without worrying about conflicts and make use of the large extension ecosystem.                       |
+| [**indifferent broccoli**](https://indifferentbroccoli.com/) | indifferent broccoli is a game server hosting and rental company. With us, you get top-notch computer power for your gaming sessions. We destroy lag, latency, and complexity--letting you focus on the fun stuff.                                                    |
 
 ## License
 
-Pterodactyl® Copyright © 2015 - 2022 Dane Everitt and contributors.
+Pterodactyl® Copyright © 2015 Dane Everitt and contributors.
 
-Code released under the [MIT License](https://github.com/pterodactyl/panel/blob/develop/LICENSE.md).
+Code released under the [MIT License](https://github.com/pterodactyl/panel/blob/1.0-develop/LICENSE.md).
 
 ## Release Signing
 
