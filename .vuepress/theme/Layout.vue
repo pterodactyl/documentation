@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-        class="theme-container mt-12"
+        class="theme-container"
         :class="pageClasses"
         @touchstart="onTouchStart"
         @touchend="onTouchEnd"
