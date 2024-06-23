@@ -6,7 +6,7 @@ $arrow-bg: #000;
     }
 
     @apply .fixed .left-0 .bottom-0 .bg-white .overflow-auto .border-r .border-grey-lighter .py-8;
-    top: calc(3rem + 56px);
+    top: 56px;
     width: 20rem;
     font-size: 15px;
 
