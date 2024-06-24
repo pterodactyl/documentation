@@ -8,7 +8,7 @@ table below to check what version you need for your version of Pterodactyl.
 | 1.0.0 - 1.2.0 | 7.3, 7.4      |
 | 1.3.0+        | 7.4, 8.0      |
 | 1.8.0+        | 7.4, 8.0, 8.1 |
-| 1.11.0+       | 8.0, 8.1      |
+| 1.11.0+       | 8.1           |
 
 ## Install PHP
 

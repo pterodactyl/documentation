@@ -23,13 +23,13 @@ systemctl start mariadb
 systemctl enable mariadb
 ```
 
-### PHP 8.0
+### PHP 8.1
 ```bash
 ## Get apt updates
 apt update -y
 
-## Install PHP 8.0
-apt -y install php8.0 php8.0-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
+## Install PHP 8.1
+apt -y install php8.1 php8.1-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
 ```
 
 ### Nginx
@@ -96,8 +96,8 @@ The default php-fpm configuration is fine to use and can be started and then ena
 commands below.
 
 ```bash
-systemctl enable php8.0-fpm
-systemctl start php8.0-fpm
+systemctl enable php8.1-fpm
+systemctl start php8.1-fpm
 ```
 
 ### Nginx Configuration

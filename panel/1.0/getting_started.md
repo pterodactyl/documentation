@@ -34,7 +34,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 
 ## Dependencies
 
-* PHP `8.0` or `8.1` (recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use NGINX.
+* PHP `8.1` with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use NGINX.
 * MySQL `5.7.22` and higher (MySQL `8` recommended) **or** MariaDB `10.2` and higher.
 * Redis (`redis-server`)
 * A webserver (Apache, NGINX, Caddy, etc.)
