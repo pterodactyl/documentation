@@ -24,7 +24,9 @@ most cases your base Wings version should match that of your Panel.
 | 1.10.x        | 1.7.x         |           | 7.4, 8.0, 8.1                 |
 | **1.11.x**    | **1.11.x**    | ✅        | 8.0, **8.1** (8.0 deprecated) |
 
-_NOTE: There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings._
+::: tip Wings releases
+There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.
+:::
 
 ## Update Dependencies
 
@@ -136,10 +138,10 @@ The last step is to set the proper owner of the files to be the user that runs y
 is `www-data` but can vary from system to system &mdash; sometimes being `nginx`, `caddy`, `apache`, or even `nobody`.
 
 ```bash
-# If using NGINX or Apache (not on CentOS):
+# If using NGINX or Apache (not on CentOS)
 chown -R www-data:www-data /var/www/pterodactyl/*
 
-# If using NGINX on CentOS:
+# If using NGINX on CentOS
 chown -R nginx:nginx /var/www/pterodactyl/*
 
 # If using Apache on CentOS
