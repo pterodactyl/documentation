@@ -1,17 +1,7 @@
 <template>
   <div>
-    <div class="fixed h-12 w-full z-50 top-0">
-      <div class="h-12 w-full bg-black flex items-center justify-center px-4">
-        <div class="text-grey-lightest font-semibold">
-          Stand with Ukraine 🇺🇦
-          <a class="text-blue-lighter ml-2" href="https://www.savethechildren.org/us/where-we-work/ukraine" target="_blank" rel="noindex nofollow noopener">Learn</a>
-          <span class="px-1">&bull;</span>
-          <a class="text-blue-lighter" href="https://razomforukraine.org/" target="_blank" rel="noindex nofollow noopener">Donate</a>
-        </div>
-      </div>
-    </div>
     <div
-        class="theme-container mt-12"
+        class="theme-container"
         :class="pageClasses"
         @touchstart="onTouchStart"
         @touchend="onTouchEnd"
