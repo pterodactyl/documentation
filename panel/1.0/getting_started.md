@@ -54,14 +54,14 @@ operating system's package manager to determine the correct packages to install.
 # Add "add-apt-repository" command
 apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
 
-# Add additional repositories for PHP, Redis, and MariaDB
+# Add additional repositories for PHP (Ubuntu 20.04 and Ubuntu 22.04)
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 
 # Add Redis official APT repository
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
 
-# MariaDB repo setup script can be skipped on Ubuntu 22.04
+# MariaDB repo setup script (Ubuntu 20.04)
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 # Update repositories list
@@ -178,13 +178,13 @@ The last step in the installation process is to set the correct permissions on t
 use them correctly.
 
 ``` bash
-# If using NGINX or Apache (not on CentOS)
+# If using NGINX or Apache (not on RHEL / Rocky Linux / AlmaLinux)
 chown -R www-data:www-data /var/www/pterodactyl/*
 
-# If using NGINX on CentOS
+# If using NGINX on RHEL / Rocky Linux / AlmaLinux
 chown -R nginx:nginx /var/www/pterodactyl/*
 
-# If using Apache on CentOS
+# If using Apache on RHEL / Rocky Linux / AlmaLinux
 chown -R apache:apache /var/www/pterodactyl/*
 ```
 
@@ -233,8 +233,8 @@ RestartSec=5s
 WantedBy=multi-user.target
 ```
 
-::: tip Redis on CentOS
-If you are using CentOS, you will need to replace `redis-server.service` with `redis.service` at the `After=` line in order to ensure `redis` starts before the queue worker.
+::: tip Redis on RHEL / Rocky Linux / AlmaLinux
+If you are using RHEL, Rocky Linux, or AlmaLinux, you will need to replace `redis-server.service` with `redis.service` at the `After=` line in order to ensure `redis` starts before the queue worker.
 :::
 
 ::: tip
