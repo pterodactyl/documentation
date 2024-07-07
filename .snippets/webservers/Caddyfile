@@ -11,7 +11,7 @@
 
     file_server
 
-    php_fastcgi unix//run/php/php8.1-fpm.sock {
+    php_fastcgi unix//run/php/php8.3-fpm.sock {
         root /var/www/pterodactyl/public
         index index.php
 

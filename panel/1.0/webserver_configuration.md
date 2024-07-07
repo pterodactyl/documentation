@@ -19,7 +19,7 @@ rm /etc/nginx/sites-enabled/default
 Now, you should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place the file in `/etc/nginx/sites-available/`, or &mdash; if on CentOS, `/etc/nginx/conf.d/`.
 
-<<< @/.snippets/webservers/nginx-php8.1.conf{5,11,26-27}
+<<< @/.snippets/webservers/nginx-php8.3.conf{5,11,26-27}
 
 ### Enabling Configuration
 
