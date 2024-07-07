@@ -1,3 +1,8 @@
+---
+meta:
+    - name: robots
+      content: noindex
+---
 # Upgrading
 Upgrading the Panel is a relatively simple process. Below you will find a list of articles that will walk you through
 the upgrade process for each version of the software.

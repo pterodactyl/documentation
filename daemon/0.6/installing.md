@@ -1,3 +1,8 @@
+---
+meta:
+    - name: robots
+      content: noindex
+---
 # Installation
 
 ::: danger This Software is Abandoned

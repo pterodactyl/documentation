@@ -1,3 +1,8 @@
+---
+meta:
+    - name: robots
+      content: noindex
+---
 # Getting Started
 
 ::: danger This Version is End-of-Life
