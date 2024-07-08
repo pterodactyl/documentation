@@ -20,8 +20,9 @@ only the versions listed below.
 |------------------|---------|:------------------:|-------------------------------------------------------------|
 | **Ubuntu**       | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
 |                  | 22.04   | :white_check_mark: |                                                             |
-| **CentOS**       | 7       | :white_check_mark: |                                                             |
-|                  | 8       | :white_check_mark: | Note that CentOS 8 is EOL. Use Rocky or Alma Linux.         |
+|                  | 24.04   | :white_check_mark: |                                                             |
+| **RHEL / Rocky Linux / AlmaLinux**       | 8       | :white_check_mark: |                                                             |
+|                  | 9       | :white_check_mark: |                                                             |
 | **Debian**       | 11      | :white_check_mark: |                                                             |
 |                  | 12      | :white_check_mark: |                                                             |
 | **Windows**      | All     |        :x:         | This software will not run in Windows environments.         |
