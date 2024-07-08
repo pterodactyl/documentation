@@ -19,7 +19,7 @@ rm /etc/nginx/sites-enabled/default
 Now, you should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place the file in `/etc/nginx/sites-available/`, or &mdash; if on RHEL, Rocky Linux, or AlmaLinux, `/etc/nginx/conf.d/`.
 
-<<< @/.snippets/webservers/nginx-php8.3.conf{5,11,26-27}
+<<< @/.snippets/webservers/nginx-php8.3.conf{4,11,26-27}
 
 ### Enabling Configuration
 
@@ -71,7 +71,7 @@ Now, you should paste the contents of the file below, replacing `<domain>` with 
 
 Note: When using Apache, make sure you have the `libapache2-mod-php8.3` package installed or else PHP will not display on your webserver.
 
-<<< @/.snippets/webservers/apache.conf{2,10,24-25}
+<<< @/.snippets/webservers/apache.conf{3,12,26-27}
 
 ### Enabling Configuration
 
@@ -99,7 +99,7 @@ Now, you should paste the contents of the file below, replacing `<domain>` with 
 
 Note: When using Apache, make sure you have the `libapache2-mod-php8.3` package installed or else PHP will not display on your webserver.
 
-<<< @/.snippets/webservers/apache-nossl.conf{2}
+<<< @/.snippets/webservers/apache-nossl.conf{3}
 
 ### Enabling Configuration
 
@@ -127,7 +127,7 @@ Then continue with an editor of your choice to write the config.
 
 You should paste the contents of the file below, replacing `<domain>` with your domain name.
 
-<<< @/.snippets/webservers/Caddyfile{9}
+<<< @/.snippets/webservers/Caddyfile{10}
 
 ::: tip
 If you are using Cloudflare DNS in proxy mode, refer to [this tutorial](/tutorials/creating_ssl_certificates.html#method-3:-caddy-(using-cloudflare-api)), to see how to configure Caddy to use DNS challenge for obtaining SSL certificates.
@@ -157,7 +157,7 @@ You should paste the contents of the file below, replacing `<domain>` with your 
 
 The only two differences are that we have suffixed the `<domain>` with `:80` and in the global config at `servers` directive, we have changed the port from `:443` to `:80`.
 
-<<< @/.snippets/webservers/Caddyfile-nossl{9}
+<<< @/.snippets/webservers/Caddyfile-nossl{10}
 
 ### Enabling Configuration
 

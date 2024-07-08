@@ -6,6 +6,7 @@
     }
 }
 
+# Replace the example <domain> with your domain name or IP address
 <domain>:80 {
     root * /var/www/pterodactyl/public
 
