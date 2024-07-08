@@ -58,12 +58,7 @@ For a quick install of Docker CE, you can execute the command below:
 curl -sSL https://get.docker.com/ | CHANNEL=stable bash
 ```
 
-If you would rather do a manual installation, please reference the official Docker documentation for how to install Docker CE on your server. Some quick links
-are listed below for commonly supported systems.
-
-- [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce)
-- [CentOS](https://docs.docker.com/install/linux/docker-ce/centos/#install-docker-ce)
-- [Debian](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce)
+If you would rather do a manual installation, please reference the [official Docker documentation](https://docs.docker.com/engine/install/) for how to install Docker CE on your server.
 
 ::: warning Check your Kernel
 Please be aware that some hosts install a modified kernel that does not support important docker features. Please
