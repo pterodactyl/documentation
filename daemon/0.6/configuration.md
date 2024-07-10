@@ -1,3 +1,8 @@
+---
+meta:
+    - name: robots
+      content: noindex
+---
 # Additional Configuration
 
 ::: danger This Software is Abandoned

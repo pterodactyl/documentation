@@ -1,3 +1,8 @@
+---
+meta:
+    - name: robots
+      content: noindex
+---
 # Standalone SFTP Server
 
 ::: danger This Software is Abandoned

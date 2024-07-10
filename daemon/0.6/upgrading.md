@@ -1,3 +1,8 @@
+---
+meta:
+    - name: robots
+      content: noindex
+---
 # Upgrading
 
 ::: danger This Software is Abandoned
