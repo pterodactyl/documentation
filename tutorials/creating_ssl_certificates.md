@@ -97,15 +97,15 @@ systemctl restart wings
 
 :::
 ::: tab "Method 2: acme.sh (using Cloudflare API)"
-This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/Neilpang/acme.sh) for installation instructions.
+This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/Neilpang/acme.sh) for installation instructions. Make sure you read both instructions, as some people may have moved to CloudFlare's [new authorization system](https://blog.cloudflare.com/permissions-best-practices) (Modern), but other's [have not](https://community.cloudflare.com/t/cannot-add-new-member-error-1005/421516) (Legacy). 
 
 ``` bash
 curl https://get.acme.sh | sh
 ```
 
-### Obtaining CloudFlare API Key
+### Obtaining CloudFlare API Key (Legacy)
 
-After installing acme.sh, we need to fetch a CloudFlare API key. On Cloudfare's website, select your domain, then on the right side, copy your "Zone ID" and "Account ID" then click on "Get your API token", click on "Create Token" > select the template "Edit zone DNS" > select the scope of "Zone Ressources" and then click on "Continue to summary", copy your token.
+After installing acme.sh, we need to fetch a CloudFlare API key. On Cloudfare's website, select your domain, then on the right side, copy your "Zone ID" and "Account ID" then click on "Get your API token", click on "Create Token" > select the template "Edit zone DNS" > select the scope of "Zone Resources" and then click on "Continue to summary", copy your token.
 
 ### Creating a Certificate
 
@@ -121,10 +121,29 @@ After installing acme.sh and obtaining CloudFlare API key, we need to then gener
 export CF_Token="Your_CloudFlare_API_Key"
 export CF_Account_ID="Your_CloudFlare_Account_ID"
 export CF_Zone_ID="Your_CloudFlare_Zone_ID"
-
 ```
 
-Then create the certificate.
+
+### Obtaining CloudFlare API Key (Modern)
+
+After installing acme.sh, we need to fetch a CloudFlare API key. On Cloudfare's website, click on your profile on the top right. Then go to "My Profile", on the left you will find "API Tokens". Click it and it'll bring you to [the api tokens page](https://dash.cloudflare.com/profile/api-tokens). Select "Create Token" and use the "Edit zone DNS" template. Then once on the next page, goto "Zone Resources" and "Include" - "Specific Zone" - (Select the domain you want to use). Then continue to the summery. Confirm you'd like to create the token.
+
+### Creating a Certificate
+
+Since the configuration file is based on Certbot, we need to create the folder manually.
+
+```bash
+sudo mkdir -p /etc/letsencrypt/live/example.com
+```
+
+After installing acme.sh and obtaining CloudFlare API key, we need to then generate a certificate. First input the CloudFlare API credentials.
+
+```bash
+export CF_Key="Your_CloudFlare_API_Key"
+export CF_Email="Your_CloudFlare_Email"
+```
+
+Then create the certificate. Since the API key is bound to the domain, Cloudflare should allow you to generate one.
 
 ```bash
 acme.sh --issue --dns dns_cf -d "example.com" --server letsencrypt \
