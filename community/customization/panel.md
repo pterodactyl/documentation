@@ -18,7 +18,7 @@ The build tools require NodeJS, yarn is used as the package manager.
 ```bash
 # Ubuntu/Debian
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-apt install -y nodejs
+sudo apt install -y nodejs
 
 # CentOS
 curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
