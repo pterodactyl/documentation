@@ -6,12 +6,13 @@
     }
 }
 
+# Replace the example <domain> with your domain name or IP address
 <domain>:80 {
     root * /var/www/pterodactyl/public
 
     file_server
 
-    php_fastcgi unix//run/php/php8.1-fpm.sock {
+    php_fastcgi unix//run/php/php8.3-fpm.sock {
         root /var/www/pterodactyl/public
         index index.php
 
