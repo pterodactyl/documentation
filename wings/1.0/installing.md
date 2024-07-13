@@ -16,16 +16,16 @@ You are responsible for determining which packages may be necessary on those sys
 high probability that new releases of the supported OSes below will work just fine, you are not restricted to
 only the versions listed below.
 
-| Operating System | Version |     Supported      | Notes                                                       |
-|------------------|---------|:------------------:|-------------------------------------------------------------|
-| **Ubuntu**       | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
-|                  | 22.04   | :white_check_mark: |                                                             |
-|                  | 24.04   | :white_check_mark: |                                                             |
-| **RHEL / Rocky Linux / AlmaLinux**       | 8       | :white_check_mark: |                                                             |
-|                  | 9       | :white_check_mark: |                                                             |
-| **Debian**       | 11      | :white_check_mark: |                                                             |
-|                  | 12      | :white_check_mark: |                                                             |
-| **Windows**      | All     |        :x:         | This software will not run in Windows environments.         |
+| Operating System                   | Version |     Supported      | Notes                                                       |
+| ---------------------------------- | ------- | :----------------: | ----------------------------------------------------------- |
+| **Ubuntu**                         | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
+|                                    | 22.04   | :white_check_mark: |                                                             |
+|                                    | 24.04   | :white_check_mark: |                                                             |
+| **RHEL / Rocky Linux / AlmaLinux** | 8       | :white_check_mark: |                                                             |
+|                                    | 9       | :white_check_mark: |                                                             |
+| **Debian**                         | 11      | :white_check_mark: |                                                             |
+|                                    | 12      | :white_check_mark: |                                                             |
+| **Windows**                        | All     |        :x:         | This software will not run in Windows environments.         |
 
 ## System Requirements
 

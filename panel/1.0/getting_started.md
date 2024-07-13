@@ -23,15 +23,15 @@ Pterodactyl does not support most OpenVZ systems due to incompatibilities with D
 this software on an OpenVZ based system you will &mdash; most likely &mdash; not be successful.
 :::
 
-| Operating System | Version |     Supported      | Notes                                                       |
-|------------------|---------|:------------------:|-------------------------------------------------------------|
-| **Ubuntu**       | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
-|                  | 22.04   | :white_check_mark: |     MariaDB can be installed without the repo setup script. |
-|                  | 24.04   | :white_check_mark: |     MariaDB can be installed without the repo setup script. |
-| **RHEL / Rocky Linux / AlmaLinux**  | 8       | :white_check_mark: | Extra repos are required.                                   |
-|                  | 9       | :white_check_mark: |                                                             |
-| **Debian**       | 11      | :white_check_mark: |                                                             |
-|                  | 12      | :white_check_mark: |                                                             |
+| Operating System                   | Version |     Supported      | Notes                                                       |
+| ---------------------------------- | ------- | :----------------: | ----------------------------------------------------------- |
+| **Ubuntu**                         | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
+|                                    | 22.04   | :white_check_mark: | MariaDB can be installed without the repo setup script.     |
+|                                    | 24.04   | :white_check_mark: | MariaDB can be installed without the repo setup script.     |
+| **RHEL / Rocky Linux / AlmaLinux** | 8       | :white_check_mark: | Extra repos are required.                                   |
+|                                    | 9       | :white_check_mark: |                                                             |
+| **Debian**                         | 11      | :white_check_mark: |                                                             |
+|                                    | 12      | :white_check_mark: |                                                             |
 
 ## Dependencies
 
