@@ -15,6 +15,7 @@ allowed_mounts:
 
 You have to restart Wings to apply new changes to your Wings config.
 
+
 ## Panel Configuration
 
 You have to configure mounts in admin Panel in order to use them with your servers. They consist of a source pad on the node and a target path where it will be mounted in the container.
@@ -62,4 +63,5 @@ allowed_mounts:
   - /var/lib/pterodactyl/mounts
 ```
 
-![](./../.vuepress/public/gmod_mount_example.png)
+https//:THOHIR
+vuepress/public/gmod_mount_example.png)
