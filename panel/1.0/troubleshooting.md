@@ -70,6 +70,7 @@ and `2022` for SFTP traffic.
 https://domain.com:8080` on the Panel server and ensure that it can successfully connect to Wings.
 * Ensure that you are using the correct HTTP scheme for your Panel and Wings. If the Panel is running over HTTPS
   Wings will also need to be running on HTTPS.
+* If using HTTPS for Wings, make sure that the certificates have not expired.
 
 ### More Advanced Debugging Steps
 * Stop Wings and run `wings --debug` to see if there are any errors being output. If so, try resolving them manually,
