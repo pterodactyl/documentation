@@ -1,3 +1,8 @@
+---
+meta:
+    - name: robots
+      content: noindex
+---
 # Webserver Configuration
 
 ::: danger This Version is End-of-Life
