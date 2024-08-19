@@ -3,13 +3,13 @@
 This documentation includes instructions for upgrading your system to the latest version of PHP. Please reference the
 table below to check what version you need for your version of Pterodactyl.
 
-| Panel Version | PHP Version   |
-|---------------|---------------|
-| 1.0.0 - 1.2.0 | 7.3, 7.4      |
-| 1.3.0+        | 7.4, 8.0      |
-| 1.8.0+        | 7.4, 8.0, 8.1 |
-| 1.11.0 - 1.11.3       | 8.0, 8.1      |
-| 1.11.4+       | 8.1, 8.2, 8.3 |
+| Panel Version   | PHP Version   |
+| --------------- | ------------- |
+| 1.0.0 - 1.2.0   | 7.3, 7.4      |
+| 1.3.0+          | 7.4, 8.0      |
+| 1.8.0+          | 7.4, 8.0, 8.1 |
+| 1.11.0 - 1.11.3 | 8.0, 8.1      |
+| 1.11.4+         | 8.1, 8.2, 8.3 |
 
 ## Install PHP
 

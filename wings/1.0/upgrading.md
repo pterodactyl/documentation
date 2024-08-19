@@ -9,7 +9,7 @@ is required for it to run. Please see the chart below for how these versions lin
 most cases your base Wings version should match that of your Panel.
 
 | Panel Version | Wings Version | Supported |
-|---------------|---------------|-----------|
+| ------------- | ------------- | --------- |
 | 1.0.x         | 1.0.x         |           |
 | 1.1.x         | 1.1.x         |           |
 | 1.2.x         | 1.2.x         |           |
