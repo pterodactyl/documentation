@@ -9,20 +9,21 @@ Each version of Pterodactyl Panel also has a corresponding minimum version of Wi
 is required for it to run. Please see the chart below for how these versions line up. In
 most cases your base Wings version should match that of your Panel.
 
-| Panel Version | Wings Version | Supported | PHP Versions      |
-| ------------- | ------------- | --------- | ----------------- |
-| 1.0.x         | 1.0.x         |           | 7.3, 7.4          |
-| 1.1.x         | 1.1.x         |           | 7.3, 7.4          |
-| 1.2.x         | 1.2.x         |           | 7.3, 7.4          |
-| 1.3.x         | 1.3.x         |           | 7.4, 8.0          |
-| 1.4.x         | 1.4.x         |           | 7.4, 8.0          |
-| 1.5.x         | 1.4.x         |           | 7.4, 8.0          |
-| 1.6.x         | 1.4.x         |           | 7.4, 8.0          |
-| 1.7.x         | 1.5.x         |           | 7.4, 8.0          |
-| 1.8.x         | 1.6.x         |           | 7.4, 8.0, 8.1     |
-| 1.9.x         | 1.6.x         |           | 7.4, 8.0, 8.1     |
-| 1.10.x        | 1.7.x         |           | 7.4, 8.0, 8.1     |
-| **1.11.x**    | **1.11.x**    | ✅         | 8.1, 8.2, **8.3** |
+| Panel Version | Wings Version | Supported | PHP Versions          |
+| ------------- | ------------- | --------- | --------------------- |
+| 1.0.x         | 1.0.x         |           | 7.3, 7.4              |
+| 1.1.x         | 1.1.x         |           | 7.3, 7.4              |
+| 1.2.x         | 1.2.x         |           | 7.3, 7.4              |
+| 1.3.x         | 1.3.x         |           | 7.4, 8.0              |
+| 1.4.x         | 1.4.x         |           | 7.4, 8.0              |
+| 1.5.x         | 1.4.x         |           | 7.4, 8.0              |
+| 1.6.x         | 1.4.x         |           | 7.4, 8.0              |
+| 1.7.x         | 1.5.x         |           | 7.4, 8.0              |
+| 1.8.x         | 1.6.x         |           | 7.4, 8.0, 8.1         |
+| 1.9.x         | 1.6.x         |           | 7.4, 8.0, 8.1         |
+| 1.10.x        | 1.7.x         |           | 7.4, 8.0, 8.1         |
+| **1.11.x**    | **1.11.x**    | ✅        | ~~8.1~~, 8.2, **8.3** |
+
 
 ::: tip Wings releases
 There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.
@@ -30,15 +31,14 @@ There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.
 
 ## Update Dependencies
 
-- PHP `8.1`, `8.2`, or `8.3` (recommended)
+- PHP `8.2`, or `8.3` (recommended)
 - Composer `2.X`
-
 
 **Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 8.1 by running `php -v` and Composer 2 by running `composer --version`. You
 should see an output similar to the result below. If you do not see at least PHP 8.1 and Composer 2, you will need to upgrade by following
 our [PHP Upgrade Guide](/guides/php_upgrade.md) and return to this documentation afterward.
 
-```
+```shell
 vagrant@pterodactyl:~/app$ php -v
 PHP 8.1.5 (cli) (built: Apr 21 2022 10:32:13) (NTS)
 Copyright (c) The PHP Group
