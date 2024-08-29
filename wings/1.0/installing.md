@@ -16,15 +16,16 @@ You are responsible for determining which packages may be necessary on those sys
 high probability that new releases of the supported OSes below will work just fine, you are not restricted to
 only the versions listed below.
 
-| Operating System | Version |     Supported      | Notes                                                       |
-|------------------|---------|:------------------:|-------------------------------------------------------------|
-| **Ubuntu**       | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
-|                  | 22.04   | :white_check_mark: |                                                             |
-| **CentOS**       | 7       | :white_check_mark: |                                                             |
-|                  | 8       | :white_check_mark: | Note that CentOS 8 is EOL. Use Rocky or Alma Linux.         |
-| **Debian**       | 11      | :white_check_mark: |                                                             |
-|                  | 12      | :white_check_mark: |                                                             |
-| **Windows**      | All     |        :x:         | This software will not run in Windows environments.         |
+| Operating System                   | Version |     Supported      | Notes                                                       |
+| ---------------------------------- | ------- | :----------------: | ----------------------------------------------------------- |
+| **Ubuntu**                         | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
+|                                    | 22.04   | :white_check_mark: |                                                             |
+|                                    | 24.04   | :white_check_mark: |                                                             |
+| **RHEL / Rocky Linux / AlmaLinux** | 8       | :white_check_mark: |                                                             |
+|                                    | 9       | :white_check_mark: |                                                             |
+| **Debian**                         | 11      | :white_check_mark: |                                                             |
+|                                    | 12      | :white_check_mark: |                                                             |
+| **Windows**                        | All     |        :x:         | This software will not run in Windows environments.         |
 
 ## System Requirements
 
@@ -57,12 +58,7 @@ For a quick install of Docker CE, you can execute the command below:
 curl -sSL https://get.docker.com/ | CHANNEL=stable bash
 ```
 
-If you would rather do a manual installation, please reference the official Docker documentation for how to install Docker CE on your server. Some quick links
-are listed below for commonly supported systems.
-
-- [Ubuntu](https://docs.docker.com/install/linux/docker-ce/ubuntu/#install-docker-ce)
-- [CentOS](https://docs.docker.com/install/linux/docker-ce/centos/#install-docker-ce)
-- [Debian](https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce)
+If you would rather do a manual installation, please reference the [official Docker documentation](https://docs.docker.com/engine/install/) for how to install Docker CE on your server.
 
 ::: warning Check your Kernel
 Please be aware that some hosts install a modified kernel that does not support important docker features. Please
@@ -169,7 +165,7 @@ WantedBy=multi-user.target
 Then, run the commands below to reload systemd and start Wings.
 
 ```bash
-systemctl enable --now wings
+sudo systemctl enable --now wings
 ```
 
 ### Node Allocations

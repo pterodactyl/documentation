@@ -23,18 +23,19 @@ Pterodactyl does not support most OpenVZ systems due to incompatibilities with D
 this software on an OpenVZ based system you will &mdash; most likely &mdash; not be successful.
 :::
 
-| Operating System | Version |     Supported      | Notes                                                       |
-|------------------|---------|:------------------:|-------------------------------------------------------------|
-| **Ubuntu**       | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
-|                  | 22.04   | :white_check_mark: |     MariaDB can be installed without the repo setup script. |
-| **CentOS**       | 7       | :white_check_mark: | Extra repos are required.                                   |
-|                  | 8       | :white_check_mark: | Note that CentOS 8 is EOL. Use Rocky or Alma Linux.         |
-| **Debian**       | 11      | :white_check_mark: |                                                             |
-|                  | 12      | :white_check_mark: |                                                             |
+| Operating System                   | Version |     Supported      | Notes                                                       |
+| ---------------------------------- | ------- | :----------------: | ----------------------------------------------------------- |
+| **Ubuntu**                         | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
+|                                    | 22.04   | :white_check_mark: | MariaDB can be installed without the repo setup script.     |
+|                                    | 24.04   | :white_check_mark: | MariaDB can be installed without the repo setup script.     |
+| **RHEL / Rocky Linux / AlmaLinux** | 8       | :white_check_mark: | Extra repos are required.                                   |
+|                                    | 9       | :white_check_mark: |                                                             |
+| **Debian**                         | 11      | :white_check_mark: |                                                             |
+|                                    | 12      | :white_check_mark: |                                                             |
 
 ## Dependencies
 
-* PHP `8.0` or `8.1` (recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use NGINX.
+* PHP `8.1`, `8.2`, or `8.3` (recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`, `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use NGINX.
 * MySQL `5.7.22` and higher (MySQL `8` recommended) **or** MariaDB `10.2` and higher.
 * Redis (`redis-server`)
 * A webserver (Apache, NGINX, Caddy, etc.)
@@ -53,21 +54,21 @@ operating system's package manager to determine the correct packages to install.
 # Add "add-apt-repository" command
 apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
 
-# Add additional repositories for PHP, Redis, and MariaDB
+# Add additional repositories for PHP (Ubuntu 20.04 and Ubuntu 22.04)
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 
 # Add Redis official APT repository
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
 
-# MariaDB repo setup script can be skipped on Ubuntu 22.04
+# MariaDB repo setup script (Ubuntu 20.04)
 curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash
 
 # Update repositories list
 apt update
 
 # Install Dependencies
-apt -y install php8.1 php8.1-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
+apt -y install php8.3 php8.3-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip} mariadb-server nginx tar unzip git redis-server
 ```
 
 ### Installing Composer
@@ -126,7 +127,7 @@ new application encryption key.
 
 ``` bash
 cp .env.example .env
-composer install --no-dev --optimize-autoloader
+COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
 
 # Only run the command below if you are installing this Panel for
 # the first time and do not have any Pterodactyl Panel data in the database.
@@ -177,13 +178,13 @@ The last step in the installation process is to set the correct permissions on t
 use them correctly.
 
 ``` bash
-# If using NGINX or Apache (not on CentOS)
+# If using NGINX or Apache (not on RHEL / Rocky Linux / AlmaLinux)
 chown -R www-data:www-data /var/www/pterodactyl/*
 
-# If using NGINX on CentOS
+# If using NGINX on RHEL / Rocky Linux / AlmaLinux
 chown -R nginx:nginx /var/www/pterodactyl/*
 
-# If using Apache on CentOS
+# If using Apache on RHEL / Rocky Linux / AlmaLinux
 chown -R apache:apache /var/www/pterodactyl/*
 ```
 
@@ -232,8 +233,8 @@ RestartSec=5s
 WantedBy=multi-user.target
 ```
 
-::: tip Redis on CentOS
-If you are using CentOS, you will need to replace `redis-server.service` with `redis.service` at the `After=` line in order to ensure `redis` starts before the queue worker.
+::: tip Redis on RHEL / Rocky Linux / AlmaLinux
+If you are using RHEL, Rocky Linux, or AlmaLinux, you will need to replace `redis-server.service` with `redis.service` at the `After=` line in order to ensure `redis` starts before the queue worker.
 :::
 
 ::: tip

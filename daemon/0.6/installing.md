@@ -20,14 +20,14 @@ This specific software is for Pterodactyl v0.7 and **must not be used for Pterod
 [[toc]]
 
 ## Supported Systems
-| Operating System | Version | Supported | Notes |
-| ---------------- | ------- | :-------: | ----- |
-| **Ubuntu** | 18.04 | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
-| | [20.04](/community/installation-guides/daemon/ubuntu2004.html) | :white_check_mark: |
-| **CentOS** | [7](/community/installation-guides/daemon/centos7.html) | :warning: | Extra repos are required |
-| | [8](/community/installation-guides/daemon/centos8.html) | :white_check_mark: | |
-| **Debian** | [9](/community/installation-guides/daemon/debian9.html) | :white_check_mark: | |
-| | [10](/community/installation-guides/daemon/debian10.html) | :white_check_mark: | |
+| Operating System | Version                                                        |     Supported      | Notes                                                       |
+| ---------------- | -------------------------------------------------------------- | :----------------: | ----------------------------------------------------------- |
+| **Ubuntu**       | 18.04                                                          | :white_check_mark: | Documentation written assuming Ubuntu 18.04 as the base OS. |
+|                  | [20.04](/community/installation-guides/daemon/ubuntu2004.html) | :white_check_mark: |
+| **CentOS**       | [7](/community/installation-guides/daemon/centos7.html)        |     :warning:      | Extra repos are required                                    |
+|                  | [8](/community/installation-guides/daemon/centos8.html)        | :white_check_mark: |                                                             |
+| **Debian**       | [9](/community/installation-guides/daemon/debian9.html)        | :white_check_mark: |                                                             |
+|                  | [10](/community/installation-guides/daemon/debian10.html)      | :white_check_mark: |                                                             |
 
 ## System Requirements
 In order to run the Daemon you will need a system capable of running Docker containers. Most VPS and almost all

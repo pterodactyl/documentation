@@ -9,7 +9,7 @@ is required for it to run. Please see the chart below for how these versions lin
 most cases your base Wings version should match that of your Panel.
 
 | Panel Version | Wings Version | Supported |
-|---------------|---------------|-----------|
+| ------------- | ------------- | --------- |
 | 1.0.x         | 1.0.x         |           |
 | 1.1.x         | 1.1.x         |           |
 | 1.2.x         | 1.2.x         |           |
@@ -20,7 +20,7 @@ most cases your base Wings version should match that of your Panel.
 | 1.7.x         | 1.5.x         |           |
 | 1.8.x         | 1.6.x         |           |
 | 1.9.x         | 1.6.x         |           |
-| **1.10.x**    | **1.7.x**     | ✅         |
+| 1.10.x        | 1.7.x         |           |
 | **1.11.x**    | **1.11.x**    | ✅         |
 
 *NOTE: There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.*

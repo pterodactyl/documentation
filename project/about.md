@@ -4,12 +4,12 @@
 
 ## Core Project Team
 
-| Name                                          | Discord Name    | Primary Role                        |
-|-----------------------------------------------|-----------------|-------------------------------------|
-| [Dane Everitt](https://daneeveritt.com/)      | `.tacticalfish` | Founder & Former Project Maintainer |
-| [Matthew Penner](https://matthewp.io/)        | `matthewp`      | Project Maintainer                  |
-| Stepan Fedotov                                | `trixter`       | WHMCS Module Maintainer             |
-| Michael Parker                                | `parkervcp`     | Egg Developer, Docker Integration   |
+| Name                                     | Discord Name    | Primary Role                        |
+| ---------------------------------------- | --------------- | ----------------------------------- |
+| [Dane Everitt](https://daneeveritt.com/) | `.tacticalfish` | Founder & Former Project Maintainer |
+| [Matthew Penner](https://matthewp.io/)   | `matthewp`      | Project Maintainer                  |
+| Stepan Fedotov                           | `trixter`       | WHMCS Module Maintainer             |
+| Michael Parker                           | `parkervcp`     | Egg Developer, Docker Integration   |
 
 Members of the project team have a red username in our Discord server.
 
@@ -22,8 +22,8 @@ members can be found in our Discord server and are distinguished with a yellow u
 
 The following companies help fund Pterodactyl's development. [Interested in becoming a sponsor?](https://github.com/sponsors/matthewpi)
 
-| Company                                                      | About                                                                                                                                                                                                                                           |
-|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Company                                                      | About                                                                                                                                                                                                                                                                 |
+| ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [**Aussie Server Hosts**](https://aussieserverhosts.com/)    | No frills Australian Owned and operated High Performance Server hosting for some of the most demanding games serving Australia and New Zealand.                                                                                                                       |
 | [**CodeNode LLC**](https://codenode.gg/)                     | Looking for simplicity? Well, look no further! CodeNode has got you covered with everything you need at the rock-bottom price of $1.75 per GB, including dedicated IPs in Dallas, Texas, and Amsterdam, Netherlands. We're not just good, we're the best in the game! |
 | [**BisectHosting**](https://www.bisecthosting.com/)          | BisectHosting provides Minecraft, Valheim and other server hosting services with the highest reliability and lightning fast support since 2012.                                                                                                                       |

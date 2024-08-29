@@ -10,5 +10,5 @@ features:
   details: Built on a modern stack utilizing the best design practices that make it easy to jump in and make modifications.
 - title: Docker to the Core
   details: All servers run in isolated Docker containers that limit attack vectors, provide strict resource limits, and provide environments tailored to each specific game.
-footer: MIT Licensed | Copyright © 2015 - 2018 Dane Everitt & Contributors
+footer: MIT Licensed | Copyright © Dane Everitt and contributors
 ---
