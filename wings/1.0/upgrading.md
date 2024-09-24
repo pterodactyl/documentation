@@ -1,6 +1,6 @@
 # Upgrading Wings
 
-Upgrading Wings is a painless process and should take less than a minute to complete.
+Upgrading Wings is a painless process and should take less than a mijnute to complete.
 
 ## Wings Version Requirements
 
