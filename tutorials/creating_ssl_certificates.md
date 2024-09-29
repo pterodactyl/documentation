@@ -70,7 +70,7 @@ which provides more options, and is much more powerful than certbot.
 If you get an `Insecure Connection` or SSL/TLS related error when trying to access your panel or wings, the certificate has likely expired.
 This can be easily fixed by renewing the SSL certificate, although using the command `certbot renew` might not do the job if port 80 is in use, as it'll return errors like: `Error: Attempting to renew cert (domain) from /etc/letsencrypt/renew/domain.conf produced an unexpected error`.
 
-This will happen especially if you're running Nginx instead of Apache. The solution for this is to use Nginx or Apache plugins with `--nginx` and `--apache`. Alternatively, you can stop Nginx, then renew the certificate, finally restart Nginx. Replace `nginx` with your own web server or with `wings` should you be renewing the certificate for Wings.
+This will happen especially if you're running Nginx instead of Apache. The solution for this is to use Nginx or Apache plugins with `--nginx` and `--apache`. Alternatively, you can stop Nginx, then renew the certificate, and finally restart Nginx. Replace `nginx` with your own web server or with `wings` should you be renewing the certificate for Wings.
 
 Stop Nginx:
 
@@ -84,7 +84,7 @@ Renew the certificate:
 certbot renew
 ```
 
-Once the process has complete, you can restart the Nginx service:
+Once the process has completed, you can restart the Nginx service:
 
 ```bash
 systemctl start nginx
@@ -97,7 +97,7 @@ systemctl restart wings
 
 :::
 ::: tab "Method 2: acme.sh (using Cloudflare API)"
-This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/acmesh-official/acme.sh) for installation instructions. Make sure you read both instructions, as some people may have moved to CloudFlare's [new authorization system](https://blog.cloudflare.com/permissions-best-practices) (Modern), but other's [have not](https://cloudflare.tv/event/ea8JJLgR) (Legacy). 
+This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/acmesh-official/acme.sh) for installation instructions. Make sure you read both instructions, as some people may have moved to CloudFlare's [new authorization system](https://blog.cloudflare.com/permissions-best-practices) (Modern), but others [have not](https://cloudflare.tv/event/ea8JJLgR) (Legacy). 
 
 ``` bash
 curl https://get.acme.sh | sh
@@ -115,7 +115,7 @@ Since the configuration file is based on Certbot, we need to create the folder m
 sudo mkdir -p /etc/letsencrypt/live/example.com
 ```
 
-After installing acme.sh and obtaining CloudFlare API key, we need to then generate a certificate. First input the CloudFlare API credentials.
+After installing acme.sh and obtaining CloudFlare API key, we need to then generate a certificate. First, input the CloudFlare API credentials.
 
 ```bash
 export CF_Token="Your_CloudFlare_API_Key"
@@ -126,7 +126,7 @@ export CF_Zone_ID="Your_CloudFlare_Zone_ID"
 
 ### Obtaining CloudFlare API Key (Modern)
 
-After installing acme.sh, we need to fetch a CloudFlare API key. On Cloudfare's website, click on your profile on the top right. Then go to "My Profile", on the left you will find "API Tokens". Click it and it'll bring you to [the api tokens page](https://dash.cloudflare.com/profile/api-tokens). Select "Create Token" and use the "Edit zone DNS" template. Then once on the next page, goto "Zone Resources" and "Include" - "Specific Zone" - (Select the domain you want to use). Then continue to the summery. Confirm you'd like to create the token.
+After installing acme.sh, we need to fetch a CloudFlare API key. On Cloudfare's website, click on your profile on the top right. Then go to "My Profile", on the left you will find "API Tokens". Click it and it'll bring you to [the API tokens page](https://dash.cloudflare.com/profile/api-tokens). Select "Create Token" and use the "Edit zone DNS" template. Then once on the next page, go to "Zone Resources" and "Include" - "Specific Zone" - (Select the domain you want to use). Then continue to the summary. Confirm you'd like to create the token.
 
 ### Creating a Certificate
 
@@ -136,7 +136,7 @@ Since the configuration file is based on Certbot, we need to create the folder m
 sudo mkdir -p /etc/letsencrypt/live/example.com
 ```
 
-After installing acme.sh and obtaining CloudFlare API key, we need to then generate a certificate. First input the CloudFlare API credentials.
+After installing acme.sh and obtaining the CloudFlare API key, we need to then generate a certificate. First, input the CloudFlare API credentials.
 
 ```bash
 export CF_Key="Your_CloudFlare_API_Key"
@@ -153,7 +153,7 @@ acme.sh --issue --dns dns_cf -d "example.com" --server letsencrypt \
 
 ### Auto Renewal
 
-After running the script for the first time, it will be added to the crontab automatically. You may edit the auto renewal interval by editing the crontab.
+After running the script for the first time, it will be added to the crontab automatically. You may edit the auto-renewal interval by editing the crontab.
 
 ```bash
 sudo crontab -e
