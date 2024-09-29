@@ -97,7 +97,7 @@ systemctl restart wings
 
 :::
 ::: tab "Method 2: acme.sh (using Cloudflare API)"
-This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/acmesh-official/acme.sh) for installation instructions. Make sure you read both instructions, as some people may have moved to CloudFlare's [new authorization system](https://blog.cloudflare.com/permissions-best-practices) (Modern), but other's [have not](https://community.cloudflare.com/t/cannot-add-new-member-error-1005/421516) (Legacy). 
+This is for advanced users, whose server systems do not have access to port 80. The command below is for Ubuntu distributions and CloudFlare API (you may google for other APIs for other DNS providers), but you can always check [acme.sh's official site](https://github.com/acmesh-official/acme.sh) for installation instructions. Make sure you read both instructions, as some people may have moved to CloudFlare's [new authorization system](https://blog.cloudflare.com/permissions-best-practices) (Modern), but other's [have not](https://cloudflare.tv/event/ea8JJLgR) (Legacy). 
 
 ``` bash
 curl https://get.acme.sh | sh
