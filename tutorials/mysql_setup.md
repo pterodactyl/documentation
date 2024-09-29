@@ -12,7 +12,11 @@ The first step in this process is to login to the MySQL command line where we wi
 things setup. To do so, simply run the command below and provide the Root MySQL account's password that you setup when
 installing MySQL. If you do not remember doing this, chances are you can just hit enter as no password is set.
 
-``` bash
+```sql
+# If using MariaDB (v11.0.0+)
+mariadb -u root -p
+
+# If using MySQL
 mysql -u root -p
 ```
 
