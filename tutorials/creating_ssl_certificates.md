@@ -139,8 +139,7 @@ sudo mkdir -p /etc/letsencrypt/live/example.com
 After installing acme.sh and obtaining the CloudFlare API key, we need to then generate a certificate. First, input the CloudFlare API credentials.
 
 ```bash
-export CF_Key="Your_CloudFlare_API_Key"
-export CF_Email="Your_CloudFlare_Email"
+export CF_Token="Your_CloudFlare_API_Token"
 ```
 
 Then create the certificate. Since the API key is bound to the domain, Cloudflare should allow you to generate one.
