@@ -1,3 +1,4 @@
+![logo](https://github.com/user-attachments/assets/e5ec1692-ca0e-4586-b91d-c94bab277929)
 # Upgrading Wings
 
 Upgrading Wings is a painless process and should take less than a minute to complete.
@@ -40,6 +41,7 @@ chmod u+x /usr/local/bin/wings
 
 Finally, restart the wings process. Your running servers will not be affected and any open
 connections to the instance will re-connect automatically.
+
 
 ``` bash
 systemctl restart wings
