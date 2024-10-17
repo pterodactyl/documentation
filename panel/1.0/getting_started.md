@@ -184,7 +184,7 @@ The last step in the installation process is to set the correct permissions on t
 use them correctly.
 
 ``` bash
-# If using NGINX or Apache (not on RHEL / Rocky Linux / AlmaLinux)
+# If using NGINX, Apache or Caddy (not on RHEL / Rocky Linux / AlmaLinux)
 chown -R www-data:www-data /var/www/pterodactyl/*
 
 # If using NGINX on RHEL / Rocky Linux / AlmaLinux
