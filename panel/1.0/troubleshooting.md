@@ -140,7 +140,7 @@ If this returns different DNS Servers than 1.1.1.1 and 1.0.0.1 you'll need to ed
 - Check logs from your queue manager ``journalctl -xeu pteroq``
 - Restart pteroq ``systemctl restart pteroq``
 - Clear schedule cache ``php /var/www/pterodactyl/artisan schedule:clear-cache``
-- Check your php version - up to 8.1 is supported ``php -v``
+- Check your php version - up to 8.3 is supported ``php -v``
 - Check your crontab syntax using <https://crontab.guru/> - make sure it's what you intended
 - Verify the problem is with the schedule and not with the tasks you have set up (Set the first task in your schedule to something you know prints a message in the console, ie. run ``say test`` in the console for a Minecraft server, if the text "test" shows up in the console successfully, set the first task to ``say test`` so you know if it runs
 - Are your tasks off by a bit? Make sure you on the latest version of the panel? In version 1.11.5 there was a fix for schedules running at the wrong time. Alternatively, you may have the wrong timezone set. Make sure your timezones all match.
