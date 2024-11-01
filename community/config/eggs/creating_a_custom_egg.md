@@ -30,6 +30,29 @@ can be tweaked per-server if needed).
 _Docker images must be specifically designed to work with Pterodactyl Panel._ You should read more about that in
 our [Creating a Docker Image](/community/config/eggs/creating_a_custom_image.md) guide.
 
+## The Pterodactyl Install Procces
+
+::: warning
+Please be aware of how the pterodactyl install process works!
+:::
+
+```
+1. Spin up install container
+    Creates a new container using an install image which runs as root.
+    Uses a volume mount on `/mnt/server` for the server files, which is the working directory during installation.
+    The volume will be later mounted as `/home/container` for the server container. Any files outside of `/mnt/server` will be gone after installation.
+    The installation script can set up everything that's required to run the server, such as writing files, creating directories, or compiling apps.
+    It is regularly used to just download the files required, such as server files and configs.
+    
+2. Stop and destroy install container
+
+3. Start a new container with the server files in /home/container
+    This is where the server is is actually ran, without root privileges.
+    Any dependencies installed during the install process are gone.
+    The container that is started should have everything you need.
+    No packages can be installed. Any required dependencies must exist in the used Docker image.
+```
+
 ## Configure Process Management
 This is perhaps the most important step in this service option configuration, as this tells the Daemon how to run everything.
 
@@ -49,7 +72,7 @@ This can be set like below.
 
 ```json
 {}
-``` 
+```
 
 ### Configuration Files
 The next block is one of the most complex blocks, the `Configuration Files` descriptor. The Daemon will process this
@@ -79,6 +102,18 @@ Avoid using this parser if possible.
 * `ini`
 * `json` (supports `*` notation)
 * `xml`
+
+::: tip
+If you want to use egg non stock variables in the configuration parser you must reference them as 
+```text
+{{server.build.env.ENVNAME}}
+``` 
+or just 
+```text
+{{env.ENVNAME}}
+```
+Do not forget to to replace `ENVNAME` with the actual environment name you have setup.
+:::
 
 Once you have defined a parser, we then define a `find` block which tells the Daemon what specific elements to find
 and replace. In this example, we have provided four separate items within the `server.properties` file that we want to
@@ -116,6 +151,26 @@ single matching line. In this case, we are looking for either `127.0.0.1` or `lo
 docker interface defined in the configuration file using `{{config.docker.interface}}`. 
 :::
 
+#### File Parser
+The file parser replaces the whole line that you are trying to edit. So you have to use it like this:
+
+```json
+{
+    "main/server.cfg": {
+        "parser": "file",
+        "find": {
+            "seta sv_hostname": "seta sv_hostname \"{{env.SERVER_NAME}}\"",
+            "seta sv_maxClients": "seta sv_maxClients \"{{env.SERVER_MAXCLIENTS}}\"",
+            "seta rconPassword": "seta rconPassword \"{{env.RCON_PASSWORD}}\"",
+            "seta g_password": "seta g_password \"{{env.SERVER_PASSWORD}}\"",
+            "Map": "Map {{env.SERVER_MAP}}"
+        }
+    }
+}
+```
+
+The `"` on the right side are escaped with a `\` because else they would break the json syntax for the parser.
+
 ### Start Configuration
 The last block to configure is the `Start Configuration` for servers running using this service option.
 
@@ -127,7 +182,17 @@ The last block to configure is the `Start Configuration` for servers running usi
 
 In the example block above, we define `done` as the entire line, or part of a line that indicates a server is done
 starting, and is ready for players to join. When the Daemon sees this output, it will mark the server as `ON` rather
-than `STARTING`.
+than `STARTING`. 
+
+If your application has multiple messages that mean that it is fully startup then you can also do it like this:
+```json
+{
+  "done":[
+    "change this text 1",
+    "change this text 2"
+  ]
+}
+```
 
 That concludes basic service option configuration.
 
