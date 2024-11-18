@@ -34,16 +34,16 @@ There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.
 - PHP `8.2`, or `8.3` (recommended)
 - Composer `2.X`
 
-**Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 8.1 by running `php -v` and Composer 2 by running `composer --version`. You
-should see an output similar to the result below. If you do not see at least PHP 8.1 and Composer 2, you will need to upgrade by following
+**Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 8.2 by running `php -v` and Composer 2 by running `composer --version`. You
+should see an output similar to the result below. If you do not see at least PHP 8.2 and Composer 2, you will need to upgrade by following
 our [PHP Upgrade Guide](/guides/php_upgrade.md) and return to this documentation afterward.
 
 ```shell
 vagrant@pterodactyl:~/app$ php -v
-PHP 8.1.5 (cli) (built: Apr 21 2022 10:32:13) (NTS)
+PHP 8.2.5 (cli) (built: Dec 21 2022 10:32:13) (NTS)
 Copyright (c) The PHP Group
 Zend Engine v4.1.5, Copyright (c) Zend Technologies
-    with Zend OPcache v8.1.5, Copyright (c), by Zend Technologies
+    with Zend OPcache v8.2.5, Copyright (c), by Zend Technologies
 
 vagrant@pterodactyl:~/app$ composer --version
 Composer version 2.3.5 2022-04-13 16:43:00
