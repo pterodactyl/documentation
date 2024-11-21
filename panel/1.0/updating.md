@@ -49,6 +49,9 @@ vagrant@pterodactyl:~/app$ composer --version
 Composer version 2.3.5 2022-04-13 16:43:00
 ```
 
+**After updating php**, please confirm that the /etc/nginx/sites-available/pterodactyl.conf file has the correct path to php-fpm to avoid nginx 502 Bad Gateway error.
+`fastcgi_pass unix:/run/php/php8.3-fpm.sock;`
+
 ## Self Upgrade
 
 ::: warning
