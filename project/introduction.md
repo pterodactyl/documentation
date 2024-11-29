@@ -30,7 +30,7 @@ and there are plenty more games available provided by the community. Some of the
 * FiveM
 * Xonotic
 * Discord ATLBot
-* [and many more...](https://github.com/parkervcp/eggs)
+* [and many more...](https://pterodactyleggs.com)
 
 ## Responsible Disclosure
 Pterodactyl is completely open-source, and as such completely open to independent users and auditors to browse our

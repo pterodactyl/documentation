@@ -138,7 +138,7 @@
                         <p><a class="text-grey-lightest" href="https://github.com/sponsors/matthewpi">Sponsor</a></p>
                         <p><a class="text-grey-lightest" href="https://paypal.me/PterodactylSoftware">Donate</a></p>
                         <p><a class="text-grey-lightest" href="/panel/troubleshooting.html">Troubleshooting</a></p>
-                        <p><a class="text-grey-lightest" href="https://github.com/parkervcp/eggs">Additional Game Configurations</a></p>
+                        <p><a class="text-grey-lightest" href="https://pterodactyleggs.com">Additional Game Configurations</a></p>
                     </div>
                     <div class="text-center mt-8 md:flex-1 md:mt-0">
                         <a href="https://discord.gg/pterodactyl" target="_blank" rel="nofollow noopener">
