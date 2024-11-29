@@ -3,7 +3,7 @@
 [[toc]]
 
 ::: warning
-This tutorial uses examples from our [`core:java`](https://github.com/pterodactyl/images/tree/java) docker image,
+This tutorial uses examples from our [`yolks:java_17`](https://github.com/pterodactyl/yolks/tree/master/java/17) docker image,
 which can be found on GitHub. This tutorial also assumes some knowledge of [Docker](https://docker.io/), we suggest
 reading up if this all looks foreign to you.
 :::
@@ -13,51 +13,61 @@ reading up if this all looks foreign to you.
 The most important part of this process is to create the [`Dockerfile`](https://docs.docker.com/engine/reference/builder/)
 that will be used by the Daemon. Due to heavy restrictions on server containers, you must setup this file in a specific manner.
 
-We try to make use of [Alpine Linux](https://alpinelinux.org) as much as possible for our images in order to keep their size down.
+We try to use a [Debian based OS](https://www.debian.org) as much as possible for our images
 
 ```bash
-# ----------------------------------
-# Pterodactyl Core Dockerfile
-# Environment: Java
-# Minimum Panel Version: 0.6.0
-# ----------------------------------
-FROM openjdk:8-jdk-alpine
+FROM        --platform=$TARGETOS/$TARGETARCH eclipse-temurin:17-jdk-jammy
 
-MAINTAINER Pterodactyl Software, <support@pterodactyl.io>
+LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
-RUN apk add --no-cache --update curl ca-certificates openssl git tar bash sqlite fontconfig \
-    && adduser --disabled-password --home /home/container container
+LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL       org.opencontainers.image.licenses=MIT
 
-USER container
-ENV  USER=container HOME=/home/container
+RUN 		apt-get update -y \
+ 			&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 \
+ 			&& useradd -d /home/container -m container
 
-WORKDIR /home/container
+USER        container
+ENV         USER=container HOME=/home/container
+WORKDIR     /home/container
 
-COPY ./entrypoint.sh /entrypoint.sh
-
-CMD ["/bin/bash", "/entrypoint.sh"]
+COPY        ./../entrypoint.sh /entrypoint.sh
+CMD         [ "/bin/bash", "/entrypoint.sh" ]
 ```
 
 Lets walk through the `Dockerfile` above. The first thing you'll notice is the [`FROM`](https://docs.docker.com/engine/reference/builder/#from) declaration.
 
 ```bash
-FROM openjdk:8-jdk-alpine
+FROM --platform=$TARGETOS/$TARGETARCH eclipse-temurin:17-jdk-jammy
 ```
 
-In this case, we are using [`openjdk:8-jdk-alpine`](https://github.com/docker-library/openjdk) which provides us with Java 8.
+The `--platform=$TARGETOS/$TARGETARCH` allows us to specify in the github workflow that we want to build for linux/amd64 and linux/arm64. See [Docker docs](https://docs.docker.com/engine/reference/builder/#from)
+
+In this case, we are using [`eclipse-temurin:17-jdk-jammy`](https://github.com/adoptium/containers/tree/main) which provides us with Java 17.
 
 ## Installing Dependencies
 
-The next thing we do is install the dependencies we will need using Alpine's package manager: `apk`. You'll notice some
-specific flags that keep the container small, including `--no-cache`, as well as everything being contained in a
-single [`RUN`](https://docs.docker.com/engine/reference/builder/#run) block.
+The next thing we do is install the dependencies we will need using Debian/Ubuntu's package manager: `apt`. You'll notice some
+specific flags `-y` as the docker build is non interactive, as well as everything being contained in a
+single [`RUN`](https://docs.docker.com/engine/reference/builder/#run) block. 
+
+::: warning
+The dependency `iproute2` is required in every docker container to make the ip command work
+:::
+
+## Files In The Docker Image
+::: warning
+Because the way that Pterodactyl works, it is not possible to store any files within the Docker image at `/home/container`.
+:::
+
+All files must be downloaded with the egg install script, this means for example that you can not put your bot files or minecraft server jars in the Docker image as you can with regular docker images.
 
 ## Creating a Container User
 
 Within this `RUN` block, you'll notice the `useradd` command.
 
 ```bash
-adduser -D -h /home/container container
+ useradd -d /home/container -m container
 ```
 
 ::: warning
@@ -79,8 +89,8 @@ we define the command to be used when the container is started using [`CMD`](htt
 The `CMD` line should always point to the `entrypoint.sh` file.
 
 ```bash
-COPY ./entrypoint.sh /entrypoint.sh
-CMD ["/bin/bash", "/entrypoint.sh"]
+COPY        ./../entrypoint.sh /entrypoint.sh
+CMD         [ "/bin/bash", "/entrypoint.sh" ]
 ```
 
 ## Entrypoint Script
@@ -92,21 +102,46 @@ These entrypoint files are actually fairly abstracted, and the Daemon will pass 
 variable before processing it and then executing the command.
 
 ```bash
-#!/bin/bash
-cd /home/container
+# Default the TZ environment variable to UTC.
+TZ=${TZ:-UTC}
+export TZ
 
-# Output Current Java Version
-java -version ## only really needed to show what version is being used. Should be changed for different applications
+# Set environment variable that holds the Internal Docker IP
+INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
+export INTERNAL_IP
 
-# Replace Startup Variables
-MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
-echo ":/home/container$ ${MODIFIED_STARTUP}"
+# Switch to the container's working directory
+cd /home/container || exit 1
 
-# Run the Server
-${MODIFIED_STARTUP}
+# Print Java version
+printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mjava -version\n"
+java -version
+
+# Convert all of the "{{VARIABLE}}" parts of the command into the expected shell
+# variable format of "${VARIABLE}" before evaluating the string and automatically
+# replacing the values.
+PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
+
+# Display the command we're running in the output, and then execute it with the env
+# from the container itself.
+printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0m%s\n" "$PARSED"
+# shellcheck disable=SC2086
+exec env ${PARSED}
 ```
 
-The second command, `cd /home/container`, simply ensures we are in the correct directory when running the rest of the
+First we set the timezone.
+```bash
+TZ=${TZ:-UTC}
+export TZ
+```
+
+Then we make the internal ip avaible in the docker container.
+```bash
+INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
+export INTERNAL_IP
+```
+
+The third command, `cd /home/container`, simply ensures we are in the correct directory when running the rest of the
 commands. We then follow that up with `java -version` to output this information to end-users, but that is not necessary.
 
 ## Modifying the Startup Command
@@ -116,16 +151,15 @@ is parsing the environment `STARTUP` that is passed into the container by the Da
 looks something like the example below:
 
 ```bash
-STARTUP="java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar {{SERVER_JARFILE}}"
+STARTUP="java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}"
 ```
 
 ::: v-pre
-You'll notice some placeholders there, specifically `{{SERVER_MEMORY}}` and `{{SERVER_JARFILE}}`. These both refer to
+You'll notice some placeholders there, specifically `{{SERVER_JARFILE}}`. These refer to
 other environment variables being passed in, and they look something like the example below.
 :::
 
 ```bash
-SERVER_MEMORY=1024
 SERVER_JARFILE=server.jar
 ```
 
@@ -133,7 +167,7 @@ There are a host of different environment variables, and they change depending o
 configuration. However, that is not necessarily anything to worry about here.
 
 ```bash
-MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
+PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
 ```
 
 ::: v-pre
@@ -142,18 +176,18 @@ curly braces `{{EXAMPLE}}` with a matching environment variable (such as `EXAMPL
 :::
 
 ```bash
-java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar {{SERVER_JARFILE}}
+java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}
 ```
 
 Becomes:
 
 ```bash
-java -Xms128M -Xmx1024M -jar server.jar
+java -Xms128M -XX:MaxRAMPercentage=95.0 -jar server.jar
 ```
 
 ## Run the Command
 
-The last step is to run this modified startup command, which is done with the line `${MODIFIED_STARTUP}`.
+The last step is to run this modified startup command, which is done with the line `exec env ${PARSED}`.
 
 ### Note
 
