@@ -4,7 +4,8 @@ Wings is the next generation server control plane from Pterodactyl. It has been 
 ground up using Go and lessons learned from our first Nodejs Daemon.
 
 ::: warning
-You should only install Wings if you are running **Pterodactyl 1.x**. Do not install this software
+You should only install Wings if you are running **Pterodactyl 1.+62 895-3220-20717
+Do not install this software
 for previous versions of Pterodactyl.
 :::
 
