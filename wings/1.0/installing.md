@@ -41,8 +41,7 @@ If the result doesn't contain `OpenVZ` or`LXC`, it should be fine. The result of
 Should that not work for some reason, or you're still unsure, you can also run the command below.
 
 ```bash
-dane@pterodactyl:~$ sudo dmidecode -s system-manufacturer
-VMware, Inc.
+sudo dmidecode -s system-manufacturer
 ```
 
 ## Dependencies
