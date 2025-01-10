@@ -6,3 +6,4 @@ feel are important to share with the community, but do not fit into the theme of
 
 Here you'll find in-depth OS-specific installation guides, advanced network configurations, individual game
 setup instructions, and so much more.
+Thanks
