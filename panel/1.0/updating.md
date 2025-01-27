@@ -34,8 +34,8 @@ There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.
 - PHP `8.2`, or `8.3` (recommended)
 - Composer `2.X`
 
-**Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 8.2 by running `php -v` and Composer 2 by running `composer --version`. You
-should see an output similar to the result below. If you do not see at least PHP 8.2 and Composer 2, you will need to upgrade by following
+**Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 8.2 or 8.3 by running `php -v` and Composer 2 by running `composer --version`. You
+should see an output similar to the result below. If you do not see at least PHP 8.2 or 8,3 and Composer 2, you will need to upgrade by following
 our [PHP Upgrade Guide](/guides/php_upgrade.md) and return to this documentation afterward.
 
 ```shell
