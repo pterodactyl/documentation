@@ -4,16 +4,16 @@ title: "[Enhancement]: "
 labels: []
 assignees: []
 body:
-  - type: markdown
-    attributes:
-      value: "### Please fill in all required fields before submitting."
   - type: checkboxes
     id: already_searched
     attributes:
       label: "Have you checked if this is already explained elsewhere in the documentation?"
       options:
-        - label: "Yes"
+        - label: "Yes, but I still need clarification."
           required: true
+  - type: markdown
+    attributes:
+      value: "### Please fill in all required fields before submitting."
   - type: textarea
     id: what-to-add
     attributes:
