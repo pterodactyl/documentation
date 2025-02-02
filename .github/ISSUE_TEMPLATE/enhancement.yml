@@ -1,0 +1,23 @@
+name: Enhancement
+description: Tell us how to improve the documentation
+title: "[Enhancement]: "
+labels: []
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: "### Please fill in all required fields before submitting."
+  - type: checkboxes
+    id: already_searched
+    attributes:
+      label: "Have you checked if this is already explained elsewhere in the documentation?"
+      options:
+        - label: "Yes"
+          required: true
+  - type: textarea
+    id: what-to-add
+    attributes:
+      description: What do you want to see added to the Documentation?
+      placeholder: Tell us what needs to be added!
+    validations:
+      required: true
