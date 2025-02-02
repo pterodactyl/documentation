@@ -17,6 +17,7 @@ body:
   - type: textarea
     id: what-to-add
     attributes:
+      label: "Proposed Enhancement"
       description: What do you want to see added to the Documentation?
       placeholder: Tell us what needs to be added!
     validations:
