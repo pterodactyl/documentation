@@ -1,8 +1,8 @@
 name: Clarification Request
 description: Create a report to help us improve the clarity of the Documentation
 title: "[Clarification Request]"
-labels: ''
-assignees: ''
+labels: []
+assignees: []
 
 body:
   - type: checkboxes
