@@ -9,7 +9,7 @@ body:
     attributes:
       label: "Have you checked if this is already explained elsewhere in the documentation?"
       options:
-        - label: "Yes, but I still need clarification."
+        - label: "Yes"
           required: true
   - type: markdown
     attributes:
