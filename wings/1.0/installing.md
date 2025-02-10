@@ -112,6 +112,9 @@ set when creating the node.
 :::
 
 ## Configure
+::: Accessing Panel
+In your url type 127.0.0.1
+:::
 
 Once you have installed Wings and the required components, the next step is to create a node on your installed Panel. Go to your Panel administrative view, select Nodes from the sidebar, and on the right side click Create New button.
 
