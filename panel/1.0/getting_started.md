@@ -45,6 +45,10 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 * `git`
 * `composer` v2
 
+::: tip
+To mitigate permission issues, you should probably install Pterodactyl and it's dependencies as the root user or an otherwise privileged user.
+:::
+
 ### Example Dependency Installation
 
 The commands below are simply an example of how you might install these dependencies. Please consult with your
