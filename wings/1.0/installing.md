@@ -45,6 +45,10 @@ dane@pterodactyl:~$ sudo dmidecode -s system-manufacturer
 VMware, Inc.
 ```
 
+::: tip
+To mitigate permission issues, you should probably install Pterodactyl and it's dependencies as the root user or an otherwise privileged user.
+:::
+
 ## Dependencies
 
 - curl
