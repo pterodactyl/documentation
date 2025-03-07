@@ -77,6 +77,12 @@ Open `my.cnf`, add text below to the bottom of the file and save it:
 [mysqld]
 bind-address=0.0.0.0
 ```
+If your node is on the same machine as the panel and you only need local access, you'll only need to configure your MySQL instance to also listen on the pterodactyl0 interface as well:
+```
+[mysqld]
+bind-address=127.0.0.1,172.18.0.1
+```
+
 Restart MySQL/MariaDB to apply these changes. This will override the default MySQL configuration, which by default will only accept requests from localhost. Updating this will allow connections on all interfaces, and thus, external connections. Make sure to allow the MySQL port (default 3306) in your firewall.
 
 If your Database and Wings are on the same machine and won't need external access, you can also use the `docker0` interface IP address rather than `127.0.0.1`. This IP address can be found by running `ip addr | grep docker0`, and it likely looks like `172.x.x.x`.
