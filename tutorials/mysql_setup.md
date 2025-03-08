@@ -81,4 +81,4 @@ Restart MySQL/MariaDB to apply these changes. This will override the default MyS
 
 If your Database and Wings are on the same machine and won't need external access, you can also use the `pterodacrtyl0` interface IP address rather than `127.0.0.1`. This IP address is from wings' docker interface and can be found in the `config.yml` of your wings instance, the default is `172.18.0.1`.
 
-Starting with MySQL 8.0.13 / MariaDB 10.11 or above, `bind_address` now also accept a comma-separated list of interfaces to give more control over what interfaces it will listen on and which not.
+Starting with MySQL 8.0.13 / MariaDB 10.11 or above, `bind_address` now also accepts a comma-separated list of interfaces to give more control over what interfaces it will listen on and which not.
