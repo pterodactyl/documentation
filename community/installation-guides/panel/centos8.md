@@ -82,3 +82,20 @@ Excellent, we now have all of the required dependencies installed and configured
 ::: warning
 You will need to change the fastcgi_pass path in the Nginx configuration to `/var/run/php-fpm/pterodactyl.sock`
 :::
+
+::: warning
+If you complete the [official Panel installation documentation](/panel/1.0/getting_started.md#download-files) but get a HTTP 500 error code and "Permission Denied" errors in `/var/log/nginx/pterodactyl.app-error.log`, you may need to run the following commands: 
+
+``` bash
+sudo chcon -R -t httpd_sys_rw_content_t storage
+sudo chcon -R -t httpd_sys_rw_content_t bootstrap/cache
+```
+:::
+
+::: warning
+If you get "Permission denied \[tcp://127.0.0.1:6379\]" in your laravel log (`/var/www/pterodactyl/storage/logs/laravel-TODAYS-DATE.log`), you may need to run the following commands: 
+
+``` bash
+sudo setsebool httpd_can_network_connect=1
+```
+:::
