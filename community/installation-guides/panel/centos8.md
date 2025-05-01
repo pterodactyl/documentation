@@ -79,6 +79,6 @@ sudo systemctl enable --now php-fpm
 Excellent, we now have all of the required dependencies installed and configured. From here, follow the [official Panel installation documentation](/panel/1.0/getting_started.md#download-files).
 
 
-::: warn
+::: warning
 You will need to change the fastcgi_pass path in the Nginx configuration to `/var/run/php-fpm/pterodactyl.sock`
 :::
