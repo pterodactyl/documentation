@@ -2,159 +2,167 @@
 
 [[toc]]
 
-::: warning
-This tutorial uses examples from our [`core:java`](https://github.com/pterodactyl/images/tree/java) docker image,
-which can be found on GitHub. This tutorial also assumes some knowledge of [Docker](https://docker.io/), we suggest
-reading up if this all looks foreign to you.
+:::warning
+All Pterodactyl containers must have a user named `container`, and the user home must be `/home/container`
 :::
+This guide explains how to create a custom Docker image for use with Pterodactyl eggs, using a modern base example from the [Ptero-Eggs yolks repository](https://github.com/Ptero-Eggs/yolks/tree/main).
 
-## Creating the Dockerfile
+Docker images define the environment in which a server runs—what software is installed, what versions are used, and how everything is launched. Custom images allow you to add packages or modify behavior beyond what official yolks provide.
 
-The most important part of this process is to create the [`Dockerfile`](https://docs.docker.com/engine/reference/builder/)
-that will be used by the Daemon. Due to heavy restrictions on server containers, you must setup this file in a specific manner.
+## Dockerfile Example
 
-We try to make use of [Alpine Linux](https://alpinelinux.org) as much as possible for our images in order to keep their size down.
+Here’s a full Dockerfile example using Java 21 as the base image:
 
-```bash
-# ----------------------------------
-# Pterodactyl Core Dockerfile
-# Environment: Java
-# Minimum Panel Version: 0.6.0
-# ----------------------------------
-FROM openjdk:8-jdk-alpine
+```dockerfile
+FROM --platform=$TARGETOS/$TARGETARCH eclipse-temurin:21-jdk-jammy
 
-MAINTAINER Pterodactyl Software, <support@pterodactyl.io>
+LABEL author="Matthew Penner" maintainer="matthew@pterodactyl.io"
+LABEL org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL org.opencontainers.image.licenses=MIT
 
-RUN apk add --no-cache --update curl ca-certificates openssl git tar bash sqlite fontconfig \
-    && adduser --disabled-password --home /home/container container
+ENV   DEBIAN_FRONTEND=noninteractive
+
+RUN apt update -y \
+    && apt install -y \
+    curl \
+    lsof \
+    ca-certificates \
+    openssl \
+    git \
+    tar \
+    sqlite3 \
+    fontconfig \
+    tzdata \
+    iproute2 \
+    libfreetype6 \
+    tini \
+    zip \
+    unzip
+
+RUN useradd -m -d /home/container -s /bin/bash container
 
 USER container
-ENV  USER=container HOME=/home/container
-
+ENV USER=container HOME=/home/container
 WORKDIR /home/container
 
-COPY ./entrypoint.sh /entrypoint.sh
+COPY --chown=container:container ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-CMD ["/bin/bash", "/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/tini", "-g", "--"]
+CMD ["/entrypoint.sh"]
 ```
 
-Lets walk through the `Dockerfile` above. The first thing you'll notice is the [`FROM`](https://docs.docker.com/engine/reference/builder/#from) declaration.
+## Breakdown of the Dockerfile
 
-```bash
-FROM openjdk:8-jdk-alpine
+### Base Image
+```dockerfile
+FROM --platform=$TARGETOS/$TARGETARCH eclipse-temurin:21-jdk-jammy
 ```
+Uses Eclipse Temurin Java 21 JDK on Ubuntu Jammy. The `--platform` flag ensures compatibility with different system architectures.
 
-In this case, we are using [`openjdk:8-jdk-alpine`](https://github.com/docker-library/openjdk) which provides us with Java 8.
-
-## Installing Dependencies
-
-The next thing we do is install the dependencies we will need using Alpine's package manager: `apk`. You'll notice some
-specific flags that keep the container small, including `--no-cache`, as well as everything being contained in a
-single [`RUN`](https://docs.docker.com/engine/reference/builder/#run) block.
-
-## Creating a Container User
-
-Within this `RUN` block, you'll notice the `useradd` command.
-
-```bash
-adduser -D -h /home/container container
+### Metadata Labels
+```dockerfile
+LABEL author="..."
 ```
+Provides metadata such as author, source, and license. Useful for documentation.
 
-::: warning
-All Pterodactyl containers must have a user named `container`, and the user home **must** be `/home/container`.
-:::
-
-After we create that user, we then define the default container [`USER`](https://docs.docker.com/engine/reference/builder/#user)
-as well as a few [`ENV`](https://docs.docker.com/engine/reference/builder/#env) settings to be applied to things running
-within the container.
-
-## Work Directory & Entrypoint
-
-One of the last things we do is define a [`WORKDIR`](https://docs.docker.com/engine/reference/builder/#workdir) which
-is where everything else will be executed. The `WORKDIR` must be set the `/home/container`.
-
-Finally, we need to copy our [`ENTRYPOINT`](https://docs.docker.com/engine/reference/builder/#entrypoint) script into
-the docker image root. This is done using [`COPY`](https://docs.docker.com/engine/reference/builder/#copy), after which
-we define the command to be used when the container is started using [`CMD`](https://docs.docker.com/engine/reference/builder/#cmd).
-The `CMD` line should always point to the `entrypoint.sh` file.
-
-```bash
-COPY ./entrypoint.sh /entrypoint.sh
-CMD ["/bin/bash", "/entrypoint.sh"]
+### Dependencies
+```dockerfile
+RUN apt update -y && apt install -y [...]
 ```
+Installs useful server packages:
 
-## Entrypoint Script
+- `curl`, `lsof`, `openssl`: Common CLI tools.
+- `fontconfig`, `libfreetype6`: Support Java-based GUI rendering.
+- `tini`: Handles signal forwarding and zombie reaping.
 
-In order to complete this `Dockerfile`, we will need an `entrypoint.sh` file which tells Docker how to run this
-specific server type.
+### User Setup
 
-These entrypoint files are actually fairly abstracted, and the Daemon will pass in the start command as an environment
-variable before processing it and then executing the command.
+
+```dockerfile
+RUN useradd -m -d /home/container -s /bin/bash container
+```
+Creates a non-root user `container` to enhance security.
+
+### Switch User & Set Environment
+```dockerfile
+USER container
+ENV USER=container HOME=/home/container
+```
+Switches to the new user and sets key environment variables.
+
+### Working Directory
+```dockerfile
+WORKDIR /home/container
+```
+Sets the default working directory.
+
+### Entrypoint Setup
+```dockerfile
+COPY --chown=container:container ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+```
+Copies the startup script and ensures it’s executable.
+
+### Entry Command
+```dockerfile
+ENTRYPOINT ["/usr/bin/tini", "-g", "--"]
+CMD ["/entrypoint.sh"]
+```
+Uses `tini` to launch the container and execute the custom startup script.
+
+## Example entrypoint.sh
+
+In order to complete this Dockerfile, we will need an entrypoint.sh file which tells Docker how to run this specific server type.
+
+These entrypoint files are actually fairly abstracted, and the Daemon will pass in the start command as an environment variable before processing it and then executing the command.
+
+#### This script pairs with the Dockerfile above:
 
 ```bash
 #!/bin/bash
-cd /home/container
 
-# Output Current Java Version
-java -version ## only really needed to show what version is being used. Should be changed for different applications
+# Default the TZ environment variable to UTC.
+TZ=${TZ:-UTC}
+export TZ
 
-# Replace Startup Variables
-MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
-echo ":/home/container$ ${MODIFIED_STARTUP}"
+# Set environment variable that holds the Internal Docker IP
+INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
+export INTERNAL_IP
 
-# Run the Server
-${MODIFIED_STARTUP}
+# Switch to the container's working directory
+cd /home/container || exit 1
+
+# Print Java version
+printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0mjava -version\n"
+java -version
+
+# Convert all of the "{{VARIABLE}}" parts of the command into the expected shell
+# variable format of "${VARIABLE}" before evaluating the string and automatically
+# replacing the values.
+PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
+
+# Display the command we're running in the output, and then execute it with the env
+# from the container itself.
+printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0m%s\n" "$PARSED"
+# shellcheck disable=SC2086
+eval ${PARSED}
 ```
 
-The second command, `cd /home/container`, simply ensures we are in the correct directory when running the rest of the
-commands. We then follow that up with `java -version` to output this information to end-users, but that is not necessary.
+### Breakdown
 
-## Modifying the Startup Command
+- Navigates to the working directory.
+- Outputs the Java version for confirmation.
+- Processes and expands the Pterodactyl `STARTUP` variable.
+- Executes the startup command.
 
-The most significant part of this file is the `MODIFIED_STARTUP` environment variable. What we are doing in this case
-is parsing the environment `STARTUP` that is passed into the container by the Daemon. In most cases, this variable
-looks something like the example below:
 
-```bash
-STARTUP="java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar {{SERVER_JARFILE}}"
-```
+## Final Notes
 
-::: v-pre
-You'll notice some placeholders there, specifically `{{SERVER_MEMORY}}` and `{{SERVER_JARFILE}}`. These both refer to
-other environment variables being passed in, and they look something like the example below.
-:::
+- User home must be `/home/container`
+- All Pterodactyl containers must have a user named `container`
+- Always run as a **non-root** user in Pterodactyl containers.
+- Build and test locally with: `docker build -t my-image .`
+- Push images to Docker Hub or private registry and specify them in the egg under Docker Image, or run the image locally first if you want to ensure it functions as expected
 
-```bash
-SERVER_MEMORY=1024
-SERVER_JARFILE=server.jar
-```
-
-There are a host of different environment variables, and they change depending on the specific service option
-configuration. However, that is not necessarily anything to worry about here.
-
-```bash
-MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
-```
-
-::: v-pre
-The command above simply evaluates the `STARTUP` environment variable, and then replaces anything surrounded in
-curly braces `{{EXAMPLE}}` with a matching environment variable (such as `EXAMPLE`). Thus, our `STARTUP` command:
-:::
-
-```bash
-java -Xms128M -Xmx{{SERVER_MEMORY}}M -jar {{SERVER_JARFILE}}
-```
-
-Becomes:
-
-```bash
-java -Xms128M -Xmx1024M -jar server.jar
-```
-
-## Run the Command
-
-The last step is to run this modified startup command, which is done with the line `${MODIFIED_STARTUP}`.
-
-### Note
-
-Sometimes you may need to change the permissions of the `entrypoint.sh` file, on linux you can do this by executing `chmod +x entrypoint.sh` in the directory where the file is.
+Creating a custom Docker image lets you fully control the server for uncommon games or special dependencies.
