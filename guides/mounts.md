@@ -32,7 +32,7 @@ Keep in mind that the folder you want to mount into needs to exist for the mount
    - **Name**: Name for your mount.
    - **Description**: Description for your mount.
    - **Source**: The absolute path to the folder or files on the Node machine.
-   - **Target**: The absolute path where the mount will be placed inside of your server, can **not** include `/home/container` in the path.
+   - **Target**: The absolute path where the mount will be placed inside of your server. If `/home/container` is in the path, make sure the folder exists beforehand.
    - **Read Only**: Whether the mount will be read-only for the servers using it.
    - **User Mountable**: Whether to allow users to self mount this mount.
 4. After creating the mount, you are required to add both **Eggs** and **Nodes** that this mount may be used on.
