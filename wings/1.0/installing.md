@@ -1,5 +1,5 @@
 # Installing Wings
-
+darz
 Wings is the next generation server control plane from Pterodactyl. It has been rebuilt from the
 ground up using Go and lessons learned from our first Nodejs Daemon.
 
