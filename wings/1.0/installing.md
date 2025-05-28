@@ -75,6 +75,9 @@ sudo systemctl enable --now docker
 ```
 
 #### Enabling Swap
+::: tip Recent Linux kernel
+Since the version 6.1 of the Linux kernel, swap is enabled by default. If you are running a kernel version 6.1 or newer, you can skip this step. To check your kernel version, run `uname -r`.
+:::
 
 On most systems, Docker will be unable to setup swap space by default. You can confirm this by running `docker info` and looking for the output of `WARNING: No swap limit support` near the bottom.
 
