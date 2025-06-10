@@ -25,8 +25,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 
 | Operating System                   | Version |     Supported      | Notes                                                       |
 | ---------------------------------- | ------- | :----------------: | ----------------------------------------------------------- |
-| **Ubuntu**                         | 20.04   | :white_check_mark: | Documentation written assuming Ubuntu 20.04 as the base OS. |
-|                                    | 22.04   | :white_check_mark: | MariaDB can be installed without the repo setup script.     |
+| **Ubuntu**                         | 22.04   | :white_check_mark: | Requires additional repositories for PHP                    |
 |                                    | 24.04   | :white_check_mark: | MariaDB can be installed without the repo setup script.     |
 | **RHEL / Rocky Linux / AlmaLinux** | 8       | :white_check_mark: | Extra repos are required.                                   |
 |                                    | 9       | :white_check_mark: |                                                             |
@@ -54,15 +53,12 @@ operating system's package manager to determine the correct packages to install.
 # Add "add-apt-repository" command
 apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
 
-# Add additional repositories for PHP (Ubuntu 20.04 and Ubuntu 22.04)
+# Add additional repositories for PHP (Ubuntu 22.04)
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 
 # Add Redis official APT repository
 curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
 echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-
-# MariaDB repo setup script (Ubuntu 20.04)
-curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash
 
 # Update repositories list
 apt update
