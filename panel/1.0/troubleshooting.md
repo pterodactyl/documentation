@@ -127,8 +127,6 @@ You can view what DNS Servers your host uses through a number of ways depending 
 ```bash
 # Network Manager (This will show both your IPV4 DNS and IPV6 DNS Servers in case you want to add the IPV6 DNS Server(s) from your host to your Wings Config as well.
 nmcli -g ip4.dns,ip6.dns dev show
-# Systemd-Resolve (Ubuntu 18.04 and 20.04)
-systemd-resolve --status
 # Resolve-CTL (Newer Versions of Ubuntu)
 resolvectl status
 # Raw file locations that may have your host system's DNS Servers for various distributions
