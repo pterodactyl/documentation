@@ -40,7 +40,9 @@ AWS_BACKUPS_BUCKET=
 AWS_ENDPOINT=
 ```
 
-For some configurations, you might have to change your S3 URL from `bucket.domain.com` to `domain.com/bucket`. To accomplish this, add `AWS_USE_PATH_STYLE_ENDPOINT=true` to your `.env` file.
+For some configurations, you might have to change your S3 URL from `bucket.domain.com` to `domain.com/bucket`. To accomplish this, add `AWS_USE_PATH_STYLE_ENDPOINT=true` to your `.env` file. 
+
+Remember to restart the scheduler (pteroq.service) after changing the adapter. You can do this using the command: `systemctl restart pteroq.service`.
 
 #### Multipart Upload
 
