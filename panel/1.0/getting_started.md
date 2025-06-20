@@ -143,8 +143,7 @@ Store it somewhere safe - not just on your server. If you lose it, all encrypted
 To grab your `APP_KEY`, open a terminal and run the following in your panel directory:
 
 ```bash
-cd /var/www/pterodactyl
-grep APP_KEY .env
+grep APP_KEY /var/www/pterodactyl/.env
 ```
 
 You should see something like:
