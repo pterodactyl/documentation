@@ -137,15 +137,13 @@ php artisan key:generate --force
 ```
 
 ::: danger
-Back up your encryption key (APP_KEY in the `.env` file). It is used as an encryption key for all data that needs to be stored securely (e.g. API keys).
+Back up your encryption key (`APP_KEY` in the `.env` file). It is used as an encryption key for all data that needs to be stored securely (e.g. API keys).
 Store it somewhere safe - not just on your server. If you lose it, all encrypted data is irrecoverable, even with database backups.
-:::
 
-To grab your APP_KEY, open a terminal and run the following in your panel directory:
+To grab your `APP_KEY`, open a terminal and run the following in your panel directory:
 
 ```bash
-cd /var/www/pterodactyl
-grep APP_KEY .env
+grep APP_KEY /var/www/pterodactyl/.env
 ```
 
 You should see something like:
@@ -161,6 +159,7 @@ Copy that entire line and save it somewhere secure:
 - A trusted cloud vault
 
 Do not keep it only on the server. If you lose this key, your encrypted data is permanently unrecoverable.
+:::
 
 ### Environment Configuration
 
