@@ -62,7 +62,7 @@ For advanced users, we suggest installing and using [acme.sh](https://acme.sh)
 which provides more options, and is much more powerful than certbot.
 
 ``` text
-0 23 * * * certbot renew --quiet --deploy-hook "systemctl restart nginx"
+0 23 * * * certbot renew --nginx --quiet --deploy-hook "systemctl restart nginx"
 ```
 
 ### Troubleshooting
