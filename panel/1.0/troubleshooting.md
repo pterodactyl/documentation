@@ -86,6 +86,9 @@ servers `/etc/hosts` file that points the Panel's domain to the correct IP.
 * When running Wings and the Panel on separate VM's using the same adapter make sure the VM's can connect to each
 other. Promiscuous mode might be needed.
 
+### Specific Network Errors
+* If your panel is not connecting due to a CORS error, navigate to your wings config file (usually at `/etc/pterodactyl/config.yml`) and add your panel FQDN to the array of allowed origins (allowed_origins: [])
+
 ## Invalid MAC Exception
 ::: warning
 This error should never happen if you correctly follow our installation and upgrade guides. The only time we have
