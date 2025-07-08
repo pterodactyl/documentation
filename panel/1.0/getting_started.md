@@ -116,9 +116,9 @@ mysql -u root -p
 ```sql
 
 # Remember to change 'yourPassword' below to be a unique password
-CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'yourPassword';
-CREATE DATABASE panel;
-GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
+create user 'pterodactyl'@'127.0.0.1' identified by 'yourPassword';
+create database panel;
+grant all privileges on panel.* to 'pterodactyl'@'127.0.0.1' with grant option;
 exit
 ```
 
