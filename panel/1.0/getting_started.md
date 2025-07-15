@@ -33,6 +33,7 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 |                                    | 12      | :white_check_mark: |                                                             |
 | **Windows/WSL**                    | any     |        :x:         |                                                             |
 | **Android**                        | any     |        :x:         |                                                             |
+| **Arch**                           | any     |        :x:         |                                                             |
 
 ## Dependencies
 
