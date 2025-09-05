@@ -21,7 +21,7 @@ may have slightly different requirements for how this command is formatted.
 # Add additional repository for PHP
 add-apt-repository -y ppa:ondrej/php
 apt -y update
-apt -y install php8.3 php8.3-{cli,gd,mysql,pdo,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
+apt -y install php8.3 php8.3-{cli,gd,mysql,common,mbstring,tokenizer,bcmath,xml,fpm,curl,zip}
 ```
 
 ## Update Composer
