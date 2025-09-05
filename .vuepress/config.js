@@ -91,6 +91,10 @@ module.exports = {
                     collapsable: false,
                     children: [
                         '/community/config/eggs/creating_a_custom_egg.md',
+                        '/community/config/eggs/egg_docker_images.md',
+                        '/community/config/eggs/egg_config_parser.md',
+                        '/community/config/eggs/egg_variables.md',
+                        '/community/config/eggs/egg_install_script.md',
                         '/community/config/eggs/creating_a_custom_image.md',
                     ],
                 },
