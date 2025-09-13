@@ -100,7 +100,7 @@ After you've downloaded all of the new files you will need to upgrade the core c
 simply run the commands below and follow any prompts.
 
 ```bash
-COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
+composer install --no-dev --optimize-autoloader
 ```
 
 ### Clear Compiled Template Cache
