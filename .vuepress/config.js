@@ -83,7 +83,6 @@ module.exports = {
                     children: [
                         '/community/installation-guides/wings/centos7.md',
                         '/community/installation-guides/wings/centos8.md',
-                        '/community/installation-guides/wings/debian.md',
                     ]
                 },
                 {
