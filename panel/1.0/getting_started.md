@@ -29,8 +29,9 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 |                                    | 24.04   | :white_check_mark: | MariaDB can be installed without the repo setup script.     |
 | **RHEL / Rocky Linux / AlmaLinux** | 8       | :white_check_mark: | Extra repos are required.                                   |
 |                                    | 9       | :white_check_mark: |                                                             |
-| **Debian**                         | 11      | :white_check_mark: |                                                             |
-|                                    | 12      | :white_check_mark: |                                                             |
+| **Debian**                         | 11      | :white_check_mark: | [Debian Dependencies](/community/installation-guides/panel/debian.md)                                                            |
+|                                    | 12      | :white_check_mark: | [Debian Dependencies](/community/installation-guides/panel/debian.md)
+|                                    | 13      | :white_check_mark: | [Debian Dependencies](/community/installation-guides/panel/debian.md)
 
 ## Dependencies
 
