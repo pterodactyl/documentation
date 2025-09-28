@@ -10,7 +10,7 @@ This guide is based off the [official installation documentation](/panel/1.0/get
 | ---------------------------------- | ------- | :----------------: | ----------------------------------------------------------- |
 | **Debian**                         | 11      | :white_check_mark: |                                                             |
 |                                    | 12      | :white_check_mark: |                                                             |
-|                                    | 13      | :white_check_mark: | - MariaDB can be installed without the repo setup script - Redis can be installed without the Redis APT repository
+|                                    | 13      | :white_check_mark: | - MariaDB can be installed without the repo setup script<br> - Redis can be installed without the Redis APT repository |
 
 ## Dependency Installation
 
