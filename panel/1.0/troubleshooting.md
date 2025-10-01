@@ -73,7 +73,7 @@ https://domain.com:8080` on the Panel server and ensure that it can successfully
 * If using HTTPS for Wings, make sure that the certificates have not expired.
 
 ### More Advanced Debugging Steps
-* Stop Wings and run `wings --debug` to see if there are any errors being output. If so, try resolving them manually,
+* Use `sudo wings diagnostics` to generate logs and see if there are any errors being output. If so, try resolving them manually,
   or reach out on [Discord](https://discord.gg/pterodactyl) for more assistance.
 * Check your DNS and ensure that the response you receive is the one you expect using a tool such as `nslookup` or `dig`.
 * If you use CloudFlare make sure that the orange cloud is disabled for your Wings or Panel `A` records.
