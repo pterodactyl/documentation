@@ -1,0 +1,11 @@
+{
+  "title": "Panel 0.7 (Legacy)",
+  "pages": [
+    "getting-started",
+    "webserver-configuration",
+    "configuration",
+    "upgrading",
+    "upgrade",
+    "troubleshooting"
+  ]
+}

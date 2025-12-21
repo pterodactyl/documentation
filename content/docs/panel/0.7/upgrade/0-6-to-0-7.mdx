@@ -1,0 +1,122 @@
+---
+title: Upgrading 0.6 to 0.7
+description: Guide for upgrading from Panel 0.6 to 0.7
+---
+
+<Callout type="error" title="This Version is End-of-Life">
+This documentation is for **end-of-life software** which does not receive any security updates or support
+from the community. This documentation has been left accessible for historical reasons.
+
+You should be installing and using [Pterodactyl Panel 1.0](/panel/getting-started) in production environments.
+</Callout>
+
+## Fetch Updated Files
+
+The first step in the update process is to download the new panel files from GitHub. The command below will download
+the release archive for the most recent version of Pterodactyl and save it in the current directory. Now is a good time
+to ensure that you're in the `/var/www/pterodactyl` directory as the command below will automatically unpack in whatever
+directory you are currently in.
+
+```bash
+curl -L https://github.com/pterodactyl/panel/releases/download/v0.7.19/panel.tar.gz | tar --strip-components=1 -xzv
+```
+
+Once all of the files are downloaded we need to set the correct permissions on the cache and storage directories to avoid
+any webserver related errors.
+
+```bash
+chmod -R 755 storage/* bootstrap/cache
+```
+
+## Clear Compiled Assets
+
+Previous versions of Pterodactyl attempted to cache your configuration file for speed and performance enhancements. This
+ended up just causing more headaches with minimal improvements in performance, so we decided to stop doing that. Running
+the command below will clear the cached files for you so we can continue with upgrading.
+
+<Callout>
+You probably only need to run this command once when upgrading from `0.6.X`. Once you're upgraded we don't cache the configuration
+file so there is no reason to remove anything.
+</Callout>
+
+```bash
+rm -rf bootstrap/cache/*
+```
+
+Once the configuration cache is removed, you'll need to clear the template cache to ensure users get the most recent
+templates.
+
+```bash
+php artisan view:clear
+```
+
+## Update Dependencies
+
+After you've downloaded all of the new files you will need to upgrade the core components of the panel. To do this,
+simply run the commands below and follow any prompts.
+
+```bash
+composer install --no-dev --optimize-autoloader
+```
+
+## Update Environment
+
+These scripts will display your current values in brackets. To keep the current values simply press enter and it will
+continue without making any modifications.
+
+<Callout>
+We've changed our recommended cache driver to be Redis, rather than Memcached. If you're using Memcached you can
+continue doing so with no problems, however moving forward our installation documentation will only mention Redis.
+</Callout>
+
+```bash
+php artisan p:environment:setup
+php artisan p:environment:mail
+php artisan p:environment:database
+```
+
+## Database Updates
+
+<Callout type="warn" title="Backup your databases">
+The upgrade from `0.6` to `v0.7` includes some rather significant database changes. While the migration utility is
+able to handle everything for you, we still suggest taking a backup of your database before proceeding &mdash; just incase.
+</Callout>
+
+<Callout type="warn">
+Running `db:seed` below will overwrite any changes you made to core Pterodactyl Nests, Eggs, or Egg Variables! This is
+unavoidable, and this seeder must be run. To avoid this in the future, please create custom nests, or create custom
+eggs for game variations.
+</Callout>
+
+```bash
+php artisan migrate --force
+php artisan db:seed --force
+```
+
+## Cleanup API Keys
+
+A significant change is introduced in 0.7.0 that changes how API keys are used, stored, and validated. Due to this
+change, all previously created keys will no longer function. In order to keep things cleaned up you'll want to remove
+these orphaned keys. To do so, run the command below.
+
+```bash
+php artisan p:migration:clean-orphaned-keys
+```
+
+Don't forget to create new keys for yourself, as well as let all of your users know they'll need to do so as well.
+
+## Set Permissions
+
+The last step is to set the proper owner of the files to be the user that runs your webserver. In most cases this
+is `www-data` but can vary from system to system &mdash; sometimes being `nginx`, `apache`, or even `nobody`.
+
+```bash
+# If using NGINX or Apache (not on CentOS):
+chown -R www-data:www-data *
+
+# If using NGINX on CentOS:
+chown -R nginx:nginx *
+
+# If using Apache on CentOS
+chown -R apache:apache *
+```

@@ -1,0 +1,12 @@
+{
+  "title": "Guides",
+  "root": true,
+  "pages": [
+    "panel-installation",
+    "wings-installation",
+    "tutorials",
+    "configuration",
+    "customization",
+    "games"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Wings",
+  "root": true,
+  "pages": [
+    "installing",
+    "configuration",
+    "upgrading",
+    "migrating",
+    "daemon-0.6"
+  ]
+}

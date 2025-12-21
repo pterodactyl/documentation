@@ -1,0 +1,14 @@
+{
+  "title": "Panel",
+  "root": true,
+  "pages": [
+    "getting-started",
+    "webserver-configuration",
+    "additional-configuration",
+    "updating",
+    "troubleshooting",
+    "---Legacy---",
+    "legacy-upgrade",
+    "0.7"
+  ]
+}

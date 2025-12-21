@@ -1,0 +1,10 @@
+{
+  "title": "Configuration",
+  "pages": [
+    "add-node",
+    "php-upgrade",
+    "mounts",
+    "creating-custom-egg",
+    "creating-custom-image"
+  ]
+}
