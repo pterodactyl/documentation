@@ -20,7 +20,7 @@ members can be found in our Discord server and are distinguished with a yellow u
 
 ## Sponsors
 
-The following companies help fund Pterodactyl's development. [Interested in becoming a sponsor?](https://github.com/sponsors/matthewpi)
+The following companies help fund Pterodactyl's development. [Interested in becoming a sponsor?](https://github.com/sponsors/pterodactyl)
 
 | Company                                                      | About                                                                                                                                                                                                                                                                 |
 | ------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
