@@ -6,9 +6,6 @@
     "webserver-configuration",
     "additional-configuration",
     "updating",
-    "troubleshooting",
-    "---Legacy---",
-    "legacy-upgrade",
-    "0.7"
+    "troubleshooting"
   ]
 }
