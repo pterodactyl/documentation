@@ -42,3 +42,9 @@ All releases for both the Panel and Wings, including and after v1.12.0, are sign
 ```text
 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID4jRyjZHLujJfeQPrEx3YY+0QUmdmfK9GF8rHe7rWSn
 ```
+
+Previously, releases were signed using the following SSH signing key:
+
+```text
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKL873MsP1OFfffNC8n9WcVuOXOSW65/q26MIzib0K9k
+```
