@@ -2,6 +2,7 @@
   "title": "Wings Installation",
   "pages": [
     "centos7",
-    "centos8"
+    "centos8",
+    "nixos"
   ]
 }
