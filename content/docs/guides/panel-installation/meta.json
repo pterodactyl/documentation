@@ -3,6 +3,7 @@
   "pages": [
     "debian",
     "centos7",
-    "centos8"
+    "centos8",
+    "nixos"
   ]
 }

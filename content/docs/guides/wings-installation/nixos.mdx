@@ -1,0 +1,58 @@
+---
+title: NixOS
+---
+
+
+
+This guide provides instructions for installing Pterodactyl Wings on NixOS.
+
+## Configuration
+
+Make sure to firstly create the node on the panel in order to configure wings. To enable the service, add the following code to your `configuration.nix`:
+
+```nix
+{
+  services.pterodactyl.wings = {
+    enable = true;
+    uuid = "your-node-uuid";
+    remote = "https://panel.example.com";
+    # Using agenix, sops-nix or something else
+    tokenIdFile = "/path/to/token_id";
+    # Direct (not recommended)
+    # tokenId = "";
+    tokenFile = "/path/to/token";
+    # tokenFile = "";
+  };
+}
+```
+
+If you want wings to be accessible to the public, make sure to open the API and SFTP ports by adding this in your `configuration.nix`:
+
+```nix
+{
+  services.pterodactyl.wings = {
+    openFirewall = true;
+  };
+}
+```
+
+### Opening container ports
+
+Unfortunately this cannot be done automatically. If you have made a lot of ports as a range,
+you can open them with `networking.firewall.allowedTCPPortRanges` and `networking.firewall.allowedUDPPortRanges` in your `configuration.nix`:
+
+```nix
+{
+  networking.firewall = {
+    enable = true;
+    allowedTCPPortRanges = [
+      { from = 25565; to = 25600; }
+      { from = 3000; to = 3100; }
+    ];
+    allowedUDPPortRanges = [
+      { from = 25565; to = 25600; }
+      { from = 3000; to = 3100; }
+    ];
+  };
+}
+```
