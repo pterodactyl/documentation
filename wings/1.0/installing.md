@@ -172,6 +172,7 @@ Then, run the commands below to reload systemd and start Wings.
 sudo systemctl enable --now wings
 ```
 
+
 ### Node Allocations
 
 Allocation is a combination of IP and Port that you can assign to a server. Each created server must have at least one allocation. The allocation would be the IP address of your network interface. In some cases, such as when behind NAT, it would be the internal IP. To create new allocations go to Nodes > your node > Allocation.
