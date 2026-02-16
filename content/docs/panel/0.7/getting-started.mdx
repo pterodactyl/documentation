@@ -7,7 +7,7 @@ description: Installation guide for Pterodactyl Panel 0.7 (End-of-Life version)
 This documentation is for **end-of-life software** which does not receive any security updates or support
 from the community. This documentation has been left accessible for historical reasons.
 
-You should be installing and using [Pterodactyl Panel 1.0](/panel/getting-started) in production environments.
+You should be installing and using [Pterodactyl Panel 1.x](/panel/getting-started) in production environments.
 </Callout>
 
 Pterodactyl Panel is designed to run on your own web server. You will need to have root access to your server in order
@@ -30,11 +30,11 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | Operating System | Version                                                       |     Supported      | Notes                                                       |
 | ---------------- | ------------------------------------------------------------- | :----------------: | ----------------------------------------------------------- |
 | **Ubuntu**       | 18.04                                                         | ✅ | Documentation written assuming Ubuntu 18.04 as the base OS. |
-|                  | [20.04](/community/installation-guides/panel/ubuntu2004.html) | ✅ |                                                             |
-| **CentOS**       | [7](/community/installation-guides/panel/centos7.html)        | ✅ | Extra repos are required.                                   |
-|                  | [8](/community/installation-guides/panel/centos8.html)        | ✅ | All required packages are part of the base repos.           |
-| **Debian**       | [9](/community/installation-guides/panel/debian9.html)        | ✅ | Extra repos are required.                                   |
-|                  | [10](/community/installation-guides/panel/debian10.html)      | ✅ | All required packages are part of the base repos.           |
+|                  | 20.04   | ✅ |                                                             |
+| **CentOS**       | 7       | ✅ | Extra repos are required.                                   |
+|                  | 8       | ✅ | All required packages are part of the base repos.           |
+| **Debian**       | 9       | ✅ | Extra repos are required.                                   |
+|                  | 10      | ✅ | All required packages are part of the base repos.           |
 
 ## Dependencies
 
@@ -108,14 +108,14 @@ chmod -R 755 storage/* bootstrap/cache/
 This documentation is for **end-of-life software** which does not receive any security updates or support
 from the community. This documentation has been left accessible for historical reasons.
 
-You should be installing and using [Pterodactyl Panel 1.0](/panel/getting-started) in production environments.
+You should be installing and using [Pterodactyl Panel 1.x](/panel/getting-started) in production environments.
 </Callout>
 
 Now that all of the files have been downloaded we need to configure some core aspects of the Panel.
 
 <Callout title="Database Configuration">
 You will need a database setup and a user with the correct permissions created for that database before
-continuing any further. See below to quickly create a user and database for your Pterodactyl panel, if you are unsure how to do this or want more information, please have a look at [Setting up MySQL](/tutorials/mysql_setup.html).
+continuing any further. See below to quickly create a user and database for your Pterodactyl panel, if you are unsure how to do this or want more information, please have a look at [Setting up MySQL](/guides/tutorials/mysql-setup).
 
 ```sql
 mysql -u root -p
@@ -254,5 +254,3 @@ Finally, enable the service and set it to boot on machine start.
 ```bash
 sudo systemctl enable --now pteroq.service
 ```
-
-#### Next Step: [Webserver Configuration](/panel/0.7/webserver-configuration)

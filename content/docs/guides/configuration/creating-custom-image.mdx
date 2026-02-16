@@ -19,11 +19,11 @@ We try to make use of [Alpine Linux](https://alpinelinux.org) as much as possibl
 # ----------------------------------
 # Pterodactyl Core Dockerfile
 # Environment: Java
-# Minimum Panel Version: 0.6.0
+# Minimum Panel Version: 1.0.0
 # ----------------------------------
 FROM openjdk:8-jdk-alpine
 
-MAINTAINER Pterodactyl Software, <support@pterodactyl.io>
+LABEL maintainer="Pterodactyl Software <support@pterodactyl.io>"
 
 RUN apk add --no-cache --update curl ca-certificates openssl git tar bash sqlite fontconfig \
     && adduser --disabled-password --home /home/container container

@@ -26,7 +26,7 @@ reference the list below to ensure you have all of the required versions.
 
 * PHP `8.0` or `8.1` (recommended) with the following extensions: `cli`, `openssl`, `gd`, `mysql`, `PDO`, `mbstring`,
   `tokenizer`, `bcmath`, `xml` or `dom`, `curl`, `zip`, and `fpm` if you are planning to use nginx. See our guide
-  for [Upgrading PHP](/guides/php_upgrade) for details.
+  for [Upgrading PHP](/guides/configuration/php-upgrade) for details.
 * Composer v2 (`composer self-update --2`)
 
 <Callout type="warn">
@@ -52,7 +52,7 @@ to ensure that you're in the `/var/www/pterodactyl` directory as the command bel
 into your current folder.
 
 We will also be deleting the `app/` directory. Because of the way we handle installations and upgrades deleted files
-are not always detected properly, so simply uppacking over this location will result in some confusing behavior.
+are not always detected properly, so simply unpacking over this location will result in some confusing behavior.
 
 ```bash
 # Delete the app directory to ensure we start with a clean slate here. This will not affect any

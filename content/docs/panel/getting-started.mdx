@@ -19,9 +19,10 @@ of basic linux system administration you should stop and turn around now.**
 
 Pterodactyl runs on a wide range of operating systems, so pick whichever you are most comfortable using.
 
-<Callout type="warn">
-Pterodactyl does not support most OpenVZ systems due to incompatibilities with Docker. If you are planning on running
-this software on an OpenVZ based system you will &mdash; most likely &mdash; not be successful.
+<Callout type="info">
+Running Wings under LXC or OpenVZ containers is possible as long as the virtualization layer supports Docker. Most modern
+providers with LXC/OpenVZ 7+ and nested virtualization enabled will work without issues. If you run into problems, ensure
+that your provider has enabled the necessary kernel features for Docker.
 </Callout>
 
 | Operating System                   | Version |     Supported      | Notes                                                       |
@@ -31,8 +32,8 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 | **RHEL / Rocky Linux / AlmaLinux** | 8       | ✅ | Extra repos are required.                                   |
 |                                    | 9       | ✅ |                                                             |
 | **Debian**                         | 11      | ✅ | [Debian Dependencies](/guides/panel-installation/debian)                                                            |
-|                                    | 12      | ✅ | [Debian Dependencies](/guides/panel-installation/debian)
-|                                    | 13      | ✅ | [Debian Dependencies](/guides/panel-installation/debian)
+|                                    | 12      | ✅ | [Debian Dependencies](/guides/panel-installation/debian)                                                            |
+|                                    | 13      | ✅ | [Debian Dependencies](/guides/panel-installation/debian)                                                            |
 
 ## Dependencies
 
@@ -106,7 +107,7 @@ Now that all of the files have been downloaded we need to configure some core as
 <Callout title="Database Configuration">
 You will need a database setup and a user with the correct permissions created for that database before
 continuing any further. See below to create a user and database for your Pterodactyl panel quickly. To find more detailed information
-please have a look at [Setting up MySQL](/guides/mysql-setup).
+please have a look at [Setting up MySQL](/guides/tutorials/mysql-setup).
 
 ```sql
 # If using MariaDB (v11.0.0+) (This is the default when installing Pterodactyl by following the documentation.)
@@ -283,5 +284,3 @@ sudo systemctl enable --now pteroq.service
 Since 1.11, Pterodactyl will collect anonymous telemetry to help us better understand how the
 software is being used. To learn more about this feature and to opt-out, please see our [Telemetry](/panel/additional-configuration#telemetry)
 documentation. Make sure to continue with the rest of the installation process.
-
-#### Next Step: [Webserver Configuration](/panel/webserver-configuration)

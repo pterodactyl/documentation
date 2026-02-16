@@ -6,7 +6,7 @@ description: Guide for updating Pterodactyl Panel within the 1.x series
 
 
 This documentation covers the process for updating within the `1.x` series of releases. This means updating from
-— for example — `1.5.0` to `1.6.0`. **Do not use this guide for upgrading from `0.7`.**
+— for example — `1.11.x` to `1.12.x`.
 
 ## Panel Version Requirements
 
@@ -27,7 +27,8 @@ most cases your base Wings version should match that of your Panel.
 | 1.8.x         | 1.6.x         |           | 7.4, 8.0, 8.1         |
 | 1.9.x         | 1.6.x         |           | 7.4, 8.0, 8.1         |
 | 1.10.x        | 1.7.x         |           | 7.4, 8.0, 8.1         |
-| **1.11.x**    | **1.11.x**    | ✅        | ~~8.1~~, 8.2, **8.3** |
+| 1.11.x        | 1.11.x        |           | ~~8.1~~, 8.2, 8.3     |
+| **1.12.x**    | **1.12.x**    | ✅        | 8.2, **8.3**           |
 
 <Callout>
 There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.
@@ -40,34 +41,22 @@ There are no 1.8.x, 1.9.x, or 1.10.x releases of Wings.
 
 **Before continuing**, please ensure that your system and web server configuration has been upgraded to at least PHP 8.2 by running `php -v` and Composer 2 by running `composer --version`. You
 should see an output similar to the result below. If you do not see at least PHP 8.2 and Composer 2, you will need to upgrade by following
-our [PHP Upgrade Guide](/guides/php_upgrade) and return to this documentation afterward.
+our [PHP Upgrade Guide](/guides/configuration/php-upgrade) and return to this documentation afterward.
 
 ```shell
 vagrant@pterodactyl:~/app$ php -v
-PHP 8.2.5 (cli) (built: Dec 21 2022 10:32:13) (NTS)
+PHP 8.3.30 (cli) (built: Dec 21 2022 10:32:13) (NTS)
 Copyright (c) The PHP Group
-Zend Engine v4.1.5, Copyright (c) Zend Technologies
-    with Zend OPcache v8.2.5, Copyright (c), by Zend Technologies
+Zend Engine v4.3.30, Copyright (c) Zend Technologies
+    with Zend OPcache v8.3.30, Copyright (c), by Zend Technologies
 
 vagrant@pterodactyl:~/app$ composer --version
-Composer version 2.3.5 2022-04-13 16:43:00
+Composer version 2.8.12 2025-09-19 13:41:59
 ```
 
-## Self Upgrade
+## Upgrade Steps
 
-<Callout type="warn">
-The self-upgrade is currently in-operable due to issues with some dependencies we make use of.
-For the time being please perform a manual upgrade until this issue can be resolved.
-</Callout>
-
-## Manual Upgrade
-
-If you prefer not to perform the automatic self-upgrade, or need to reference any upgrade steps you can follow
-the documentation below.
-
-<Callout type="warn">
-If you've already performed the self-upgrade successfully you do not need to do anything else on this page.
-</Callout>
+Follow the steps below to upgrade your Panel to the latest version.
 
 ### Enter Maintenance Mode
 
@@ -133,13 +122,13 @@ The last step is to set the proper owner of the files to be the user that runs y
 is `www-data` but can vary from system to system — sometimes being `nginx`, `caddy`, `apache`, or even `nobody`.
 
 ```bash
-# If using NGINX or Apache (not on CentOS)
+# If using NGINX, Apache or Caddy (not on RHEL / Rocky Linux / AlmaLinux)
 chown -R www-data:www-data /var/www/pterodactyl/*
 
-# If using NGINX on CentOS
+# If using NGINX on RHEL / Rocky Linux / AlmaLinux
 chown -R nginx:nginx /var/www/pterodactyl/*
 
-# If using Apache on CentOS
+# If using Apache on RHEL / Rocky Linux / AlmaLinux
 chown -R apache:apache /var/www/pterodactyl/*
 ```
 
@@ -165,7 +154,3 @@ php artisan up
 Since 1.11, Pterodactyl will collect anonymous telemetry to help us better understand how the
 software is being used. To learn more about this feature and to opt-out, please see our [Telemetry](/panel/additional-configuration#telemetry)
 documentation. Remember to continue with the rest of the upgrade.
-
-## Next Steps
-
-Continue with [Upgrading Wings](/wings/upgrading).

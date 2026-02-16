@@ -25,7 +25,7 @@ You will be taken to a new service option page which is where most of the config
 
 After that, enter an Option Name to describe it, in this case I am using `Widget`. You will also need to provide a _valid_ docker image, as well as a start command to be assigned to servers under this service option (remember, this can be tweaked per-server if needed).
 
-_Docker images must be specifically designed to work with Pterodactyl Panel._ You should read more about that in our [Creating a Docker Image](/docs/guides/configuration/creating-custom-image) guide.
+_Docker images must be specifically designed to work with Pterodactyl Panel._ You should read more about that in our [Creating a Docker Image](/guides/configuration/creating-custom-image) guide.
 
 ## Configure Process Management
 
@@ -41,7 +41,7 @@ Next, you'll encounter `Stop Command` and, as the name implies, this should be t
 
 ### Log Storage
 
-Logs are competely handeled by the daemon now and use the docker logs to output the complete output from the server. This can be set like below.
+Logs are completely handled by the daemon now and use the docker logs to output the complete output from the server. This can be set like below.
 
 ```json
 {}
@@ -133,7 +133,7 @@ One of the great parts of the Egg Variables is the ability to define specific va
 
 ![Egg Variables](/community/config/eggs/Pterodactyl_Create_New_Egg_Variables.png)
 
-The name and description are rather self-explanitory, so I'll skip down to the `Environment Variable` box. This should be an Alpha-Numeric name with underscores, and should be uppercase. This will be the name of the environment variable which can be accessed in the startup command as `{{WOOZLE_WOO}}`, within file modifications as `{{env.WOOZLE_WOO}}`, or just `${WOOZLE_WOO}` in any shell scripts (it is passed through in the environment). We also define a default value for this environment variable in this example, but it is not required to do so.
+The name and description are rather self-explanatory, so I'll skip down to the `Environment Variable` box. This should be an Alpha-Numeric name with underscores, and should be uppercase. This will be the name of the environment variable which can be accessed in the startup command as `{{WOOZLE_WOO}}`, within file modifications as `{{env.WOOZLE_WOO}}`, or just `${WOOZLE_WOO}` in any shell scripts (it is passed through in the environment). We also define a default value for this environment variable in this example, but it is not required to do so.
 
 The next section is `Permissions`, which is a dropdown with two options: `Users Can View` and `Users Can Edit`.
 

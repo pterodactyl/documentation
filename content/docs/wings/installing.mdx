@@ -21,8 +21,7 @@ only the versions listed below.
 
 | Operating System                   | Version |     Supported      | Notes                                                       |
 | ---------------------------------- | ------- | :----------------: | ----------------------------------------------------------- |
-| **Ubuntu**                         | 20.04   | ✅ | Documentation written assuming Ubuntu 20.04 as the base OS. |
-|                                    | 22.04   | ✅ |                                                             |
+| **Ubuntu**                         | 22.04   | ✅ |                                                             |
 |                                    | 24.04   | ✅ |                                                             |
 | **RHEL / Rocky Linux / AlmaLinux** | 8       | ✅ |                                                             |
 |                                    | 9       | ✅ |                                                             |
@@ -133,13 +132,11 @@ When your Panel is using SSL, the Wings must also have one created for its FQDN.
 
 ### Starting Wings
 
-To start Wings, simply run the command below, which will start it in a debug mode. Once you confirmed that it is running without errors, use `CTRL+C` to terminate the process and daemonize it by following the instructions below. Depending on your server's internet connection pulling and starting Wings for the first time may take a few minutes.
+To start Wings, simply run the command below, which will start it in debug mode. Once you confirmed that it is running without errors, use `CTRL+C` to terminate the process and daemonize it by following the instructions below. Depending on your server's internet connection pulling and starting Wings for the first time may take a few minutes.
 
 ```bash
 sudo wings --debug
 ```
-
-You may optionally add the `--debug` flag to run Wings in debug mode.
 
 ### Daemonizing (using systemd)
 
