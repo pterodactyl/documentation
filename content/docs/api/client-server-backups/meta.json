@@ -1,0 +1,10 @@
+{
+  "title": "Backups",
+  "pages": [
+    "get-list-backups",
+    "get-backup-details",
+    "get-download-backup",
+    "post-create-backup",
+    "delete-delete-backup"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "title": "Server",
+  "pages": [
+    "get-server-details",
+    "get-console-details",
+    "get-resource-usage",
+    "post-send-command",
+    "post-change-power-state"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "Servers",
+  "pages": [
+    "get-list-servers",
+    "get-server-details",
+    "post-create-server",
+    "patch-update-details",
+    "patch-update-build",
+    "patch-update-startup",
+    "post-suspend-server",
+    "post-unsuspend-server",
+    "post-reinstall-server",
+    "delete-delete-server",
+    "delete-force-delete-server"
+  ]
+}

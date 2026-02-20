@@ -1,0 +1,10 @@
+{
+  "title": "Subusers",
+  "pages": [
+    "get-list-users",
+    "get-user-details",
+    "post-create-user",
+    "post-update-user",
+    "delete-delete-user"
+  ]
+}

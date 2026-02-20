@@ -3,6 +3,8 @@
     "project",
     "panel",
     "wings",
-    "guides"
+    "docker",
+    "guides",
+    "api"
   ]
 }

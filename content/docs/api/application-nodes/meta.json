@@ -1,0 +1,11 @@
+{
+  "title": "Nodes",
+  "pages": [
+    "get-list-nodes",
+    "get-node-details",
+    "get-node-configuration",
+    "post-create-node",
+    "patch-update-node",
+    "delete-delete-node"
+  ]
+}

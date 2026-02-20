@@ -1,0 +1,10 @@
+{
+  "title": "Users",
+  "pages": [
+    "get-list-users",
+    "get-user-details",
+    "post-create-user",
+    "patch-update-user",
+    "delete-delete-user"
+  ]
+}

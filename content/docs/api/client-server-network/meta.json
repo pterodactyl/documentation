@@ -1,0 +1,10 @@
+{
+  "title": "Network",
+  "pages": [
+    "get-list-allocations",
+    "post-assign-allocation",
+    "post-set-primary-allocation",
+    "post-set-allocation-note",
+    "delete-unassign-allocation"
+  ]
+}

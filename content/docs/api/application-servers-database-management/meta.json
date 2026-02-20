@@ -1,0 +1,10 @@
+{
+  "title": "Server Databases",
+  "pages": [
+    "get-list-databases",
+    "get-database-details",
+    "post-create-database",
+    "post-reset-password",
+    "delete-delete-database"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "title": "File Manager",
+  "pages": [
+    "get-list-files",
+    "get-get-file-contents",
+    "get-download-file",
+    "post-write-file",
+    "post-create-folder",
+    "post-copy-file",
+    "put-rename-file",
+    "post-compress-file",
+    "post-decompress-file",
+    "post-delete-file",
+    "get-upload-file"
+  ]
+}
