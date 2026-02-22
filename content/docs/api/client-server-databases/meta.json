@@ -1,9 +1,0 @@
-{
-  "title": "Databases",
-  "pages": [
-    "get-list-databases",
-    "post-create-database",
-    "post-rotate-password",
-    "delete-delete-database"
-  ]
-}

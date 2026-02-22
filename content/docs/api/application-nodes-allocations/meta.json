@@ -1,8 +1,0 @@
-{
-  "title": "Allocations",
-  "pages": [
-    "get-list-allocations",
-    "post-create-allocations",
-    "delete-delete-allocation"
-  ]
-}

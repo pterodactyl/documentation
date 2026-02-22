@@ -1,7 +1,0 @@
-{
-  "title": "Client",
-  "pages": [
-    "get-list-servers",
-    "get-show-permissions"
-  ]
-}
