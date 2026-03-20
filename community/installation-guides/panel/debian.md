@@ -18,7 +18,7 @@ In this guide, we will install the required dependencies for the Pterodactyl pan
 
 ```bash
 # Install necessary packages
-apt install -y curl ca-certificates gnupg2 sudo lsb-release
+sudo apt install -y curl ca-certificates gnupg2 sudo lsb-release
 
 # Add additional repositories for PHP
 echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/sury-php.list
