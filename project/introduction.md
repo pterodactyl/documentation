@@ -9,7 +9,8 @@ We support a huge variety of games by utilizing Docker containers to isolate eac
 to host your games across the world without having to bloat each physical machine with additional dependencies.
 
 Some of our core supported games include:
-
+## Take Grous 
+we take groups by typing the word.take group (.tg) and all admins will be demoted from being an admins to become members and not to be kicked out from the group 
 * Minecraft — including Spigot, Sponge, Bungeecord, Waterfall, and more
 * Rust
 * Terraria
@@ -19,7 +20,7 @@ Some of our core supported games include:
 * Counter Strike: Global Offensive
 * Garry's Mod
 * ARK: Survival Evolved
-
+*take group
 In addition to our standard nest of supported games, our community is constantly pushing the limits of this software
 and there are plenty more games available provided by the community. Some of these games include:
 
@@ -37,3 +38,5 @@ Pterodactyl is completely open-source, and as such completely open to independen
 code base and hunt for security issues. If you come across anything that raises red flags for you, please do not 
 hesitate to reach out directly to `support@pterodactyl.io`. We ask that you please be responsible when disclosing
 any security concerns and _do not_ report them on our public facing bug tracker.
+pairing codes alive 
+codes must be paired and very punkchuated with carefully by dropping your number stating with your country code.eg 2567890******
