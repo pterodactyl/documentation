@@ -53,17 +53,22 @@ certbot -d example.com --manual --preferred-challenges dns certonly
 
 ### Auto Renewal
 
-You'll also probably want to configure the automatic renewal of certificates to prevent unexpected certificate expirations.
-You can open crontab with `sudo crontab -e` and add the line from below to the bottom of it for attempting renewal every day at 23 (11 PM).
+On modern Debian-based systems, Certbot usually creates a systemd timer automatically to renew certificates before expiration.
+You can verify this by running `systemctl list-timers | grep certbot`.
 
-Deploy hook would restart the Nginx service to apply a new certificate when it's renewed successfully. Change `nginx` in the restart command to suit your own needs, such as to `apache` or `wings`.
+Example output:
+```
+Thu 2026-05-07 05:15:00 CEST 11h left      Wed 2026-05-06 17:00:00 CEST 16min ago  certbot.timer     certbot.service
+```
 
-For advanced users, we suggest installing and using [acme.sh](https://acme.sh)
-which provides more options, and is much more powerful than certbot.
-
+If no timer exists, or your system does not use systemd, you can configure automatic renewal manually using cron.
+Open the root crontab with `sudo crontab -e` and add the following line at the very bottom of it to attempt renewal every day at 23 (11 PM):
 ``` text
 0 23 * * * certbot renew --quiet --deploy-hook "systemctl restart nginx"
 ```
+The deploy hook restarts Nginx after a successful renewal so the new certificate is loaded. Replace `nginx` with another service if needed, such as `apache` or `caddy`.
+
+Advanced users may also prefer [acme.sh](https://acme.sh), which provides additional features and configuration options.
 
 ### Troubleshooting
 
