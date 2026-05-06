@@ -53,7 +53,7 @@ certbot -d example.com --manual --preferred-challenges dns certonly
 
 ### Auto Renewal
 
-On modern Debian-based systems, Certbot usually creates a systemd timer automatically to renew certificates before expiration.
+On modern Linux distributions, Certbot usually creates a systemd timer automatically to renew certificates before expiration.
 You can verify this by running `systemctl list-timers | grep certbot`.
 
 Example output:
