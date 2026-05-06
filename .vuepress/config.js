@@ -139,7 +139,7 @@ module.exports = {
                     currentVersion: '1.0',
                     versions: [
                         {
-                            title: '1.11',
+                            title: '1.12',
                             name: '1.0',
                             status: 'stable',
                             children: [
@@ -160,7 +160,7 @@ module.exports = {
                     currentVersion: '1.0',
                     versions: [
                         {
-                            title: '1.11',
+                            title: '1.12',
                             name: '1.0',
                             status: 'stable',
                             children: [
