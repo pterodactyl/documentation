@@ -1,11 +1,12 @@
 {
-  "title": "Guides",
+  "title": "Community Guides",
   "root": true,
   "pages": [
     "panel-installation",
     "wings-installation",
     "tutorials",
     "configuration",
+    "egg-creation",
     "customization",
     "games"
   ]

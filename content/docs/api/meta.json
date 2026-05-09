@@ -1,0 +1,27 @@
+{
+  "title": "API Reference",
+  "root": true,
+  "pages": [
+    "---Client API---",
+    "client-general",
+    "client-account",
+    "client-server",
+    "client-server-databases",
+    "client-server-file-manager",
+    "client-server-schedules",
+    "client-server-network",
+    "client-server-users",
+    "client-server-backups",
+    "client-server-startup",
+    "client-server-settings",
+    "---Application API---",
+    "application-users",
+    "application-nodes",
+    "application-nodes-allocations",
+    "application-locations",
+    "application-servers",
+    "application-servers-database-management",
+    "application-nests",
+    "application-nests-eggs-management"
+  ]
+}

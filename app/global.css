@@ -1,4 +1,53 @@
 @import 'tailwindcss';
 @import 'fumadocs-ui/css/neutral.css';
 @import 'fumadocs-ui/css/preset.css';
+@import 'fumadocs-openapi/css/preset.css';
 
+/* API sidebar method badges — scoped to leaf page links only (have padding-inline-start) */
+a[style*="padding-inline-start"][href*="/api/"][href*="/get-"]::before,
+a[style*="padding-inline-start"][href*="/api/"][href*="/post-"]::before,
+a[style*="padding-inline-start"][href*="/api/"][href*="/put-"]::before,
+a[style*="padding-inline-start"][href*="/api/"][href*="/patch-"]::before,
+a[style*="padding-inline-start"][href*="/api/"][href*="/delete-"]::before {
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 2px 5px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  position: static !important;
+  width: auto !important;
+  inset: unset !important;
+  background: unset !important;
+}
+
+a[style*="padding-inline-start"][href*="/api/"][href*="/get-"]::before {
+  content: "GET" !important;
+  background-color: color-mix(in srgb, #7d69cb 18%, transparent) !important;
+  color: #7d69cb;
+}
+
+a[style*="padding-inline-start"][href*="/api/"][href*="/post-"]::before {
+  content: "POST" !important;
+  background-color: color-mix(in srgb, #59a210 18%, transparent) !important;
+  color: #59a210;
+}
+
+a[style*="padding-inline-start"][href*="/api/"][href*="/put-"]::before {
+  content: "PUT" !important;
+  background-color: color-mix(in srgb, #ff9a1f 18%, transparent) !important;
+  color: #ff9a1f;
+}
+
+a[style*="padding-inline-start"][href*="/api/"][href*="/patch-"]::before {
+  content: "PATCH" !important;
+  background-color: color-mix(in srgb, #d07502 18%, transparent) !important;
+  color: #d07502;
+}
+
+a[style*="padding-inline-start"][href*="/api/"][href*="/delete-"]::before {
+  content: "DEL" !important;
+  background-color: color-mix(in srgb, #d04444 18%, transparent) !important;
+  color: #d04444;
+}

@@ -6,19 +6,10 @@ const withMDX = createMDX();
 const config = {
     reactStrictMode: true,
     output: 'standalone',
+    basePath: '/docs',
     images: {
         unoptimized: true,
     },
-    basePath: '/docs',
-    redirects: async () => {
-        return [
-            {
-                source: '/',
-                destination: '/panel/getting-started',
-                permanent: false,
-            },
-        ];
-    }
 };
 
 export default withMDX(config);

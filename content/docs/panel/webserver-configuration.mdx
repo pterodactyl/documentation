@@ -4,7 +4,7 @@ description: Configure your webserver to serve the Pterodactyl Panel
 ---
 
 <Callout type="warn">
-When using the SSL configuration you MUST create SSL certificates, otherwise your webserver will fail to start. See the [Creating SSL Certificates](/guides/creating_ssl_certificates) documentation page to learn how to create these certificates before continuing.
+When using the SSL configuration you MUST create SSL certificates, otherwise your webserver will fail to start. See the [Creating SSL Certificates](/guides/tutorials/ssl-certificates) documentation page to learn how to create these certificates before continuing.
 </Callout>
 
 <Callout>
@@ -342,7 +342,7 @@ You should paste the contents of the file below, replacing `<domain>` with your 
 ```
 
 <Callout>
-If you are using Cloudflare DNS in proxy mode, refer to [this tutorial](/guides/creating_ssl_certificates#method-3-caddy-using-cloudflare-api), to see how to configure Caddy to use DNS challenge for obtaining SSL certificates.
+If you are using Cloudflare DNS in proxy mode, refer to [this tutorial](/guides/tutorials/ssl-certificates#method-3-caddy-using-cloudflare-api), to see how to configure Caddy to use DNS challenge for obtaining SSL certificates.
 </Callout>
 
 ### Enabling Configuration
@@ -398,7 +398,6 @@ The only two differences are that we have suffixed the `<domain>` with `:80` and
         write_timeout 300s
     }
 
-    header Strict-Transport-Security "max-age=16768000; preload;"
     header X-Content-Type-Options "nosniff"
     header X-XSS-Protection "1; mode=block;"
     header X-Robots-Tag "none"
@@ -431,7 +430,3 @@ systemctl restart caddy
 ```
 </Tab>
 </Tabs>
-
-## Next Steps
-
-Continue with the [Wings Installation](/wings/installing) guide.

@@ -1,0 +1,11 @@
+{
+  "title": "Egg Creation",
+  "pages": [
+    "creating-custom-egg",
+    "egg-docker-images",
+    "egg-config-parser",
+    "egg-variables",
+    "egg-install-script",
+    "creating-custom-image"
+  ]
+}
