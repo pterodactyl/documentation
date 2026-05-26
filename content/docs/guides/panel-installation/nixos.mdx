@@ -1,0 +1,108 @@
+---
+title: NixOS
+---
+
+
+
+This guide provides instructions for installing Pterodactyl Panel on NixOS.
+
+## Generating secrets
+
+Before configuring the service, we need to generate a new application encryption key.
+
+```bash
+echo "base64:$(openssl rand -base64 32)"
+```
+
+<Callout type="error">
+Back up the encryption key. It is used as an encryption key for all data that needs to be stored securely (e.g. API keys).
+Store it somewhere safe - not just on your server. If you lose it, all encrypted data is irrecoverable, even with database backups.
+
+Copy the key generated and save it somewhere secure:
+- A password manager
+- An encrypted file on your local machine
+- A secure USB drive
+- A trusted cloud vault
+
+Do not keep it only on the server. If you lose this key, your encrypted data is permanently unrecoverable.
+</Callout>
+
+You would also need to generate a salt key, which is used for providing additional security to encrypted data as a way to make it fully random each time. It can be anything from a randomly generated string to an UUID.
+
+```bash
+openssl rand -hex 16
+```
+
+## Configuration
+
+Now we can enable the service, add the following code to your `configuration.nix`.
+
+```nix
+{
+  services.pterodactyl.panel = {
+    enable = true;
+    app = {
+      url = "https://panel.example.com";
+      # Using agenix, sops-nix or something else
+      keyFile = "/path/to/app_key";
+      # Direct (not recommended)
+      # key = "";
+    };
+
+    hashids = {
+      saltFile = "/path/to/hashids_salt";
+      # salt = "";
+    };
+  };
+}
+```
+
+If you want the panel to be accessible to the public, make sure to open Nginx's port by adding this in your `configuration.nix`.
+
+```nix
+{
+  networking.firewall.allowedTCPPorts = [80 443];
+}
+```
+
+### Using Caddy with FrankenPHP
+
+Using Caddy with FrankenPHP is much performant and better than Nginx and PHP-FPM. Here is an example configuration to put in your `configuration.nix`.
+
+```nix
+{
+  services.caddy = {
+    enable = true;
+    package = pkgs.frankenphp.override {
+      php = config.services.pterodactyl.panel.phpPackage;
+    };
+
+    virtualHosts = {
+      "panel.example.com".extraConfig = ''
+        root * ${config.services.pterodactyl.panel.package}/public
+        php_server
+      '';
+    };
+  };
+
+  services.pterodactyl.panel = {
+    enable = true;
+    enableNginx = false;
+    user = "caddy";
+    group = "caddy";
+    database.user = "caddy";
+    app.url = "https://panel.example.com";
+  };
+
+  users.users.caddy.extraGroups = ["redis"];
+}
+```
+
+## Add The First User
+
+You'll then need to create an administrative user so that you can log into the panel. To do so, run the command below.
+At this time passwords **must** meet the following requirements: 8 characters, mixed case, at least one number.
+
+```bash
+pterodactyl-cli p:user:make
+```
