@@ -34,7 +34,7 @@ sudo dnf module reset php
 sudo dnf module enable php:remi-8.3 -y
 
 # Install dependencies
-sudo dnf install -y php php-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip} mariadb mariadb-server nginx redis zip unzip tar
+sudo dnf install -y php php-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,process} mariadb mariadb-server nginx redis zip unzip tar
 
 # Start and enable services
 sudo systemctl enable --now mariadb nginx redis
