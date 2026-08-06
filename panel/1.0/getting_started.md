@@ -50,6 +50,9 @@ this software on an OpenVZ based system you will &mdash; most likely &mdash; not
 The commands below are simply an example of how you might install these dependencies. Please consult with your
 operating system's package manager to determine the correct packages to install.
 
+::: tip Other distros
+There are community made guides to install dependencies for [Debian](https://pterodactyl.io/community/installation-guides/panel/debian.html), [CentOS 7](https://pterodactyl.io/community/installation-guides/panel/centos7.html) and [Enterprise Linux 8 (CentOS 8, Rocky Linux 8, AlmaLinux 8) and Fedora Server 40](https://pterodactyl.io/community/installation-guides/panel/centos8.html) available too.
+
 ``` bash
 # Add "add-apt-repository" command
 apt -y install software-properties-common curl apt-transport-https ca-certificates gnupg
