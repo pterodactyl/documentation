@@ -213,7 +213,7 @@ As of 2022-12-12, the data collected consists of:
     * Total number
   * Nests
     * Total number
-    * ~~Map of nest UUIDs to the number of servers using eggs in that nest~~ (removed in 1.11.2)
+    * ~(removed in 1.11.2)
   * Nodes
     * Total number
   * Servers
