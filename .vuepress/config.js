@@ -146,6 +146,7 @@ module.exports = {
                                 '/getting_started',
                                 '/webserver_configuration',
                                 '/additional_configuration',
+                                '/environment_variables',
                                 '/updating',
                                 '/troubleshooting',
                                 '/legacy_upgrade',
