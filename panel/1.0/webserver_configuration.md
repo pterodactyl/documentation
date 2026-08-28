@@ -16,6 +16,14 @@ First, remove the default NGINX configuration.
 rm /etc/nginx/sites-enabled/default
 ```
 
+::: tip
+If you using Ubuntu systems you may also need to add the `nginx` user to the `www-data` group to ensure proper file permissions:
+
+``` bash
+sudo usermod -aG www-data nginx
+```
+:::
+
 Now, you should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place the file in `/etc/nginx/sites-available/`, or &mdash; if on RHEL, Rocky Linux, or AlmaLinux, `/etc/nginx/conf.d/`.
 
@@ -40,6 +48,14 @@ First, remove the default NGINX configuration.
 ``` bash
 rm /etc/nginx/sites-enabled/default
 ```
+
+::: tip
+If you using Ubuntu systems you may also need to add the `nginx` user to the `www-data` group to ensure proper file permissions:
+
+``` bash
+sudo usermod -aG www-data nginx
+```
+:::
 
 Now, you should paste the contents of the file below, replacing `<domain>` with your domain name being used in a file called
 `pterodactyl.conf` and place the file in `/etc/nginx/sites-available/`, or &mdash; if on RHEL, Rocky Linux, or AlmaLinux, `/etc/nginx/conf.d/`.
