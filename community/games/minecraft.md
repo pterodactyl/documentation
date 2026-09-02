@@ -79,4 +79,13 @@ This command will allow any server to access all other servers as well as all po
 
 ``` bash
 firewall-cmd --permanent --zone=public --add-source=172.18.0.1
-```
+```servers:
+  lobby:
+    address: 172.18.0.1:25566
+    restricted: false
+
+  smp:
+    address: 172.18.0.1:25567
+    restricted: false<img width="1983" height="793" alt="15593" src="https://github.com/user-attachments/assets/b8bf7f9a-9ed2-4d49-9c46-cb1c530d5ec4" />online-mode=falseonline-mode=falsesettings:
+  bungeecord: trueYOUR_PUBLIC_IP:25565
+
