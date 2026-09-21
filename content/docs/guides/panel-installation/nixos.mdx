@@ -43,15 +43,12 @@ Now we can enable the service, add the following code to your `configuration.nix
     enable = true;
     app = {
       url = "https://panel.example.com";
-      # Using agenix, sops-nix or something else
+      # Using agenix, sops-nix or an another secret manager
       keyFile = "/path/to/app_key";
-      # Direct (not recommended)
-      # key = "";
     };
 
     hashids = {
       saltFile = "/path/to/hashids_salt";
-      # salt = "";
     };
   };
 }

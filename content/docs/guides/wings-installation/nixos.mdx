@@ -14,14 +14,17 @@ Make sure to firstly create the node on the panel in order to configure wings. T
 {
   services.pterodactyl.wings = {
     enable = true;
-    uuid = "your-node-uuid";
-    remote = "https://panel.example.com";
-    # Using agenix, sops-nix or something else
-    tokenIdFile = "/path/to/token_id";
-    # Direct (not recommended)
-    # tokenId = "";
-    tokenFile = "/path/to/token";
-    # tokenFile = "";
+
+    secrets = {
+      # Using agenix, sops-nix or an another secret manager
+      tokenIdFile = "/path/to/token_id";
+      tokenFile = "/path/to/token";
+    };
+
+    settings = {
+      uuid = "your-node-uuid";
+      remote = "https://panel.example.com";
+    };
   };
 }
 ```
