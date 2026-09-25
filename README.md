@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /doc_pterry.png
-actionText: Get Started →
+actionText: Get Started now
 actionLink: /project/introduction
 features:
 - title: Security First
