@@ -1,0 +1,64 @@
+---
+title: Creating a Node
+description: Add a node to the Panel, give it allocations, and connect Wings to it.
+---
+
+## Introduction
+
+A node is a machine that runs Wings and your game servers. This guide explains each setting on the Panel's **Create Node** page. To install Wings on the machine itself, see [Installing Wings](../../wings/installing.mdx).
+
+Every node belongs to a location. A location groups nodes, for example by region or data center. If you have none yet, open **Admin → Locations**, click **New Location**, and enter a **Short Code**, such as `us1`, and a **Description**.
+
+## Creating the Node
+
+Open **Admin → Nodes** and click **New node**. The page has four sections.
+
+### Identity
+
+- **Name:** A short name for the node. It may contain letters, numbers, spaces, periods, underscores, and dashes.
+- **Description:** Optional notes about the node.
+- **Location:** The location the node belongs to.
+
+### Network
+
+- **FQDN:** The domain name that points to the node, such as `node1.example.com`. You may use an IP address instead if the node does not use SSL. With SSL, use a domain name, because certificates are issued for domain names.
+- **Communicate Over SSL:** Whether the Panel talks to Wings over HTTPS. If your Panel uses HTTPS, the node must use it too, because browsers block insecure connections from a secure page.
+- **Node Visibility:** Public nodes can receive servers that the Panel places automatically. Private nodes only get servers you place on them yourself.
+- **Behind Proxy:** Turn this on if Wings is behind a proxy that handles SSL for it, such as Cloudflare. Wings then does not look for a certificate of its own.
+- **Maintenance Mode:** Stops users from managing servers on this node, for example while you work on it.
+
+### Resource Limits
+
+- **Memory (MiB)** and **Disk Space (MiB):** How much memory and disk space the Panel may give to servers on this node. Leave enough for the operating system and other software.
+- **Memory Overallocate (%)** and **Disk Overallocate (%):** How far the Panel may go over those totals. For example, with 10240 MiB of memory and an overallocation of 20%, the Panel may assign up to 12288 MiB. Use `0` to stay within the totals.
+
+The Panel checks these limits when it places a server automatically, and when you transfer a server to this node. It does not stop you from creating a server on the node yourself.
+
+### Daemon
+
+- **Daemon Port:** The port Wings' API listens on. The default is `8080`.
+- **Daemon SFTP Port:** The port Wings' SFTP server listens on. The default is `2022`.
+- **Upload Size Limit (MiB):** The largest file users may upload through the Panel's file manager.
+- **Daemon Base Path:** Where Wings stores server files. The default is `/var/lib/pterodactyl/volumes`.
+
+<Callout type="info" title="OVH and SoYouStart servers">
+On these servers, most of the disk space is usually under `/home`. Consider using `/home/daemon-data` as the base path.
+</Callout>
+
+Click **Create Node**. The Panel opens the node's **Allocation** tab.
+
+## Adding Allocations
+
+An allocation is an IP address and port that a server can use. Every server needs at least one. On the **Allocation** tab, fill in **Assign New Allocations**:
+
+- **IP Address:** The IP address of the node's network interface. Behind NAT, use the internal address.
+- **IP Alias:** Optional. A name or address to show users instead of the IP address, such as a domain name.
+- **Ports:** One or more ports or port ranges, separated by commas or spaces, such as `25565, 25570-25580`.
+
+Ports must be between 1025 and 65535, and a single range may contain at most 1000 ports. Click **Submit** to add them.
+
+## Connecting Wings
+
+Open the node's **Configuration** tab. It shows the node's configuration file, and an **Auto-Deploy** section. Click **Generate Token** to get a command that configures Wings for you. See [Configuring Wings](../../wings/installing.mdx#configuring-wings) for both ways to use them.
+
+Once Wings is running, the node's **About** tab shows its Wings version and system details.

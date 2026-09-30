@@ -1,0 +1,13 @@
+{
+  "title": "Panel",
+  "root": true,
+  "pages": [
+    "requirements",
+    "getting-started",
+    "docker",
+    "webserver-configuration",
+    "additional-configuration",
+    "updating",
+    "troubleshooting"
+  ]
+}

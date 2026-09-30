@@ -1,0 +1,32 @@
+---
+title: Upgrading Wings
+description: Upgrade Wings to a newer version.
+---
+
+## Introduction
+
+Upgrading Wings takes less than a minute. Your running game servers are not affected.
+
+## Wings Version Requirements
+
+There is no Wings version table for Pterodactyl 2.0 yet. Wings 1.13.2 has been tested with the 2.0 Panel. See [Requirements](../panel/requirements.mdx#wings) for details.
+
+## Downloading the New Version
+
+Stop Wings, then download the new binary into `/usr/local/bin`:
+
+```bash
+systemctl stop wings
+curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
+chmod u+x /usr/local/bin/wings
+```
+
+## Restarting Wings
+
+Finally, start Wings again:
+
+```bash
+systemctl restart wings
+```
+
+Your servers keep running while Wings restarts, and open console connections reconnect on their own.

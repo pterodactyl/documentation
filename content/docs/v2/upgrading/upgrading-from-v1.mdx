@@ -1,0 +1,238 @@
+---
+title: Upgrading From 1.x
+description: Upgrade a native 1.x Panel installation to Pterodactyl 2.0.
+---
+
+<Callout type="warn" title="Pre-release">
+Pterodactyl 2.0 has not been released yet. Only follow this guide on a test copy of your Panel. See [Testing the Upgrade](./testing-the-upgrade.mdx).
+</Callout>
+
+## Introduction
+
+This guide upgrades a native 1.x Panel installation to 2.0. It assumes you installed 1.x with the [1.x installation guide](/v1/panel/getting-started).
+
+You will install 2.0 in a new directory next to your 1.x Panel, migrate the database, and then swap the two directories. Your 1.x files are not changed, so you can switch back if something goes wrong.
+
+Game servers keep running during the upgrade. Only the Panel is offline.
+
+## Before You Upgrade
+
+### Update to the Latest 1.x Release
+
+You must be running Panel 1.12.0 or newer. We recommend updating to the latest 1.x release first, using the [1.x update guide](/v1/panel/updating).
+
+If your database is from an older release, the upgrade stops before it changes anything and asks you to update 1.x first.
+
+### Install the Intl PHP Extension
+
+Pterodactyl 2.0 needs PHP 8.3 or newer and the `intl` extension. The 1.x installation guide does not install `intl`, so you will probably need to add it:
+
+```bash
+apt install php8.3-intl
+```
+
+You do not need Node.js. The release archive already contains the built frontend.
+
+### Update Your Billing Module
+
+Pterodactyl 2.0 removes the nest endpoints from the Application API. Any billing module that requests `/api/application/nests/...` stops working after the upgrade.
+
+If you use the official [WHMCS module](https://github.com/pterodactyl/whmcs), update it before you upgrade the Panel. The updated module works with both 1.x and 2.0. If you use another billing module, ask its developer whether it supports 2.0.
+
+<Callout type="warn" title="Do not use p:upgrade">
+Do not use `php artisan p:upgrade` or the 1.x update steps to move to 2.0. They unpack 2.0 on top of your 1.x files and leave your Panel offline. Follow the steps below instead.
+</Callout>
+
+## Upgrade Steps
+
+The commands below use the paths and services from the 1.x installation guide: `/var/www/pterodactyl`, the `www-data` user, `php8.3-fpm`, and `pteroq`. Change them if your system is different.
+
+### Enter Maintenance Mode
+
+First, put the Panel into maintenance mode and stop the queue worker:
+
+```bash
+cd /var/www/pterodactyl
+php artisan down
+systemctl stop pteroq
+```
+
+### Back Up Your Panel
+
+Next, back up the database, your `.env` file, and the Panel directory:
+
+```bash
+mysqldump --single-transaction --routines --triggers panel > /root/panel-1.x.sql
+cp /var/www/pterodactyl/.env /root/panel-1.x.env
+tar -czf /root/panel-1.x-files.tar.gz -C /var/www pterodactyl
+```
+
+**Keep a copy of your `.env` file somewhere safe.** It contains your `APP_KEY`. Without it, the Panel cannot read node tokens, database passwords, two-factor secrets, or API keys.
+
+### Download 2.0
+
+Create a new directory and unpack the 2.0 release archive into it. Download it by its version number, not through `latest`:
+
+```bash
+mkdir /var/www/pterodactyl-2.0
+cd /var/www/pterodactyl-2.0
+curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/<2.0 version>/panel.tar.gz
+tar -xzf panel.tar.gz
+rm panel.tar.gz
+```
+
+Then copy your `.env` file from 1.x. You do not need to change it:
+
+```bash
+cp /var/www/pterodactyl/.env /var/www/pterodactyl-2.0/.env
+```
+
+Do not run `php artisan key:generate`. The Panel must keep using your existing key.
+
+### Install Dependencies
+
+Install the PHP dependencies with Composer:
+
+```bash
+COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
+```
+
+If Composer reports a missing PHP extension, install it and run the command again. You can check that PHP has everything the Panel needs with this command:
+
+```bash
+composer check-platform-reqs --no-dev
+```
+
+### Migrate the Database
+
+Put the new directory into maintenance mode as well. Then run the database migrations:
+
+```bash
+php artisan down
+php artisan migrate --force
+```
+
+On our test installation the migration took less than ten seconds. It adds new tables for tags and extensions. It does not change your existing data.
+
+In 1.x, updates also ran the database seeder to update the default eggs. This is optional in 2.0. To update the default eggs, run:
+
+```bash
+php artisan db:seed --force
+```
+
+### Switch to 2.0
+
+Give the web server user ownership of the new directory, then swap the two directories:
+
+```bash
+chown -R www-data:www-data /var/www/pterodactyl-2.0
+mv /var/www/pterodactyl /var/www/pterodactyl-1.x
+mv /var/www/pterodactyl-2.0 /var/www/pterodactyl
+```
+
+Finally, clear the caches and restart PHP and the queue worker:
+
+```bash
+cd /var/www/pterodactyl
+php artisan optimize:clear
+systemctl restart php8.3-fpm
+systemctl start pteroq
+```
+
+### Exit Maintenance Mode
+
+When you are ready, bring the Panel back online:
+
+```bash
+php artisan up
+```
+
+## What Stays the Same
+
+You do not need to change these:
+
+- **Server configuration.** Your NGINX configuration, cron entry, and `pteroq` service work without changes.
+- **Environment file.** Your `.env` file works as it is. 2.0 still reads the 1.x setting names, such as `CACHE_DRIVER`.
+- **Wings.** Wings 1.13.2 works with the 2.0 Panel. You can upgrade Wings later.
+- **Users.** Passwords, two-factor authentication, and SSH keys keep working.
+- **API keys.** Existing Application and Client API keys keep working.
+- **Servers.** Servers, subusers, schedules, backups, databases, and SFTP access keep working.
+- **Settings.** Your Panel settings are kept.
+
+## After Upgrading
+
+### Review Egg Tags
+
+Pterodactyl 2.0 replaces nests with tags. The upgrade turns your nests into tags like this:
+
+- A nest named after a built-in game, such as Minecraft or Rust, gives its eggs that game's tag.
+- A custom nest with two or more eggs becomes a tag with the same name.
+- A custom nest with only one egg does not become a tag. Its egg has no tag after the upgrade.
+
+You should check your eggs after the upgrade and add any tags you need.
+
+The `nests` table stays in your database, but 2.0 no longer updates it.
+
+### Keep Your 1.x Files
+
+Keep `/var/www/pterodactyl-1.x` and your backups until you are sure the upgrade worked. You need them if you want to go back to 1.x.
+
+## Troubleshooting
+
+### The Migration Stops With a Missing Migration Error
+
+If your database is missing a 1.x migration, the upgrade stops with a message like this:
+
+```text
+This database is missing 1 Pterodactyl Panel 1.x migration(s), starting with 2024_07_13_091852_clear_unused_allocation_notes.
+```
+
+Nothing has been changed yet. To fix it:
+
+1. Bring 1.x back online by running `php artisan up` and `systemctl start pteroq` in `/var/www/pterodactyl`.
+2. Update 1.x to the latest 1.x release and run `php artisan migrate --force`.
+3. Start this guide again from the beginning.
+
+## Rolling Back
+
+To go back to 1.x, swap the directories back and restore your database backup:
+
+```bash
+cd /var/www/pterodactyl
+php artisan down
+systemctl stop pteroq
+
+mv /var/www/pterodactyl /var/www/pterodactyl-2.0-failed
+mv /var/www/pterodactyl-1.x /var/www/pterodactyl
+
+mysql -e 'DROP DATABASE panel; CREATE DATABASE panel;'
+mysql panel < /root/panel-1.x.sql
+
+cd /var/www/pterodactyl
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+systemctl restart php8.3-fpm
+systemctl start pteroq
+php artisan up
+```
+
+Do not use `php artisan migrate:rollback`. It cannot undo the upgrade.
+
+Rolling back only restores the Panel. Anything that 2.0 changed outside the Panel stays changed:
+
+- **Servers created on 2.0** still exist on your Wings nodes. Delete their files by hand.
+- **Database passwords changed on 2.0** no longer match. Rotate them again from 1.x.
+- **Backups created on 2.0** stay in your backup storage.
+
+Any other changes made in the Panel after the upgrade are lost.
+
+## Known Limitations
+
+This guide has only been tested with Panel 1.15.1, MariaDB 10.11, and Wings 1.13.2 on Ubuntu 24.04. These have not been tested yet:
+
+- Large production databases.
+- MySQL, and other MariaDB versions.
+- Moving from a native installation to the [Docker image](../panel/docker.mdx).
+- HTTPS, multiple nodes, server transfers, and S3 backups.
+- Extensions.

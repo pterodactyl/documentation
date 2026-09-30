@@ -1,0 +1,161 @@
+---
+title: Artisan Commands
+description: Manage users, nodes, servers, and the Panel itself from the command line.
+---
+
+## Introduction
+
+Artisan is the command-line interface included with Laravel, the framework the Panel is built on. The Panel adds its own Artisan commands, which all start with `p:`. Run them from the Panel's directory:
+
+```bash
+cd /var/www/pterodactyl
+php artisan list p
+```
+
+To see a command's options, use `help`:
+
+```bash
+php artisan help p:user:make
+```
+
+Most commands ask for any value you do not pass as an option. To run a command without questions, such as in a script, pass every option and add `--no-interaction`.
+
+## Users
+
+### Creating a User
+
+```bash
+php artisan p:user:make
+```
+
+The command asks for the user's email address, username, first and last name, password, and whether the user is an administrator. You may pass these as options instead:
+
+```bash
+php artisan p:user:make --email=jane@example.com --username=jane --name-first=Jane --name-last=Doe --admin=0
+```
+
+The command still asks for the password, so that it does not end up in your shell history. To create the user without a password, add `--no-password`. The Panel then emails the user a link to set one.
+
+### Deleting a User
+
+```bash
+php artisan p:user:delete --user=jane@example.com
+```
+
+The `--user` option matches the start of a user's ID, username, or email address. The command lists the matching users and asks which one to delete. A user who still owns servers cannot be deleted.
+
+### Disabling Two-Factor Authentication
+
+If a user loses access to their two-factor device and recovery codes, you may turn off two-factor authentication for them:
+
+```bash
+php artisan p:user:disable2fa --email=jane@example.com
+```
+
+<Callout type="warn">
+Only do this after you have confirmed the user's identity. Anyone who knows the user's password can then sign in.
+</Callout>
+
+## Locations and Nodes
+
+### Creating and Deleting Locations
+
+```bash
+php artisan p:location:make --short=us1 --long="United States, East"
+php artisan p:location:delete --short=us1
+```
+
+A location that still has nodes cannot be deleted.
+
+### Creating a Node
+
+```bash
+php artisan p:node:make
+```
+
+The command asks for the same details as the **New node** page in the admin area, including the node's location ID, domain name, ports, and resource limits. Run `php artisan help p:node:make` to see the matching options.
+
+### Listing Nodes
+
+```bash
+php artisan p:node:list
+```
+
+Add `--format=json` to get the list as JSON.
+
+### Showing a Node's Configuration
+
+This prints the Wings configuration for a node, the same file the node's **Configuration** tab shows. Pass the node's ID or UUID:
+
+```bash
+php artisan p:node:configuration 1
+```
+
+You may save it straight to Wings' configuration file when the Panel and Wings run on the same machine:
+
+```bash
+php artisan p:node:configuration 1 > /etc/pterodactyl/config.yml
+```
+
+Add `--format=json` to print it as JSON.
+
+## Servers
+
+### Power Actions for Many Servers
+
+`p:server:bulk-power` sends a power action to many servers at once. The action is `start`, `stop`, `restart`, or `kill`:
+
+```bash
+# Restart every server.
+php artisan p:server:bulk-power restart
+
+# Restart servers 1, 2, and 3.
+php artisan p:server:bulk-power restart --servers=1,2,3
+
+# Stop every server on nodes 1 and 2.
+php artisan p:server:bulk-power stop --nodes=1,2
+```
+
+The `--servers` and `--nodes` options take IDs. Without either option, the action applies to every server. Before it starts, the command tells you how many servers it will affect and asks you to confirm.
+
+## The Panel
+
+### Showing the Panel's Configuration
+
+```bash
+php artisan p:info
+```
+
+This shows the Panel's version, its address, and its database, cache, and email settings. Include this output when you ask for help, after you remove any passwords.
+
+### Changing the Environment
+
+These commands update the settings in your `.env` file. They are the same commands you ran during installation:
+
+```bash
+php artisan p:environment:setup
+php artisan p:environment:database
+php artisan p:environment:mail
+```
+
+### Updating the Panel
+
+```bash
+php artisan p:upgrade --release=<version>
+```
+
+This downloads a new release and runs the update steps for you. See [Updating the Panel](../../panel/updating.mdx#updating-with-one-command).
+
+### Viewing Telemetry Data
+
+```bash
+php artisan p:telemetry
+```
+
+This prints the anonymous usage data the Panel sends when telemetry is enabled, without sending it. See [Telemetry](../../panel/additional-configuration.mdx#telemetry).
+
+## Extensions and Themes
+
+The `p:extension` commands install, enable, disable, and remove extensions. See [Extensions](../../extensions/index.mdx).
+
+The `p:theme` commands apply a theme to the Panel. See [Themes](../customization/themes.mdx).

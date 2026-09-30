@@ -1,0 +1,129 @@
+---
+title: Themes
+description: Change the Panel's colors and shapes without rebuilding it.
+---
+
+## Introduction
+
+A theme changes how the Panel looks: its colors, the roundness of its corners, and the colors of the server console. It is a small folder with a CSS file, so you do not need to build the Panel's frontend, and a theme keeps working when you update the Panel.
+
+Themes only change appearance. To add pages or features, use an [extension](../../extensions/index.mdx).
+
+## Creating a Theme
+
+Themes live in the `themes` directory of the Panel. Each theme is a folder with two files:
+
+```text
+/var/www/pterodactyl/themes/
+└── midnight/
+    ├── theme.json
+    └── tokens.css
+```
+
+`theme.json` names the theme. Its `id` must match the folder's name, start with a letter, and use only lowercase letters, numbers, and dashes:
+
+```json title="theme.json"
+{
+    "id": "midnight",
+    "name": "Midnight",
+    "version": "1.0.0"
+}
+```
+
+`name` and `version` are optional.
+
+`tokens.css` sets the colors you want to change. The Panel uses its dark colors by default, so put your values inside a `.dark` block:
+
+```css title="tokens.css"
+.dark {
+    --background: oklch(0.2 0.03 265);
+    --card: oklch(0.26 0.03 265);
+    --primary: oklch(0.65 0.2 300);
+    --accent: oklch(0.75 0.15 200);
+    --radius: 0.25rem;
+}
+```
+
+You only need to set the tokens you want to change. Colors may use any CSS color format, such as `oklch()` or `#hex`.
+
+### Images and Fonts
+
+To use images or fonts in your theme, put them in an `assets` folder inside the theme. They are published to `/assets/theme/`. `tokens.css` is an ordinary stylesheet, so you may also add your own rules to it:
+
+```css
+body {
+    background-image: url('/assets/theme/background.png');
+    background-size: cover;
+}
+```
+
+Tokens only hold colors and sizes, so do not put images in them.
+
+## Applying a Theme
+
+List the themes the Panel can find:
+
+```bash
+cd /var/www/pterodactyl
+php artisan p:theme:list
+```
+
+Apply one by its ID:
+
+```bash
+php artisan p:theme:apply midnight
+```
+
+This copies the theme's `tokens.css` to `public/assets/theme.css`, and its `assets` folder to `public/assets/theme`. The Panel loads the theme after its own styles, so the theme's values win. Reload the Panel in your browser to see it.
+
+After you change a theme's files, run `p:theme:apply` again.
+
+To go back to the Panel's own look, run:
+
+```bash
+php artisan p:theme:reset
+```
+
+Only one theme is applied at a time, and users cannot choose a theme themselves.
+
+## Tokens
+
+These are the tokens a theme may set.
+
+### Colors
+
+| Token | Controls |
+| --- | --- |
+| `--background` | The page background. |
+| `--foreground` | Main text and icons. |
+| `--muted-foreground` | Less important text. |
+| `--card`, `--card-foreground` | Cards, panels, and table rows, and the text on them. |
+| `--popover`, `--popover-foreground` | Dialogs and dropdown menus, and the text on them. |
+| `--muted` | Quiet backgrounds, such as code blocks. |
+| `--primary`, `--primary-foreground` | Main buttons, and the text on them. |
+| `--secondary`, `--secondary-foreground` | Secondary buttons, and the text on them. |
+| `--accent`, `--accent-foreground` | Links, active items, and highlights. |
+| `--border` | Borders and dividers. |
+| `--input` | Borders and backgrounds of form fields. |
+| `--ring` | The outline around focused elements. |
+| `--destructive`, `--success`, `--warning` | Error, success, and warning messages and buttons. Each has a matching `-foreground` token for text on it. |
+| `--chart-1` to `--chart-5` | Charts and generated avatars. |
+
+The `--sidebar` tokens, such as `--sidebar` and `--sidebar-accent`, follow the matching tokens above by default.
+
+### Shape
+
+| Token | Controls |
+| --- | --- |
+| `--radius` | How round corners are. The default is `0.5rem`. Other corner sizes are calculated from it. |
+
+### Console
+
+| Token | Controls |
+| --- | --- |
+| `--terminal-background` | The console's background. |
+| `--terminal-selection`, `--terminal-selection-foreground` | Selected text in the console. |
+| `--terminal-ansi-black` to `--terminal-ansi-white` | The eight standard console colors: `black`, `red`, `green`, `yellow`, `blue`, `magenta`, `cyan`, and `white`. |
+| `--terminal-ansi-bright-black` to `--terminal-ansi-bright-white` | The eight bright console colors. |
+
+Console colors take effect the next time the console opens.

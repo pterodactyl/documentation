@@ -1,0 +1,78 @@
+---
+title: Creating SSL Certificates
+description: Get free certificates from Let's Encrypt for the Panel and for Wings.
+---
+
+## Introduction
+
+SSL certificates let browsers connect to the Panel over HTTPS. If the Panel uses HTTPS, Wings must too, because browsers do not let a secure page connect to an insecure service. So you usually need one certificate for the Panel's domain, and one for each node's domain.
+
+This guide uses [Certbot](https://certbot.eff.org/) to get free certificates from Let's Encrypt. It stores each certificate in `/etc/letsencrypt/live/<domain>/`, which is where the Panel's [web server configurations](../../panel/webserver-configuration.mdx) and Wings expect them.
+
+If you use Caddy, you may skip this guide. Caddy gets and renews its own certificate.
+
+## Installing Certbot
+
+Install Certbot, and its plugin for your web server:
+
+```bash
+apt update
+# For NGINX:
+apt -y install certbot python3-certbot-nginx
+# For Apache:
+apt -y install certbot python3-certbot-apache
+```
+
+On a node without a web server, install `certbot` on its own.
+
+## Creating a Certificate
+
+Let's Encrypt checks that you control the domain by connecting to it on port `80`. Make sure the domain points at the server, and that port `80` is open.
+
+For the Panel, use your web server's plugin. The `--deploy-hook` option reloads the web server whenever the certificate is renewed, so that it uses the new one. Replace `panel.example.com` with your Panel's domain:
+
+```bash
+# NGINX:
+certbot certonly --nginx -d panel.example.com --deploy-hook "systemctl reload nginx"
+# Apache:
+certbot certonly --apache -d panel.example.com --deploy-hook "systemctl reload apache2"
+```
+
+For a node without a web server, Certbot runs its own temporary web server on port `80`, both now and whenever it renews the certificate. Wings reads its certificate when it starts, so the hook restarts it:
+
+```bash
+certbot certonly --standalone -d node.example.com --deploy-hook "systemctl restart wings"
+```
+
+When the Panel and Wings run on the same server and share a domain, one certificate serves both. Create it with your web server's plugin, and give it both hooks: `--deploy-hook "systemctl reload nginx && systemctl restart wings"`.
+
+## Using Cloudflare
+
+If your domain uses Cloudflare's proxy, or port `80` is not reachable, Let's Encrypt cannot connect to your server. Instead, Certbot can prove that you control the domain by adding a DNS record through Cloudflare's API.
+
+First, create an API token. In the Cloudflare dashboard, open **My Profile → API Tokens**, click **Create Token**, and use the **Edit zone DNS** template. Under **Zone Resources**, select your domain, then create the token and copy it.
+
+Then install the Cloudflare plugin, and save the token in a file only root can read:
+
+```bash
+apt -y install python3-certbot-dns-cloudflare
+mkdir -p /root/.secrets
+echo "dns_cloudflare_api_token = <your token>" > /root/.secrets/cloudflare.ini
+chmod 600 /root/.secrets/cloudflare.ini
+```
+
+Finally, create the certificate:
+
+```bash
+certbot certonly --dns-cloudflare --dns-cloudflare-credentials /root/.secrets/cloudflare.ini -d panel.example.com --deploy-hook "systemctl reload nginx"
+```
+
+## Renewing Certificates
+
+Let's Encrypt certificates last 90 days. The Certbot package includes a timer that renews them automatically before they expire, and runs each certificate's deploy hook. To check that renewal will work, run:
+
+```bash
+certbot renew --dry-run
+```
+
+If a certificate has already expired, browsers show an insecure connection error for the Panel, or the Panel cannot connect to Wings. Run `certbot renew`, then reload your web server and restart Wings.

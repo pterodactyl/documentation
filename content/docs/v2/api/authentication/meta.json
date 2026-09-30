@@ -1,0 +1,11 @@
+{
+  "title": "Authentication",
+  "description": "Browser session authentication endpoints used by the panel frontend.",
+  "pages": [
+    "authLogin",
+    "authCompleteLoginCheckpoint",
+    "authRequestPasswordResetEmail",
+    "authResetPassword",
+    "authLogout"
+  ]
+}

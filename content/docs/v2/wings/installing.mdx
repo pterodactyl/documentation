@@ -1,0 +1,170 @@
+---
+title: Installing Wings
+description: Install Wings, the service that runs your game servers, on a node.
+---
+
+## Introduction
+
+Wings is the server control plane for Pterodactyl. It runs on each of your nodes, manages Docker, and runs your game servers. The Panel talks to Wings to start, stop, and manage those servers.
+
+Pterodactyl 2.0 uses the same Wings as 1.x. Wings 1.13.2 and 1.13.3 have been tested with the 2.0 Panel.
+
+## Supported Systems
+
+Wings supports these versions of Ubuntu:
+
+| Operating System | Versions |
+| --- | --- |
+| Ubuntu | 22.04, 24.04 |
+
+Other Linux distributions may work, but they often need changes to these steps, and we cannot help with those installations. Wings does not run on Windows.
+
+## System Requirements
+
+Wings needs a Linux system that can run Docker containers. Most virtual private servers and nearly all dedicated servers can.
+
+If your provider uses `Virtuozzo`, `OpenVZ`, or `LXC` virtualization, you probably cannot run Wings. Some providers have changed their setup to support Docker, so ask their support team. KVM always works.
+
+To check which virtualization your server uses, run:
+
+```bash
+systemd-detect-virt
+```
+
+If the result is not `openvz` or `lxc`, Wings should work. A result of `none` means your server is not virtualized.
+
+## Dependencies
+
+Wings needs `curl` and Docker.
+
+### Installing Docker
+
+To install Docker quickly, run Docker's install script:
+
+```bash
+curl -sSL https://get.docker.com/ | CHANNEL=stable bash
+```
+
+If you would rather install Docker by hand, follow the [official Docker documentation](https://docs.docker.com/engine/install/).
+
+<Callout type="warn" title="Check your kernel">
+Some hosts install a modified kernel that does not support important Docker features. Run `uname -r` to check your kernel. If it ends in `-xxxx-grs-ipv6-64` or `-xxxx-mod-std-ipv6-64`, ask your host to switch your server to your distribution's standard kernel.
+</Callout>
+
+#### Start Docker on Boot
+
+On systems that use systemd, run this command so that Docker starts when the machine boots:
+
+```bash
+sudo systemctl enable --now docker
+```
+
+#### Enabling Swap
+
+Linux kernel 6.1 and newer enable swap accounting by default. To check your kernel version, run `uname -r`. If it is 6.1 or newer, you may skip this step.
+
+On older kernels, Docker usually cannot limit swap. Run `docker info` and look for `WARNING: No swap limit support` near the end. Enabling swap is optional, but we recommend it if you host servers for other people, because it helps prevent out-of-memory errors.
+
+To enable it, open `/etc/default/grub` as root and find the line that starts with `GRUB_CMDLINE_LINUX_DEFAULT`. Add `swapaccount=1` inside the quotes, keeping anything that is already there:
+
+```text
+GRUB_CMDLINE_LINUX_DEFAULT="swapaccount=1"
+```
+
+Then run `sudo update-grub` and restart the machine with `sudo reboot`. Some distributions ignore `GRUB_CMDLINE_LINUX_DEFAULT`. If the change has no effect, add the option to `GRUB_CMDLINE_LINUX` instead.
+
+## Installing Wings
+
+Create the configuration directory, then download the Wings binary for your CPU:
+
+```bash
+sudo mkdir -p /etc/pterodactyl
+curl -L -o /usr/local/bin/wings "https://github.com/pterodactyl/wings/releases/latest/download/wings_linux_$([[ "$(uname -m)" == "x86_64" ]] && echo "amd64" || echo "arm64")"
+sudo chmod u+x /usr/local/bin/wings
+```
+
+<Callout type="warn" title="OVH and SoYouStart servers">
+On OVH and SoYouStart servers, most of the disk space is usually under `/home`, not `/`. Consider storing server data in `/home/daemon-data`. You can set this when you create the node.
+</Callout>
+
+## Configuring Wings
+
+Next, create a node in the Panel and give its configuration to Wings.
+
+1. In the Panel, open **Admin → Nodes** and click **New node**.
+2. Fill in the node's details, then save it.
+3. Open the node and select the **Configuration** tab.
+
+The tab shows the node's configuration file. You may configure Wings in either of two ways.
+
+### Using the Auto-Deploy Command
+
+Click **Generate Token** under **Auto-Deploy**. The Panel shows a command like this:
+
+```bash
+cd /etc/pterodactyl && sudo wings configure --panel-url https://panel.example.com --token ptla_... --node 1
+```
+
+Run it on the node. It downloads the configuration from the Panel and saves it to `/etc/pterodactyl/config.yml`. If the file already exists, add `--override` to replace it.
+
+### Copying the Configuration File
+
+Alternatively, copy the configuration file from the **Configuration** tab into `/etc/pterodactyl/config.yml` on the node. Check that its `remote` value is your Panel's address. The tab fills it in from the address you opened the Panel with.
+
+<Callout type="warn">
+If your Panel uses HTTPS, Wings needs a certificate for its own domain name as well.
+</Callout>
+
+## Starting Wings
+
+To make sure Wings works, start it in debug mode:
+
+```bash
+sudo wings --debug
+```
+
+The first start may take a few minutes while Wings sets up Docker. Once it runs without errors, stop it with `CTRL+C`, and run it as a service as described below.
+
+### Running Wings as a Service
+
+To run Wings in the background, create a file named `wings.service` in `/etc/systemd/system` with these contents:
+
+```text
+[Unit]
+Description=Pterodactyl Wings Daemon
+After=docker.service
+Requires=docker.service
+PartOf=docker.service
+
+[Service]
+User=root
+WorkingDirectory=/etc/pterodactyl
+LimitNOFILE=4096
+PIDFile=/var/run/wings/daemon.pid
+ExecStart=/usr/local/bin/wings
+Restart=on-failure
+StartLimitInterval=180
+StartLimitBurst=30
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then enable and start it:
+
+```bash
+sudo systemctl enable --now wings
+```
+
+## Adding Allocations
+
+An allocation is an IP address and port that you can assign to a server. Every server needs at least one. To add allocations, open the node in **Admin → Nodes** and select the **Allocation** tab.
+
+Use the IP address of the node's network interface. Behind NAT, use the internal IP address. To find it, run:
+
+```bash
+hostname -I | awk '{print $1}'
+```
+
+Do not use `127.0.0.1` for allocations that players connect to. It is only for servers that should be reachable from other servers on the node, such as the backend servers of a [Minecraft proxy network](../guides/games/minecraft.mdx).

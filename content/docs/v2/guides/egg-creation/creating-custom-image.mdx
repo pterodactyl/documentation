@@ -1,0 +1,79 @@
+---
+title: Creating a Custom Image
+description: Build your own Docker image for an egg, when the official images do not fit.
+---
+
+## Introduction
+
+If none of the [official images](./egg-docker-images.mdx) has what your server needs, you may build your own. This guide builds a small image based on Debian, in the same way as the official images.
+
+You need Docker on the machine where you build the image. You may build it on a node, or on your own computer.
+
+## How Wings Runs an Image
+
+An image for Pterodactyl must work with the way Wings runs containers:
+
+- **The server's files are at `/home/container`.** Wings mounts the server's directory there. The image's working directory should be `/home/container`.
+- **The server does not run as root.** Wings runs the container as its own `pterodactyl` system user, whose user ID differs from node to node. Do not rely on running as root, or on a particular user name or ID.
+- **The startup command is in the `STARTUP` variable.** Wings does not run the command itself. It passes it to the container in the `STARTUP` environment variable, with the egg's variables still written as `{{NAME}}`. The image's entrypoint must turn it into a command and run it.
+- **The stop command `^C` goes to the main process.** If the entrypoint starts the server with `exec`, the server itself receives the signal and can shut down cleanly.
+
+## The Dockerfile
+
+Create a directory for the image, with a file named `Dockerfile`:
+
+```dockerfile title="Dockerfile"
+FROM --platform=$TARGETOS/$TARGETARCH debian:bookworm-slim
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends ca-certificates curl iproute2 tzdata \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd -m -d /home/container container
+
+USER container
+ENV USER=container HOME=/home/container
+WORKDIR /home/container
+
+COPY --chmod=755 ./entrypoint.sh /entrypoint.sh
+CMD ["/bin/bash", "/entrypoint.sh"]
+```
+
+Install everything the server needs to run in the `RUN` step. The `container` user and the `USER` and `HOME` variables give programs a normal home directory to work with.
+
+## The Entrypoint
+
+Next to the `Dockerfile`, create `entrypoint.sh`:
+
+```bash title="entrypoint.sh"
+#!/bin/bash
+cd /home/container || exit 1
+
+# Use UTC unless Wings set a time zone.
+export TZ=${TZ:-UTC}
+
+# The container's own IP address, for servers that need to know it.
+INTERNAL_IP=$(ip route get 1 | awk '{for (i = 1; i < NF; i++) if ($i == "src") { print $(i + 1); exit }}')
+export INTERNAL_IP
+
+# Turn {{NAME}} into ${NAME}, then fill in the values.
+PARSED=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g' | eval echo "$(cat -)")
+
+# Show the command in the console, then replace this script with it.
+printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0m%s\n" "$PARSED"
+exec env ${PARSED}
+```
+
+The last line runs the command directly, not through a shell, like the official images do. Shell features such as `&&` and `|` do not work in the startup command. If an egg needs them, change the last line to `exec bash -c "${PARSED}"`.
+
+## Building the Image
+
+Build the image and give it a name. To use it on other nodes, push it to a registry, such as the GitHub Container Registry:
+
+```bash
+docker build -t ghcr.io/your-name/my-image:latest .
+docker push ghcr.io/your-name/my-image:latest
+```
+
+Then add `ghcr.io/your-name/my-image:latest` to the egg's **Docker Images**.
+
+To try an image on a single node without a registry, build it on that node and enter its name with a `~` in front, such as `~my-image:latest`. Wings then uses the image on the node instead of downloading it. See [Local Images](./egg-docker-images.mdx#local-images).

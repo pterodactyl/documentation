@@ -1,0 +1,7 @@
+{
+  "title": "Endpoints",
+  "description": "",
+  "pages": [
+    "authGetCsrfCookie"
+  ]
+}

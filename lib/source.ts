@@ -1,3 +1,4 @@
+import { openapi } from '@/lib/openapi';
 import { docs } from 'fumadocs-mdx:collections/server';
 import { type InferPageType, loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
@@ -6,7 +7,7 @@ import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
 export const source = loader({
   baseUrl: '/',
   source: docs.toFumadocsSource(),
-  plugins: [lucideIconsPlugin()],
+  plugins: [lucideIconsPlugin(), openapi.loaderPlugin()],
 });
 
 export function getPageImage(page: InferPageType<typeof source>) {

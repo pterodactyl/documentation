@@ -1,0 +1,9 @@
+{
+  "title": "Wings",
+  "root": true,
+  "pages": [
+    "installing",
+    "configuration",
+    "upgrading"
+  ]
+}

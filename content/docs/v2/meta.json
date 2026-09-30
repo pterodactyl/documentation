@@ -1,0 +1,15 @@
+{
+  "title": "v2",
+  "description": "Pterodactyl 2.0",
+  "root": "version",
+  "pages": [
+    "index",
+    "project",
+    "panel",
+    "wings",
+    "extensions",
+    "upgrading",
+    "guides",
+    "api"
+  ]
+}

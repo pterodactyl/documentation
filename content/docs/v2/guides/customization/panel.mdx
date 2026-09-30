@@ -1,0 +1,49 @@
+---
+title: Building Panel Assets
+description: Rebuild the Panel's frontend after you change its source code.
+---
+
+## Introduction
+
+The Panel's frontend is written in React and TypeScript. The release archive includes the frontend already built, and its source code in `resources/scripts`. If you change the source, you must rebuild the frontend before the change appears.
+
+<Callout type="warn">
+Changes to the Panel's source code are lost when you update the Panel, because the update replaces those files. Before you change the source, check whether an [extension](../../extensions/index.mdx) or a [theme](./themes.mdx) can do what you need. Both keep working across updates.
+</Callout>
+
+Build on a development or staging machine if you can. Building uses a lot of memory and CPU for a few minutes.
+
+## Installing Node.js
+
+Building needs Node.js 22.12 or newer. Ubuntu's own Node.js package is too old, so install it from NodeSource:
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+apt -y install nodejs
+```
+
+## Building the Frontend
+
+From the Panel's directory, install the build tools, then build the frontend:
+
+```bash
+cd /var/www/pterodactyl
+npm ci
+npm run build:production
+```
+
+The build writes the new frontend to `public/assets`. Give the web server user ownership of the files again, then reload the Panel in your browser:
+
+```bash
+chown -R www-data:www-data /var/www/pterodactyl/*
+```
+
+## Working on the Frontend
+
+While you work on a change, run this command. It rebuilds the frontend every time you save a file:
+
+```bash
+npm run watch
+```
+
+Stop it with `CTRL+C`, and run `npm run build:production` once you are done.

@@ -1,0 +1,97 @@
+---
+title: Upgrading PHP
+description: Move the Panel to a newer version of PHP.
+---
+
+## Introduction
+
+Pterodactyl 2.0 needs PHP 8.3 or 8.4. If your server runs an older version, such as PHP 8.1 or 8.2 from Pterodactyl 1.x, upgrade PHP before you upgrade the Panel.
+
+| Panel Version | PHP Versions |
+| --- | --- |
+| 2.x | 8.3, 8.4 |
+| 1.11.10 to 1.x | 8.2, 8.3 |
+
+This guide upgrades PHP on Ubuntu to PHP 8.4. To upgrade to PHP 8.3 instead, replace `8.4` with `8.3` in every command.
+
+## Installing the New Version
+
+First, add the `ondrej/php` repository, which provides newer versions of PHP for Ubuntu:
+
+```bash
+apt -y install software-properties-common
+LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
+```
+
+Then install the new version with the extensions the Panel needs:
+
+```bash
+apt update
+apt -y install php8.4 php8.4-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,intl}
+```
+
+Installing the new version also makes it the default `php` command. Check it with:
+
+```bash
+php -v
+```
+
+## Updating the Web Server
+
+The web server still sends requests to the old version's PHP-FPM, so point it at the new one.
+
+<Tabs items={['NGINX', 'Apache', 'Caddy']}>
+<Tab value="NGINX">
+
+Change the PHP-FPM socket in your Panel's configuration, then reload NGINX:
+
+```bash
+sed -i -e 's/php8\.[0-9]-fpm\.sock/php8.4-fpm.sock/' /etc/nginx/sites-available/pterodactyl.conf
+systemctl reload nginx
+```
+
+</Tab>
+<Tab value="Apache">
+
+Turn off the old PHP module and turn on the new one, then restart Apache:
+
+```bash
+apt -y install libapache2-mod-php8.4
+a2dismod php8.3
+a2enmod php8.4
+systemctl restart apache2
+```
+
+Replace `php8.3` with the version you are upgrading from.
+
+</Tab>
+<Tab value="Caddy">
+
+Change the PHP-FPM socket in `/etc/caddy/Caddyfile`, then reload Caddy:
+
+```bash
+sed -i -e 's/php8\.[0-9]-fpm\.sock/php8.4-fpm.sock/' /etc/caddy/Caddyfile
+systemctl reload caddy
+```
+
+</Tab>
+</Tabs>
+
+## Restarting the Queue Worker
+
+The queue worker keeps running the old version until it restarts:
+
+```bash
+systemctl restart pteroq
+```
+
+## Checking the Panel
+
+To confirm that the new version has everything the Panel needs, run this command from the Panel's directory:
+
+```bash
+cd /var/www/pterodactyl
+composer check-platform-reqs --no-dev
+```
+
+Then open the Panel in your browser. Once everything works, you may remove the old version, for example with `apt -y purge 'php8.3*'`.

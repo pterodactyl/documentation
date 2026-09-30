@@ -1,0 +1,9 @@
+{
+  "title": "Extensions",
+  "root": true,
+  "pages": [
+    "index",
+    "building",
+    "reference"
+  ]
+}

@@ -1,0 +1,189 @@
+---
+title: Additional Configuration
+description: Configure backups, reverse proxies, reCAPTCHA, two-factor authentication, and telemetry.
+---
+
+## Backups
+
+Users can create backups of their servers. Where the backups are stored depends on the backup driver you configure in the Panel's `.env` file.
+
+When you change the backup driver, users can still download and delete backups made with the previous one. If you move from S3 to local backups, keep your S3 settings in `.env` so those older backups stay available.
+
+### Local Backups
+
+By default, backups are stored on each node by Wings. To set this explicitly, add this line to your `.env` file:
+
+```bash
+APP_BACKUP_DRIVER=wings
+```
+
+Wings stores backups in the directory set by `backup_directory` in its `config.yml`:
+
+```yml
+system:
+  backup_directory: /path/to/backup/storage
+```
+
+### S3 Backups
+
+You may store backups in Amazon S3, or in any storage that is compatible with S3. Add these lines to your `.env` file:
+
+```bash
+APP_BACKUP_DRIVER=s3
+
+AWS_DEFAULT_REGION=
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_BACKUPS_BUCKET=
+AWS_ENDPOINT=
+```
+
+Some S3-compatible services need path-style addresses, such as `domain.com/bucket` instead of `bucket.domain.com`. For those, also add:
+
+```bash
+AWS_USE_PATH_STYLE_ENDPOINT=true
+```
+
+#### Multipart Uploads
+
+Backups are uploaded to S3 in parts. By default, each part is up to 5 GB, and each upload link is valid for 60 minutes. To change these, set `BACKUP_MAX_PART_SIZE` in bytes, and `BACKUP_PRESIGNED_URL_LIFESPAN` in minutes. For example, to use 1 GB parts and 120-minute links:
+
+```bash
+BACKUP_MAX_PART_SIZE=1073741824
+BACKUP_PRESIGNED_URL_LIFESPAN=120
+```
+
+#### Storage Class
+
+To store backups in a different S3 storage class, set `AWS_BACKUPS_STORAGE_CLASS`. The default is `STANDARD`:
+
+```bash
+AWS_BACKUPS_STORAGE_CLASS=STANDARD_IA
+```
+
+## Reverse Proxies
+
+If the Panel runs behind a reverse proxy, such as Cloudflare, NGINX, Apache, or Caddy, you must tell the Panel to trust it. Otherwise, the Panel thinks it is served over HTTP instead of HTTPS, and you may be unable to sign in.
+
+Set `TRUSTED_PROXIES` in your `.env` file to the IP addresses of your proxies, separated by commas. For example, if the proxy runs on the same machine:
+
+```bash
+TRUSTED_PROXIES=127.0.0.1
+```
+
+You may set `TRUSTED_PROXIES=*` to trust every proxy, but we recommend listing the addresses instead.
+
+### NGINX
+
+When NGINX is the reverse proxy, its `location` block must pass these headers to the Panel:
+
+```nginx
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header Host $host;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-Forwarded-Proto $scheme;
+proxy_redirect off;
+proxy_buffering off;
+proxy_request_buffering off;
+```
+
+### Cloudflare
+
+When you use Cloudflare's proxy, set `TRUSTED_PROXIES` to [Cloudflare's IP ranges](https://www.cloudflare.com/ips/):
+
+```bash
+TRUSTED_PROXIES=173.245.48.0/20,103.21.244.0/22,103.22.200.0/22,103.31.4.0/22,141.101.64.0/18,108.162.192.0/18,190.93.240.0/20,188.114.96.0/20,197.234.240.0/22,198.41.128.0/17,162.158.0.0/15,104.16.0.0/13,104.24.0.0/14,172.64.0.0/13,131.0.72.0/22
+```
+
+## reCAPTCHA
+
+The Panel uses invisible reCAPTCHA to protect the login page from brute-force attacks. Suspicious login attempts may have to complete a reCAPTCHA challenge.
+
+### Using Your Own Keys
+
+The Panel comes with shared reCAPTCHA keys, but you should create your own in the [reCAPTCHA admin console](https://www.google.com/recaptcha/admin). Then enter them under **Admin → Settings → Advanced**, in **reCAPTCHA Website Key** and **reCAPTCHA Secret Key**.
+
+### Turning Off reCAPTCHA
+
+<Callout type="warn">
+We do not recommend turning off reCAPTCHA. It makes brute-force attacks on user accounts harder.
+</Callout>
+
+If users have trouble signing in, or your Panel is not reachable from the internet, you may turn off **reCAPTCHA Enabled** under **Admin → Settings → Advanced**.
+
+If you cannot sign in to change it, update the database directly. Open the database console:
+
+```bash
+mariadb -u root
+```
+
+Then run:
+
+```sql
+INSERT INTO panel.settings (`key`, value) VALUES ('settings::recaptcha:enabled', 'false')
+    ON DUPLICATE KEY UPDATE value = 'false';
+```
+
+## Two-Factor Authentication
+
+You may require every user to set up two-factor authentication under **Admin → Settings → General**, with **Require 2-Factor Authentication**.
+
+### Removing the Requirement Without the Panel
+
+If you cannot sign in to change the setting, open the database console with `mariadb -u root`, and run:
+
+```sql
+INSERT INTO panel.settings (`key`, value) VALUES ('settings::pterodactyl:auth:2fa_required', 0)
+    ON DUPLICATE KEY UPDATE value = 0;
+```
+
+### Turning Off Two-Factor Authentication for a User
+
+If a user loses access to their authenticator, run this command from `/var/www/pterodactyl`, and enter the user's email address when asked:
+
+```bash
+php artisan p:user:disable2fa
+```
+
+## Telemetry
+
+The Panel collects anonymous statistics about itself and its nodes, and sends them to the Pterodactyl team once a day. Telemetry is on by default, and you may turn it off.
+
+The data is not sold or used for advertising. We may publish combined statistics, or share them with others, to help improve Pterodactyl.
+
+### What Is Collected
+
+To see exactly what your Panel would send, run:
+
+```bash
+php artisan p:telemetry
+```
+
+The data includes:
+
+- **Panel:**
+  - A random ID for your Panel installation.
+  - The Panel version and PHP version.
+  - The backup, cache, and database drivers, and the database version.
+- **Totals:**
+  - Allocations and used allocations.
+  - Backups and their total size.
+  - Eggs, locations, and mounts.
+  - Nodes and servers, including suspended servers.
+  - Users, including administrators.
+- **For each node:**
+  - Its ID and Wings version.
+  - Docker's version, cgroup driver and version, storage driver, and container counts.
+  - The system's architecture, CPU threads, memory, kernel version, and operating system.
+
+The code that collects this data is in `app/Services/Telemetry/TelemetryCollectionService.php`.
+
+### Turning Telemetry Off or On
+
+To turn telemetry off, set this in your `.env` file:
+
+```bash
+PTERODACTYL_TELEMETRY_ENABLED=false
+```
+
+To turn it back on, set it to `true` or remove the line. You may also choose during `php artisan p:environment:setup`, or pass `--telemetry=false` to it.

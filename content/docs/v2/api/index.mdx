@@ -1,0 +1,55 @@
+---
+title: API Overview
+description: The Pterodactyl 2.0 APIs and how to authenticate with them.
+---
+
+## Introduction
+
+The Panel has three APIs. Choose the one that matches what you want to do:
+
+| API | Path | Use it to |
+| --- | --- | --- |
+| Client | `/api/client` | Manage your account and the servers you have access to. |
+| Application | `/api/application` | Manage users, nodes, and servers, for example from a billing system. |
+| Admin | `/api/admin` | Manage the whole Panel, including eggs, tags, settings, and extensions. |
+
+The Panel's own login pages use the browser authentication endpoints under `/auth`.
+
+The paths above are the same in every version. The `v2` in this documentation's address is not part of the API path.
+
+In the examples, replace `https://panel.example.com` with the address of your Panel.
+
+## Authentication
+
+Send your API key in the `Authorization` header of every request:
+
+```http
+Authorization: Bearer YOUR_API_KEY
+```
+
+Each API accepts different keys:
+
+| API | Accepted keys |
+| --- | --- |
+| Client | A Client API key. It can only do what its user can do. |
+| Application | An Application API key, or a root administrator's Client API key. |
+| Admin | A root administrator's Client API key. |
+
+Application API keys only work with the Application API, where each key is limited to the permissions it was created with. The Client API and the Admin API reject them.
+
+API keys created on 1.x keep working after you upgrade.
+
+### Browser Sessions
+
+The Panel's frontend signs in with a session cookie instead of an API key. First request `/sanctum/csrf-cookie`, then keep the cookies it returns, and send the CSRF token with every request that changes data.
+
+The examples use a session cookie named `pterodactyl_session`. Your Panel may use a different name if you have set `APP_NAME` or `SESSION_COOKIE`.
+
+## Where to Start
+
+- [List your servers](./client-api/clientListClientServers.mdx) with the Client API.
+- [List users](./application-api/applicationListUsers.mdx) with the Application API.
+- [List users](./admin-api/adminListUsers.mdx) with the Admin API.
+- [Sign in](./authentication/authLogin.mdx) with a browser session.
+
+If you are moving an integration from 1.x, read [Changes From 1.x](../upgrading/changes-from-v1.mdx) first. The nest endpoints have been removed.

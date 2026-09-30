@@ -47,7 +47,7 @@ export default function LandingPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <span className="text-xl font-bold text-fd-foreground">Pterodactyl</span>
           <div className="flex items-center gap-6">
-            <Link href="/panel/getting-started" className="text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors">
+            <Link href="/v1" className="text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors">
               Documentation
             </Link>
             <a href="https://discord.gg/pterodactyl" className="text-sm text-fd-muted-foreground hover:text-fd-foreground transition-colors">
@@ -75,7 +75,7 @@ export default function LandingPage() {
           </p>
           <div className="mt-10">
             <Link
-              href="/panel/getting-started"
+              href="/v1"
               className="inline-block rounded-lg bg-fd-primary px-8 py-3 text-base font-semibold text-fd-primary-foreground shadow-sm hover:opacity-90 transition-opacity"
             >
               Let&apos;s Get Started!

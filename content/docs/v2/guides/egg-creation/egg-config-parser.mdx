@@ -1,0 +1,114 @@
+---
+title: Startup and Configuration
+description: Control how Wings starts, watches, stops, and configures a server.
+---
+
+## Introduction
+
+These settings tell Wings how to run a server: the command that starts it, how to tell that it has finished starting, how to stop it, and which of its configuration files to keep up to date. You find them in the **Configuration** card and the **Process Management** card on the egg's **Configuration** tab.
+
+## Startup Command
+
+The **Startup Command** runs every time the server starts. Use `{{VARIABLE}}` to insert the value of one of the egg's [variables](./egg-variables.mdx):
+
+```text
+java -Xms128M -XX:MaxRAMPercentage=95.0 -jar {{SERVER_JARFILE}}
+```
+
+The Panel shows users the command with the values filled in.
+
+This command is the default for new servers. Each server keeps its own copy, so changing it here does not change existing servers. You may change a server's command on its **Startup** tab in the admin area.
+
+<Callout type="warn">
+The official images run the startup command directly, not through a shell. Shell features such as `&&`, `|`, and `>` do not work. If you need them, start the command with `bash -c`, or put the commands in a script that the install script creates.
+</Callout>
+
+## Stop Command
+
+The **Stop Command** is what Wings sends to stop the server gracefully. It may be:
+
+- a command typed into the server's console, such as `stop` for Minecraft, or
+- `^C`, which sends the process an interrupt signal (`SIGINT`), like pressing Ctrl+C in a terminal.
+
+If the server does not stop in time, users may kill it from the Panel.
+
+## Start Configuration
+
+The **Start Configuration** tells Wings when the server has finished starting. Until then, the Panel shows the server as **Starting**. Once any of the `done` strings appears in the console, it shows **Running**:
+
+```json
+{
+    "done": "Server started on port"
+}
+```
+
+`done` may also be a list, if the server prints different messages in different situations:
+
+```json
+{
+    "done": [
+        "Done (",
+        "Server is ready"
+    ]
+}
+```
+
+If none of the strings ever appears, the server stays **Starting**, so make sure the text matches what the server really prints.
+
+## Log Configuration
+
+Leave **Log Configuration** as `{}`. Wings shows the server's console output without it.
+
+## Configuration Files
+
+**Configuration Files** lets Wings change settings in the server's own configuration files every time it starts. You might use it to make sure a game server always listens on the port the Panel assigned to it, whatever a user writes in the file.
+
+The value is a JSON object. Each key is a file, relative to the server's directory, and says which parser to use and which settings to set:
+
+```json
+{
+    "server.properties": {
+        "parser": "properties",
+        "find": {
+            "server-ip": "0.0.0.0",
+            "server-port": "{{server.build.default.port}}",
+            "max-players": "{{env.MAX_PLAYERS}}"
+        }
+    }
+}
+```
+
+When the server starts, Wings sets each key to its value. With most parsers, Wings adds keys that are missing, and creates the file if it does not exist.
+
+### Values
+
+A value may be plain text, or include these placeholders:
+
+| Placeholder | Value |
+| --- | --- |
+| `{{server.build.default.ip}}` | The IP address of the server's primary allocation. |
+| `{{server.build.default.port}}` | The port of the server's primary allocation. |
+| `{{server.build.memory}}` | The server's memory limit, in MiB. |
+| `{{env.VARIABLE}}` | The value of one of the egg's variables, such as `{{env.MAX_PLAYERS}}`. For the server's port, IP address, and memory, use the `server` placeholders above. |
+| `{{config.docker.interface}}` | The address of the node on the servers' Docker network, usually `172.18.0.1`. |
+
+### Parsers
+
+| Parser | For |
+| --- | --- |
+| `properties` | `.properties` files, with `key=value` lines. |
+| `ini` | INI files. Keys are written as `section.key`, such as `Server.Port`. |
+| `yaml` | YAML files. Nested keys are written with dots, such as `settings.port`, and list items with brackets, such as `listeners[0].host`. |
+| `json` | JSON files. Keys are written the same way as for `yaml`. |
+| `xml` | XML files. Keys are paths to elements, such as `Config.Port` for `<Config><Port>`. Attributes cannot be changed. |
+| `file` | Any text file. Replaces every line that starts with the key with the value, so the value must be the whole line, such as `"port=": "port={{server.build.default.port}}"`. It does not add missing lines. Use it only when no other parser fits. |
+
+In `yaml` and `json` keys, `*` matches every item at one level. For example, `servers.*.port` sets the port of every entry under `servers`.
+
+## Copy Settings From
+
+**Copy Settings From** lets an egg use another egg's Process Management settings. Any of these fields that you leave empty come from the chosen egg: the stop command, the start, log, and configuration file settings, and the features.
+
+This saves repeating the same settings in many similar eggs, such as several Minecraft server types. Copying only goes one level: if the chosen egg copies its own settings from another egg, those settings are not passed on.
+
+Only these settings are copied. The copying egg still needs its own startup command, Docker images, and variables.

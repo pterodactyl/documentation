@@ -1,0 +1,132 @@
+---
+title: Extensions
+description: Install, configure, and manage extensions that add features to your Panel.
+---
+
+## Introduction
+
+Extensions add features to the Panel without changing its code. An extension can add pages and detail tabs, place content on existing pages, add table columns and API endpoints, and store its own data. Extensions use the Panel's components and data hooks to work with its existing pages.
+
+Each extension is a package with an `extension.json` file that describes it. Extensions are installed into the `extensions` directory of your Panel.
+
+<Callout type="warn" title="Only install extensions you trust">
+Extensions run with the same access as the Panel itself. An extension can read your database, your settings, and your users' data. Only install extensions from developers you trust.
+</Callout>
+
+To build your own extension, see [Building Extensions](./building.mdx).
+
+## Installing Extensions
+
+Extensions are distributed as `.pteroext` files. A `.pteroext` file is a zip archive of the extension's directory.
+
+### From the Admin Area
+
+To install an extension from your browser, open **Admin → Extensions** and click **Install**. Choose the `.pteroext` or `.zip` file, and select **Enable after install** if you want to use the extension right away. Packages may be up to 50 MB.
+
+### From the Command Line
+
+You may also install an extension with the `p:extension:install` Artisan command. Pass it a `.pteroext` file, a `.zip` file, or an unpacked extension directory:
+
+```bash
+php artisan p:extension:install /path/to/server-notes.pteroext --enable
+```
+
+The `--enable` option enables the extension after it is installed. Afterwards, make sure the web server user owns the new files:
+
+```bash
+chown -R www-data:www-data /var/www/pterodactyl/extensions /var/www/pterodactyl/public/assets/extensions
+```
+
+When you install an unpacked directory, the whole directory is copied, including development files such as `node_modules`. Installing a packaged `.pteroext` file avoids this.
+
+## Enabling and Disabling Extensions
+
+An installed extension does nothing until you enable it. You may enable and disable extensions from **Admin → Extensions**, or with Artisan:
+
+```bash
+php artisan p:extension:enable server-notes
+php artisan p:extension:disable server-notes
+```
+
+Before enabling an extension, the Panel checks its version requirements, required extensions, and built frontend files. It runs the migrations in the extension's `database/migrations` directory and publishes its assets before marking it enabled. If activation fails, the extension keeps its previous state and asset version.
+
+An extension can replace supported parts of the Panel's presentation. Enabling it activates those replacements; disabling it restores the native views after reload. Only one enabled extension can replace each component. A conflicting enable or update fails with the component name and existing owner.
+
+Required extensions must be enabled and meet the declared version constraints. Disable extensions that depend on an extension before disabling or removing that extension.
+
+Disabling an extension turns off its pages, API endpoints, and frontend code. Its files, data, and settings are kept, so you can enable it again later.
+
+Enabling, disabling, installing, and removing extensions refreshes cached routes and signals queue workers to restart. Users need to reload the Panel in their browser to load the current frontend code.
+
+## Configuring Extensions
+
+Some extensions have settings. To change them, open **Admin → Extensions** and click the settings button on the extension. The extension must be enabled for its settings to appear.
+
+Settings are stored in the Panel's database. Settings declared as secrets are encrypted and appear blank in the settings form. Leave a secret field blank to keep its saved value. A password field is only encrypted when the extension declares it as a secret.
+
+Changes to settings exposed to an extension's frontend take effect after a page reload.
+
+## Updating Extensions
+
+To update an extension, install the package the same way you installed the first one. The extension keeps its enabled or disabled state. For an enabled extension, the Panel checks compatibility and runs the package's migrations before activating it.
+
+If installation or activation fails, the Panel restores the previous package, version, enabled state, and asset version. Database schema changes made by migrations cannot be undone by this recovery. Keep a database backup and check any partially applied migrations before trying again.
+
+Published assets use versioned directories. The Panel keeps earlier builds so open browser sessions can load their screen files during an update. Reload the page to use the installed version.
+
+## Removing Extensions
+
+You may remove an extension from **Admin → Extensions**, or with Artisan:
+
+```bash
+php artisan p:extension:remove server-notes
+```
+
+Removing an extension deletes its files and published assets. **Its database tables and settings are kept.** If you install the extension again later, its data is still there. To remove the data as well, drop the extension's tables by hand. By convention, their names start with `ext_` followed by the extension's ID.
+
+## Listing Extensions
+
+The `p:extension:list` command shows every installed extension and its state:
+
+```bash
+php artisan p:extension:list
+```
+
+```text
++--------------+--------------+---------+-----+---------+-------+
+| ID           | Name         | Version | UI  | State   | Error |
++--------------+--------------+---------+-----+---------+-------+
+| server-notes | Server Notes | 1.0.0   | yes | enabled |       |
++--------------+--------------+---------+-----+---------+-------+
+```
+
+## Configuration
+
+These environment variables control extensions. Set them in your `.env` file:
+
+| Variable | Default | Description |
+| --- | --- | --- |
+| `PTERODACTYL_EXTENSIONS_ENABLED` | `true` | Set to `false` to stop loading every extension without uninstalling any of them. |
+| `PTERODACTYL_EXTENSIONS_DIRECTORY` | `extensions` in the Panel directory | Where extensions are installed. |
+
+If an extension breaks your Panel, set `PTERODACTYL_EXTENSIONS_ENABLED=false` to turn all extensions off. Then find and disable the broken one.
+
+The web server user must be able to write to the extensions directory and to `public/assets/extensions`. Otherwise, you cannot install or remove extensions from the admin area.
+
+### Docker
+
+If you run the [Docker image](../panel/docker.mdx), keep `/app/extensions` and `/app/public/assets/extensions` on volumes. The example Compose file already does this. Without these volumes, your extensions are lost when the container is recreated.
+
+## Troubleshooting
+
+### An Extension Shows an Error
+
+If an extension fails while the Panel starts, the Panel skips it and keeps running. The error is shown on the extension's card in **Admin → Extensions**, and in the `Error` column of `p:extension:list`. The Panel tries to load the extension again on every request, so the error clears once the problem is fixed.
+
+An extension marked **invalid** has a broken `extension.json` file. It cannot be enabled until the file is fixed.
+
+### An Extension's Page or Content Does Not Appear
+
+When an extension's content fails to load, users see a message with a recovery action. Render failures offer a retry; failed screen files require a page reload. Frontend failures seen by the current browser are also shown in **Admin → Extensions**. Open your browser's developer console for the full error.
+
+Also check that the extension is enabled, and reload the page. The Panel only loads extension changes when the page is reloaded.

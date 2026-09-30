@@ -12,6 +12,14 @@ const config = {
         return [
             { source: '/docs', destination: '/', permanent: true },
             { source: '/docs/:path*', destination: '/:path*', permanent: true },
+            { source: '/api-v2/:path*', destination: '/v2/api/:path*', permanent: true },
+            ...['project', 'panel', 'wings', 'guides'].map((section) => ({
+                source: `/${section}/:path*`,
+                destination: `/v1/${section}/:path*`,
+                permanent: true,
+            })),
+            { source: '/api', destination: '/v1/api', permanent: true },
+            { source: '/api/:path((?!search(?:/|$)).*)', destination: '/v1/api/:path', permanent: true },
         ];
     },
     images: {

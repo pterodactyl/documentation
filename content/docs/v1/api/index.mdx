@@ -1,0 +1,39 @@
+---
+title: API Overview
+description: The Pterodactyl 1.x APIs and how to authenticate with them.
+---
+
+## Introduction
+
+The Panel has two APIs. Choose the one that matches what you want to do:
+
+| API | Path | Use it to |
+| --- | --- | --- |
+| Client | `/api/client` | Manage your account and the servers you have access to. |
+| Application | `/api/application` | Manage users, nodes, locations, and servers, for example from a billing system. |
+
+The `v1` in this documentation's address is not part of the API path.
+
+## Authentication
+
+Send your API key in the `Authorization` header of every request:
+
+```http
+Authorization: Bearer YOUR_API_KEY
+```
+
+Each API uses its own keys:
+
+| API | Key | Created in |
+| --- | --- | --- |
+| Client | A Client API key. It can only do what its user can do. | **Account → API Credentials** (`/account/api`) |
+| Application | An Application API key. | **Admin → Application API** (`/admin/api`) |
+
+Responses are JSON.
+
+## Where to Start
+
+- [List your servers](./client-general/get-list-servers.mdx) with the Client API.
+- [List users](./application-users/get-list-users.mdx) with the Application API.
+
+If you are upgrading to Pterodactyl 2.0, read [Changes From 1.x](../../v2/upgrading/changes-from-v1.mdx). The nest endpoints have been removed.

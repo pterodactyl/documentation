@@ -1,10 +1,6 @@
 {
   "pages": [
-    "project",
-    "panel",
-    "wings",
-    "docker",
-    "guides",
-    "api"
+    "v1",
+    "v2"
   ]
 }

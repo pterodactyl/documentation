@@ -8,6 +8,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ...defaultMdxComponents,
     ...TabsComponents,
     APIPage,
+    OpenAPIPage: APIPage,
     ...components,
   };
 }

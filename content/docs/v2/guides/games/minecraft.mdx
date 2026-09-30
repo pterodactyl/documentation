@@ -1,0 +1,72 @@
+---
+title: Minecraft Proxy Networks
+description: Run a BungeeCord, Waterfall, or Velocity network, with backend servers hidden from the internet.
+---
+
+## Introduction
+
+A Minecraft proxy, such as BungeeCord, Waterfall, or Velocity, lets players move between several servers through one address. Players connect to the proxy, and the proxy connects to the backend servers.
+
+The backend servers should only accept connections from the proxy. They usually run in offline mode, and trust the proxy to check who each player is, so anyone who could connect to them directly could join as any player. This guide keeps them hidden from the internet.
+
+<Callout type="warn">
+The proxy and all of its backend servers must run on the same node.
+</Callout>
+
+<Callout type="error">
+Every server on the node can connect to the backend servers. If you host servers for other people, only run one proxy network per node, so that one customer's servers cannot reach another's.
+</Callout>
+
+## Allocations
+
+Give the proxy a normal allocation on the node's public IP address, so that players can reach it.
+
+Give each backend server an allocation on `127.0.0.1` instead. To create them, open the node's **Allocation** tab, enter `127.0.0.1` as the **IP Address**, and add a port for each backend, such as `25566-25570`.
+
+Wings does not really listen on `127.0.0.1` for these allocations. It listens on the node's address on the servers' Docker network, `172.18.0.1` by default. Other servers on the node can reach that address, but nothing outside the node can.
+
+## Configuring the Proxy
+
+Inside a server's container, `127.0.0.1` and `localhost` mean the container itself, not the node. In the proxy's configuration, use `172.18.0.1` and each backend's port as the backend's address.
+
+For BungeeCord and Waterfall, in `config.yml`:
+
+```yaml title="config.yml"
+servers:
+  lobby:
+    address: 172.18.0.1:25566
+    restricted: false
+    motd: Lobby
+  survival:
+    address: 172.18.0.1:25567
+    restricted: false
+    motd: Survival
+```
+
+For Velocity, in `velocity.toml`:
+
+```toml title="velocity.toml"
+[servers]
+lobby = "172.18.0.1:25566"
+survival = "172.18.0.1:25567"
+try = ["lobby"]
+```
+
+## Configuring the Backend Servers
+
+Each backend server needs the settings your proxy asks for. For BungeeCord and Waterfall with Paper or Spigot, these are:
+
+- In `server.properties`, set `online-mode` to `false`.
+- In `spigot.yml`, set `settings.bungeecord` to `true`.
+
+Velocity's recommended forwarding mode needs different settings. See your proxy's documentation.
+
+## Firewalls
+
+If UFW is on, it blocks connections from the servers' network to `172.18.0.1`, so the proxy cannot reach the backend servers. Allow each backend's port from the `pterodactyl0` interface:
+
+```bash
+ufw allow in on pterodactyl0 to 172.18.0.1 port 25566 proto tcp
+```
+
+Replace `25566` with the backend's port, and repeat the command for each backend. The backend servers stay hidden from the internet, because the rule only applies to traffic from the servers' network.

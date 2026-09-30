@@ -1,0 +1,92 @@
+---
+title: Egg Variables
+description: Let users and administrators change a server's settings without editing its startup command.
+---
+
+## Introduction
+
+Variables are settings that can be different for each server using an egg, such as the game version or the maximum number of players. Each variable becomes an environment variable in the server's container. You may use it in the startup command, the install script, and the configuration files.
+
+You manage an egg's variables on its **Variables** tab. The Panel also sets some variables for every server on its own; see [Built-In Variables](#built-in-variables).
+
+## Creating a Variable
+
+Click **Create Variable**, and fill in these fields:
+
+- **Name:** A friendly name users see, such as `Max Players`.
+- **Description:** Explains to users what the variable does.
+- **Environment Variable:** The variable's name inside the container, such as `MAX_PLAYERS`. Use only letters, numbers, and underscores. Wings passes the name to the container in uppercase, so use uppercase names to avoid confusion.
+- **Default Value:** The value new servers start with.
+- **Users Can View:** Whether users see the variable on their server's **Startup** page.
+- **Users Can Edit:** Whether users may change the variable's value.
+- **Input Rules:** [Laravel validation rules](https://laravel.com/docs/validation#available-validation-rules) that every value must pass.
+
+Click **Create Variable** to save it.
+
+<Callout type="warn">
+Hiding a variable from users does not make it secret. Its value is still in the server's environment, and the server's own processes can read it. Do not use variables for secrets that users must not see.
+</Callout>
+
+## Using a Variable
+
+Refer to a variable by its environment variable name. How you write it depends on where you use it:
+
+| Where | How | Example |
+| --- | --- | --- |
+| Startup command | `{{NAME}}` | `--max-players {{MAX_PLAYERS}}` |
+| Install script | `$NAME` or `${NAME}` | `echo "players=${MAX_PLAYERS}"` |
+| Configuration files | `{{env.NAME}}` | `"max-players": "{{env.MAX_PLAYERS}}"` |
+
+The Panel shows users the startup command with each variable's value filled in.
+
+## Input Rules
+
+Rules are separated by `|`. These are the most common:
+
+| Rule | Meaning |
+| --- | --- |
+| `required` | A value must be given. |
+| `nullable` | The value may be empty. |
+| `string` | The value is text. |
+| `numeric` | The value is a number. |
+| `integer` | The value is a whole number. |
+| `boolean` | The value is `true`, `false`, `1`, or `0`. |
+| `between:1,64` | A number from 1 to 64, or text of 1 to 64 characters. |
+| `max:20` | A number up to 20, or text of up to 20 characters. |
+| `in:survival,creative` | One of the listed values. |
+| `regex:/^[\w.-]+\.jar$/` | Matches a regular expression. |
+
+For example, `required|string|max:20` requires text of at most 20 characters. New variables start with these rules.
+
+The rules also decide how the variable looks on the **Startup** page:
+
+- A variable with the `boolean` rule, `in:0,1`, or `in:true,false` shows as a switch. If its rules also include `string`, the switch saves `true` or `false`; otherwise it saves `1` or `0`.
+- A variable with any other `in:` rule shows as a list of the allowed values.
+- Every other variable shows as a text field.
+
+## Reserved Names
+
+These environment variable names are reserved, and the Panel does not let you use them in any letter case:
+
+`SERVER_MEMORY`, `SERVER_IP`, `SERVER_PORT`, `ENV`, `HOME`, `USER`, `STARTUP`, `SERVER_UUID`, and `UUID`.
+
+## Built-In Variables
+
+Every server's container gets these variables, whatever its egg:
+
+| Variable | Value | Example |
+| --- | --- | --- |
+| `STARTUP` | The server's startup command, with the variables not yet filled in. | `java -jar {{SERVER_JARFILE}}` |
+| `SERVER_MEMORY` | The server's memory limit, in MiB. | `1024` |
+| `SERVER_IP` | The IP address of the server's primary allocation. | `192.168.1.10` |
+| `SERVER_PORT` | The port of the server's primary allocation. | `25565` |
+| `TZ` | The node's time zone. Wings detects it, or you may set `system.timezone` in Wings' configuration. | `Europe/London` |
+| `P_SERVER_UUID` | The server's UUID. | `6d1f7929-5c2e-4cd4-99af-924dacb15537` |
+| `P_SERVER_LOCATION` | The short code of the node's location. | `us1` |
+| `P_SERVER_ALLOCATION_LIMIT` | How many allocations the server may have. Wings writes the number with decimals. | `1.000000` |
+
+The official Docker images also set `USER=container` and `HOME=/home/container`.
+
+## Changing a Server's Variables
+
+Users change the variables they may edit on their server's **Startup** page. Administrators may change every variable of a server on its **Startup** tab in the admin area. New values take effect the next time the server starts.

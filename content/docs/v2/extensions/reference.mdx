@@ -1,0 +1,638 @@
+---
+title: Extension Reference
+description: The manifest, commands, backend helpers, SDK, and slots available to extensions.
+---
+
+## Introduction
+
+This page lists everything available to extensions. For a guided introduction, see [Building Extensions](./building.mdx).
+
+## Manifest
+
+The `extension.json` file supports these keys:
+
+| Key | Required | Description |
+| --- | --- | --- |
+| `id` | Yes | The extension's ID. It must start with a lowercase letter, may contain lowercase letters, numbers, and hyphens, and can be up to 48 characters long. It must match the directory name. `pterodactyl`, `panel`, and `core` are reserved. |
+| `name` | Yes | The display name. |
+| `version` | Yes | The version, up to 64 characters. |
+| `$schema` | No | Editor schema, usually `./node_modules/@pterodactyl/sdk/manifest.schema.json` in a frontend package. |
+| `requires.panel` | No | Supported Panel versions, using Composer constraints. |
+| `requires.sdk` | With component replacements | Supported SDK versions, using Composer constraints. |
+| `requires.php` | No | Supported PHP versions, using Composer constraints. |
+| `requires.extensions` | No | Required extension IDs mapped to version constraints. Each dependency must be enabled. |
+| `description` | No | A short description, shown in the admin area. |
+| `author` | No | The author, shown in the admin area. |
+| `provider` | No | The fully qualified class name of the service provider. It must extend `Pterodactyl\Extensions\ExtensionProvider`. |
+| `autoload` | No | PSR-4 autoloading, as a map of namespace prefixes to directories inside the extension, such as `{"ServerNotes\\": "src"}`. |
+| `ui.entry` | With `ui` | The frontend bundle. Must be `dist/client.js`. |
+| `ui.mode` | No | Must be `native`, which is the default. |
+| `ui.screens` | No | The pages the extension adds, up to 64. |
+| `ui.components` | No | A list of supported component names this extension replaces. Names must be unique. |
+
+Each entry in `ui.screens` supports these keys:
+
+| Key | Required | Description |
+| --- | --- | --- |
+| `id` | Yes | The screen's ID, used with `screens.register`. Lowercase letters, numbers, and hyphens, starting with a letter. |
+| `area` | Yes | `server`, `account`, or `admin`. |
+| `parent` | No | An admin detail page: `admin.node`, `admin.server`, `admin.user`, or `admin.egg`. Only accepted with `area: "admin"`. |
+| `path` | Yes | A static first segment, followed by static or named parameter segments, such as `notes/$tab`. `$id` is reserved. Paths must not collide with core or extension routes. |
+| `nav.label` | No | The label of the page's navigation tab, up to 100 characters. Without `nav`, the page has no tab. |
+| `nav.exact` | No | Only highlight the navigation item when the path matches exactly. |
+| `nav.params` | For parameterized navigation | Values for every named parameter in the screen path. |
+| `nav.order` | No | Sort order among extension navigation items. Defaults to `0`. |
+| `nav.group` | No | Group metadata shown as a tooltip, up to 100 characters. |
+| `nav.badge` | No | A short label beside the navigation item, up to 32 characters. |
+| `nav.icon` | No | One of `puzzle`, `settings`, `file`, `server`, `chart`, `users`, `key`, `network`, or `terminal`. |
+| `permission` | No | Only accepted on `server` screens. The page and navigation item require at least one of the listed subuser permissions. Backend routes must also authorize the request. |
+
+Screen URLs use these roots, followed by the screen's `path`:
+
+| Area or parent | URL root |
+| --- | --- |
+| `account` | `/account` |
+| `server` | `/server/{id}` |
+| `admin` | `/panel` |
+| `admin.node` | `/panel/nodes/{id}` |
+| `admin.server` | `/panel/servers/{id}` |
+| `admin.user` | `/panel/users/{id}` |
+| `admin.egg` | `/panel/eggs/{eggId}` |
+
+Compatibility is checked before activation. Dependencies load first; incompatible packages and dependency cycles are skipped. Disable dependents before disabling or removing a required extension.
+
+## Artisan Commands
+
+| Command | Description |
+| --- | --- |
+| `p:extension:make {id}` | Create a new extension. Options: `--name`, `--description`, `--author`, `--no-ui`, `--out`, `--force`. |
+| `p:extension:install {path}` | Install a `.pteroext` file, a `.zip` file, or a directory. Add `--enable` to enable it afterwards. |
+| `p:extension:enable {id}` | Enable an extension, publish its frontend files, and run its migrations. |
+| `p:extension:disable {id}` | Disable an extension. Its files and data are kept. |
+| `p:extension:remove {id}` | Delete an extension's files and published assets. Its tables and settings are kept. |
+| `p:extension:list` | List every installed extension and its state. |
+| `p:extension:doctor {path}` | Check an unpacked package's manifest, compatibility, autoload directories, and built files without installing it. |
+| `p:extension:dev {path}` | Build and publish once. Add `--enable` to enable the package and `--watch` to publish each successful rebuild. Browser reload requires `APP_DEBUG=true`. |
+| `p:extension:types {path}` | Generate literal extension, screen, permission, and public configuration types. Defaults to `src/client/extension-types.ts`; use `--output` to choose another file. Enable the extension to load its settings and permission definitions. |
+| `p:extension:pack {path}` | Create a runtime `.pteroext` archive. Defaults to `{id}-{version}.pteroext` in the working directory. Options: `--output`, `--force`. |
+
+## Backend
+
+### Provider Methods
+
+The `Pterodactyl\Extensions\ExtensionProvider` class offers these protected methods:
+
+| Method | Description |
+| --- | --- |
+| `registerApiRoutes()` | Load `routes/client.php`, `routes/server.php`, `routes/admin.php`, and `routes/application.php`, if they exist. |
+| `loadExtensionMigrations()` | Register `database/migrations`. |
+| `registerSettings($definition)` | Register the extension's settings. |
+| `settings()` | Return the extension's key-value settings store. |
+| `registerPermissions($description, $keys)` | Register permission keys and their descriptions under `ext.{id}.{key}`. |
+| `listenToServerOperations($listener)` | Listen for an immutable `OperationCompleted` result; errors are recorded against the extension. |
+| `loadExtensionViews()` | Load Blade views from `resources/views`, as `ext-{id}::view`. |
+| `loadExtensionTranslations()` | Load translations from `resources/lang`, as `ext-{id}::key`. |
+| `id()` | Return the extension's ID. |
+| `extensionPath(...$parts)` | Return an absolute path inside the extension's directory. |
+
+### Route Helpers
+
+Each route helper takes the path to a route file, and loads it under a prefix with the Panel's middleware. The `registerApiRoutes` method calls the first four for you.
+
+| Method | URL prefix | Access |
+| --- | --- | --- |
+| `registerClientApiRoutes($path)` | `/api/client/extensions/{id}` | Signed-in users and Client API keys. |
+| `registerServerApiRoutes($path)` | `/api/client/servers/{server}/extensions/{id}` | Users with access to the server. |
+| `registerAdminApiRoutes($path)` | `/api/admin/extensions/{id}` | Root administrators. |
+| `registerApplicationApiRoutes($path)` | `/api/application/extensions/{id}` | Root administrators, including Application API keys. |
+| `registerAuthenticatedWebRoutes($path)` | `/extensions/{id}` | Signed-in users. |
+| `registerWebRoutes($path)` | `/extensions/{id}` | Anyone. Add your own middleware to protect these routes. |
+
+Route names are prefixed with `extensions.{id}.`, followed by `client.`, `server.`, `admin.`, `application.`, or `web.`. The path `/api/admin/extensions/{id}/settings` is reserved for the Panel.
+
+### Settings
+
+`ExtensionSettingDefinition::make($key, $input, $default, $rules)` defines one setting. It supports these methods:
+
+| Method | Description |
+| --- | --- |
+| `label($label)` | The form label. Defaults to the input name in title case. |
+| `help($text)` | Help text shown below the field. |
+| `field($type, $options = [])` | The form control: `text`, `password`, `number`, `toggle`, or `select`. For `select`, pass a list of `['value' => ..., 'label' => ...]` options. |
+| `frontend()` | Send the value to the frontend bundle as `config`. Every signed-in user can read it. Before signing in, `config` is empty. |
+| `frontendType($type)` | Declare and check a public value's type: `string`, `number`, `boolean`, `array`, `object`, `null`, or `json`. Defaults to `json`. |
+| `secret()` | Encrypt the stored value, use a password control, and return it blank to the admin form. Cannot be combined with `frontend()`. Empty updates keep the saved value. |
+| `normalizeUsing($callback)` | Transform the value when it is read and saved. |
+| `publicUsing($callback)` | Transform the value before it is shown, for example to mask it. |
+
+The admin form validates submitted values against their definitions. Updates may include only the settings being changed. Values must be JSON scalars or arrays, nested at most ten levels deep. A password control alone does not enable encryption.
+
+The store returned by `settings()` supports:
+
+| Method | Description |
+| --- | --- |
+| `get($key, $default = null)` | Read a value, decrypting it when stored as a secret. |
+| `set($key, $value)` | Store an ordinary JSON value. |
+| `setSecret($key, $value)` | Store an encrypted value. Use this method for every write of a managed secret. |
+| `setMany($values)` | Store a map of ordinary values in one write. |
+| `setManySecrets($values, $secretKeys)` | Store a map of values, encrypting the keys in `$secretKeys`. |
+| `forget($key)` | Delete a value. |
+| `all()` | Read all values in this scope. |
+| `getByPrefix($prefix)` | Read matching keys, removing the prefix from the returned keys. |
+| `forgetByPrefix($prefix)` | Delete matching keys. |
+| `forUser($user)` | Return a store scoped to a persisted user. |
+| `forServer($server)` | Return a store scoped to a persisted server. |
+
+Global, user, and server scopes are separate. Deleting a user or server deletes its scoped settings. `ExtensionSettings::preload($stores)` loads several stores together. An `ExtensionSettingsDefinition` also supports `forUser` and `forServer`.
+
+### Permissions
+
+Register extension permissions with `registerPermissions($description, ['read' => 'Read notes.'])`. The key becomes `ext.{id}.read` and appears in the server subuser editor. Use it with `$user->can(...)`, the SDK permission hooks, and a server screen's `permission` list. A wildcard such as `ext.server-notes.*` covers only that extension. Server owners and root administrators pass every permission check.
+
+You may also use these core permission names:
+
+| Group | Permissions |
+| --- | --- |
+| Console | `websocket.connect`, `control.console`, `control.start`, `control.stop`, `control.restart` |
+| Subusers | `user.create`, `user.read`, `user.update`, `user.delete` |
+| Files | `file.create`, `file.read`, `file.read-content`, `file.update`, `file.delete`, `file.archive`, `file.sftp` |
+| Backups | `backup.create`, `backup.read`, `backup.delete`, `backup.download`, `backup.restore` |
+| Network | `allocation.read`, `allocation.create`, `allocation.update`, `allocation.delete` |
+| Startup | `startup.read`, `startup.update`, `startup.docker-image` |
+| Databases | `database.create`, `database.read`, `database.update`, `database.delete`, `database.view_password` |
+| Schedules | `schedule.create`, `schedule.read`, `schedule.update`, `schedule.delete` |
+| Settings | `settings.rename`, `settings.reinstall` |
+| Activity | `activity.read` |
+
+### Events
+
+The Panel dispatches these events from the `Pterodactyl\Events\Extensions` namespace. Each one has a public `$manifest` property, except where noted.
+
+| Event | Dispatched |
+| --- | --- |
+| `ExtensionInstalling` | Before an extension is installed. Also has `$source`. |
+| `ExtensionInstalled` | After an extension is installed. |
+| `ExtensionEnabling` | Before an extension is enabled. |
+| `ExtensionEnabled` | After an extension is enabled and its migrations have run. |
+| `ExtensionDisabling` | Before an extension is disabled. |
+| `ExtensionDisabled` | After an extension is disabled. |
+| `ExtensionRemoving` | Before an extension is removed. |
+| `ExtensionRemoved` | After an extension is removed. Has only `$identifier`. |
+| `ExtensionLoadFailed` | When an extension's provider throws while loading. Has `$identifier`, `$phase`, `$reason`, and `$exception`. |
+
+### Server Operation Events
+
+`listenToServerOperations` receives `Pterodactyl\Events\Server\OperationCompleted`:
+
+| Property | Value |
+| --- | --- |
+| `serverUuid` | The server's UUID. |
+| `operation` | `provision`, `install`, `reinstall`, or `backup`. |
+| `successful` | Whether the operation succeeded. |
+| `resourceUuid` | The backup UUID for backups; the server UUID for other operations. |
+
+These properties are read-only. Events dispatch after the database transaction commits. Provisioning is reported only after Wings accepts creation. Listener failures are recorded against the extension.
+
+### Job Progress
+
+`Pterodactyl\Services\Extensions\ExtensionJobProgress` supports:
+
+| Method | Description |
+| --- | --- |
+| `begin($extension, $user, $server = null, $permission = null)` | Create an `ExtensionJobSnapshot` with a UUID, `running` status, and zero percent. |
+| `update($extension, $id, $percent, $message = '', $status = 'running')` | Update a snapshot. Percent must be 0–100 and cannot decrease; messages may be up to 1,000 characters. Completing sets percent to 100. |
+| `find($extension, $id)` | Read a snapshot, or `null` when it is absent or expired. This does not authorize a user. |
+| `visible($extension, $id, $user, $server = null)` | Read a snapshot after checking its subject and the user's current access. Unavailable snapshots return 404. |
+
+Status is `running`, `completed`, or `failed`. Finished snapshots cannot be updated. Each update increases `sequence`. The frontend payload contains `id`, `extension`, `status`, `percent`, `message`, `sequence`, and `updated_at`.
+
+| GET endpoint | Subject |
+| --- | --- |
+| `/api/client/extension-progress/{extension}/{job}` | A user-only job. |
+| `/api/client/servers/{server}/extension-progress/{extension}/{job}` | A job for that server. |
+
+Both endpoints require authentication. User-only jobs and server jobs without a permission are private to their creator and root administrators. Server jobs with a permission require current server access and that permission, which must belong to the same extension. Disabled extensions and missing, expired, or inaccessible jobs return 404. Responses are not cached by the browser.
+
+Workers and web requests must share a cache store. Retention is controlled by `extensions.progress_retention_seconds`, defaulting to 3,600 seconds after the last update. Keep durable results or audit records separately.
+
+## Frontend SDK
+
+Import runtime components and hooks from `@pterodactyl/sdk`. The Panel provides them through its import map, so they are not bundled into your extension. Build, testing, and generated-client helpers use the subpaths listed below.
+
+Use `definePterodactylExtension({ setup })` for an entry definition, or `defineConfiguredExtension(parseConfig, { setup })` with generated configuration and screen types. `setup` is synchronous, and its registrations become visible together after it finishes successfully.
+
+### Setup Context
+
+The `setup` function receives an object with these properties:
+
+| Property | Description |
+| --- | --- |
+| `meta` | `{ id, version }` of your extension. |
+| `config` | The values of your frontend settings. |
+| `slots.register(name, component)` | Render a component in a slot. |
+| `screens.register(id, importer)` | Attach a component to a screen declared in `extension.json`. The importer must return a module with a default export, such as `() => import('./Screen')`. |
+| `columns.register(name, column)` | Add a typed column to a supported admin table. |
+| `components.replace(name, replacement)` | Register a presentation for a name declared in `ui.components`. Accepts a component or `{ load: () => import('./View') }`. |
+
+### Component Replacements
+
+The component catalog is exported as `COMPONENT_NAMES`. `ReplacementProps<Name>` contains a read-only `model`, the native `Default` component, and `parts`. `Default` accepts `className` and a partial `parts` map. Each part receives `{ model }`, typed by `ComponentPartProps<Name>`.
+
+| Name | Model | Native parts |
+| --- | --- | --- |
+| `dashboard.serverCard` | `ServerCardModel` | `identity`, `address`, `metrics` |
+| `server.files.details` | `FileDetailsModel` | `icon`, `name`, `size`, `modified` |
+
+`ServerCardModel` has `identifier`, `uuid`, `name`, nullable `description`, nullable `address`, and `state`. Its state is one of:
+
+- `{ kind: 'loading' }`.
+- `{ kind: 'unavailable', reason }`, where `reason` is `suspended`, `connection-error`, `maintenance`, `transferring`, `installing`, `restoring-backup`, or `unavailable`.
+- `{ kind: 'ready', power, cpu, memory, disk }`. `power` is `offline`, `stopped`, `starting`, `running`, or `stopping`. Each metric has numeric `value`, numeric `limit`, and boolean `alarm`. CPU values are percentages; memory and disk values are bytes. A zero limit means unlimited.
+
+`FileDetailsModel` has `name`, `kind`, `size`, and `modifiedAt`. `kind` is `file`, `directory`, `archive`, or `symlink`. Size is in bytes; `modifiedAt` is the API timestamp string.
+
+The supported areas are non-interactive content inside core links. The Panel retains polling, permission-aware navigation, accessible link names, selection, menus, and modals. The native server-card `identity` part renders `dashboard.serverRow.name.after`; other server-row slots remain in the core frame.
+
+Each declared name must have exactly one implementation in synchronous `setup`. Unknown names, undeclared registrations, duplicate registrations, or missing implementations fail the extension's atomic setup. Lazy importers return a module with a default React component. Use the importer form for lazy views rather than registering `React.lazy` directly.
+
+A component has one enabled owner. Conflicting enable and update requests fail before activation. Enabling and disabling the extension controls its replacements; reload open browser sessions to apply changes. Conflicting packages discovered at startup are skipped, with errors identifying their claims.
+
+Rows share one loading decision per page and component name. Loading has a five-second deadline; a timed-out implementation cannot replace the native view later on that page. Import and render failures restore the native view. Core state remains above the presentation boundary, while extension-local state can be lost on failure. An uncontained suspension commits that mount to its native view; use local `Suspense` for extension-owned asynchronous content. Event and asynchronous callback failures require `useExtensionAction` and remain separate from render boundaries.
+
+See [Component Replacements](./building.mdx#component-replacements) for registration and testing examples.
+
+### Hooks
+
+| Hook | Returns |
+| --- | --- |
+| `useCurrentUser()` | The signed-in user. |
+| `useSiteSettings()` | The Panel's name, locale, and reCAPTCHA settings. |
+| `useCurrentServer(select?)` | The current server on server pages, or `undefined` elsewhere. |
+| `useCurrentServerRequired(message?)` | The current server. Throws on pages that have no server. |
+| `useCurrentServerUuid()` | The current server's UUID, or `undefined`. |
+| `useCurrentServerPermissions()` | The current user's permissions on the current server. `['*']` for the owner. |
+| `useServerPermission(permission, matchAny?)` | Whether the current user has the specified permission, or all permissions in a list. Set `matchAny` to `true` to require any one of them. |
+| `usePermissions(permissions)` | A list of booleans, one for each permission. |
+| `useServerWebsocketEvent(event, callback)` | Calls `callback` for typed live server events, such as `SocketEvent.STATUS`, `SocketEvent.CONSOLE_OUTPUT`, or `backup completed:{uuid}`. Only works on server pages; callback failures are attributed to the extension. |
+| `useCurrentResource()` | `{ kind, resource }` on an admin resource detail page, or `null` elsewhere. Check `kind` before reading resource-specific fields. |
+| `useExtensionAction(name, callback)` | Wrap a handler so its failures are reported against the extension. Use it for asynchronous actions in screens and slots. |
+| `useExtensionTranslation(group = 'messages')` | `{ locale, ready, t }` for a registered `resources/lang/{locale}/{group}.php` group. Call inside an extension screen or slot. |
+| `useExtensionJobProgress(job, { serverUuid }?)` | A query result for the extension's job. Pass a server UUID for server jobs. Polls running work every 1.5 seconds, refetches after reconnecting, and stops on completion, failure, or an access error. |
+
+### Server Data
+
+These factories return query options for the Panel's own transport and cache. Use the server UUID for files, startup, and backups to share the native page's cache entries.
+
+| Factory | Data |
+| --- | --- |
+| `serverQueryOptions(id)` | A server lookup. |
+| `serverFilesQueryOptions(uuid, directory)` | The file listing for a directory. |
+| `serverFileContentQueryOptions(uuid, file)` | A file's contents as a string. |
+| `serverStartupQueryOptions(uuid)` | Startup variables and image configuration. |
+| `serverBackupsQueryOptions(uuid, page = 1)` | A page of backups. |
+
+| Hook | Data |
+| --- | --- |
+| `useServerFiles(uuid, directory, select?)` | File listing query result; optional typed selector. |
+| `useServerFileContent(uuid, file)` | File content query result. |
+| `useServerStartup(uuid, select?)` | Startup query result; optional typed selector. |
+| `useServerBackups(uuid, page = 1, select?)` | Backup query result; optional typed selector. |
+
+`invalidateServerData(uuid, domains)` returns a promise for native cache invalidation. Domains are `server`, `files`, `fileContent`, `startup`, and `backups`. File and backup invalidation covers all cached directories or pages for that server. Await it when your own mutation changes native data.
+
+### Mutations
+
+Each hook returns `isPending`, `error`, `data`, `mutateAsync(input)`, and `reset()`. Await `mutateAsync` from a guarded action handler. These hooks use the native cache updates and invalidation; startup writes are serialized per server.
+
+| Hook | Input |
+| --- | --- |
+| `useCreateServerDirectory(uuid)` | `{ directory, name }` |
+| `useRenameServerFiles(uuid)` | `{ directory, files: [{ from, to }] }` |
+| `useDeleteServerFiles(uuid)` | `{ directory, files: string[] }` |
+| `useWriteServerFile(uuid)` | `{ file, content }` |
+| `useUpdateServerStartupVariable(uuid)` | `{ key, value }`; returns the updated variable. |
+| `useSetServerDockerImage(uuid)` | `{ image }` |
+| `useCreateServerBackup(uuid)` | `{ name?, ignored?, isLocked }`; returns the created backup. |
+
+The hooks do not replace backend authorization. Check the user's permission before showing a write control.
+
+### Navigation
+
+| Export | Description |
+| --- | --- |
+| `PanelLink` | A link with a `destination` and optional `exact`. Uses the Panel router. |
+| `usePanelNavigate()` | A function taking a destination and returning a navigation promise. |
+| `usePanelLocation()` | The current `RouteSlotData`. |
+| `resolvePanelDestination(destination)` | Resolve a destination to its `pathname`, search, hash, and replace option. |
+
+A core destination is `{ to, params?, search?, hash?, replace? }`. The `to` value must be a supported core route, and required route parameters are checked by TypeScript. An extension destination is `{ extension, screen, params?, search?, hash?, replace? }`; pass the declared screen ID and the parameters needed for its screen and resource parent.
+
+### Table Columns
+
+`columns.register(name, { id, label, component })` supports these tables:
+
+| Name | Component data |
+| --- | --- |
+| `admin.nodes` | The native node resource. |
+| `admin.servers` | The native server resource. |
+| `admin.eggs` | The native egg resource. |
+
+The component receives `{ data }`, typed as `ExtensionTableRows[Name]`. Column IDs use lowercase letters, numbers, and hyphens, starting with a letter, up to 48 characters. Columns follow extension order and render after core columns. Each cell has an error boundary.
+
+### Components
+
+| Component | Description |
+| --- | --- |
+| `Button` | A button. Also `Button.Text` and `Button.Danger`. Supports `isLoading`, `size`, `color`, and `isSecondary`. |
+| `Input`, `TextArea` | Text fields. |
+| `Select` | A select menu, with single or multiple values. |
+| `Checkbox`, `Switch` | Checkboxes and switches. |
+| `Label` | A form label. |
+| `Form`, `useAppForm` | Forms built on TanStack Form, with ready-made field components. |
+| `Dialog` | Dialogs, including `Dialog.Confirm`. |
+| `Alert` | A notice, with type `success`, `info`, `warning`, or `danger`. |
+| `ContentBox`, `TitledGreyBox` | Content boxes. |
+| `PageContentBlock`, `ServerContentBlock` | Page wrappers that set the page title. Use `ServerContentBlock` on server screens. |
+| `Spinner` | A loading indicator. |
+| `Icon` | A [Lucide](https://lucide.dev) icon. |
+| `Can` | Renders its children only if the user has a permission. |
+| `CopyOnClick` | Copies text when clicked. |
+| `ScreenBlock`, `ServerError`, `NotFound` | Full-page messages. |
+| `Table` | A native table with `rows`, `columns`, `keyOf`, and `emptyState`. Each column has `id`, `label`, and a `cell(row)` function. |
+| `Tooltip` | A themed tooltip with `content`, an element child, and optional `placement`. |
+| `DropdownMenu`, `DropdownMenuItem`, `ContextDropdownMenu` | Dropdown and context menu components. |
+| `Pagination` | A native page selector. |
+| `PanelLink` | A link using a typed core or extension destination. |
+
+The SDK also exports `toast`, for notifications.
+
+### HTTP
+
+| Export | Description |
+| --- | --- |
+| `http` | The Panel's Axios instance, already signed in. |
+| `httpErrorToHuman(error)` | Turns an API error into a readable message. |
+| `queryClient` | The Panel's TanStack Query client. |
+| `client` from `@pterodactyl/sdk/api` | The shared transport used by generated extension clients. |
+| `extensionProgressQueryOptions(extension, job, serverUuid?)` | Query options keyed by extension, job, and subject. Authorization is enforced by the progress endpoint. |
+
+### Types
+
+| Type | Description |
+| --- | --- |
+| `SdkServer` | A server, as returned by the Client API. Its fields are under `attributes`. |
+| `SdkUser` | The signed-in user. |
+| `RouteSlotData` | `{ pathname, search, params }` for the current page. |
+| `SubuserPermissionsSlotData` | The data passed to the subuser permission editor slot. |
+| `ExtensionConfig` | The type of `config`. |
+| `ExtensionConfigValue` | A JSON value in frontend configuration. |
+| `ScreenComponentProps` | Route data including named parameters, with an optional typed `resource` for detail screens. |
+| `ExtensionResourceContext` | The typed admin resource union with `kind` and `resource`. |
+| `FileManagerSlotData`, `FileRowSlotData` | Native file context, selection, and callbacks; the row contract also has `file`. |
+| `StartupFormSlotData` | Startup configuration and native callbacks. |
+| `AdminUserFormSlotData`, `AdminUserFormValues` | The native user resource, bound form, and its existing field names. |
+| `ExtensionTableRows`, `ExtensionTableName`, `ExtensionTableColumn` | Native table row and column contracts. |
+| `ComponentName`, `ReplacementProps`, `ComponentPartProps`, `ComponentParts`, `DefaultComponentProps` | Component replacement names, props, native parts, and default-view props. |
+| `ServerCardModel`, `ServerCardState`, `ServerCardMetric`, `FileDetailsModel` | Read-only presentation models. |
+| `ReplacementImporter`, `ComponentReplacement` | Direct component and lazy importer registration types. |
+| `SdkFile`, `SdkBackup`, `SdkServerFiles`, `SdkServerStartup`, `SdkServerBackups` | The native server resource response types. |
+| `SdkMutation`, `SdkFileSelection` | Mutation state and file selection input. |
+| `PanelDestination`, `PanelLinkProps` | Core and extension navigation contracts. |
+| `ServerWebsocketEvent` | Known server events and backup-specific completion event names. |
+| `ExtensionJobProgress` | The public job snapshot payload. |
+
+### Build Configuration
+
+Build your extension with `defineExtensionConfig` from `@pterodactyl/sdk/vite`:
+
+```js
+import { defineExtensionConfig } from '@pterodactyl/sdk/vite';
+
+export default defineExtensionConfig({ entry: 'src/client/index.tsx' });
+```
+
+It accepts `entry` (required), `outDir` (default `dist`), and `plugins`.
+
+### Testing and Styling
+
+| Package entry | Exports or use |
+| --- | --- |
+| `@pterodactyl/sdk/testing` | `createExtensionTestHost(options?)`, `createTestServer(options?)`, `createComponentTestHost(name, options)`, `createTestServerCard(options?)`, and `createTestFileDetails(options?)`. |
+| `@pterodactyl/sdk/vitest` | `pterodactylTestAliases`, `pterodactylTestSetup`, and `pterodactylTestDirectory` for Vitest configuration. |
+| `@pterodactyl/sdk/openapi` | `externalizeExtensionApi(directory)` connects generated code to the shared transport. The scaffold calls it after API generation. |
+| `@pterodactyl/sdk/theme.css` | Tailwind theme mappings to the Panel's design tokens. Import with theme and utilities; omit preflight. |
+| `@pterodactyl/sdk/manifest.schema.json` | Editor completion for `extension.json`. |
+
+Test host options are `extensionId`, `path`, `user`, `siteSettings`, `server`, and a typed admin `resource`. The returned host has `Wrapper`, `queryClient`, `navigate(destination)`, `emitWebsocket(event, data)`, `setConnected(connected)`, and `dispose()`. Create one host per test environment at a time; unmount its wrapper before disposing it.
+
+`createTestServer` accepts `identifier`, `uuid`, `name`, `owner`, `permissions`, and `status`. Source checkouts build the test runtime with `npm run sdk:testing` at the Panel root.
+
+`createComponentTestHost` accepts a supported component name and `{ model, extensionId? }`, and returns `Wrapper` and typed replacement `props`. Its defaults and parts are the Panel's native implementations. The model fixture helpers accept partial model overrides.
+
+Frontend scaffolds include tests, CI, PostCSS, a stylesheet, and OpenAPI generation. Their `npm run api:generate` expects an extension `openapi.yaml`. Generate it from the Panel root with `composer docs:openapi` and `npm run extension:api:generate -- {id}` after loading the extension's routes.
+
+Entry CSS loads before `setup`; imported screen styles load with their screen chunk. Custom selectors should be scoped to the extension. See [Components and Styling](./building.mdx#components-and-styling).
+
+## Slots
+
+Slots are named places on the Panel's pages where extensions may render components. Register them with `slots.register(name, component)`. The `data` column shows the component's `data` prop.
+
+### Slot Data
+
+| Contract | Fields and use |
+| --- | --- |
+| `RouteSlotData` | `pathname`, `search`, and `params`. |
+| `SdkServer` | The current server, with resource fields under `attributes`. |
+| `SubuserPermissionsSlotData` | `mode`, `selectedPermissions`, `editablePermissions`, `disabled`, and `setPermissions`. |
+| `FileManagerSlotData` | `server`, `directory`, `files`, `selectedFiles`, `isFetching`, `setSelectedFiles(names)`, and `refresh()`. |
+| `FileRowSlotData` | The file manager fields, plus the current `file`. |
+| `StartupFormSlotData` | `server`, `configuration`, `isPending`, `canChangeDockerImage`, `setDockerImage(image)`, and `refresh()`. |
+| `ExtensionResourceContext` | `kind` and the matching native `resource`. Detail action slots narrow this to their own resource kind. |
+| `AdminUserFormSlotData` | `kind: 'admin.user'`, `resource`, and the native `form`. Use `form.AppField` for existing user fields. |
+
+The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `password`, `rootAdmin`, and `language`. Contributed controls share validation, pending state, submission, and persistence with the Panel's form. Extension-specific values need scoped settings or an extension endpoint.
+
+### Navigation Slots
+
+| Slot | Location | Position | `data` |
+| --- | --- | --- | --- |
+| `nav.items.before` | Top navigation bar | Before | None |
+| `nav.items.after` | Top navigation bar | After | None |
+
+### Authentication Slots
+
+| Slot | Location | Position | `data` |
+| --- | --- | --- | --- |
+| `auth.login.before` | Login page | Before | `RouteSlotData` |
+| `auth.login.after` | Login page | After | `RouteSlotData` |
+| `auth.checkpoint.before` | Two-factor checkpoint page | Before | `RouteSlotData` |
+| `auth.checkpoint.after` | Two-factor checkpoint page | After | `RouteSlotData` |
+| `auth.password.before` | Forgot password page | Before | `RouteSlotData` |
+| `auth.password.after` | Forgot password page | After | `RouteSlotData` |
+| `auth.passwordReset.before` | Password reset page | Before | `RouteSlotData` |
+| `auth.passwordReset.after` | Password reset page | After | `RouteSlotData` |
+
+### Dashboard Slots
+
+| Slot | Location | Position | `data` |
+| --- | --- | --- | --- |
+| `dashboard.before` | Dashboard | Before | None |
+| `dashboard.after` | Dashboard | After | None |
+| `dashboard.serverRow.before` | Each server on the dashboard | Before | `SdkServer` |
+| `dashboard.serverRow.after` | Each server on the dashboard | After | `SdkServer` |
+| `dashboard.serverRow.name.after` | Each server's name on the dashboard | After | `SdkServer` |
+| `dashboard.serverRow.metrics.after` | Each server's resource usage on the dashboard | After | `SdkServer` |
+
+### Account Slots
+
+| Slot | Location | Position | `data` |
+| --- | --- | --- | --- |
+| `account.navigation.before` | Account navigation | Before | None |
+| `account.navigation.after` | Account navigation | After | None |
+| `account.overview.before` | Account overview | Before | None |
+| `account.overview.after` | Account overview | After | None |
+| `account.api.before` | API keys page | Before | `RouteSlotData` |
+| `account.api.after` | API keys page | After | `RouteSlotData` |
+| `account.ssh.before` | SSH keys page | Before | `RouteSlotData` |
+| `account.ssh.after` | SSH keys page | After | `RouteSlotData` |
+| `account.activity.before` | Activity page | Before | `RouteSlotData` |
+| `account.activity.after` | Activity page | After | `RouteSlotData` |
+
+### Server Slots
+
+| Slot | Location | Position | `data` |
+| --- | --- | --- | --- |
+| `server.navigation.before` | Server navigation | Before | `SdkServer` |
+| `server.navigation.after` | Server navigation | After | `SdkServer` |
+| `server.console.before` | Console page | Before | `SdkServer` |
+| `server.console.power.before` | Console power buttons | Before | `SdkServer` |
+| `server.console.power.after` | Console power buttons | After | `SdkServer` |
+| `server.console.after` | Console page | After | `SdkServer` |
+| `server.files.before` | File manager | Before | None |
+| `server.files.after` | File manager | After | None |
+| `server.files.toolbar` | File manager toolbar | Inside | `FileManagerSlotData` |
+| `server.files.rowActions` | File row and context menu | Actions | `FileRowSlotData` |
+| `server.files.selectionActions` | Selected-file action bar | Actions | `FileManagerSlotData` |
+| `server.files.editor.before` | File editor | Before | `RouteSlotData` |
+| `server.files.editor.after` | File editor | After | `RouteSlotData` |
+| `server.databases.before` | Databases page | Before | `RouteSlotData` |
+| `server.databases.after` | Databases page | After | `RouteSlotData` |
+| `server.schedules.before` | Schedules page | Before | `RouteSlotData` |
+| `server.schedules.after` | Schedules page | After | `RouteSlotData` |
+| `server.schedules.detail.before` | Schedule details page | Before | `RouteSlotData` |
+| `server.schedules.detail.after` | Schedule details page | After | `RouteSlotData` |
+| `server.users.before` | Users page | Before | `RouteSlotData` |
+| `server.users.after` | Users page | After | `RouteSlotData` |
+| `server.users.create.before` | Create subuser page | Before | `RouteSlotData` |
+| `server.users.create.after` | Create subuser page | After | `RouteSlotData` |
+| `server.users.permissions.before` | Subuser permission editor | Before | `SubuserPermissionsSlotData` |
+| `server.backups.before` | Backups page | Before | `RouteSlotData` |
+| `server.backups.after` | Backups page | After | `RouteSlotData` |
+| `server.network.before` | Network page | Before | `RouteSlotData` |
+| `server.network.after` | Network page | After | `RouteSlotData` |
+| `server.startup.before` | Startup page | Before | `RouteSlotData` |
+| `server.startup.after` | Startup page | After | `RouteSlotData` |
+| `server.startup.form` | Startup configuration | Inside | `StartupFormSlotData` |
+| `server.settings.before` | Settings page | Before | `RouteSlotData` |
+| `server.settings.after` | Settings page | After | `RouteSlotData` |
+| `server.activity.before` | Activity page | Before | `RouteSlotData` |
+| `server.activity.after` | Activity page | After | `RouteSlotData` |
+
+### Admin Slots
+
+| Slot | Location | Position | `data` |
+| --- | --- | --- | --- |
+| `panel.navigation.before` | Admin navigation | Before | None |
+| `panel.navigation.after` | Admin navigation | After | None |
+| `panel.overview.before` | Admin overview | Before | None |
+| `panel.overview.after` | Admin overview | After | None |
+| `panel.users.before` | Users list | Before | `RouteSlotData` |
+| `panel.users.after` | Users list | After | `RouteSlotData` |
+| `panel.users.create.before` | Create user page | Before | `RouteSlotData` |
+| `panel.users.create.after` | Create user page | After | `RouteSlotData` |
+| `panel.users.detail.before` | User details page | Before | `RouteSlotData` |
+| `panel.users.detail.after` | User details page | After | `RouteSlotData` |
+| `panel.users.detail.actions` | User detail header | Actions | `admin.user` resource context |
+| `panel.users.detail.form` | Native user form | Inside | `AdminUserFormSlotData` |
+| `panel.locations.before` | Locations list | Before | `RouteSlotData` |
+| `panel.locations.after` | Locations list | After | `RouteSlotData` |
+| `panel.locations.detail.before` | Location details page | Before | `RouteSlotData` |
+| `panel.locations.detail.after` | Location details page | After | `RouteSlotData` |
+| `panel.nodes.before` | Nodes list | Before | `RouteSlotData` |
+| `panel.nodes.after` | Nodes list | After | `RouteSlotData` |
+| `panel.nodes.create.before` | Create node page | Before | `RouteSlotData` |
+| `panel.nodes.create.after` | Create node page | After | `RouteSlotData` |
+| `panel.nodes.detail.before` | Node details page | Before | `RouteSlotData` |
+| `panel.nodes.detail.after` | Node details page | After | `RouteSlotData` |
+| `panel.nodes.detail.actions` | Node detail header | Actions | `admin.node` resource context |
+| `panel.nodes.detail.about.before` | Node About tab | Before | `RouteSlotData` |
+| `panel.nodes.detail.about.after` | Node About tab | After | `RouteSlotData` |
+| `panel.nodes.detail.settings.before` | Node Settings tab | Before | `RouteSlotData` |
+| `panel.nodes.detail.settings.after` | Node Settings tab | After | `RouteSlotData` |
+| `panel.nodes.detail.configuration.before` | Node Configuration tab | Before | `RouteSlotData` |
+| `panel.nodes.detail.configuration.after` | Node Configuration tab | After | `RouteSlotData` |
+| `panel.nodes.detail.allocations.before` | Node Allocations tab | Before | `RouteSlotData` |
+| `panel.nodes.detail.allocations.after` | Node Allocations tab | After | `RouteSlotData` |
+| `panel.nodes.detail.servers.before` | Node Servers tab | Before | `RouteSlotData` |
+| `panel.nodes.detail.servers.after` | Node Servers tab | After | `RouteSlotData` |
+| `panel.servers.before` | Servers list | Before | `RouteSlotData` |
+| `panel.servers.after` | Servers list | After | `RouteSlotData` |
+| `panel.servers.create.before` | Create server page | Before | `RouteSlotData` |
+| `panel.servers.create.after` | Create server page | After | `RouteSlotData` |
+| `panel.servers.detail.before` | Server details page | Before | `RouteSlotData` |
+| `panel.servers.detail.after` | Server details page | After | `RouteSlotData` |
+| `panel.servers.detail.actions` | Server detail header | Actions | `admin.server` resource context |
+| `panel.servers.detail.about.before` | Server About tab | Before | `RouteSlotData` |
+| `panel.servers.detail.about.after` | Server About tab | After | `RouteSlotData` |
+| `panel.servers.detail.details.before` | Server Details tab | Before | `RouteSlotData` |
+| `panel.servers.detail.details.after` | Server Details tab | After | `RouteSlotData` |
+| `panel.servers.detail.build.before` | Server Build tab | Before | `RouteSlotData` |
+| `panel.servers.detail.build.after` | Server Build tab | After | `RouteSlotData` |
+| `panel.servers.detail.startup.before` | Server Startup tab | Before | `RouteSlotData` |
+| `panel.servers.detail.startup.after` | Server Startup tab | After | `RouteSlotData` |
+| `panel.servers.detail.databases.before` | Server Databases tab | Before | `RouteSlotData` |
+| `panel.servers.detail.databases.after` | Server Databases tab | After | `RouteSlotData` |
+| `panel.servers.detail.mounts.before` | Server Mounts tab | Before | `RouteSlotData` |
+| `panel.servers.detail.mounts.after` | Server Mounts tab | After | `RouteSlotData` |
+| `panel.servers.detail.manage.before` | Server Manage tab | Before | `RouteSlotData` |
+| `panel.servers.detail.manage.after` | Server Manage tab | After | `RouteSlotData` |
+| `panel.servers.detail.delete.before` | Server Delete tab | Before | `RouteSlotData` |
+| `panel.servers.detail.delete.after` | Server Delete tab | After | `RouteSlotData` |
+| `panel.databaseHosts.before` | Database hosts list | Before | `RouteSlotData` |
+| `panel.databaseHosts.after` | Database hosts list | After | `RouteSlotData` |
+| `panel.databaseHosts.create.before` | Create database host page | Before | `RouteSlotData` |
+| `panel.databaseHosts.create.after` | Create database host page | After | `RouteSlotData` |
+| `panel.databaseHosts.detail.before` | Database host details page | Before | `RouteSlotData` |
+| `panel.databaseHosts.detail.after` | Database host details page | After | `RouteSlotData` |
+| `panel.mounts.before` | Mounts list | Before | `RouteSlotData` |
+| `panel.mounts.after` | Mounts list | After | `RouteSlotData` |
+| `panel.mounts.create.before` | Create mount page | Before | `RouteSlotData` |
+| `panel.mounts.create.after` | Create mount page | After | `RouteSlotData` |
+| `panel.mounts.detail.before` | Mount details page | Before | `RouteSlotData` |
+| `panel.mounts.detail.after` | Mount details page | After | `RouteSlotData` |
+| `panel.eggs.before` | Eggs list | Before | `RouteSlotData` |
+| `panel.eggs.after` | Eggs list | After | `RouteSlotData` |
+| `panel.eggs.create.before` | Create egg page | Before | `RouteSlotData` |
+| `panel.eggs.create.after` | Create egg page | After | `RouteSlotData` |
+| `panel.eggs.detail.before` | Egg details page | Before | `RouteSlotData` |
+| `panel.eggs.detail.after` | Egg details page | After | `RouteSlotData` |
+| `panel.eggs.detail.actions` | Egg detail header | Actions | `admin.egg` resource context |
+| `panel.eggs.detail.configuration.before` | Egg Configuration tab | Before | `RouteSlotData` |
+| `panel.eggs.detail.configuration.after` | Egg Configuration tab | After | `RouteSlotData` |
+| `panel.eggs.detail.tags.before` | Egg Tags tab | Before | `RouteSlotData` |
+| `panel.eggs.detail.tags.after` | Egg Tags tab | After | `RouteSlotData` |
+| `panel.eggs.detail.variables.before` | Egg Variables tab | Before | `RouteSlotData` |
+| `panel.eggs.detail.variables.after` | Egg Variables tab | After | `RouteSlotData` |
+| `panel.eggs.detail.script.before` | Egg Install script tab | Before | `RouteSlotData` |
+| `panel.eggs.detail.script.after` | Egg Install script tab | After | `RouteSlotData` |
+| `panel.tags.before` | Tags page | Before | `RouteSlotData` |
+| `panel.tags.after` | Tags page | After | `RouteSlotData` |
+| `panel.activity.before` | Admin activity page | Before | `RouteSlotData` |
+| `panel.activity.after` | Admin activity page | After | `RouteSlotData` |
+| `panel.settings.before` | Settings pages | Before | `RouteSlotData` |
+| `panel.settings.after` | Settings pages | After | `RouteSlotData` |
+| `panel.extensions.before` | Extensions page | Before | `RouteSlotData` |
+| `panel.extensions.after` | Extensions page | After | `RouteSlotData` |
+| `panel.apiKeys.before` | API keys page | Before | `RouteSlotData` |
+| `panel.apiKeys.after` | API keys page | After | `RouteSlotData` |
+

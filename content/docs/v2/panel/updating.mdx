@@ -1,0 +1,95 @@
+---
+title: Updating the Panel
+description: Update Pterodactyl Panel to a newer 2.x release.
+---
+
+## Introduction
+
+This guide updates the Panel from one 2.x release to a newer 2.x release, such as from 2.0.0 to 2.0.1.
+
+<Callout type="warn" title="Coming from 1.x?">
+These steps do not upgrade a 1.x Panel. To move from 1.x to 2.0, follow [Upgrading From 1.x](../upgrading/upgrading-from-v1.mdx).
+</Callout>
+
+Before you update, check the release notes for any new requirements, and make sure you meet the [requirements](./requirements.mdx). Always keep a recent backup of your database and your `.env` file.
+
+## Update Steps
+
+### Enter Maintenance Mode
+
+Put the Panel into maintenance mode, so that users do not see errors while it updates:
+
+```bash
+cd /var/www/pterodactyl
+php artisan down
+```
+
+### Download the Update
+
+Download the new release and unpack it over the current files. Replace `<version>` with the release you are updating to:
+
+```bash
+curl -L https://github.com/pterodactyl/panel/releases/download/<version>/panel.tar.gz | tar -xzv
+chmod -R 755 storage/* bootstrap/cache
+```
+
+### Update Dependencies
+
+Install the PHP dependencies for the new release:
+
+```bash
+COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
+```
+
+### Clear Cached Files
+
+Clear the compiled views and cached configuration, so that the new release's versions are used:
+
+```bash
+php artisan view:clear
+php artisan config:clear
+```
+
+### Update the Database
+
+Update the database and the default eggs:
+
+```bash
+php artisan migrate --seed --force
+```
+
+The seeder replaces the default eggs that ship with the Panel with their latest versions. Do not edit the default eggs; copy them instead, or your changes will be overwritten.
+
+### Set Permissions
+
+Give the web server user ownership of the files again:
+
+```bash
+chown -R www-data:www-data /var/www/pterodactyl/*
+```
+
+### Restart the Queue Worker
+
+Restart the queue worker, so that it runs the new code:
+
+```bash
+php artisan queue:restart
+```
+
+### Exit Maintenance Mode
+
+Finally, bring the Panel back online:
+
+```bash
+php artisan up
+```
+
+## Updating With One Command
+
+The `p:upgrade` command runs all of the steps above for you. Pass the release you want to install:
+
+```bash
+php artisan p:upgrade --release=<version>
+```
+
+Without `--release`, the command downloads the latest release. The command asks you to confirm the web server's user and group before it starts. Pass `--user` and `--group` to skip those questions.

@@ -1,0 +1,97 @@
+---
+title: Setting Up MySQL
+description: Create the Panel's database, and database hosts that give your servers their own databases.
+---
+
+## Introduction
+
+The Panel uses MySQL or MariaDB in two ways:
+
+- **The Panel's own database** stores your users, servers, and settings. You create it once, when you install the Panel.
+- **Database hosts** are optional. They let the Panel create databases for your game servers, such as a database for a Minecraft plugin.
+
+This guide uses MariaDB, which the installation guides install. The SQL is the same for MySQL.
+
+## Signing In to MariaDB
+
+Run the MariaDB client as root:
+
+```bash
+mariadb -u root
+```
+
+On a new installation, MariaDB lets the system's root user sign in without a password. If you set a root password, add `-p`, and the client asks for it.
+
+## Creating the Panel's Database
+
+The Panel needs a database and a user that can use it. Replace `yourPassword` with a strong, unique password:
+
+```sql
+CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'yourPassword';
+CREATE DATABASE panel;
+GRANT ALL PRIVILEGES ON panel.* TO 'pterodactyl'@'127.0.0.1' WITH GRANT OPTION;
+```
+
+The user can only sign in from `127.0.0.1`, the same machine. If the database runs on a different machine from the Panel, use the Panel's IP address instead.
+
+[Getting Started](../../panel/getting-started.mdx#creating-the-database) runs these same statements, so you do not need to run them again if you followed it.
+
+## Creating a Database Host
+
+A database host is a MariaDB server on which the Panel creates databases for game servers. You may use the Panel's own MariaDB server, or a separate one.
+
+### Creating a User for the Panel
+
+The Panel needs a MariaDB user that can create databases, and create users for them. Do not reuse the Panel's own database user.
+
+MariaDB only lets a user sign in from the address it was created for. The Panel connects to the database host from the Panel server's IP address, so create the user for that address. Sign in to MariaDB on the database host, and run the statements below. Replace `203.0.113.10` with the Panel server's IP address, and `yourPassword` with a strong, unique password:
+
+```sql
+CREATE USER 'pterodactyluser'@'203.0.113.10' IDENTIFIED BY 'yourPassword';
+GRANT ALL PRIVILEGES ON *.* TO 'pterodactyluser'@'203.0.113.10' WITH GRANT OPTION;
+```
+
+Use the IP address even when the database runs on the same machine as the Panel. The Panel connects to the address you enter as the host's **Host** below, and when that is the machine's own IP address, the connection comes from that address, not from `127.0.0.1`.
+
+### Allowing Connections From Game Servers
+
+Game servers connect to their databases from inside their containers, so MariaDB must accept connections from other addresses than `127.0.0.1`.
+
+By default, MariaDB only listens on `127.0.0.1`. To listen on every address, create `/etc/mysql/mariadb.conf.d/99-pterodactyl.cnf` with these contents:
+
+```ini title="/etc/mysql/mariadb.conf.d/99-pterodactyl.cnf"
+[mysqld]
+bind-address=0.0.0.0
+```
+
+Then restart MariaDB:
+
+```bash
+systemctl restart mariadb
+```
+
+If you use a firewall, allow port `3306` only from the addresses that need it, such as your nodes. Game servers on the same machine as the database connect through the address `172.18.0.1`.
+
+### Adding the Host to the Panel
+
+In the Panel, open **Admin → Database Hosts** and click **New Database Host**. Fill in these fields:
+
+- **Name:** A name to identify the host.
+- **Host:** The IP address of the MariaDB server, such as its public IP address. The Panel connects to it with this address, and shows it to users as the address to connect to, so it must work for both.
+- **Port:** Usually `3306`.
+- **Linked Node:** Optional. Servers on this node use this host by default.
+- **Username** and **Password:** The user you created above.
+
+Click **Create Host**. The Panel tries to connect with these details before it saves the host.
+
+## Creating Databases for Servers
+
+A server's owner creates databases from the server's **Databases** page. Each server may have as many databases as its **Database Limit** allows. The limit is `0` by default. Set it when you create the server, or later on the server's **Build** tab in the admin area.
+
+The Panel creates the database on the host linked to the server's node. If no host is linked to that node, it uses any host. To stop the Panel from choosing a host that is not linked to the node, set this in your `.env` file:
+
+```bash
+PTERODACTYL_CLIENT_DATABASES_ALLOW_RANDOM=false
+```
+
+Administrators may also create databases for a server from the server's **Database** tab in the admin area, and choose the host.

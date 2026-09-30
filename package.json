@@ -7,28 +7,33 @@
     "dev": "next dev",
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
-    "postinstall": "fumadocs-mdx"
+    "postinstall": "fumadocs-mdx",
+    "api:generate": "node generate-openapi.mjs",
+    "api:sync": "node sync-openapi.mjs"
   },
   "dependencies": {
-    "@orama/orama": "^3.1.17",
-    "fumadocs-core": "^16.6.4",
-    "fumadocs-mdx": "14.1.1",
-    "fumadocs-openapi": "^10.3.7",
-    "fumadocs-ui": "^16.6.4",
-    "lucide-react": "^0.556.0",
-    "next": "16.0.10",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "shiki": "^3.22.0"
+    "@orama/orama": "3.1.18",
+    "fumadocs-core": "16.15.11",
+    "fumadocs-mdx": "15.4.1",
+    "fumadocs-openapi": "11.4.3",
+    "fumadocs-ui": "16.15.11",
+    "lucide-react": "1.47.0",
+    "next": "16.3.5",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "shiki": "4.4.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.17",
-    "@types/mdx": "^2.0.13",
-    "@types/node": "^24.10.2",
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.17",
-    "typescript": "^5.9.3"
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/mdx": "2.0.14",
+    "@types/node": "26.6.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "postcss": "8.5.28",
+    "tailwindcss": "4.3.3",
+    "typescript": "7.0.2"
+  },
+  "overrides": {
+    "undici": "7.29.1"
   }
 }

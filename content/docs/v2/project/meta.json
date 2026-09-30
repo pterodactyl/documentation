@@ -1,0 +1,9 @@
+{
+  "title": "Project Information",
+  "root": true,
+  "pages": [
+    "about",
+    "terminology",
+    "community"
+  ]
+}
