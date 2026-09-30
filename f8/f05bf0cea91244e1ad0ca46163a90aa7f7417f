@@ -1,0 +1,713 @@
+content/docs/v2/panel/additional-configuration.mdx
+  s_1987c4c7a2db6b::t_56a908979ebdfe 133,136-137,142
+  s_1987c4c7a2db6b::t_c5dd5c87969e59 1-122,125-132,134-135,138-141,143-189
+  s_1987c4c7a2db6b::t_3e983e599529f8 123-124
+content/docs/v2/wings/upgrading.mdx
+  s_1987c4c7a2db6b::t_3e5d7fb1640a93 1-32
+content/docs/v2/panel/webserver-configuration.mdx
+  s_1987c4c7a2db6b::t_6c51ee9fdc6457 1-34,37-376
+  s_1987c4c7a2db6b::t_7134e2061908b6 35-36
+content/docs/v2/index.mdx
+  s_1987c4c7a2db6b::t_9688cadda98549 41-47
+  s_1987c4c7a2db6b::t_7f4b210e65d70f 3-10,38-40,48
+  s_1987c4c7a2db6b::t_59df12362433aa 29-33
+  s_1987c4c7a2db6b::t_001150007d4d07 12-18,24-28,34,50
+  s_bf99a93e97ab76::t_1cd404a599bc66 1-2,11,19-23,35-37,49
+content/docs/v2/guides/egg-creation/egg-variables.mdx
+  s_1987c4c7a2db6b::t_94901a0bc92c40 1-92
+content/docs/v2/meta.json
+  s_1987c4c7a2db6b::t_bd826f2f6b3d79 10
+  s_1987c4c7a2db6b::t_37b5325519bfe1 1-9,11-15
+content/docs/v2/guides/configuration/add-node.mdx
+  s_1987c4c7a2db6b::t_6edc0e7ab6280e 24
+  s_1987c4c7a2db6b::t_03c4198b54acd3 1-23,25-64
+content/docs/v2/panel/updating.mdx
+  s_1987c4c7a2db6b::t_80e59de522793a 1-95
+content/docs/v1/panel/updating.mdx
+  s_1987c4c7a2db6b::t_b6dfc9cd55bef8 11-13
+  s_1987c4c7a2db6b::t_bc8ad5f9b59c49 15-16,41
+  s_1987c4c7a2db6b::t_ca41ed1da2c036 82-83
+  s_1987c4c7a2db6b::t_92b591ac5e24fd 86
+  s_1987c4c7a2db6b::t_ad205ce8800f1d 14
+  s_bf99a93e97ab76::t_345d0e6af65801 50,161
+content/docs/v2/extensions/building.mdx
+  s_1987c4c7a2db6b::t_fc5e672daac09d 160
+  s_1987c4c7a2db6b::t_e849d81ba5732c 1-31,33-37,44-159,161-395,397-556,558-600
+  s_1987c4c7a2db6b::t_8925e75b861f29 32,38-43
+  s_1987c4c7a2db6b::t_f6db7ea273984b 396
+  s_1987c4c7a2db6b::t_91d0fa73cc9c79 557
+content/docs/v1/wings/migrating.mdx
+  s_1987c4c7a2db6b::t_0fa261efe16708 65
+  s_1987c4c7a2db6b::t_a231b1aa64507e 7
+content/docs/v2/project/terminology.mdx
+  s_1987c4c7a2db6b::t_cc64a8f2e5877e 1-38
+content/docs/v2/wings/configuration.mdx
+  s_1987c4c7a2db6b::t_64d2bbf4cd9075 1-6
+content/docs/v2/guides/tutorials/mysql-setup.mdx
+  s_1987c4c7a2db6b::t_200e59fd88e9e5 1-86,88-95,97
+  s_1987c4c7a2db6b::t_85eded60f90e9a 87
+  s_1987c4c7a2db6b::t_2680430bc5db31 96
+content/docs/v2/guides/egg-creation/creating-custom-egg.mdx
+  s_1987c4c7a2db6b::t_d316492711763c 1-80
+  s_1987c4c7a2db6b::t_1018ab459410c6 81-97
+content/docs/v2/guides/egg-creation/creating-custom-image.mdx
+  s_1987c4c7a2db6b::t_132a7c376c6b7c 1-16,18-79
+  s_1987c4c7a2db6b::t_89137ce55891fd 17
+content/docs/v2/guides/customization/panel.mdx
+  s_1987c4c7a2db6b::t_2a28b7316645aa 1-49
+content/docs/v2/guides/customization/themes.mdx
+  s_1987c4c7a2db6b::t_9044f49b4afc5a 1-50,52-53,57-58,61-129
+  s_1987c4c7a2db6b::t_618a238386577d 51,54-56,59-60
+content/docs/v2/guides/egg-creation/egg-docker-images.mdx
+  s_1987c4c7a2db6b::t_c6a70d63495ea2 1-42,44-47
+  s_1987c4c7a2db6b::t_13c32c4ed87e19 43
+content/docs/v2/guides/egg-creation/egg-config-parser.mdx
+  s_1987c4c7a2db6b::t_1592ab1ca88012 1-114
+content/docs/v2/guides/games/minecraft.mdx
+  s_1987c4c7a2db6b::t_1dc48f1b997f6b 1-72
+content/docs/v2/guides/tutorials/ssl-certificates.mdx
+  s_1987c4c7a2db6b::t_061934cbc78093 1-78
+content/docs/v2/guides/tutorials/artisan.mdx
+  s_1987c4c7a2db6b::t_89611531b8c69e 1-118,120-161
+  s_1987c4c7a2db6b::t_a53817b3842233 119
+content/docs/v2/extensions/index.mdx
+  s_1987c4c7a2db6b::t_cc29a0d9f6a4aa 1-128
+content/docs/v1/project/community.mdx
+  s_1987c4c7a2db6b::t_9f18099e5e1626 72
+content/docs/v2/panel/getting-started.mdx
+  s_1987c4c7a2db6b::t_5d208722715ba7 1-214
+  s_1987c4c7a2db6b::t_548086df3c3a28 215-216
+content/docs/v2/guides/egg-creation/egg-install-script.mdx
+  s_1987c4c7a2db6b::t_6cb37c33ba5cd0 1-65
+content/docs/v2/project/community.mdx
+  s_1987c4c7a2db6b::t_b2c8ffd9c7fc6c 1-6
+content/docs/v1/wings/installing.mdx
+  s_1987c4c7a2db6b::t_57169443c663af 69
+generate-openapi.mjs
+  s_1987c4c7a2db6b::t_05cefc1daac7c1 3-28
+  s_bf99a93e97ab76::t_4eaec0967365aa 1-2,29
+content/docs/v2/project/index.mdx
+  s_1987c4c7a2db6b::t_49fdf3dad20c4d 1-28
+content/docs/v2/guides/configuration/mounts.mdx
+  s_1987c4c7a2db6b::t_46944af159574f 1-43,45-61
+  s_1987c4c7a2db6b::t_8fc0f4dd911f8c 44
+content/docs/v2/wings/installing.mdx
+  s_1987c4c7a2db6b::t_c56e7cfd538929 1-170
+content/docs/v2/project/about.mdx
+  s_1987c4c7a2db6b::t_f10f90d428e6b9 1-6
+content/docs/v2/guides/customization/wings.mdx
+  s_1987c4c7a2db6b::t_21d736350eab53 1-51
+content/docs/v1/panel/additional-configuration.mdx
+  s_1987c4c7a2db6b::t_cf00604fdf870a 141-142
+  s_1987c4c7a2db6b::t_8f078e0081587c 160-161
+content/docs/v2/panel/troubleshooting.mdx
+  s_1987c4c7a2db6b::t_9470cccde88f86 1-98
+content/docs/v2/guides/configuration/php-upgrade.mdx
+  s_1987c4c7a2db6b::t_9ca73038955cc2 1-97
+app/(home)/[...slug]/page.tsx
+  s_876043628da193::t_7ac92ddb42f4cb 13,41
+app/api/search/route.ts
+  s_876043628da193::t_c4e6df3b11accd 6-15
+app/page.tsx
+  s_876043628da193::t_b5f1ef8b13ea73 50,78
+components/api-page.tsx
+  s_876043628da193::t_3adcbe723de5b6 2-3,5-9
+components/openapi-page.tsx
+  s_876043628da193::t_91c0b5d2dadead 1-7
+components/search.tsx
+  s_876043628da193::t_27483c895661b8 14,18-19,25
+content/docs/meta.json
+  s_876043628da193::t_62159b3ca58928 3-4
+content/docs/v1/api/meta.json
+  s_876043628da193::t_172438689646c0 2,27
+content/docs/v1/guides/configuration/add-node.mdx
+  s_1987c4c7a2db6b::t_42e5034e6ea3ca 44
+content/docs/v1/guides/configuration/php-upgrade.mdx
+  s_1987c4c7a2db6b::t_fb176d60351e2c 75
+content/docs/v1/guides/egg-creation/creating-custom-egg.mdx
+  s_1987c4c7a2db6b::t_ade30332233217 50,58-61
+content/docs/v1/guides/egg-creation/egg-docker-images.mdx
+  s_1987c4c7a2db6b::t_9214989d8b9211 13,68
+content/docs/v1/guides/panel-installation/centos7.mdx
+  s_1987c4c7a2db6b::t_ae2ed904fca2ac 104
+content/docs/v1/guides/panel-installation/centos8.mdx
+  s_1987c4c7a2db6b::t_160ddb5de1650f 83
+content/docs/v1/guides/panel-installation/debian.mdx
+  s_1987c4c7a2db6b::t_dfdb0931c57f47 9,54,58
+content/docs/v1/guides/tutorials/ssl-certificates.mdx
+  s_1987c4c7a2db6b::t_c5411a34553a6c 30
+content/docs/v1/guides/wings-installation/centos7.mdx
+  s_1987c4c7a2db6b::t_4e1b4b845ec318 33
+content/docs/v1/guides/wings-installation/centos8.mdx
+  s_1987c4c7a2db6b::t_a70e2dc9fce015 37
+content/docs/v1/index.mdx
+  s_876043628da193::t_5613c876b40fee 1-9
+content/docs/v1/meta.json
+  s_876043628da193::t_010efe2f9a8061 1-13
+content/docs/v1/panel/getting-started.mdx
+  s_1987c4c7a2db6b::t_e48ee824696b1d 34-36,110,285
+content/docs/v1/panel/troubleshooting.mdx
+  s_1987c4c7a2db6b::t_907ccc95e214d6 160
+content/docs/v1/panel/webserver-configuration.mdx
+  s_1987c4c7a2db6b::t_8861e415ac8564 7,345
+content/docs/v1/wings/index.mdx
+  s_1987c4c7a2db6b::t_3dc549417e47e0 10,12,18-20
+content/docs/v2/api/admin-api/adminAttachEggsToMount.mdx
+  s_1987c4c7a2db6b::t_77ddde5bdb39ee 1-31
+content/docs/v2/api/admin-api/adminAttachNodesToMount.mdx
+  s_1987c4c7a2db6b::t_db248d918d1cd8 1-31
+content/docs/v2/api/admin-api/adminAttachServerMount.mdx
+  s_1987c4c7a2db6b::t_e6407f18d87cc6 1-29
+content/docs/v2/api/admin-api/adminBulkDeleteNodeAllocations.mdx
+  s_1987c4c7a2db6b::t_879c4d1e5dea4b 1-29
+content/docs/v2/api/admin-api/adminCreateAPIKey.mdx
+  s_1987c4c7a2db6b::t_2aa74236987e78 1-30
+content/docs/v2/api/admin-api/adminCreateDatabaseHost.mdx
+  s_1987c4c7a2db6b::t_492aca3c0dccaa 1-30
+content/docs/v2/api/admin-api/adminCreateEgg.mdx
+  s_1987c4c7a2db6b::t_0acf29e70db448 1-29
+content/docs/v2/api/admin-api/adminCreateEggVariable.mdx
+  s_1987c4c7a2db6b::t_50d5f4cb3c4783 1-29
+content/docs/v2/api/admin-api/adminCreateLocation.mdx
+  s_1987c4c7a2db6b::t_2c0737dc89cb20 1-29
+content/docs/v2/api/admin-api/adminCreateMount.mdx
+  s_1987c4c7a2db6b::t_7f1f27eff2b211 1-29
+content/docs/v2/api/admin-api/adminCreateNode.mdx
+  s_1987c4c7a2db6b::t_b9c646c41da580 1-31
+content/docs/v2/api/admin-api/adminCreateNodeAllocations.mdx
+  s_1987c4c7a2db6b::t_a0f8553d7718a5 1-31
+content/docs/v2/api/admin-api/adminCreateNodeDeployToken.mdx
+  s_1987c4c7a2db6b::t_305b1ba3b37027 1-30
+content/docs/v2/api/admin-api/adminCreateServer.mdx
+  s_1987c4c7a2db6b::t_77f5ad6b57907f 1-31
+content/docs/v2/api/admin-api/adminCreateServerDatabase.mdx
+  s_1987c4c7a2db6b::t_dfbd494c30f5f9 1-29
+content/docs/v2/api/admin-api/adminCreateTag.mdx
+  s_1987c4c7a2db6b::t_5cc149345c4e9f 1-29
+content/docs/v2/api/admin-api/adminCreateUser.mdx
+  s_1987c4c7a2db6b::t_7a90197ed344cb 1-31
+content/docs/v2/api/admin-api/adminDeleteAPIKey.mdx
+  s_1987c4c7a2db6b::t_21114298f0ae9b 1-29
+content/docs/v2/api/admin-api/adminDeleteDatabaseHost.mdx
+  s_1987c4c7a2db6b::t_9438a032cb4e42 1-29
+content/docs/v2/api/admin-api/adminDeleteEgg.mdx
+  s_1987c4c7a2db6b::t_0dc614f2e5702f 1-29
+content/docs/v2/api/admin-api/adminDeleteEggVariable.mdx
+  s_1987c4c7a2db6b::t_3578b2869352c9 1-29
+content/docs/v2/api/admin-api/adminDeleteLocation.mdx
+  s_1987c4c7a2db6b::t_1f629ef37040ee 1-29
+content/docs/v2/api/admin-api/adminDeleteMount.mdx
+  s_1987c4c7a2db6b::t_b3ae912963ff85 1-29
+content/docs/v2/api/admin-api/adminDeleteNode.mdx
+  s_1987c4c7a2db6b::t_61d3924d1e53fa 1-29
+content/docs/v2/api/admin-api/adminDeleteNodeAllocation.mdx
+  s_1987c4c7a2db6b::t_77d722f51b622d 1-29
+content/docs/v2/api/admin-api/adminDeleteNodeAllocationIPBlock.mdx
+  s_1987c4c7a2db6b::t_59b9f8818b7861 1-29
+content/docs/v2/api/admin-api/adminDeleteServer.mdx
+  s_1987c4c7a2db6b::t_cbf0c21584dc47 1-30
+content/docs/v2/api/admin-api/adminDeleteServerDatabase.mdx
+  s_1987c4c7a2db6b::t_9057f0bba4df73 1-29
+content/docs/v2/api/admin-api/adminDeleteTag.mdx
+  s_1987c4c7a2db6b::t_fe57596836c9aa 1-29
+content/docs/v2/api/admin-api/adminDeleteUser.mdx
+  s_1987c4c7a2db6b::t_0858fe5776ca6b 1-31
+content/docs/v2/api/admin-api/adminDetachEggFromMount.mdx
+  s_1987c4c7a2db6b::t_0b7d74fc183885 1-29
+content/docs/v2/api/admin-api/adminDetachNodeFromMount.mdx
+  s_1987c4c7a2db6b::t_93755cbc869a07 1-29
+content/docs/v2/api/admin-api/adminDetachServerMount.mdx
+  s_1987c4c7a2db6b::t_a444ad7183be7b 1-29
+content/docs/v2/api/admin-api/adminDisableExtension.mdx
+  s_1987c4c7a2db6b::t_0bee9dbe752eb7 1-29
+content/docs/v2/api/admin-api/adminDisableUserTwoFactorAuthentication.mdx
+  s_1987c4c7a2db6b::t_77ea940d44e068 1-31
+content/docs/v2/api/admin-api/adminEnableExtension.mdx
+  s_1987c4c7a2db6b::t_2b936bf7100d0d 1-29
+content/docs/v2/api/admin-api/adminExportEgg.mdx
+  s_1987c4c7a2db6b::t_461738c3414a4b 1-29
+content/docs/v2/api/admin-api/adminForceDeleteServer.mdx
+  s_1987c4c7a2db6b::t_0ace752e3c3a28 1-31
+content/docs/v2/api/admin-api/adminGetAPIKey.mdx
+  s_1987c4c7a2db6b::t_84fdf27c560118 1-30
+content/docs/v2/api/admin-api/adminGetDatabaseHost.mdx
+  s_1987c4c7a2db6b::t_c34f706f8475ca 1-29
+content/docs/v2/api/admin-api/adminGetEgg.mdx
+  s_1987c4c7a2db6b::t_edf3a1ba32db59 1-29
+content/docs/v2/api/admin-api/adminGetEggInstallScript.mdx
+  s_1987c4c7a2db6b::t_75a532f3ec3783 1-29
+content/docs/v2/api/admin-api/adminGetExtensionSettings.mdx
+  s_1987c4c7a2db6b::t_d12cd9455d76de 1-31
+content/docs/v2/api/admin-api/adminGetLocation.mdx
+  s_1987c4c7a2db6b::t_8f3e0dff546a3e 1-29
+content/docs/v2/api/admin-api/adminGetMount.mdx
+  s_1987c4c7a2db6b::t_8a296b37977af7 1-29
+content/docs/v2/api/admin-api/adminGetNode.mdx
+  s_1987c4c7a2db6b::t_542f5490099e41 1-29
+content/docs/v2/api/admin-api/adminGetNodeConfiguration.mdx
+  s_1987c4c7a2db6b::t_c8df424cfd0ee2 1-31
+content/docs/v2/api/admin-api/adminGetNodeSystemInformation.mdx
+  s_1987c4c7a2db6b::t_ecbdfb9ce7d1ee 1-29
+content/docs/v2/api/admin-api/adminGetNodeUtilization.mdx
+  s_1987c4c7a2db6b::t_5ad67947afb660 1-29
+content/docs/v2/api/admin-api/adminGetServer.mdx
+  s_1987c4c7a2db6b::t_b523bbaff08649 1-29
+content/docs/v2/api/admin-api/adminGetServerByExternalID.mdx
+  s_1987c4c7a2db6b::t_880c115ed45acd 1-29
+content/docs/v2/api/admin-api/adminGetServerDatabase.mdx
+  s_1987c4c7a2db6b::t_76981dfe7f01e0 1-29
+content/docs/v2/api/admin-api/adminGetServerTransferProgress.mdx
+  s_1987c4c7a2db6b::t_7ab92ef5a8c1ed 1-31
+content/docs/v2/api/admin-api/adminGetSettings.mdx
+  s_1987c4c7a2db6b::t_5b1724fea20ee0 1-29
+content/docs/v2/api/admin-api/adminGetTag.mdx
+  s_1987c4c7a2db6b::t_6bbd53175e0fc1 1-29
+content/docs/v2/api/admin-api/adminGetUser.mdx
+  s_1987c4c7a2db6b::t_7ac991e29cb6f1 1-29
+content/docs/v2/api/admin-api/adminGetUserByExternalID.mdx
+  s_1987c4c7a2db6b::t_d74c7692d48c46 1-29
+content/docs/v2/api/admin-api/adminGetVersionInformation.mdx
+  s_1987c4c7a2db6b::t_a700798c70367c 1-29
+content/docs/v2/api/admin-api/adminImportCatalogEgg.mdx
+  s_1987c4c7a2db6b::t_d0eb181913a9ce 1-31
+content/docs/v2/api/admin-api/adminImportEgg.mdx
+  s_1987c4c7a2db6b::t_85db58678eb9f5 1-29
+content/docs/v2/api/admin-api/adminInstallExtension.mdx
+  s_1987c4c7a2db6b::t_b2326504e44bee 1-29
+content/docs/v2/api/admin-api/adminListAPIKeys.mdx
+  s_1987c4c7a2db6b::t_68f2dfc4b35bc3 1-29
+content/docs/v2/api/admin-api/adminListAvailableNodeAllocations.mdx
+  s_1987c4c7a2db6b::t_1175f07b928ef5 1-29
+content/docs/v2/api/admin-api/adminListDatabaseHostDatabases.mdx
+  s_1987c4c7a2db6b::t_5ab02d09989fc3 1-30
+content/docs/v2/api/admin-api/adminListDatabaseHosts.mdx
+  s_1987c4c7a2db6b::t_e80c1c6f76a3fb 1-29
+content/docs/v2/api/admin-api/adminListEggCatalog.mdx
+  s_1987c4c7a2db6b::t_a14d1f23c2586c 1-31
+content/docs/v2/api/admin-api/adminListEggVariables.mdx
+  s_1987c4c7a2db6b::t_5c2527218fa86f 1-29
+content/docs/v2/api/admin-api/adminListEggs.mdx
+  s_1987c4c7a2db6b::t_f0329bb0aeb29b 1-29
+content/docs/v2/api/admin-api/adminListEligibleLocationNodes.mdx
+  s_1987c4c7a2db6b::t_c132c8c2e3bf11 1-31
+content/docs/v2/api/admin-api/adminListExtensions.mdx
+  s_1987c4c7a2db6b::t_54aaba31308077 1-30
+content/docs/v2/api/admin-api/adminListLanguages.mdx
+  s_1987c4c7a2db6b::t_3426366f091b22 1-29
+content/docs/v2/api/admin-api/adminListLocations.mdx
+  s_1987c4c7a2db6b::t_3c92247ddd82be 1-29
+content/docs/v2/api/admin-api/adminListMounts.mdx
+  s_1987c4c7a2db6b::t_4ebace082dbc00 1-29
+content/docs/v2/api/admin-api/adminListNodeAllocationIPs.mdx
+  s_1987c4c7a2db6b::t_e710116b62f480 1-29
+content/docs/v2/api/admin-api/adminListNodeAllocations.mdx
+  s_1987c4c7a2db6b::t_f400f2dabdf3ce 1-29
+content/docs/v2/api/admin-api/adminListNodes.mdx
+  s_1987c4c7a2db6b::t_de345627da0263 1-29
+content/docs/v2/api/admin-api/adminListServerBackups.mdx
+  s_1987c4c7a2db6b::t_d9e6f9f8d9495a 1-29
+content/docs/v2/api/admin-api/adminListServerDatabases.mdx
+  s_1987c4c7a2db6b::t_ae8da57d8790f2 1-29
+content/docs/v2/api/admin-api/adminListServerMounts.mdx
+  s_1987c4c7a2db6b::t_489efe3375cabc 1-31
+content/docs/v2/api/admin-api/adminListServers.mdx
+  s_1987c4c7a2db6b::t_6bd300126d0d7b 1-29
+content/docs/v2/api/admin-api/adminListTags.mdx
+  s_1987c4c7a2db6b::t_001f28f15a2ab5 1-29
+content/docs/v2/api/admin-api/adminListUsers.mdx
+  s_1987c4c7a2db6b::t_c5ceb6aeb71982 1-31
+content/docs/v2/api/admin-api/adminRebuildServer.mdx
+  s_1987c4c7a2db6b::t_c79a48fba7d456 1-29
+content/docs/v2/api/admin-api/adminRefreshEggCatalog.mdx
+  s_1987c4c7a2db6b::t_cd3eca0194b19c 1-31
+content/docs/v2/api/admin-api/adminReinstallServer.mdx
+  s_1987c4c7a2db6b::t_07d596ccc7b814 1-29
+content/docs/v2/api/admin-api/adminRemoveExtension.mdx
+  s_1987c4c7a2db6b::t_8f7882a4f4c0f4 1-29
+content/docs/v2/api/admin-api/adminReorderEggVariables.mdx
+  s_1987c4c7a2db6b::t_b98444785e3dd0 1-29
+content/docs/v2/api/admin-api/adminRotateServerDatabasePassword.mdx
+  s_1987c4c7a2db6b::t_cd1bb827fd5372 1-29
+content/docs/v2/api/admin-api/adminSendTestMail.mdx
+  s_1987c4c7a2db6b::t_86d4a43df26435 1-31
+content/docs/v2/api/admin-api/adminSyncEggTags.mdx
+  s_1987c4c7a2db6b::t_7efc93a4fcb441 1-30
+content/docs/v2/api/admin-api/adminSyncNodeDeploymentTags.mdx
+  s_1987c4c7a2db6b::t_e7ba04142d18e8 1-31
+content/docs/v2/api/admin-api/adminSyncNodeGameTags.mdx
+  s_1987c4c7a2db6b::t_44a5b0ea667c7c 1-30
+content/docs/v2/api/admin-api/adminToggleServerBackupLock.mdx
+  s_1987c4c7a2db6b::t_9ea106adf205a3 1-29
+content/docs/v2/api/admin-api/adminToggleServerInstallState.mdx
+  s_1987c4c7a2db6b::t_d41fc5f935f4f6 1-31
+content/docs/v2/api/admin-api/adminTransferServer.mdx
+  s_1987c4c7a2db6b::t_5f5ebd6ce4623a 1-31
+content/docs/v2/api/admin-api/adminUpdateAPIKey.mdx
+  s_1987c4c7a2db6b::t_5b755742e520b9 1-31
+content/docs/v2/api/admin-api/adminUpdateAdvancedSettings.mdx
+  s_1987c4c7a2db6b::t_6813e10bf09a39 1-30
+content/docs/v2/api/admin-api/adminUpdateDatabaseHost.mdx
+  s_1987c4c7a2db6b::t_db0cc221df1cdb 1-31
+content/docs/v2/api/admin-api/adminUpdateEgg.mdx
+  s_1987c4c7a2db6b::t_67471f82e33b0c 1-29
+content/docs/v2/api/admin-api/adminUpdateEggFromImport.mdx
+  s_1987c4c7a2db6b::t_92a6798021a08e 1-29
+content/docs/v2/api/admin-api/adminUpdateEggInstallScript.mdx
+  s_1987c4c7a2db6b::t_c19d32036156d9 1-29
+content/docs/v2/api/admin-api/adminUpdateEggVariable.mdx
+  s_1987c4c7a2db6b::t_687cbaa7d76e20 1-29
+content/docs/v2/api/admin-api/adminUpdateExtensionSettings.mdx
+  s_1987c4c7a2db6b::t_fac45ed374a56c 1-31
+content/docs/v2/api/admin-api/adminUpdateGeneralSettings.mdx
+  s_1987c4c7a2db6b::t_31f4162a2708d9 1-29
+content/docs/v2/api/admin-api/adminUpdateLocation.mdx
+  s_1987c4c7a2db6b::t_12edd3391b67f9 1-29
+content/docs/v2/api/admin-api/adminUpdateMailSettings.mdx
+  s_1987c4c7a2db6b::t_f42d953166daba 1-31
+content/docs/v2/api/admin-api/adminUpdateMount.mdx
+  s_1987c4c7a2db6b::t_5d65ce26f99983 1-29
+content/docs/v2/api/admin-api/adminUpdateNode.mdx
+  s_1987c4c7a2db6b::t_021eb79fcc47cc 1-29
+content/docs/v2/api/admin-api/adminUpdateNodeAllocation.mdx
+  s_1987c4c7a2db6b::t_39b9563f8c37d3 1-29
+content/docs/v2/api/admin-api/adminUpdateServerBuild.mdx
+  s_1987c4c7a2db6b::t_b00cbbc00c84c8 1-29
+content/docs/v2/api/admin-api/adminUpdateServerDetails.mdx
+  s_1987c4c7a2db6b::t_56f06d30aea9bf 1-29
+content/docs/v2/api/admin-api/adminUpdateServerStartup.mdx
+  s_1987c4c7a2db6b::t_1711eb5a4ddafb 1-31
+content/docs/v2/api/admin-api/adminUpdateServerSuspension.mdx
+  s_1987c4c7a2db6b::t_f4edd1f8d89b54 1-29
+content/docs/v2/api/admin-api/adminUpdateTag.mdx
+  s_1987c4c7a2db6b::t_646a89ed7deb81 1-29
+content/docs/v2/api/admin-api/adminUpdateUser.mdx
+  s_1987c4c7a2db6b::t_6c69adcc060986 1-30
+content/docs/v2/api/admin-api/meta.json
+  s_1987c4c7a2db6b::t_55089577cfa431 1-121
+content/docs/v2/api/application-api/applicationCreateLocation.mdx
+  s_1987c4c7a2db6b::t_8ddf5f6d54f188 1-29
+content/docs/v2/api/application-api/applicationCreateNode.mdx
+  s_1987c4c7a2db6b::t_bc0576ee17fcf1 1-29
+content/docs/v2/api/application-api/applicationCreateNodeAllocations.mdx
+  s_1987c4c7a2db6b::t_4231d0cb44c93d 1-29
+content/docs/v2/api/application-api/applicationCreateServer.mdx
+  s_1987c4c7a2db6b::t_60ced8a7657e7a 1-31
+content/docs/v2/api/application-api/applicationCreateServerDatabase.mdx
+  s_1987c4c7a2db6b::t_b751f216b4cf66 1-29
+content/docs/v2/api/application-api/applicationCreateUser.mdx
+  s_1987c4c7a2db6b::t_9829f99917b044 1-29
+content/docs/v2/api/application-api/applicationDeleteLocation.mdx
+  s_1987c4c7a2db6b::t_a0a93390cfe6d2 1-29
+content/docs/v2/api/application-api/applicationDeleteNode.mdx
+  s_1987c4c7a2db6b::t_0b5115d2177254 1-30
+content/docs/v2/api/application-api/applicationDeleteNodeAllocation.mdx
+  s_1987c4c7a2db6b::t_17d8f6b6b8d684 1-29
+content/docs/v2/api/application-api/applicationDeleteServerDatabase.mdx
+  s_1987c4c7a2db6b::t_b1bda57a75f695 1-29
+content/docs/v2/api/application-api/applicationDeleteServerForServersServerId.mdx
+  s_1987c4c7a2db6b::t_900bf3e962613e 1-31
+content/docs/v2/api/application-api/applicationDeleteServerForServersServerIdForce.mdx
+  s_1987c4c7a2db6b::t_d85895838a546a 1-31
+content/docs/v2/api/application-api/applicationDeleteUser.mdx
+  s_1987c4c7a2db6b::t_9fa47914e84d65 1-29
+content/docs/v2/api/application-api/applicationGetEgg.mdx
+  s_1987c4c7a2db6b::t_1fdcaedd1629d1 1-29
+content/docs/v2/api/application-api/applicationGetLocation.mdx
+  s_1987c4c7a2db6b::t_eebab79c285c77 1-29
+content/docs/v2/api/application-api/applicationGetNode.mdx
+  s_1987c4c7a2db6b::t_a92e910ef845ac 1-29
+content/docs/v2/api/application-api/applicationGetNodeConfiguration.mdx
+  s_1987c4c7a2db6b::t_29041fdb17ae50 1-31
+content/docs/v2/api/application-api/applicationGetServer.mdx
+  s_1987c4c7a2db6b::t_11c43e70a863d2 1-29
+content/docs/v2/api/application-api/applicationGetServerByExternalID.mdx
+  s_1987c4c7a2db6b::t_a96ea4196c895f 1-29
+content/docs/v2/api/application-api/applicationGetServerDatabase.mdx
+  s_1987c4c7a2db6b::t_29323311e9bf9a 1-29
+content/docs/v2/api/application-api/applicationGetUser.mdx
+  s_1987c4c7a2db6b::t_b0704d43ea6b37 1-29
+content/docs/v2/api/application-api/applicationGetUserByExternalID.mdx
+  s_1987c4c7a2db6b::t_b31772849c26a5 1-29
+content/docs/v2/api/application-api/applicationListDeployableNodes.mdx
+  s_1987c4c7a2db6b::t_add3e22f6879b7 1-31
+content/docs/v2/api/application-api/applicationListEggs.mdx
+  s_1987c4c7a2db6b::t_95fe93e397e245 1-29
+content/docs/v2/api/application-api/applicationListLocations.mdx
+  s_1987c4c7a2db6b::t_008ccb4d1edf01 1-29
+content/docs/v2/api/application-api/applicationListNodeAllocations.mdx
+  s_1987c4c7a2db6b::t_a1aa6c2a0f72db 1-29
+content/docs/v2/api/application-api/applicationListNodes.mdx
+  s_1987c4c7a2db6b::t_4d1026b01e51e3 1-29
+content/docs/v2/api/application-api/applicationListServerDatabases.mdx
+  s_1987c4c7a2db6b::t_db900dacd4a50f 1-29
+content/docs/v2/api/application-api/applicationListServers.mdx
+  s_1987c4c7a2db6b::t_86f1b92de03ccf 1-29
+content/docs/v2/api/application-api/applicationListUsers.mdx
+  s_1987c4c7a2db6b::t_f84eb0d34103e2 1-30
+content/docs/v2/api/application-api/applicationReinstallServer.mdx
+  s_1987c4c7a2db6b::t_9fe8d69af4d111 1-29
+content/docs/v2/api/application-api/applicationResetServerDatabasePassword.mdx
+  s_1987c4c7a2db6b::t_dce2ccccccbef8 1-29
+content/docs/v2/api/application-api/applicationSuspendServer.mdx
+  s_1987c4c7a2db6b::t_2b47823f69e5bf 1-29
+content/docs/v2/api/application-api/applicationUnsuspendServer.mdx
+  s_1987c4c7a2db6b::t_586c278e878251 1-29
+content/docs/v2/api/application-api/applicationUpdateLocation.mdx
+  s_1987c4c7a2db6b::t_97b1a9ee567d5d 1-29
+content/docs/v2/api/application-api/applicationUpdateNode.mdx
+  s_1987c4c7a2db6b::t_4fa69e9774c991 1-29
+content/docs/v2/api/application-api/applicationUpdateServerBuild.mdx
+  s_1987c4c7a2db6b::t_86f94c3f872839 1-29
+content/docs/v2/api/application-api/applicationUpdateServerDetails.mdx
+  s_1987c4c7a2db6b::t_94a7b9d3662fe8 1-29
+content/docs/v2/api/application-api/applicationUpdateServerStartup.mdx
+  s_1987c4c7a2db6b::t_6ed60ae2258b5a 1-30
+content/docs/v2/api/application-api/applicationUpdateUser.mdx
+  s_1987c4c7a2db6b::t_7c8bdd61d7fdcb 1-29
+content/docs/v2/api/application-api/meta.json
+  s_1987c4c7a2db6b::t_f10120e7513f63 1-46
+content/docs/v2/api/authentication/authCompleteLoginCheckpoint.mdx
+  s_1987c4c7a2db6b::t_1a0a7007256192 1-31
+content/docs/v2/api/authentication/authLogin.mdx
+  s_1987c4c7a2db6b::t_633c912bd28ba1 1-31
+content/docs/v2/api/authentication/authLogout.mdx
+  s_1987c4c7a2db6b::t_65d1ccc5603489 1-29
+content/docs/v2/api/authentication/authRequestPasswordResetEmail.mdx
+  s_1987c4c7a2db6b::t_7f845da2af4015 1-31
+content/docs/v2/api/authentication/authResetPassword.mdx
+  s_1987c4c7a2db6b::t_17cf35b5321467 1-31
+content/docs/v2/api/authentication/meta.json
+  s_1987c4c7a2db6b::t_996c52636603f0 1-11
+content/docs/v2/api/client-api/clientChangeFilePermissions.mdx
+  s_1987c4c7a2db6b::t_fe74fea64d3427 1-30
+content/docs/v2/api/client-api/clientCompressFiles.mdx
+  s_1987c4c7a2db6b::t_6e09a290557f96 1-30
+content/docs/v2/api/client-api/clientCopyFile.mdx
+  s_1987c4c7a2db6b::t_6a60eaf621fdb2 1-29
+content/docs/v2/api/client-api/clientCreateAccountAPIKey.mdx
+  s_1987c4c7a2db6b::t_fabf3567f1d1eb 1-31
+content/docs/v2/api/client-api/clientCreateFolder.mdx
+  s_1987c4c7a2db6b::t_4651778813e2bb 1-29
+content/docs/v2/api/client-api/clientCreateSSHKey.mdx
+  s_1987c4c7a2db6b::t_17d2729aee4e18 1-29
+content/docs/v2/api/client-api/clientCreateScheduleTask.mdx
+  s_1987c4c7a2db6b::t_c0533539baf320 1-29
+content/docs/v2/api/client-api/clientCreateServerAllocation.mdx
+  s_1987c4c7a2db6b::t_e18932f96a8b6e 1-29
+content/docs/v2/api/client-api/clientCreateServerBackup.mdx
+  s_1987c4c7a2db6b::t_5c385acb21c89d 1-29
+content/docs/v2/api/client-api/clientCreateServerDatabase.mdx
+  s_1987c4c7a2db6b::t_381aeae268986d 1-30
+content/docs/v2/api/client-api/clientCreateServerSchedule.mdx
+  s_1987c4c7a2db6b::t_9772088aefc2bf 1-29
+content/docs/v2/api/client-api/clientCreateServerSubuser.mdx
+  s_1987c4c7a2db6b::t_bca41e9adc0e14 1-29
+content/docs/v2/api/client-api/clientDecompressFile.mdx
+  s_1987c4c7a2db6b::t_46d4e3d99290e4 1-29
+content/docs/v2/api/client-api/clientDeleteAccountAPIKey.mdx
+  s_1987c4c7a2db6b::t_128ff67d8a2938 1-29
+content/docs/v2/api/client-api/clientDeleteFiles.mdx
+  s_1987c4c7a2db6b::t_46b5932aced0b7 1-29
+content/docs/v2/api/client-api/clientDeleteSSHKey.mdx
+  s_1987c4c7a2db6b::t_ef286b51a81bc9 1-31
+content/docs/v2/api/client-api/clientDeleteScheduleTask.mdx
+  s_1987c4c7a2db6b::t_4cd914e7856bba 1-30
+content/docs/v2/api/client-api/clientDeleteServerAllocation.mdx
+  s_1987c4c7a2db6b::t_df25332ebefdfd 1-31
+content/docs/v2/api/client-api/clientDeleteServerBackup.mdx
+  s_1987c4c7a2db6b::t_fbfd968babc91b 1-29
+content/docs/v2/api/client-api/clientDeleteServerDatabase.mdx
+  s_1987c4c7a2db6b::t_9d5e4ebc4abc53 1-29
+content/docs/v2/api/client-api/clientDeleteServerSchedule.mdx
+  s_1987c4c7a2db6b::t_d2cbf76240eef0 1-29
+content/docs/v2/api/client-api/clientDeleteServerSubuser.mdx
+  s_1987c4c7a2db6b::t_fc7e698439d130 1-30
+content/docs/v2/api/client-api/clientDisableTwoFactorAuthentication.mdx
+  s_1987c4c7a2db6b::t_4402cb784d508c 1-31
+content/docs/v2/api/client-api/clientEnableTwoFactorAuthentication.mdx
+  s_1987c4c7a2db6b::t_bb18c1877938b6 1-31
+content/docs/v2/api/client-api/clientExecuteServerSchedule.mdx
+  s_1987c4c7a2db6b::t_b88098a093bb1d 1-29
+content/docs/v2/api/client-api/clientGetAccount.mdx
+  s_1987c4c7a2db6b::t_fe76cb3e1d94d4 1-29
+content/docs/v2/api/client-api/clientGetBackupDownloadURL.mdx
+  s_1987c4c7a2db6b::t_5ec5d130a9cd6e 1-29
+content/docs/v2/api/client-api/clientGetFileContents.mdx
+  s_1987c4c7a2db6b::t_38b4b42f430294 1-29
+content/docs/v2/api/client-api/clientGetFileDownloadURL.mdx
+  s_1987c4c7a2db6b::t_a81689fd141e1e 1-31
+content/docs/v2/api/client-api/clientGetFileUploadURL.mdx
+  s_1987c4c7a2db6b::t_ce5e324a41dbb4 1-30
+content/docs/v2/api/client-api/clientGetServer.mdx
+  s_1987c4c7a2db6b::t_74a7e70169d2b7 1-29
+content/docs/v2/api/client-api/clientGetServerBackup.mdx
+  s_1987c4c7a2db6b::t_8950cd15e72274 1-29
+content/docs/v2/api/client-api/clientGetServerResources.mdx
+  s_1987c4c7a2db6b::t_6e6d6080f88cbc 1-31
+content/docs/v2/api/client-api/clientGetServerSchedule.mdx
+  s_1987c4c7a2db6b::t_4e53c23d4cf2ea 1-29
+content/docs/v2/api/client-api/clientGetServerSubuser.mdx
+  s_1987c4c7a2db6b::t_7bfee0ee8aa181 1-29
+content/docs/v2/api/client-api/clientGetStartupConfiguration.mdx
+  s_1987c4c7a2db6b::t_c00e1a4a598c9b 1-31
+content/docs/v2/api/client-api/clientGetTwoFactorSetup.mdx
+  s_1987c4c7a2db6b::t_476d5cb58368dd 1-31
+content/docs/v2/api/client-api/clientGetWebsocketCredentials.mdx
+  s_1987c4c7a2db6b::t_2c232006128f41 1-30
+content/docs/v2/api/client-api/clientListAccountAPIKeys.mdx
+  s_1987c4c7a2db6b::t_9c3ebfbbb69828 1-29
+content/docs/v2/api/client-api/clientListAccountActivity.mdx
+  s_1987c4c7a2db6b::t_313b33c0f61e85 1-31
+content/docs/v2/api/client-api/clientListClientServers.mdx
+  s_1987c4c7a2db6b::t_62fbc2980cca36 1-31
+content/docs/v2/api/client-api/clientListFiles.mdx
+  s_1987c4c7a2db6b::t_c41168ec6a09c6 1-29
+content/docs/v2/api/client-api/clientListSSHKeys.mdx
+  s_1987c4c7a2db6b::t_3da552e9469336 1-29
+content/docs/v2/api/client-api/clientListServerActivity.mdx
+  s_1987c4c7a2db6b::t_50ca43a6b0707a 1-29
+content/docs/v2/api/client-api/clientListServerAllocations.mdx
+  s_1987c4c7a2db6b::t_82f819d1cc9d21 1-29
+content/docs/v2/api/client-api/clientListServerBackups.mdx
+  s_1987c4c7a2db6b::t_6c6a14aa81e6b2 1-29
+content/docs/v2/api/client-api/clientListServerDatabases.mdx
+  s_1987c4c7a2db6b::t_b4572983946c23 1-30
+content/docs/v2/api/client-api/clientListServerPermissions.mdx
+  s_1987c4c7a2db6b::t_4bb954ee7fb76f 1-29
+content/docs/v2/api/client-api/clientListServerSchedules.mdx
+  s_1987c4c7a2db6b::t_21fc3d16e9d56b 1-29
+content/docs/v2/api/client-api/clientListServerSubusers.mdx
+  s_1987c4c7a2db6b::t_b8d35b629e3eea 1-29
+content/docs/v2/api/client-api/clientPullRemoteFile.mdx
+  s_1987c4c7a2db6b::t_419d439a792aa6 1-29
+content/docs/v2/api/client-api/clientReinstallServer.mdx
+  s_1987c4c7a2db6b::t_632914570700e7 1-29
+content/docs/v2/api/client-api/clientRenameFiles.mdx
+  s_1987c4c7a2db6b::t_d7561ea4e28d5e 1-29
+content/docs/v2/api/client-api/clientRenameServer.mdx
+  s_1987c4c7a2db6b::t_502e79f65908ab 1-29
+content/docs/v2/api/client-api/clientRestoreServerBackup.mdx
+  s_1987c4c7a2db6b::t_b9ab02bc9c3df3 1-29
+content/docs/v2/api/client-api/clientRotateServerDatabasePassword.mdx
+  s_1987c4c7a2db6b::t_4ef9a88c8d3537 1-31
+content/docs/v2/api/client-api/clientSendPowerAction.mdx
+  s_1987c4c7a2db6b::t_9a5ffadd53f066 1-29
+content/docs/v2/api/client-api/clientSendServerCommand.mdx
+  s_1987c4c7a2db6b::t_a9e67746ef1a80 1-29
+content/docs/v2/api/client-api/clientSetPrimaryAllocation.mdx
+  s_1987c4c7a2db6b::t_4aaacaa3982723 1-29
+content/docs/v2/api/client-api/clientSetServerDockerImage.mdx
+  s_1987c4c7a2db6b::t_e7b9e299503cc7 1-30
+content/docs/v2/api/client-api/clientToggleBackupLock.mdx
+  s_1987c4c7a2db6b::t_0b5f324bbf651c 1-29
+content/docs/v2/api/client-api/clientUpdateAccountEmail.mdx
+  s_1987c4c7a2db6b::t_b39fc3eeba79a5 1-31
+content/docs/v2/api/client-api/clientUpdateAccountPassword.mdx
+  s_1987c4c7a2db6b::t_347ced6601df67 1-31
+content/docs/v2/api/client-api/clientUpdateAllocationNotes.mdx
+  s_1987c4c7a2db6b::t_054e1c1309434b 1-29
+content/docs/v2/api/client-api/clientUpdateScheduleTask.mdx
+  s_1987c4c7a2db6b::t_77376ec56c7046 1-29
+content/docs/v2/api/client-api/clientUpdateServerSchedule.mdx
+  s_1987c4c7a2db6b::t_22954c8fc8cfb5 1-29
+content/docs/v2/api/client-api/clientUpdateServerSubuser.mdx
+  s_1987c4c7a2db6b::t_07c62de24435cb 1-30
+content/docs/v2/api/client-api/clientUpdateStartupVariable.mdx
+  s_1987c4c7a2db6b::t_9c02363660f789 1-31
+content/docs/v2/api/client-api/clientWriteFileContents.mdx
+  s_1987c4c7a2db6b::t_1a5d4eaa32ad2c 1-31
+content/docs/v2/api/client-api/meta.json
+  s_1987c4c7a2db6b::t_708e9c5e997168 1-75
+content/docs/v2/api/endpoints/authGetCsrfCookie.mdx
+  s_1987c4c7a2db6b::t_ddc825a15297f5 1-31
+content/docs/v2/api/endpoints/meta.json
+  s_1987c4c7a2db6b::t_fe3223b7012a68 1-7
+content/docs/v2/api/index.mdx
+  s_1987c4c7a2db6b::t_784bb22d170f1c 1-47
+content/docs/v2/api/meta.json
+  s_1987c4c7a2db6b::t_8a251c1259886f 1-8
+content/docs/v2/extensions/meta.json
+  s_1987c4c7a2db6b::t_8da301a2f020c9 1-9
+content/docs/v2/extensions/reference.mdx
+  s_1987c4c7a2db6b::t_cca6714477f732 1-388
+content/docs/v2/guides/configuration/meta.json
+  s_1987c4c7a2db6b::t_4dbb9e86f6a7e5 1-8
+content/docs/v2/guides/customization/meta.json
+  s_1987c4c7a2db6b::t_980c988181c43a 1-8
+content/docs/v2/guides/egg-creation/meta.json
+  s_1987c4c7a2db6b::t_398f4fd586c70b 1-11
+content/docs/v2/guides/games/meta.json
+  s_1987c4c7a2db6b::t_9f79c99590af9f 1-6
+content/docs/v2/guides/meta.json
+  s_1987c4c7a2db6b::t_b2c9f7789ef8e3 1-11
+content/docs/v2/guides/tutorials/meta.json
+  s_1987c4c7a2db6b::t_af4cf46a3b9451 1-8
+content/docs/v2/panel/docker.mdx
+  s_1987c4c7a2db6b::t_0ba8ad87392d73 1-87
+content/docs/v2/panel/meta.json
+  s_1987c4c7a2db6b::t_62d7bc1cbf7a6d 1-13
+content/docs/v2/panel/requirements.mdx
+  s_1987c4c7a2db6b::t_73936c176fc672 1-80
+content/docs/v2/project/meta.json
+  s_1987c4c7a2db6b::t_b83d404aeff1ad 1-9
+content/docs/v2/upgrading/changes-from-v1.mdx
+  s_1987c4c7a2db6b::t_e47b90358c55c6 1-79
+content/docs/v2/upgrading/meta.json
+  s_1987c4c7a2db6b::t_d34e86635b67dc 1-9
+content/docs/v2/upgrading/testing-the-upgrade.mdx
+  s_1987c4c7a2db6b::t_561ad869f08a67 1-64
+content/docs/v2/upgrading/upgrading-from-v1.mdx
+  s_1987c4c7a2db6b::t_abc2bb9cbcdc9c 1-238
+content/docs/v2/wings/meta.json
+  s_1987c4c7a2db6b::t_6bcdb564b9d3d9 1-9
+lib/openapi.ts
+  s_876043628da193::t_9653116c34f430 4
+lib/source.ts
+  s_876043628da193::t_f2f3c40e3e7423 1,10
+mdx-components.tsx
+  s_876043628da193::t_41721227ec0b7c 11
+next.config.mjs
+  s_876043628da193::t_413f7e3ea898c7 10-20
+openapi-v2.json
+  s_876043628da193::t_10105d2f049d51 1-29126
+package-lock.json
+  s_876043628da193::t_afd800d06b1726 12-21,24-31,46-114,116-119,126-128,132,142-144,148,158-160,164,174-176,180,190-192,196,206-208,212,222-224,228,238-240,244,254-256,260,270-272,276,286-288,292,302-304,308,318-320,324,334-336,340,350-352,356,366-368,372,382-384,388,398-400,404,414-416,420,430-432,436,446-448,452,462-464,468,478-480,484,494-496,500,510-512,516,526-528,532,542-545,547,551-554,556-557,561-564,566,574-577,579-582,584-592,595-598,601-624,628-630,641-650,653,656,662-664,678-681,688-690,694,700,706,710-712,716,722,728-747,751-753,757,767-769,773,783-785,789-792,802-804,808-811,821-823,827-830,840-842,846-849,859-861,865-868,878-880,884-887,897-899,903-906,916-918,922-925,935-937,941-944,950,956,960-962,966-969,975,981,985-987,991-994,1000,1006,1010-1012,1016-1019,1025,1031,1035-1037,1041-1044,1050,1056,1060-1062,1066-1069,1075,1081,1085-1087,1091-1094,1100,1106,1110-1112,1116-1119,1125,1131,1135-1153,1157,1160,1163,1170-1172,1176,1182,1189-1191,1195,1201,1208-1210,1214,1220,1231,1242,1253,1259-1262,1269,1312-1315,1318-1320,1324,1334-1336,1340,1350-1352,1356-1359,1369-1371,1375-1378,1388-1390,1394-1397,1407-1409,1413-1416,1426-1428,1432,1442-1444,1448,1467-1470,1473-1476,1479-1492,1510-1513,1515,1533-1545,1563-1566,1568-1571,1589-1592,1604-1607,1619-1636,1638,1655-1659,1670-1681,1684-1686,1698-1701,1713-1716,1718-1720,1738-1741,1743,1756-1774,1792-1809,1811,1829-1832,1835-1843,1861-1864,1866-1867,1885-1888,1890,1908-1911,1913,1931-1946,1964-1977,1995-1998,2000,2013-2025,2043-2046,2058-2061,2063-2065,2078-2081,2083,2095-2099,2111-2114,2126-2129,2141-2144,2146,2159-2162,2164,2177-2180,2182,2200-2203,2206-2208,2211,2215-2217,2220,2222-2223,2226,2229-2232,2235-2239,2245-2248,2251-2253,2259-2262,2265-2266,2272-2275,2278,2284-2287,2290,2292-2295,2299-2301,2304-2307,2311-2313,2317-2320,2335-2338,2344-2346,2348,2350-2353,2356,2360-2362,2364,2366,2369-2380,2384-2386,2391,2397,2401-2403,2408,2414,2418-2420,2425,2431,2435-2437,2442,2448,2452-2454,2459,2465,2469-2471,2476-2479,2485,2489-2491,2496-2499,2505,2509-2511,2516-2519,2525,2529-2531,2536-2539,2545,2549-2551,2564,2567-2572,2579-2581,2586,2592,2596-2598,2603,2609,2613-2615,2617,2620-2623,2648-2651,2665-2668,2676-2678,2680,2682,2686-2688,2690,2696-2698,2700,2702,2710-3050,3055-3234,3258,3283-3294,3377,3394,3399-3410,3481,3489-3490,3505-3507,3509,3512,3561-3563,3565,3573-3598,3701-3702,3704,3707-3711,3716,3730-3732,3735-3736,3753-3755,3758,3765,3770-3771,3774-3776,3780-3781,3790,3795-3796,3806-3808,3833-3835,3860-3863,3866,3868,3870-3872,3874-3876,3879,3881-3883,3886,3889-3894,3896-3899,3902-3914,3923-3928,3934-3942,3944-3954,3956,3959,3962-3963,3966,3968-3969,3987-4003,4005-4007,4012,4016,4018,4021-4022,4025-4027,4033-4035,4043,4057-4058,4309-4311,4313,4319-4321,4323,4335-4345,4349-4351,4356,4370-4372,4377,4391-4393,4398,4412-4414,4419,4433-4435,4440,4454-4456,4461-4464,4478-4480,4485-4488,4502-4504,4509-4512,4526-4528,4533-4536,4550-4552,4557,4571-4573,4578,4601-4604,4614,5593-5595,5598,5615-5617,5620,5624-5626,5635-5637,5644,5653-5656,5658-5660,5662,5672-5680,5709,5716-5718,5733,5735-5737,5744-5747,5756-5758,5762-5764,5767-5768,5819-5822,5831-5833,5849,5851,5869-5872,5878-5880,5882-5883,5886,5893,5918,5940,6176-6180,6183-6186,6197-6200,6210-6213,6216,6218,6221,6227-6256,6260-6262,6265-6270,6272-6275,6290,6356-6360,6363-6365,6367,6377-6380,6386-6389,6392,6422-6423,6426-6428,6430,6432,6435-6466,6470-6474,6587,6608,6626-6633,6686-6688,6700-6741,6743-6746
+package.json
+  s_876043628da193::t_3e37b5559c974e 10-12,15-24,27-37
+sync-openapi.mjs
+  s_876043628da193::t_bae71e100e4187 1-21
+tsconfig.json
+  s_876043628da193::t_56a2a8d2d9eeba 4-8,22-27,42-44
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "f8f05bf0cea91244e1ad0ca46163a90aa7f7417f",
+  "prompts": {},
+  "sessions": {
+    "s_1987c4c7a2db6b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a546e5c2-5c0a-4525-8b68-fc36bc85da6e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    },
+    "s_876043628da193": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0c565-b02e-7541-9ade-ad7ccac6fbd0",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    },
+    "s_bf99a93e97ab76": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3306d217-ef25-4a58-aa1a-8bdfdb5da12f",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
