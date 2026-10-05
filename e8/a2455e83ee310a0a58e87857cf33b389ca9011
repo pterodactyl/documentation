@@ -1,0 +1,20 @@
+content/docs/v2/project/about.mdx
+  s_32282483846156::t_59dc8ff7e59952 36
+  s_32282483846156::t_2d2daeda982ce9 6-35,37-38
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e8a2455e83ee310a0a58e87857cf33b389ca9011",
+  "prompts": {},
+  "sessions": {
+    "s_32282483846156": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8e5be8e8-979d-4f47-9654-aed7f425daee",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
