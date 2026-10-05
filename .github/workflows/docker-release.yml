@@ -1,7 +1,12 @@
-name: Build & Push Docker (tag)
+name: Build & Push Docker
 
+# Every push to v2 publishes an image, tagged `latest` and with the commit
+# sha so a deployment can pin exactly what it runs. Version tags still
+# publish under their own name.
 on:
   push:
+    branches:
+      - v2
     tags:
       - "v*"
 
@@ -41,7 +46,8 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
             type=ref,event=tag
-            type=raw,value=latest,enable=${{ startsWith(github.ref_name, 'v') }}
+            type=sha,prefix=sha-,format=long
+            type=raw,value=latest
 
       - name: Build and push
         uses: docker/build-push-action@v6
