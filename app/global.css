@@ -3,16 +3,363 @@
 @import 'fumadocs-ui/css/preset.css';
 @import 'fumadocs-openapi/css/preset.css';
 
-/* API sidebar method badges — scoped to leaf page links only (have padding-inline-start) */
-a[style*="padding-inline-start"][href*="/api/"][href*="/get-"]::before,
-a[style*="padding-inline-start"][href*="/api/"][href*="/post-"]::before,
-a[style*="padding-inline-start"][href*="/api/"][href*="/put-"]::before,
-a[style*="padding-inline-start"][href*="/api/"][href*="/patch-"]::before,
-a[style*="padding-inline-start"][href*="/api/"][href*="/delete-"]::before {
-  font-size: 0.625rem;
-  font-weight: 700;
+/* ==================================================================== *
+ * Design tokens. The same system as pterodactyl.io and the egg library:
+ * near-black canvas, IBM Plex Sans for words, JetBrains Mono for machine
+ * truth, Signal Blue as the one accent.
+ *
+ *   1. Every white-alpha value derives from Terminal White (#f5f5f5).
+ *   2. Text and border alphas come off a fixed ladder
+ *      (85 / 65 / 55 / 40 / 30 / 25). Use the named rungs.
+ * ==================================================================== */
+@theme {
+  /* ---- Canvas ---------------------------------------------------- */
+  --color-black: #0a0a0a;
+  --color-white: #f5f5f5;
+
+  /* ---- Accent ---------------------------------------------------- */
+  --color-accent: #3d7bfd;
+  --color-accent-soft: rgba(61, 123, 253, 0.14);
+  --color-accent-glow: rgba(61, 123, 253, 0.6);
+
+  /* ---- Foreground ladder ------------------------------------------ */
+  --color-fg-strong: rgba(245, 245, 245, 0.85);
+  --color-fg-muted: rgba(245, 245, 245, 0.65);
+  --color-fg-subtle: rgba(245, 245, 245, 0.55);
+  --color-fg-faint: rgba(245, 245, 245, 0.4);
+  --color-fg-dim: rgba(245, 245, 245, 0.3);
+  --color-fg-ghost: rgba(245, 245, 245, 0.25);
+
+  /* ---- Lines ----------------------------------------------------- */
+  --color-hairline: rgba(245, 245, 245, 0.08);
+  --color-hairline-strong: rgba(245, 245, 245, 0.14);
+  --color-tick: rgba(245, 245, 245, 0.3);
+
+  /* ---- Surfaces --------------------------------------------------- */
+  --color-surface: rgba(245, 245, 245, 0.02);
+  --color-surface-raised: rgba(245, 245, 245, 0.05);
+  /* The same two fills composited over the canvas, for anything that has
+     to stay opaque (a cell in a shared-line grid, a popover). */
+  --color-surface-flat: #0f0f0f;
+  --color-surface-raised-flat: #161616;
+
+  /* ---- Data states: on data only, never on chrome ------------------ */
+  --color-red: #ef4444;
+  --color-green: #4ade80;
+  --color-yellow: #fbbf24;
+  --color-blue: #60a5fa;
+
+  /* ---- Type scale -------------------------------------------------- */
+  --text-mono-xs: 0.625rem;
+  --text-mono-sm: 0.6875rem;
+  --text-mono-md: 0.75rem;
+  --text-mono-lg: 0.8125rem;
+
+  --text-ui-sm: 0.75rem;
+  --text-ui-sm--font-weight: 400;
+  --text-ui: 0.875rem;
+  --text-ui--font-weight: 500;
+
+  --text-note: 0.8125rem;
+  --text-note--line-height: 1.55;
+  --text-body: 0.9375rem;
+  --text-body--line-height: 1.625;
+  --text-lead: 1.125rem;
+  --text-lead--line-height: 1.6;
+
+  --text-entry: 1.0625rem;
+  --text-entry--line-height: 1.3;
+  --text-entry--letter-spacing: -0.01em;
+  --text-entry--font-weight: 600;
+  --text-title: 1.5rem;
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.02em;
+  --text-title--font-weight: 600;
+  --text-figure: clamp(1.875rem, 3.2vw, 3rem);
+  --text-figure--line-height: 1.05;
+  --text-figure--letter-spacing: -0.02em;
+  --text-figure--font-weight: 600;
+  --text-headline: clamp(2.25rem, 4vw, 3.75rem);
+  --text-headline--line-height: 1.05;
+  --text-headline--letter-spacing: -0.025em;
+  --text-headline--font-weight: 600;
+  --text-display: clamp(2rem, 7vw, 6rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 600;
+
+  /* ---- Structure --------------------------------------------------- */
+  --spacing-rail: 90rem;
+  --spacing-nav: 4rem;
+  --spacing-gutter: 1.25rem;
+  --spacing-gutter-lg: 2.5rem;
+  --spacing-cell: 1.25rem;
+  --spacing-cell-lg: 2.5rem;
+  --spacing-band: 3.5rem;
+  --spacing-band-lg: 5rem;
+
+  --container-measure: 68ch;
+  --container-measure-sm: 44ch;
+}
+
+/* The faces are loaded by next/font in app/layout.tsx, which hands them
+   over as variables. */
+@theme inline {
+  --font-display: var(--font-plex), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-plex), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, 'SF Mono', monospace;
+}
+
+/* ==================================================================== *
+ * Fumadocs, re-inked
+ *
+ * The docs chrome (sidebar, contents rail, search, code blocks) is
+ * Fumadocs'. It reads its colours from these variables, so the system is
+ * applied here once instead of by overriding components one by one.
+ * The site is dark only, like the panel it documents.
+ * ==================================================================== */
+:root,
+.dark {
+  --color-fd-background: #0a0a0a;
+  --color-fd-foreground: rgba(245, 245, 245, 0.85);
+  --color-fd-muted: #161616;
+  --color-fd-muted-foreground: rgba(245, 245, 245, 0.55);
+  --color-fd-popover: #0f0f0f;
+  --color-fd-popover-foreground: rgba(245, 245, 245, 0.85);
+  --color-fd-card: #0f0f0f;
+  --color-fd-card-foreground: #f5f5f5;
+  --color-fd-border: rgba(245, 245, 245, 0.08);
+  --color-fd-primary: #f5f5f5;
+  --color-fd-primary-foreground: #0a0a0a;
+  --color-fd-secondary: #161616;
+  --color-fd-secondary-foreground: rgba(245, 245, 245, 0.85);
+  --color-fd-accent: rgba(245, 245, 245, 0.05);
+  --color-fd-accent-foreground: #f5f5f5;
+  --color-fd-ring: #3d7bfd;
+  --color-fd-overlay: rgba(0, 0, 0, 0.6);
+
+  /* Callouts are state, so they take the data colours. */
+  --color-fd-info: #60a5fa;
+  --color-fd-warning: #fbbf24;
+  --color-fd-error: #ef4444;
+  --color-fd-success: #4ade80;
+  --color-fd-idea: #fbbf24;
+}
+
+@layer base {
+  html {
+    background-color: var(--color-black);
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-black);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-white);
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  pre,
+  code,
+  kbd,
+  samp {
+    font-family: var(--font-mono);
+  }
+}
+
+/* ==================================================================== *
+ * Structural utilities (the front page)
+ * ==================================================================== */
+@utility wrapper {
+  position: relative;
+  width: 100%;
+  max-width: min(var(--spacing-rail), calc(100% - 1.5rem));
+  margin-inline: auto;
+  border-left: 1px solid var(--color-hairline);
+  border-right: 1px solid var(--color-hairline);
+  @media (width >= 40rem) {
+    max-width: min(var(--spacing-rail), calc(100% - 2rem));
+  }
+}
+
+@utility rail-ticks {
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+  }
+  &::before {
+    left: 0;
+    border-left-color: var(--color-tick);
+  }
+  &::after {
+    right: 0;
+    border-right-color: var(--color-tick);
+  }
+}
+
+@utility pad-section {
+  padding-inline: var(--spacing-gutter);
+  padding-block: var(--spacing-band);
+  @media (width >= 40rem) {
+    padding-inline: var(--spacing-gutter-lg);
+    padding-block: var(--spacing-band-lg);
+  }
+}
+
+@utility pad-cell {
+  padding: var(--spacing-cell);
+  @media (width >= 40rem) {
+    padding: var(--spacing-cell-lg);
+  }
+}
+
+@utility pad-band {
+  padding-inline: var(--spacing-gutter);
+  padding-block: calc(var(--spacing-gutter) * 2 / 3);
+  @media (width >= 40rem) {
+    padding-inline: var(--spacing-gutter-lg);
+  }
+}
+
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-mono-sm);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-fg-subtle);
+}
+
+@utility signal-glow {
+  box-shadow: 0 0 12px 2px var(--color-accent-glow);
+}
+
+/* ==================================================================== *
+ * The reading column
+ *
+ * Fumadocs sets docs in `.prose`. Headings step up to Terminal White and
+ * the display weight; copy sits on the muted rung; links are white with
+ * a hairline underline that turns Signal Blue under the pointer.
+ * ==================================================================== */
+.prose {
+  --tw-prose-body: var(--color-fg-muted);
+  --tw-prose-headings: var(--color-white);
+  --tw-prose-bold: var(--color-fg-strong);
+  --tw-prose-links: var(--color-white);
+  --tw-prose-code: var(--color-fg-strong);
+  color: var(--color-fg-muted);
+}
+
+.prose :where(h1, h2, h3, h4, h5, h6):not(.not-prose *) {
+  color: var(--color-white);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.prose :where(strong, b):not(.not-prose *) {
+  color: var(--color-fg-strong);
+  font-weight: 600;
+}
+
+.prose :where(a):not([data-card], .not-prose, .not-prose *, :where(h1, h2, h3, h4, h5, h6) a) {
+  color: var(--color-white);
+  font-weight: 400;
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-fg-dim);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3.5px;
+  transition: text-decoration-color 120ms ease;
+}
+.prose :where(a):not([data-card], .not-prose, .not-prose *, :where(h1, h2, h3, h4, h5, h6) a):hover {
+  text-decoration-color: var(--color-accent);
+}
+
+.prose :where(code):not(pre code, .not-prose *) {
+  font-size: 0.8125em;
+  font-weight: 400;
+  color: var(--color-fg-strong);
+  background-color: var(--color-surface-raised);
+  border-color: var(--color-hairline);
+}
+
+.prose :where(li):not(.not-prose *)::marker {
+  color: var(--color-fg-dim);
+}
+
+.prose :where(blockquote):not(.not-prose *) {
+  border-left: 1px solid var(--color-hairline-strong);
+  color: var(--color-fg-subtle);
+  font-style: normal;
+}
+
+.prose :where(th):not(.not-prose *) {
+  color: var(--color-fg-subtle);
+  font-weight: 500;
+}
+
+/* The page's own title block. */
+#nd-page > h1,
+#nd-page article > h1 {
+  font-size: clamp(2rem, 3.2vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--color-white);
+}
+
+/* ---- Sidebar and contents rail --------------------------------------
+ * The current page is marked the way everything live is on this site:
+ * the words in white, the mark itself in Signal Blue.
+ * -------------------------------------------------------------------- */
+#nd-sidebar a[data-active='true'] {
+  color: var(--color-white);
+  background-color: var(--color-surface-raised);
+}
+
+#nd-sidebar a[data-active='true']::before {
+  background-color: var(--color-accent);
+}
+
+#nd-toc a[data-active='true'] {
+  color: var(--color-white);
+}
+
+#nd-toc [role='none'],
+#nd-toc [data-hidden] {
+  background-color: var(--color-accent);
+}
+
+/* ---- API reference: the method is data ---------------------------------
+ * Scoped to leaf links in the sidebar (they carry a padding-inline-start).
+ * Read is blue, create is green, change is yellow, remove is red: the four
+ * data states, in mono.
+ * -------------------------------------------------------------------- */
+a[style*='padding-inline-start'][href*='/api/'][href*='/get-']::before,
+a[style*='padding-inline-start'][href*='/api/'][href*='/post-']::before,
+a[style*='padding-inline-start'][href*='/api/'][href*='/put-']::before,
+a[style*='padding-inline-start'][href*='/api/'][href*='/patch-']::before,
+a[style*='padding-inline-start'][href*='/api/'][href*='/delete-']::before {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-xs);
+  font-weight: 500;
   line-height: 1;
-  padding: 2px 5px;
+  padding: 3px 5px;
   border-radius: 4px;
   letter-spacing: 0.02em;
   flex-shrink: 0;
@@ -22,32 +369,32 @@ a[style*="padding-inline-start"][href*="/api/"][href*="/delete-"]::before {
   background: unset !important;
 }
 
-a[style*="padding-inline-start"][href*="/api/"][href*="/get-"]::before {
-  content: "GET" !important;
-  background-color: color-mix(in srgb, #7d69cb 18%, transparent) !important;
-  color: #7d69cb;
+a[style*='padding-inline-start'][href*='/api/'][href*='/get-']::before {
+  content: 'GET' !important;
+  background-color: color-mix(in srgb, var(--color-blue) 16%, transparent) !important;
+  color: var(--color-blue);
 }
 
-a[style*="padding-inline-start"][href*="/api/"][href*="/post-"]::before {
-  content: "POST" !important;
-  background-color: color-mix(in srgb, #59a210 18%, transparent) !important;
-  color: #59a210;
+a[style*='padding-inline-start'][href*='/api/'][href*='/post-']::before {
+  content: 'POST' !important;
+  background-color: color-mix(in srgb, var(--color-green) 14%, transparent) !important;
+  color: var(--color-green);
 }
 
-a[style*="padding-inline-start"][href*="/api/"][href*="/put-"]::before {
-  content: "PUT" !important;
-  background-color: color-mix(in srgb, #ff9a1f 18%, transparent) !important;
-  color: #ff9a1f;
+a[style*='padding-inline-start'][href*='/api/'][href*='/put-']::before {
+  content: 'PUT' !important;
+  background-color: color-mix(in srgb, var(--color-yellow) 14%, transparent) !important;
+  color: var(--color-yellow);
 }
 
-a[style*="padding-inline-start"][href*="/api/"][href*="/patch-"]::before {
-  content: "PATCH" !important;
-  background-color: color-mix(in srgb, #d07502 18%, transparent) !important;
-  color: #d07502;
+a[style*='padding-inline-start'][href*='/api/'][href*='/patch-']::before {
+  content: 'PATCH' !important;
+  background-color: color-mix(in srgb, var(--color-yellow) 14%, transparent) !important;
+  color: var(--color-yellow);
 }
 
-a[style*="padding-inline-start"][href*="/api/"][href*="/delete-"]::before {
-  content: "DEL" !important;
-  background-color: color-mix(in srgb, #d04444 18%, transparent) !important;
-  color: #d04444;
+a[style*='padding-inline-start'][href*='/api/'][href*='/delete-']::before {
+  content: 'DEL' !important;
+  background-color: color-mix(in srgb, var(--color-red) 16%, transparent) !important;
+  color: var(--color-red);
 }

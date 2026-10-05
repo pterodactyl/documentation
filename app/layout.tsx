@@ -1,20 +1,42 @@
 import { RootProvider } from 'fumadocs-ui/provider/next';
 import './global.css';
-import { Inter } from 'next/font/google';
+import type { Metadata } from 'next';
+import { IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google';
 import SearchDialog from '@/components/search';
 
-const inter = Inter({
+// Plex Sans sets the words, JetBrains Mono sets anything a machine would
+// print. Both are handed to the stylesheet as variables.
+const plex = IBM_Plex_Sans({
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  variable: '--font-plex',
 });
+
+const jetbrains = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-jetbrains',
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://docs.pterodactyl.io'),
+  title: {
+    default: 'Pterodactyl Documentation',
+    template: '%s - Pterodactyl Documentation',
+  },
+};
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={inter.className} suppressHydrationWarning>
-      <body className="flex flex-col min-h-screen">
+    <html lang="en" className={`dark ${plex.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+      <body className="flex min-h-screen flex-col">
         <RootProvider
-          search={{
-                SearchDialog,
-            }}>{children}</RootProvider>
+          // Dark only, like the panel these pages document.
+          theme={{ enabled: false }}
+          search={{ SearchDialog }}
+        >
+          {children}
+        </RootProvider>
       </body>
     </html>
   );
