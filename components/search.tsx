@@ -18,7 +18,7 @@ export default function DefaultSearchDialog(props: SharedProps) {
   const { locale } = useI18n(); // (optional) for i18n
   const { search, setSearch, query } = useDocsSearch({
     type: 'fetch',
-    api: '/docs/api/search',
+    api: '/api/search',
     locale,
   });
 
