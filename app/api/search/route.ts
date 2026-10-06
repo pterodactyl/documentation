@@ -6,7 +6,7 @@ export const { GET } = createFromSource(source, {
   buildIndex(page) {
     return {
       id: page.url,
-      title: page.data.title,
+      title: page.data.title ?? '',
       description: page.data.description,
       url: page.url,
       structuredData: page.data.structuredData,

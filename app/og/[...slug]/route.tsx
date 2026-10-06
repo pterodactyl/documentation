@@ -24,7 +24,7 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/[...slug]
 
   const [semibold, regular, mono, lockup] = await assets;
   const path = page.slugs.join('/');
-  const title = page.data.title;
+  const title = page.data.title ?? '';
 
   return new ImageResponse(
     (
@@ -137,7 +137,6 @@ export async function GET(_req: Request, { params }: RouteContext<'/og/[...slug]
 
 export function generateStaticParams() {
   return source.getPages().map((page) => ({
-    lang: page.locale,
     slug: getPageImage(page).segments,
   }));
 }

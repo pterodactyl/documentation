@@ -14,23 +14,23 @@
   "tags": [
     {
       "name": "Admin API",
-      "description": "Root administrator endpoints for managing panel configuration and resources."
+      "description": "Root administrator endpoints for managing panel configuration and resources.",
+      "x-displayName": "Admin API"
     },
     {
       "name": "Application API",
-      "description": "Root administrator endpoints for managing panel resources using application API tokens."
+      "description": "Root administrator endpoints for managing panel resources using application API tokens.",
+      "x-displayName": "Application API"
     },
     {
       "name": "Authentication",
-      "description": "Browser session authentication endpoints used by the panel frontend."
+      "description": "Browser session authentication endpoints used by the panel frontend.",
+      "x-displayName": "Authentication"
     },
     {
       "name": "Client API",
-      "description": "Endpoints authenticated as a panel user using a client API token."
-    },
-    {
-      "name": "Endpoints",
-      "description": ""
+      "description": "Endpoints authenticated as a panel user using a client API token.",
+      "x-displayName": "Client API"
     }
   ],
   "components": {
@@ -29451,7 +29451,7 @@
           }
         },
         "tags": [
-          "Endpoints"
+          "Authentication"
         ],
         "security": []
       }

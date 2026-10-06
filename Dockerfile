@@ -20,6 +20,8 @@ RUN \
 
 # Rebuild the source code only when needed
 FROM base AS builder
+# Page "last updated" dates come from git history.
+RUN apk add --no-cache git
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .

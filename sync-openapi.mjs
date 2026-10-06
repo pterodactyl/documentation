@@ -17,5 +17,17 @@ if (session) {
   session.name = 'pterodactyl_session';
   session.description = 'Browser session cookie. This is the default name; SESSION_COOKIE or APP_NAME can change it for a deployment.';
 }
+// Without a display name Fumadocs titles "Admin API" as "Admin A P I".
+for (const tag of spec.tags ?? []) {
+  tag['x-displayName'] = tag.name;
+}
+// Sanctum's CSRF route falls into Scribe's default "Endpoints" group.
+for (const item of Object.values(spec.paths)) {
+  for (const operation of Object.values(item)) {
+    if (operation?.tags?.includes('Endpoints')) {
+      operation.tags = ['Authentication'];
+    }
+  }
+}
+spec.tags = spec.tags?.filter((tag) => tag.name !== 'Endpoints');
 await writeFile('./openapi-v2.json', JSON.stringify(spec, null, 2) + '\n');
-await import('./generate-openapi.mjs');

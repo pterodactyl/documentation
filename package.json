@@ -8,7 +8,6 @@
     "start": "next start",
     "types:check": "fumadocs-mdx && next typegen && tsc --noEmit",
     "postinstall": "fumadocs-mdx",
-    "api:generate": "node generate-openapi.mjs",
     "api:sync": "node sync-openapi.mjs"
   },
   "dependencies": {
