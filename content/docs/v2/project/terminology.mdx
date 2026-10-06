@@ -3,27 +3,27 @@ title: Terminology
 description: The key terms used throughout the Pterodactyl documentation.
 ---
 
-**Panel** — Pterodactyl Panel itself. You use it to manage users, nodes, and servers.
+**Panel**: Pterodactyl Panel itself, where you manage users, nodes, and servers.
 
-**Node** — A machine that runs Wings. Each node can host many servers.
+**Node**: A machine that runs Wings. Each node can host many servers.
 
-**Wings** — The service, written in Go, that runs on each node. It controls Docker and gives the Panel secure access to the servers on that node.
+**Wings**: The Go service that runs on each node. It controls Docker and gives the Panel secure access to that node's servers.
 
-**Server** — A game or application server created by the Panel. Servers run on nodes, and a node can run many servers.
+**Server**: A game or application server created by the Panel. Servers run on nodes.
 
-**Docker** — A platform that runs applications in isolated, secure containers.
+**Docker**: A platform that runs applications in isolated, secure containers.
 
-**Docker Image** — A package that contains everything an application needs to run, such as Java for a Minecraft server.
+**Docker Image**: A package with everything an application needs to run, such as Java for a Minecraft server.
 
-**Container** — Each server runs in its own container. The container limits the server's CPU, memory, and disk use, and keeps it separate from other servers on the same node. Docker creates the containers.
+**Container**: The isolated environment Docker creates for each server. It limits the server's CPU, memory, and disk use, and keeps it separate from other servers on the same node.
 
-**Egg** — The configuration for one type of server, such as Vanilla, Paper, or BungeeCord for Minecraft.
+**Egg**: The configuration for one type of server, such as Vanilla, Paper, or BungeeCord for Minecraft.
 
-**Tag** — A label on an egg or a node. Tags group eggs, for example by game, and decide which nodes a server can be deployed to. In 2.0, tags replace the nests used in 1.x.
+**Tag**: A label on an egg or a node. Tags group eggs, for example by game, and decide which nodes a server can be deployed to. Tags replace the nests used in 1.x.
 
-**Extension** — A package that adds features to the Panel. See [Extensions](../extensions/index.mdx).
+**Extension**: A package that adds features to the Panel. See [Extensions](../extensions/index.mdx).
 
-**Yolks** — A curated collection of Docker images for use with Pterodactyl's eggs.
+**Yolks**: A curated collection of Docker images for Pterodactyl's eggs.
 
 ## Simple Setup Diagram
 
@@ -32,7 +32,7 @@ description: The key terms used throughout the Pterodactyl documentation.
 ## Advanced Setup Diagram
 
 <Callout title="Panel and Wings on the same machine">
-You may also install Wings on the Panel's machine, so that one machine runs both.
+You can also install Wings on the Panel's machine, so one machine runs both.
 </Callout>
 
 ![Advanced Setup Example](/example_setup.png)

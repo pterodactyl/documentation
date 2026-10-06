@@ -5,15 +5,13 @@ description: Try the 1.x to 2.0 upgrade on a copy of your Panel before you upgra
 
 ## Introduction
 
-Before you upgrade your live Panel, you should try the upgrade on a copy. A test run shows you how long the upgrade takes, and whether your eggs, integrations, and extensions still work. Your users are not affected.
-
-This page explains how to make a safe copy, what to check, and how to practice rolling back.
+Try the upgrade on a copy before you upgrade your live Panel. A test run shows how long the upgrade takes and whether your eggs, integrations, and extensions still work, without affecting your users.
 
 ## Making a Safe Copy
 
 Your copy uses real data, so it can reach real systems. Keep it isolated.
 
-1. Back up your database and your `.env` file, as described in [Back Up Your Panel](./upgrading-from-v1.mdx#back-up-your-panel).
+1. Back up your database and `.env` file as described in [Back Up Your Panel](./upgrading-from-v1.mdx#back-up-your-panel).
 2. Restore them on a separate machine with the same 1.x version installed. Do not change your live Panel or its backup.
 3. Block the copy from reaching your live Wings nodes, database hosts, mail server, backup storage, and webhooks. Your database contains their addresses and credentials.
 4. Use a separate Redis server for the copy.
@@ -21,30 +19,30 @@ Your copy uses real data, so it can reach real systems. Keep it isolated.
 
 ## Recording Your Data
 
-Before you upgrade the copy, write down what it contains, so you can compare it afterwards. At a minimum, count your users, servers, eggs, nodes, allocations, schedules, backups, and API keys.
+Before you upgrade the copy, record what it contains so you can compare afterwards. At a minimum, count users, servers, eggs, nodes, allocations, schedules, backups, and API keys.
 
 ## Running the Upgrade
 
-Follow [Upgrading From 1.x](./upgrading-from-v1.mdx) on the copy. Time the database migration, and note any errors.
+Follow [Upgrading From 1.x](./upgrading-from-v1.mdx) on the copy. Time the database migration and note any errors.
 
-Then compare your data with the counts you recorded. The numbers should match.
+Then compare your data with the counts you recorded. They should match.
 
 ## Checking the Result
 
-Once the data matches, start the queue worker and bring the copy online. Then check each of these:
+Once the data matches, start the queue worker, bring the copy online, and check each of these:
 
 - Sign in with an existing account, including one that uses two-factor authentication.
 - Use an existing API key with the Application API and the Client API.
-- Connect a test Wings node, and start, stop, and restart a test server. Open its console, its files, and SFTP.
-- Run a schedule, and create a backup.
-- Test your billing module against the copy. For example, create, suspend, and delete a test service.
+- Connect a test Wings node, and start, stop, and restart a test server. Open its console, files, and SFTP.
+- Run a schedule and create a backup.
+- Test your billing module against the copy, for example by creating, suspending, and deleting a test service.
 - Enable your extensions one at a time.
 
 ## Practicing a Rollback
 
-Finally, follow [Rolling Back](./upgrading-from-v1.mdx#rolling-back) on the copy, and check that 1.x works again. You should know how to roll back before you upgrade your live Panel.
+Finally, follow [Rolling Back](./upgrading-from-v1.mdx#rolling-back) on the copy and check that 1.x works again. Know how to roll back before you upgrade your live Panel.
 
-When you do upgrade your live Panel, plan a maintenance window. Agree in advance on the point at which you will roll back instead of fixing forward.
+For the live upgrade, plan a maintenance window, and agree in advance on the point at which you will roll back instead of fixing forward.
 
 ## For Panel Developers
 

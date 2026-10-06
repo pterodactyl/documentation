@@ -9,11 +9,11 @@ This page lists everything available to extensions. For a guided introduction, s
 
 ## Manifest
 
-The `extension.json` file supports these keys:
+`extension.json` supports these keys:
 
 | Key | Required | Description |
 | --- | --- | --- |
-| `id` | Yes | The extension's ID. It must start with a lowercase letter, may contain lowercase letters, numbers, and hyphens, and can be up to 48 characters long. It must match the directory name. `pterodactyl`, `panel`, and `core` are reserved. |
+| `id` | Yes | The extension's ID. Lowercase letters, numbers, and hyphens, starting with a letter, up to 48 characters. Must match the directory name. `pterodactyl`, `panel`, and `core` are reserved. |
 | `name` | Yes | The display name. |
 | `version` | Yes | The version, up to 64 characters. |
 | `$schema` | No | Editor schema, usually `./node_modules/@pterodactyl/sdk/manifest.schema.json` in a frontend package. |
@@ -21,14 +21,16 @@ The `extension.json` file supports these keys:
 | `requires.sdk` | With component replacements | Supported SDK versions, using Composer constraints. |
 | `requires.php` | No | Supported PHP versions, using Composer constraints. |
 | `requires.extensions` | No | Required extension IDs mapped to version constraints. Each dependency must be enabled. |
-| `description` | No | A short description, shown in the admin area. |
-| `author` | No | The author, shown in the admin area. |
-| `provider` | No | The fully qualified class name of the service provider. It must extend `Pterodactyl\Extensions\ExtensionProvider`. |
-| `autoload` | No | PSR-4 autoloading, as a map of namespace prefixes to directories inside the extension, such as `{"ServerNotes\\": "src"}`. |
+| `description` | No | Short description shown in the admin area. |
+| `author` | No | Author shown in the admin area. |
+| `provider` | No | Fully qualified class name of the service provider. Must extend `Pterodactyl\Extensions\ExtensionProvider`. |
+| `autoload` | No | PSR-4 map of namespace prefixes to directories inside the extension, such as `{"ServerNotes\\": "src"}`. |
+| `routes.root` | No | Top-level URL prefixes for `registerRootRoutes`, up to 8, such as `["go"]`. Each is a lowercase slug of up to 48 characters. Prefixes the Panel uses or another enabled extension claims are rejected. |
 | `ui.entry` | With `ui` | The frontend bundle. Must be `dist/client.js`. |
-| `ui.mode` | No | Must be `native`, which is the default. |
-| `ui.screens` | No | The pages the extension adds, up to 64. |
-| `ui.components` | No | A list of supported component names this extension replaces. Names must be unique. |
+| `ui.mode` | No | Must be `native` (the default). |
+| `ui.prefix` | With Tailwind utilities | The Tailwind prefix for the extension's classes, 2 to 12 lowercase letters, such as `sn`. Tailwind variants, theme namespaces, and Panel names are reserved. Two enabled extensions cannot share a prefix. Builds whose Tailwind utilities or theme variables lack the prefix are rejected. |
+| `ui.screens` | No | Pages the extension adds, up to 64. |
+| `ui.components` | No | Supported component names this extension replaces. Names must be unique. |
 
 Each entry in `ui.screens` supports these keys:
 
@@ -38,14 +40,20 @@ Each entry in `ui.screens` supports these keys:
 | `area` | Yes | `server`, `account`, or `admin`. |
 | `parent` | No | An admin detail page: `admin.node`, `admin.server`, `admin.user`, or `admin.egg`. Only accepted with `area: "admin"`. |
 | `path` | Yes | A static first segment, followed by static or named parameter segments, such as `notes/$tab`. `$id` is reserved. Paths must not collide with core or extension routes. |
-| `nav.label` | No | The label of the page's navigation tab, up to 100 characters. Without `nav`, the page has no tab. |
-| `nav.exact` | No | Only highlight the navigation item when the path matches exactly. |
+| `nav.label` | No | Navigation tab label, up to 100 characters. Without `nav`, the page has no tab. |
+| `nav.exact` | No | Highlight the navigation item only on an exact path match. |
 | `nav.params` | For parameterized navigation | Values for every named parameter in the screen path. |
 | `nav.order` | No | Sort order among extension navigation items. Defaults to `0`. |
 | `nav.group` | No | Group metadata shown as a tooltip, up to 100 characters. |
-| `nav.badge` | No | A short label beside the navigation item, up to 32 characters. |
-| `nav.icon` | No | One of `puzzle`, `settings`, `file`, `server`, `chart`, `users`, `key`, `network`, or `terminal`. |
-| `permission` | No | Only accepted on `server` screens. The page and navigation item require at least one of the listed subuser permissions. Backend routes must also authorize the request. |
+| `nav.badge` | No | Short label beside the navigation item, up to 32 characters. |
+| `nav.icon` | No | Any [Lucide](https://lucide.dev/icons) icon name in kebab-case, up to 64 characters, such as `puzzle`, `life-buoy`, or `terminal`. A name this Panel does not ship renders the default icon, and `p:extension:doctor` warns about it. |
+| `permission` | No | Only accepted on `server` screens. The page and navigation item require at least one of the listed subuser permissions. Backend routes must still authorize the request. |
+| `when.eggTags` | No | Only accepted on `server` screens. `{ "any": [...], "all": [...] }`, matched without regard to case against the server's egg tags. `all` requires every value and `any` at least one. Each list holds 1 to 32 values. |
+| `when.eggFeatures` | No | Like `when.eggTags`, matched against the server's egg features. |
+| `when.match` | No | `all` (the default) or `any`. Combines `eggTags` and `eggFeatures`, and requires both. |
+| `when.runtime` | No | `true` hides the screen until the `visible` predicate passed to `screens.register` returns `true`. Accepted in any area. |
+
+A screen whose `when` conditions fail has no navigation item, and its URL shows the not-found page. `when` must declare an egg rule or `"runtime": true`.
 
 Screen URLs use these roots, followed by the screen's `path`:
 
@@ -61,26 +69,28 @@ Screen URLs use these roots, followed by the screen's `path`:
 
 Compatibility is checked before activation. Dependencies load first; incompatible packages and dependency cycles are skipped. Disable dependents before disabling or removing a required extension.
 
+<ManifestChecker />
+
 ## Artisan Commands
 
 | Command | Description |
 | --- | --- |
-| `p:extension:make {id}` | Create a new extension. Options: `--name`, `--description`, `--author`, `--no-ui`, `--out`, `--force`. |
-| `p:extension:install {path}` | Install a `.pteroext` file, a `.zip` file, or a directory. Add `--enable` to enable it afterwards. |
+| `p:extension:make {id}` | Create a new extension. Options: `--name`, `--description`, `--author`, `--prefix`, `--no-ui`, `--out`, `--force`. |
+| `p:extension:install {path}` | Install a `.pteroext` file, `.zip` file, or directory. Add `--enable` to enable it afterwards. |
 | `p:extension:enable {id}` | Enable an extension, publish its frontend files, and run its migrations. |
-| `p:extension:disable {id}` | Disable an extension. Its files and data are kept. |
-| `p:extension:remove {id}` | Delete an extension's files and published assets. Its tables and settings are kept. |
-| `p:extension:list` | List every installed extension and its state. |
+| `p:extension:disable {id}` | Disable an extension, keeping its files and data. |
+| `p:extension:remove {id}` | Delete an extension's files and published assets, keeping its tables and settings. |
+| `p:extension:list` | List installed extensions and their state. |
 | `p:extension:doctor {path}` | Check an unpacked package's manifest, compatibility, autoload directories, and built files without installing it. |
 | `p:extension:dev {path}` | Build and publish once. Add `--enable` to enable the package and `--watch` to publish each successful rebuild. Browser reload requires `APP_DEBUG=true`. |
-| `p:extension:types {path}` | Generate literal extension, screen, permission, and public configuration types. Defaults to `src/client/extension-types.ts`; use `--output` to choose another file. Enable the extension to load its settings and permission definitions. |
+| `p:extension:types {path}` | Generate literal extension, screen, permission, and public configuration types. Defaults to `src/client/extension-types.ts`; change it with `--output`. Settings and permission definitions load only when the extension is enabled. |
 | `p:extension:pack {path}` | Create a runtime `.pteroext` archive. Defaults to `{id}-{version}.pteroext` in the working directory. Options: `--output`, `--force`. |
 
 ## Backend
 
 ### Provider Methods
 
-The `Pterodactyl\Extensions\ExtensionProvider` class offers these protected methods:
+`Pterodactyl\Extensions\ExtensionProvider` has these protected methods:
 
 | Method | Description |
 | --- | --- |
@@ -97,7 +107,7 @@ The `Pterodactyl\Extensions\ExtensionProvider` class offers these protected meth
 
 ### Route Helpers
 
-Each route helper takes the path to a route file, and loads it under a prefix with the Panel's middleware. The `registerApiRoutes` method calls the first four for you.
+Each helper loads a route file under a prefix, with the Panel's middleware. `registerApiRoutes` calls the first four.
 
 | Method | URL prefix | Access |
 | --- | --- | --- |
@@ -107,25 +117,26 @@ Each route helper takes the path to a route file, and loads it under a prefix wi
 | `registerApplicationApiRoutes($path)` | `/api/application/extensions/{id}` | Root administrators, including Application API keys. |
 | `registerAuthenticatedWebRoutes($path)` | `/extensions/{id}` | Signed-in users. |
 | `registerWebRoutes($path)` | `/extensions/{id}` | Anyone. Add your own middleware to protect these routes. |
+| `registerRootRoutes($path, $prefix = null)` | `/{prefix}`, for each prefix in `routes.root` or only `$prefix` | Anyone, rate limited per client by `extensions.root_routes_per_minute` (default 120). Undeclared prefixes are refused. |
 
-Route names are prefixed with `extensions.{id}.`, followed by `client.`, `server.`, `admin.`, `application.`, or `web.`. The path `/api/admin/extensions/{id}/settings` is reserved for the Panel.
+Route names are prefixed with `extensions.{id}.`, followed by `client.`, `server.`, `admin.`, `application.`, `web.`, or `root.{prefix}.`. The path `/api/admin/extensions/{id}/settings` is reserved for the Panel.
 
 ### Settings
 
-`ExtensionSettingDefinition::make($key, $input, $default, $rules)` defines one setting. It supports these methods:
+`ExtensionSettingDefinition::make($key, $input, $default, $rules)` defines one setting, with these methods:
 
 | Method | Description |
 | --- | --- |
 | `label($label)` | The form label. Defaults to the input name in title case. |
 | `help($text)` | Help text shown below the field. |
 | `field($type, $options = [])` | The form control: `text`, `password`, `number`, `toggle`, or `select`. For `select`, pass a list of `['value' => ..., 'label' => ...]` options. |
-| `frontend()` | Send the value to the frontend bundle as `config`. Every signed-in user can read it. Before signing in, `config` is empty. |
+| `frontend()` | Send the value to the frontend bundle as `config`, readable by every signed-in user. `config` is empty before sign-in. |
 | `frontendType($type)` | Declare and check a public value's type: `string`, `number`, `boolean`, `array`, `object`, `null`, or `json`. Defaults to `json`. |
 | `secret()` | Encrypt the stored value, use a password control, and return it blank to the admin form. Cannot be combined with `frontend()`. Empty updates keep the saved value. |
 | `normalizeUsing($callback)` | Transform the value when it is read and saved. |
 | `publicUsing($callback)` | Transform the value before it is shown, for example to mask it. |
 
-The admin form validates submitted values against their definitions. Updates may include only the settings being changed. Values must be JSON scalars or arrays, nested at most ten levels deep. A password control alone does not enable encryption.
+The admin form validates submitted values against their definitions. Updates can be partial. Values must be JSON scalars or arrays, nested at most ten levels deep. A password control alone does not enable encryption.
 
 The store returned by `settings()` supports:
 
@@ -133,7 +144,7 @@ The store returned by `settings()` supports:
 | --- | --- |
 | `get($key, $default = null)` | Read a value, decrypting it when stored as a secret. |
 | `set($key, $value)` | Store an ordinary JSON value. |
-| `setSecret($key, $value)` | Store an encrypted value. Use this method for every write of a managed secret. |
+| `setSecret($key, $value)` | Store an encrypted value. Use it for every write to a managed secret. |
 | `setMany($values)` | Store a map of ordinary values in one write. |
 | `setManySecrets($values, $secretKeys)` | Store a map of values, encrypting the keys in `$secretKeys`. |
 | `forget($key)` | Delete a value. |
@@ -147,9 +158,9 @@ Global, user, and server scopes are separate. Deleting a user or server deletes 
 
 ### Permissions
 
-Register extension permissions with `registerPermissions($description, ['read' => 'Read notes.'])`. The key becomes `ext.{id}.read` and appears in the server subuser editor. Use it with `$user->can(...)`, the SDK permission hooks, and a server screen's `permission` list. A wildcard such as `ext.server-notes.*` covers only that extension. Server owners and root administrators pass every permission check.
+Register permissions with `registerPermissions($description, ['read' => 'Read notes.'])`. The key becomes `ext.{id}.read` and appears in the server subuser editor. Use it with `$user->can(...)`, the SDK permission hooks, and a server screen's `permission` list. A wildcard such as `ext.server-notes.*` covers only that extension. Server owners and root administrators pass every permission check.
 
-You may also use these core permission names:
+You can also use these core permissions:
 
 | Group | Permissions |
 | --- | --- |
@@ -166,7 +177,7 @@ You may also use these core permission names:
 
 ### Events
 
-The Panel dispatches these events from the `Pterodactyl\Events\Extensions` namespace. Each one has a public `$manifest` property, except where noted.
+The Panel dispatches these events from the `Pterodactyl\Events\Extensions` namespace. Each has a public `$manifest` property unless noted.
 
 | Event | Dispatched |
 | --- | --- |
@@ -201,7 +212,7 @@ These properties are read-only. Events dispatch after the database transaction c
 | --- | --- |
 | `begin($extension, $user, $server = null, $permission = null)` | Create an `ExtensionJobSnapshot` with a UUID, `running` status, and zero percent. |
 | `update($extension, $id, $percent, $message = '', $status = 'running')` | Update a snapshot. Percent must be 0–100 and cannot decrease; messages may be up to 1,000 characters. Completing sets percent to 100. |
-| `find($extension, $id)` | Read a snapshot, or `null` when it is absent or expired. This does not authorize a user. |
+| `find($extension, $id)` | Read a snapshot, or `null` if absent or expired. Performs no authorization. |
 | `visible($extension, $id, $user, $server = null)` | Read a snapshot after checking its subject and the user's current access. Unavailable snapshots return 404. |
 
 Status is `running`, `completed`, or `failed`. Finished snapshots cannot be updated. Each update increases `sequence`. The frontend payload contains `id`, `extension`, `status`, `percent`, `message`, `sequence`, and `updated_at`.
@@ -211,26 +222,26 @@ Status is `running`, `completed`, or `failed`. Finished snapshots cannot be upda
 | `/api/client/extension-progress/{extension}/{job}` | A user-only job. |
 | `/api/client/servers/{server}/extension-progress/{extension}/{job}` | A job for that server. |
 
-Both endpoints require authentication. User-only jobs and server jobs without a permission are private to their creator and root administrators. Server jobs with a permission require current server access and that permission, which must belong to the same extension. Disabled extensions and missing, expired, or inaccessible jobs return 404. Responses are not cached by the browser.
+Both endpoints require authentication. User-only jobs and server jobs without a permission are private to their creator and root administrators. Server jobs with a permission require current server access and that permission, which must belong to the same extension. Disabled extensions and missing, expired, or inaccessible jobs return 404. Browsers do not cache responses.
 
-Workers and web requests must share a cache store. Retention is controlled by `extensions.progress_retention_seconds`, defaulting to 3,600 seconds after the last update. Keep durable results or audit records separately.
+Workers and web requests must share a cache store. `extensions.progress_retention_seconds` sets retention, defaulting to 3,600 seconds after the last update. Store durable results or audit records elsewhere.
 
 ## Frontend SDK
 
-Import runtime components and hooks from `@pterodactyl/sdk`. The Panel provides them through its import map, so they are not bundled into your extension. Build, testing, and generated-client helpers use the subpaths listed below.
+Import runtime components and hooks from `@pterodactyl/sdk`. The Panel provides them through its import map, so they are not bundled into your extension. Build, testing, and generated-client helpers use the subpaths below.
 
-Use `definePterodactylExtension({ setup })` for an entry definition, or `defineConfiguredExtension(parseConfig, { setup })` with generated configuration and screen types. `setup` is synchronous, and its registrations become visible together after it finishes successfully.
+Use `definePterodactylExtension({ setup })` for an entry definition, or `defineConfiguredExtension(parseConfig, { setup })` with generated configuration and screen types. `setup` is synchronous; its registrations take effect together once it succeeds.
 
 ### Setup Context
 
-The `setup` function receives an object with these properties:
+`setup` receives an object with these properties:
 
 | Property | Description |
 | --- | --- |
 | `meta` | `{ id, version }` of your extension. |
-| `config` | The values of your frontend settings. |
+| `config` | Your frontend setting values. |
 | `slots.register(name, component)` | Render a component in a slot. |
-| `screens.register(id, importer)` | Attach a component to a screen declared in `extension.json`. The importer must return a module with a default export, such as `() => import('./Screen')`. |
+| `screens.register(id, importer, options?)` | Attach a component to a screen declared in `extension.json`. The importer must return a module with a default export, such as `() => import('./Screen')`. `options.visible` is the predicate a `when.runtime` screen requires, and `options.badge` returns a live navigation badge. Both receive a `ScreenContext` with `user`, `config`, and the current `server` or `resource`. |
 | `columns.register(name, column)` | Add a typed column to a supported admin table. |
 | `components.replace(name, replacement)` | Register a presentation for a name declared in `ui.components`. Accepts a component or `{ load: () => import('./View') }`. |
 
@@ -242,6 +253,8 @@ The component catalog is exported as `COMPONENT_NAMES`. `ReplacementProps<Name>`
 | --- | --- | --- |
 | `dashboard.serverCard` | `ServerCardModel` | `identity`, `address`, `metrics` |
 | `server.files.details` | `FileDetailsModel` | `icon`, `name`, `size`, `modified` |
+| `server.files.editor` | `FileEditorModel` | `notice`, `editor`, `language`, `actions` |
+| `server.files.manager` | `FileManagerModel` | `toolbar`, `list`, `selection` |
 
 `ServerCardModel` has `identifier`, `uuid`, `name`, nullable `description`, nullable `address`, and `state`. Its state is one of:
 
@@ -251,15 +264,19 @@ The component catalog is exported as `COMPONENT_NAMES`. `ReplacementProps<Name>`
 
 `FileDetailsModel` has `name`, `kind`, `size`, and `modifiedAt`. `kind` is `file`, `directory`, `archive`, or `symlink`. Size is in bytes; `modifiedAt` is the API timestamp string.
 
-The supported areas are non-interactive content inside core links. The Panel retains polling, permission-aware navigation, accessible link names, selection, menus, and modals. The native server-card `identity` part renders `dashboard.serverRow.name.after`; other server-row slots remain in the core frame.
+`server.files.editor` replaces the editing surface of the file editor. `FileEditorModel` has `path`, `name`, `isNew`, `content`, `language`, `readOnly`, `dirty`, and `saving`, plus `change(content)`, `save()`, and `saveAs(name)`. For a new file, `path` is its directory and `name` is empty. `language` is a MIME type such as `text/x-yaml`. Call `change` after every edit; the Panel saves that text. `save` and `saveAs` resolve whether the file was saved.
 
-Each declared name must have exactly one implementation in synchronous `setup`. Unknown names, undeclared registrations, duplicate registrations, or missing implementations fail the extension's atomic setup. Lazy importers return a module with a default React component. Use the importer form for lazy views rather than registering `React.lazy` directly.
+`server.files.manager` replaces the file browser's toolbar, listing, and selection bar. `FileManagerModel` has `directory`, `entries`, `truncated`, `loading`, `refreshing`, `selection`, `permissions`, and `actions`. Each `FileManagerEntry` has `name`, `path`, `kind`, `size`, `mimetype`, `mode`, `modeBits`, `modifiedAt`, and `openable`, with at most 250 entries per directory. `permissions` has boolean `create`, `update`, `delete`, and `archive`. `actions` has `open`, `navigate`, `newFile`, `select`, `refresh`, `createDirectory`, `rename`, `remove`, `copy`, `archive`, `extract`, `chmod`, `download`, and `upload`, which run the Panel's own mutations. `remove` does not ask for confirmation. The file manager slots and the `server.files.details` replacement render only inside the native parts you keep.
 
-A component has one enabled owner. Conflicting enable and update requests fail before activation. Enabling and disabling the extension controls its replacements; reload open browser sessions to apply changes. Conflicting packages discovered at startup are skipped, with errors identifying their claims.
+The server card and file details are non-interactive content inside core links. The Panel keeps polling, permission-aware navigation, accessible link names, selection, menus, and modals. The native server-card `identity` part renders `dashboard.serverRow.name.after`; other server-row slots remain in the core frame.
 
-Rows share one loading decision per page and component name. Loading has a five-second deadline; a timed-out implementation cannot replace the native view later on that page. Import and render failures restore the native view. Core state remains above the presentation boundary, while extension-local state can be lost on failure. An uncontained suspension commits that mount to its native view; use local `Suspense` for extension-owned asynchronous content. Event and asynchronous callback failures require `useExtensionAction` and remain separate from render boundaries.
+Each declared name must have exactly one implementation in synchronous `setup`. Unknown names, undeclared registrations, duplicate registrations, or missing implementations fail the extension's atomic setup. Lazy importers return a module with a default React component. Use the importer form for lazy views instead of registering `React.lazy`.
 
-See [Component Replacements](./building.mdx#component-replacements) for registration and testing examples.
+A component has one enabled owner. Conflicting enable and update requests fail before activation. Enabling or disabling the extension toggles its replacements; reload open browser sessions to apply the change. Conflicting packages found at startup are skipped, with errors naming their claims.
+
+Rows share one loading decision per page and component name. Loading has a five-second deadline; a timed-out implementation cannot replace the native view later on that page. Import and render failures restore the native view. Core state stays above the presentation boundary; extension-local state can be lost on failure. An uncontained suspension commits that mount to its native view; use local `Suspense` for extension-owned asynchronous content. Event and asynchronous callback failures need `useExtensionAction`, separate from render boundaries.
+
+See [Component Replacements](./frontend.mdx#component-replacements) for registration and testing examples.
 
 ### Hooks
 
@@ -268,20 +285,20 @@ See [Component Replacements](./building.mdx#component-replacements) for registra
 | `useCurrentUser()` | The signed-in user. |
 | `useSiteSettings()` | The Panel's name, locale, and reCAPTCHA settings. |
 | `useCurrentServer(select?)` | The current server on server pages, or `undefined` elsewhere. |
-| `useCurrentServerRequired(message?)` | The current server. Throws on pages that have no server. |
+| `useCurrentServerRequired(message?)` | The current server. Throws on pages without a server. |
 | `useCurrentServerUuid()` | The current server's UUID, or `undefined`. |
 | `useCurrentServerPermissions()` | The current user's permissions on the current server. `['*']` for the owner. |
-| `useServerPermission(permission, matchAny?)` | Whether the current user has the specified permission, or all permissions in a list. Set `matchAny` to `true` to require any one of them. |
-| `usePermissions(permissions)` | A list of booleans, one for each permission. |
-| `useServerWebsocketEvent(event, callback)` | Calls `callback` for typed live server events, such as `SocketEvent.STATUS`, `SocketEvent.CONSOLE_OUTPUT`, or `backup completed:{uuid}`. Only works on server pages; callback failures are attributed to the extension. |
+| `useServerPermission(permission, matchAny?)` | Whether the current user has the permission, or every permission in a list. Set `matchAny` to `true` to require any one. |
+| `usePermissions(permissions)` | One boolean per permission. |
+| `useServerWebsocketEvent(event, callback)` | Calls `callback` for typed live server events, such as `SocketEvent.STATUS`, `SocketEvent.CONSOLE_OUTPUT`, or `backup completed:{uuid}`. Server pages only; callback failures are attributed to the extension. |
 | `useCurrentResource()` | `{ kind, resource }` on an admin resource detail page, or `null` elsewhere. Check `kind` before reading resource-specific fields. |
-| `useExtensionAction(name, callback)` | Wrap a handler so its failures are reported against the extension. Use it for asynchronous actions in screens and slots. |
+| `useExtensionAction(name, callback)` | A wrapped handler whose failures are reported against the extension. Use it for asynchronous actions in screens and slots. |
 | `useExtensionTranslation(group = 'messages')` | `{ locale, ready, t }` for a registered `resources/lang/{locale}/{group}.php` group. Call inside an extension screen or slot. |
 | `useExtensionJobProgress(job, { serverUuid }?)` | A query result for the extension's job. Pass a server UUID for server jobs. Polls running work every 1.5 seconds, refetches after reconnecting, and stops on completion, failure, or an access error. |
 
 ### Server Data
 
-These factories return query options for the Panel's own transport and cache. Use the server UUID for files, startup, and backups to share the native page's cache entries.
+These factories return query options that use the Panel's transport and cache. Pass the server UUID for files, startup, and backups to share the native page's cache entries.
 
 | Factory | Data |
 | --- | --- |
@@ -298,11 +315,11 @@ These factories return query options for the Panel's own transport and cache. Us
 | `useServerStartup(uuid, select?)` | Startup query result; optional typed selector. |
 | `useServerBackups(uuid, page = 1, select?)` | Backup query result; optional typed selector. |
 
-`invalidateServerData(uuid, domains)` returns a promise for native cache invalidation. Domains are `server`, `files`, `fileContent`, `startup`, and `backups`. File and backup invalidation covers all cached directories or pages for that server. Await it when your own mutation changes native data.
+`invalidateServerData(uuid, domains)` invalidates the native cache and returns a promise. Domains are `server`, `files`, `fileContent`, `startup`, and `backups`. File and backup invalidation covers all cached directories or pages for that server. Await it when your own mutation changes native data.
 
 ### Mutations
 
-Each hook returns `isPending`, `error`, `data`, `mutateAsync(input)`, and `reset()`. Await `mutateAsync` from a guarded action handler. These hooks use the native cache updates and invalidation; startup writes are serialized per server.
+Each hook returns `isPending`, `error`, `data`, `mutateAsync(input)`, and `reset()`. Await `mutateAsync` from a guarded action handler. The hooks apply native cache updates and invalidation; startup writes are serialized per server.
 
 | Hook | Input |
 | --- | --- |
@@ -325,7 +342,7 @@ The hooks do not replace backend authorization. Check the user's permission befo
 | `usePanelLocation()` | The current `RouteSlotData`. |
 | `resolvePanelDestination(destination)` | Resolve a destination to its `pathname`, search, hash, and replace option. |
 
-A core destination is `{ to, params?, search?, hash?, replace? }`. The `to` value must be a supported core route, and required route parameters are checked by TypeScript. An extension destination is `{ extension, screen, params?, search?, hash?, replace? }`; pass the declared screen ID and the parameters needed for its screen and resource parent.
+A core destination is `{ to, params?, search?, hash?, replace? }`. `to` must be a supported core route; TypeScript checks required route parameters. An extension destination is `{ extension, screen, params?, search?, hash?, replace? }`; pass the declared screen ID and the parameters needed for its screen and resource parent.
 
 ### Table Columns
 
@@ -360,11 +377,11 @@ The component receives `{ data }`, typed as `ExtensionTableRows[Name]`. Column I
 | `ScreenBlock`, `ServerError`, `NotFound` | Full-page messages. |
 | `Table` | A native table with `rows`, `columns`, `keyOf`, and `emptyState`. Each column has `id`, `label`, and a `cell(row)` function. |
 | `Tooltip` | A themed tooltip with `content`, an element child, and optional `placement`. |
-| `DropdownMenu`, `DropdownMenuItem`, `ContextDropdownMenu` | Dropdown and context menu components. |
+| `DropdownMenu`, `DropdownMenuItem`, `ContextDropdownMenu` | Dropdown and context menus. |
 | `Pagination` | A native page selector. |
 | `PanelLink` | A link using a typed core or extension destination. |
 
-The SDK also exports `toast`, for notifications.
+The SDK also exports `toast` for notifications.
 
 ### HTTP
 
@@ -374,13 +391,13 @@ The SDK also exports `toast`, for notifications.
 | `httpErrorToHuman(error)` | Turns an API error into a readable message. |
 | `queryClient` | The Panel's TanStack Query client. |
 | `client` from `@pterodactyl/sdk/api` | The shared transport used by generated extension clients. |
-| `extensionProgressQueryOptions(extension, job, serverUuid?)` | Query options keyed by extension, job, and subject. Authorization is enforced by the progress endpoint. |
+| `extensionProgressQueryOptions(extension, job, serverUuid?)` | Query options keyed by extension, job, and subject. The progress endpoint enforces authorization. |
 
 ### Types
 
 | Type | Description |
 | --- | --- |
-| `SdkServer` | A server, as returned by the Client API. Its fields are under `attributes`. |
+| `SdkServer` | A server from the Client API, with fields under `attributes`. |
 | `SdkUser` | The signed-in user. |
 | `RouteSlotData` | `{ pathname, search, params }` for the current page. |
 | `SubuserPermissionsSlotData` | The data passed to the subuser permission editor slot. |
@@ -392,8 +409,9 @@ The SDK also exports `toast`, for notifications.
 | `StartupFormSlotData` | Startup configuration and native callbacks. |
 | `AdminUserFormSlotData`, `AdminUserFormValues` | The native user resource, bound form, and its existing field names. |
 | `ExtensionTableRows`, `ExtensionTableName`, `ExtensionTableColumn` | Native table row and column contracts. |
-| `ComponentName`, `ReplacementProps`, `ComponentPartProps`, `ComponentParts`, `DefaultComponentProps` | Component replacement names, props, native parts, and default-view props. |
-| `ServerCardModel`, `ServerCardState`, `ServerCardMetric`, `FileDetailsModel` | Read-only presentation models. |
+| `ComponentName`, `ComponentModels`, `ReplacementProps`, `ComponentPartProps`, `ComponentParts`, `DefaultComponentProps` | Component replacement names, models, props, native parts, and default-view props. |
+| `ServerCardModel`, `ServerCardState`, `ServerCardMetric`, `FileDetailsModel`, `FileEditorModel`, `FileManagerModel`, `FileManagerEntry`, `FileManagerPermissions`, `FileManagerActions` | Read-only presentation models. |
+| `ScreenCondition`, `ScreenMatcher`, `ScreenOptions`, `ScreenContext`, `ScreenBadgeValue` | Screen `when` conditions and the `visible` and `badge` options. |
 | `ReplacementImporter`, `ComponentReplacement` | Direct component and lazy importer registration types. |
 | `SdkFile`, `SdkBackup`, `SdkServerFiles`, `SdkServerStartup`, `SdkServerBackups` | The native server resource response types. |
 | `SdkMutation`, `SdkFileSelection` | Mutation state and file selection input. |
@@ -411,31 +429,31 @@ import { defineExtensionConfig } from '@pterodactyl/sdk/vite';
 export default defineExtensionConfig({ entry: 'src/client/index.tsx' });
 ```
 
-It accepts `entry` (required), `outDir` (default `dist`), and `plugins`.
+Options: `entry` (required), `outDir` (default `dist`), and `plugins`.
 
 ### Testing and Styling
 
 | Package entry | Exports or use |
 | --- | --- |
-| `@pterodactyl/sdk/testing` | `createExtensionTestHost(options?)`, `createTestServer(options?)`, `createComponentTestHost(name, options)`, `createTestServerCard(options?)`, and `createTestFileDetails(options?)`. |
+| `@pterodactyl/sdk/testing` | `createExtensionTestHost(options?)`, `createTestServer(options?)`, `createComponentTestHost(name, options)`, `createTestServerCard(options?)`, `createTestFileDetails(options?)`, `createTestFileEditor(options?)`, `createTestFileManager(options?)`, and `createTestFileManagerEntry(options?)`. |
 | `@pterodactyl/sdk/vitest` | `pterodactylTestAliases`, `pterodactylTestSetup`, and `pterodactylTestDirectory` for Vitest configuration. |
 | `@pterodactyl/sdk/openapi` | `externalizeExtensionApi(directory)` connects generated code to the shared transport. The scaffold calls it after API generation. |
 | `@pterodactyl/sdk/theme.css` | Tailwind theme mappings to the Panel's design tokens. Import with theme and utilities; omit preflight. |
 | `@pterodactyl/sdk/manifest.schema.json` | Editor completion for `extension.json`. |
 
-Test host options are `extensionId`, `path`, `user`, `siteSettings`, `server`, and a typed admin `resource`. The returned host has `Wrapper`, `queryClient`, `navigate(destination)`, `emitWebsocket(event, data)`, `setConnected(connected)`, and `dispose()`. Create one host per test environment at a time; unmount its wrapper before disposing it.
+Test host options are `extensionId`, `prefix` (your `ui.prefix`), `path`, `user`, `siteSettings`, `server`, and a typed admin `resource`. The returned host has `Wrapper`, `queryClient`, `navigate(destination)`, `emitWebsocket(event, data)`, `setConnected(connected)`, and `dispose()`. Use one host per test environment at a time; unmount its wrapper before disposing it.
 
-`createTestServer` accepts `identifier`, `uuid`, `name`, `owner`, `permissions`, and `status`. Source checkouts build the test runtime with `npm run sdk:testing` at the Panel root.
+`createTestServer` accepts `identifier`, `uuid`, `name`, `owner`, `permissions`, and `status`. In a source checkout, build the test runtime with `npm run sdk:testing` from the Panel root.
 
-`createComponentTestHost` accepts a supported component name and `{ model, extensionId? }`, and returns `Wrapper` and typed replacement `props`. Its defaults and parts are the Panel's native implementations. The model fixture helpers accept partial model overrides.
+`createComponentTestHost` accepts a supported component name and `{ model, extensionId?, prefix? }`, and returns `Wrapper`, typed replacement `props`, and `dispose()`. Call `dispose()` after unmounting the wrapper. Its defaults and parts are the Panel's native implementations. The model fixture helpers accept partial model overrides.
 
-Frontend scaffolds include tests, CI, PostCSS, a stylesheet, and OpenAPI generation. Their `npm run api:generate` expects an extension `openapi.yaml`. Generate it from the Panel root with `composer docs:openapi` and `npm run extension:api:generate -- {id}` after loading the extension's routes.
+Frontend scaffolds include tests, CI, PostCSS, a stylesheet, and OpenAPI generation. Their `npm run api:generate` expects an extension `openapi.yaml`. To generate it, load the extension's routes, then run `composer docs:openapi` and `npm run extension:api:generate -- {id}` from the Panel root.
 
-Entry CSS loads before `setup`; imported screen styles load with their screen chunk. Custom selectors should be scoped to the extension. See [Components and Styling](./building.mdx#components-and-styling).
+Entry CSS loads before `setup`; imported screen styles load with their screen chunk. Scope custom selectors to the extension. See [Components and Styling](./data-and-styling.mdx#components-and-styling).
 
 ## Slots
 
-Slots are named places on the Panel's pages where extensions may render components. Register them with `slots.register(name, component)`. The `data` column shows the component's `data` prop.
+Slots are named places on Panel pages where extensions render components. Register a component with `slots.register(name, component)`. The `data` column shows the component's `data` prop.
 
 ### Slot Data
 
@@ -465,6 +483,7 @@ The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `p
 | --- | --- | --- | --- |
 | `auth.login.before` | Login page | Before | `RouteSlotData` |
 | `auth.login.after` | Login page | After | `RouteSlotData` |
+| `auth.login.form.after` | Login form, below the Login button | After | `RouteSlotData` |
 | `auth.checkpoint.before` | Two-factor checkpoint page | Before | `RouteSlotData` |
 | `auth.checkpoint.after` | Two-factor checkpoint page | After | `RouteSlotData` |
 | `auth.password.before` | Forgot password page | Before | `RouteSlotData` |

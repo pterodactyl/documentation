@@ -5,19 +5,19 @@ description: Update Pterodactyl Panel to a newer 2.x release.
 
 ## Introduction
 
-This guide updates the Panel from one 2.x release to a newer 2.x release, such as from 2.0.0 to 2.0.1.
+This guide updates the Panel within 2.x, such as from 2.0.0 to 2.0.1.
 
 <Callout type="warn" title="Coming from 1.x?">
 These steps do not upgrade a 1.x Panel. To move from 1.x to 2.0, follow [Upgrading From 1.x](../upgrading/upgrading-from-v1.mdx).
 </Callout>
 
-Before you update, check the release notes for any new requirements, and make sure you meet the [requirements](./requirements.mdx). Always keep a recent backup of your database and your `.env` file.
+Before you update, check the release notes for new requirements and make sure you meet the [requirements](./requirements.mdx). Always keep a recent backup of your database and `.env` file.
 
 ## Update Steps
 
 ### Enter Maintenance Mode
 
-Put the Panel into maintenance mode, so that users do not see errors while it updates:
+Enter maintenance mode so users do not see errors during the update:
 
 ```bash
 cd /var/www/pterodactyl
@@ -38,7 +38,7 @@ chmod -R 755 storage/* bootstrap/cache
 
 ### Update Dependencies
 
-Install the PHP dependencies, then rebuild the frontend:
+Install PHP dependencies and rebuild the frontend:
 
 ```bash
 COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
@@ -48,7 +48,7 @@ npm run build:production
 
 ### Clear Cached Files
 
-Clear the compiled views and cached configuration, so that the new release's versions are used:
+Clear compiled views and cached configuration:
 
 ```bash
 php artisan view:clear
@@ -63,7 +63,7 @@ Update the database and the default eggs:
 php artisan migrate --seed --force
 ```
 
-The seeder replaces the default eggs that ship with the Panel with their latest versions. Do not edit the default eggs; copy them instead, or your changes will be overwritten.
+The seeder replaces the default eggs with their latest versions. Do not edit the default eggs; copy them instead, or your changes are overwritten.
 
 ### Set Permissions
 
@@ -75,7 +75,7 @@ chown -R www-data:www-data /var/www/pterodactyl/*
 
 ### Restart the Queue Worker
 
-Restart the queue worker, so that it runs the new code:
+Restart the queue worker so it runs the new code:
 
 ```bash
 php artisan queue:restart
@@ -83,7 +83,7 @@ php artisan queue:restart
 
 ### Exit Maintenance Mode
 
-Finally, bring the Panel back online:
+Bring the Panel back online:
 
 ```bash
 php artisan up
@@ -92,13 +92,13 @@ php artisan up
 ## Updating With One Command
 
 <Callout type="error" title="Not until 2.0 is released">
-`p:upgrade` only installs releases, and 2.0 has none yet. Without `--release` it downloads the latest release, which is 1.x, and breaks a 2.0 Panel. Use the manual steps above for now.
+`p:upgrade` only installs releases, and 2.0 has none yet. Without `--release` it downloads the latest release, which is 1.x, and breaks a 2.0 Panel. Use the manual steps above.
 </Callout>
 
-The `p:upgrade` command runs all of the steps above for you. Pass the release you want to install:
+`p:upgrade` runs all of the steps above. Pass the release to install:
 
 ```bash
 php artisan p:upgrade --release=<version>
 ```
 
-Without `--release`, the command downloads the latest release. The command asks you to confirm the web server's user and group before it starts. Pass `--user` and `--group` to skip those questions.
+Without `--release`, it downloads the latest release. It asks you to confirm the web server's user and group before it starts; pass `--user` and `--group` to skip the questions.

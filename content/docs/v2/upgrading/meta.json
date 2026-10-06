@@ -1,6 +1,5 @@
 {
   "title": "Upgrading From 1.x",
-  "root": true,
   "pages": [
     "changes-from-v1",
     "upgrading-from-v1",

@@ -1,0 +1,302 @@
+---
+title: Frontend
+description: Add to the Panel's interface with slots, screens, detail tabs, table columns, and component replacements.
+---
+
+An extension's frontend is a React bundle that the Panel loads in the browser. This page continues the Server Notes example from [Building Extensions](./building.mdx).
+
+## The Entry File
+
+The frontend starts in `src/client/index.tsx`, which default-exports an extension definition with a `setup` function:
+
+```tsx
+import { definePterodactylExtension } from '@pterodactyl/sdk';
+import './styles.css';
+import { setConfig } from './config';
+import NotePreview from './NotePreview';
+
+export default definePterodactylExtension({
+    setup({ config, slots, screens }) {
+        setConfig(config);
+
+        screens.register('notes', () => import('./screens/NotesScreen'));
+        slots.register('server.console.before', NotePreview);
+    },
+});
+```
+
+The Panel calls `setup` once when the page loads. It receives:
+
+- `meta`, with your extension's `id` and `version`.
+- `config`, with the values of your [frontend settings](./backend.mdx#settings).
+- `components`, to [replace supported Panel components](#component-replacements).
+- `slots`, to place components on the Panel's pages.
+- `screens`, to add your own pages.
+- `columns`, to add columns to supported admin tables.
+
+`setup` must register everything right away and cannot be `async`.
+
+Screens do not receive `config` directly. To use it on a page, save it in a small module, as Server Notes does in `src/client/config.ts`:
+
+```ts
+import type { ExtensionConfig } from '@pterodactyl/sdk';
+
+let config: ExtensionConfig = {};
+
+export function setConfig(value: ExtensionConfig): void {
+    config = value;
+}
+
+export function maxLength(): number {
+    return typeof config.max_length === 'number' ? config.max_length : 2000;
+}
+```
+
+## Slots
+
+Slots are named places on the Panel's pages where extensions add content, such as `server.console.before` above the server console. To use one, register a component for it:
+
+```tsx
+slots.register('server.console.before', NotePreview);
+```
+
+<SlotDemo />
+
+Each slot passes data for its location. Console slots receive the current server, file action slots receive file and selection context, and most other page slots receive route data. Server Notes uses the console slot's server to load the note:
+
+```tsx
+import { useQuery } from '@tanstack/react-query';
+import { TitledGreyBox, type SdkServer } from '@pterodactyl/sdk';
+import { getNote, noteQueryKey } from './api';
+
+export default function NotePreview({ data: server }: { data: SdkServer }) {
+    const identifier = server.attributes.identifier;
+    const { data: note } = useQuery({
+        queryKey: noteQueryKey(identifier),
+        queryFn: () => getNote(identifier),
+    });
+
+    if (!note?.body) {
+        return null;
+    }
+
+    return (
+        <TitledGreyBox title={'Server notes'}>
+            <p style={{ whiteSpace: 'pre-line' }}>{note.body.split('\n').slice(0, 3).join('\n')}</p>
+        </TitledGreyBox>
+    );
+}
+```
+
+The [slot reference](./reference.mdx#slots) lists every slot and its `data`. If you register a slot name that does not exist, your extension does not load, and the error appears in the browser console.
+
+When several extensions use the same slot, their components render in the Panel's configured extension order, with dependencies first. If your component throws an error, only it is hidden, and the user sees a notice with a retry option.
+
+## Screens
+
+Screens are full pages. To add one, first declare it in `extension.json` under `ui.screens`:
+
+```json
+"screens": [
+    {
+        "id": "notes",
+        "area": "server",
+        "path": "notes",
+        "nav": { "label": "Notes" }
+    }
+]
+```
+
+Then register its component in `setup` with the same ID. Load it with a dynamic `import` so its code only downloads when the page is opened:
+
+```tsx
+screens.register('notes', () => import('./screens/NotesScreen'));
+```
+
+<ScreenDemo />
+
+The screen's `area` sets where the page lives:
+
+| Area | URL | Who can open it |
+| --- | --- | --- |
+| `server` | `/server/{server}/{path}` | Users with access to the server. |
+| `account` | `/account/{path}` | Any signed-in user. |
+| `admin` | `/panel/{path}` | Root administrators. |
+
+A screen with a `nav` label gets a link in its area's navigation, after the Panel's own items. Without `nav`, it has a URL but no navigation item. Use `nav.order` to sort extension items, and `nav.icon` or `nav.badge` to add an icon or short label.
+
+On `server` screens, set `permission` to a list of subuser permissions to show the page and its navigation item only to users with at least one of them. Only server screens accept `permission`. Your backend routes must also authorize the request.
+
+Choose a `path` the Panel does not already use in that area. Paths start with a static segment and may contain named parameters, such as `logs/$date`. Screen components receive `ScreenComponentProps`, whose `data.params.date` holds that value. `$id` is reserved for the Panel. A navigation item for a parameterized path must provide its values in `nav.params`.
+
+Every screen declared in `extension.json` must be registered in `setup`. If one is missing or an ID does not match, the Panel does not load your extension.
+
+## Detail Tabs and Navigation
+
+An admin screen can be a tab on a node, server, user, or egg detail page. Set `parent` to the matching resource and keep `area` as `admin`:
+
+```json
+{
+    "id": "node-notes",
+    "area": "admin",
+    "parent": "admin.node",
+    "path": "notes",
+    "nav": { "label": "Notes", "order": 10, "icon": "file" }
+}
+```
+
+Register `node-notes` with `screens.register` as usual. Its URL is `/panel/nodes/{id}/notes`. Inside the screen, `useCurrentResource()` returns `{ kind: 'admin.node', resource }`; check `kind` before reading the resource's fields. The [screen reference](./reference.mdx#manifest) lists every parent and URL.
+
+Use `PanelLink` for links and `usePanelNavigate` for actions; both use the Panel's router. You can name an extension screen instead of building its URL:
+
+```tsx
+import { PanelLink } from '@pterodactyl/sdk';
+
+<PanelLink destination={{
+    extension: 'server-notes',
+    screen: 'node-notes',
+    params: { id: String(nodeId) },
+}}>
+    Open notes
+</PanelLink>
+```
+
+For a core route, use `destination={{ to: '/server/$id/files', params: { id: identifier } }}`. `usePanelLocation()` returns the current path, search, and parameters.
+
+## Table Columns
+
+To add a column to the native node, server, or egg table, call `columns.register` during `setup`:
+
+```tsx
+columns.register('admin.nodes', {
+    id: 'notes-host',
+    label: 'Notes host',
+    component: ({ data }) => <span>{data.attributes.fqdn}</span>,
+});
+```
+
+<ColumnDemo />
+
+The `data` prop is typed for that table. Columns appear after the Panel's own columns, in extension order, and each cell has its own error boundary. See [Table Columns](./reference.mdx#table-columns) for the supported table names.
+
+## Component Replacements
+
+A component replacement changes a supported part of the Panel's presentation. The Panel still owns its data queries, navigation, permissions, selection, menus, and mutations.
+
+<ReplacementDemo />
+
+Declare the component names in your manifest with an SDK constraint:
+
+```json
+"requires": {
+    "sdk": ">=2.0.0-beta.3 <3.0"
+},
+"ui": {
+    "entry": "dist/client.js",
+    "components": ["dashboard.serverCard", "server.files.details"]
+}
+```
+
+In `setup`, register an implementation for every declared component, as a component or a lazy importer:
+
+```tsx
+export default definePterodactylExtension({
+    setup({ components }) {
+        components.replace('dashboard.serverCard', {
+            load: () => import('./ServerCard'),
+        });
+        components.replace('server.files.details', {
+            load: () => import('./FileDetails'),
+        });
+    },
+});
+```
+
+In `src/client/FileDetails.tsx`, customize the name and keep the Panel's icon, size, and timestamp:
+
+```tsx
+import type { ComponentPartProps, ReplacementProps } from '@pterodactyl/sdk';
+
+function FileName({ model }: ComponentPartProps<'server.files.details'>) {
+    return <div className="flex-1 truncate font-medium text-foreground">{model.name}</div>;
+}
+
+export default function FileDetails({ Default }: ReplacementProps<'server.files.details'>) {
+    return <Default parts={{ name: FileName }} />;
+}
+```
+
+In `src/client/ServerCard.tsx`, use the default card with your own spacing:
+
+```tsx
+import type { ReplacementProps } from '@pterodactyl/sdk';
+
+export default function ServerCard({ Default }: ReplacementProps<'dashboard.serverCard'>) {
+    return <Default className="gap-3" />;
+}
+```
+
+Each replacement receives a read-only `model`, the native `Default` component, and typed `parts`. `Default` accepts `className` and partial part replacements. For a complete layout, render your own markup and use native parts as needed, such as `<parts.metrics model={model} />`. Define part components outside your render function so their identity stays stable. The native server-card identity part includes the `dashboard.serverRow.name.after` slot; include that part to keep that slot's contributions.
+
+These presentation areas sit inside core links. Keep them free of buttons, links, inputs, and other interactive elements, and add actions through the existing action slots. See [Component Replacements](./reference.mdx#component-replacements) for models and parts.
+
+Enabling an extension activates its replacements. Each component can have one enabled owner. The Panel rejects a conflicting enable or update and names the component and its owner. Disable the existing owner before enabling a competing extension.
+
+All rows on a page share one loading decision. While an implementation loads, its area shows a skeleton. If setup or the implementation fails, or loading takes more than five seconds, the area uses the native view, and a late import cannot replace it on the same page. Render failures also restore the native presentation and keep core state. Keep asynchronous rendering inside a local `Suspense` boundary, and use `useExtensionAction` for extension callbacks. The Panel does not retry mutations when it restores a view.
+
+Test your replacement against the native default and parts:
+
+```tsx
+import { render, screen } from '@testing-library/react';
+import { expect, it } from 'vitest';
+import { createComponentTestHost, createTestFileDetails } from '@pterodactyl/sdk/testing';
+import FileDetails from './FileDetails';
+
+it('shows the file name with native details', () => {
+    const host = createComponentTestHost('server.files.details', {
+        model: createTestFileDetails({ name: 'server.properties' }),
+    });
+    render(<FileDetails {...host.props} />, { wrapper: host.Wrapper });
+    expect(screen.getByText('server.properties')).toBeTruthy();
+    expect(screen.getByText('1 KiB')).toBeTruthy();
+});
+```
+
+`createTestServerCard` provides a server-card fixture; override its `state` to test loading, unavailable, or ready presentation. Component test hosts provide the native view and parts without issuing core queries.
+
+## File Actions and Native Forms
+
+The file manager has slots for its toolbar, row actions, and selected-file actions. They receive the current server, directory, files, selected names, and callbacks to refresh or change the selection. Row actions also receive their file.
+
+This toolbar control refreshes the native file list:
+
+```tsx
+import { Button, useExtensionAction, type FileManagerSlotData } from '@pterodactyl/sdk';
+
+function RefreshFiles({ data }: { data: FileManagerSlotData }) {
+    const refresh = useExtensionAction('refresh files', () => data.refresh());
+    return <Button disabled={data.isFetching} onClick={refresh}>Refresh files</Button>;
+}
+
+// In setup:
+slots.register('server.files.toolbar', RefreshFiles);
+```
+
+Wrap asynchronous click handlers in `useExtensionAction` so failures are attributed to your extension. Use the SDK's file mutations for writes, and check the user's permission on both frontend and backend.
+
+The `panel.users.detail.form` slot receives the native user form. Contributed controls and validators use its existing values and save with the Panel's **Save Changes** action:
+
+```tsx
+slots.register('panel.users.detail.form', ({ data }) => (
+    <data.form.AppField
+        name="username"
+        validators={{ onSubmit: ({ value }) => value.length < 3 ? 'Use at least three characters.' : undefined }}
+    >
+        {(field) => <field.TextField label="Managed username" />}
+    </data.form.AppField>
+));
+```
+
+Use the existing fields in `AdminUserFormValues`. The slot does not add arbitrary fields to the Panel's user API, so keep extension-specific values in scoped settings or your own endpoint.
+
+The `server.startup.form` slot receives the current startup configuration, pending state, and a `setDockerImage` callback that checks the user's permission and keeps the native cache current. See [Slot Data](./reference.mdx#slot-data) for these contracts.

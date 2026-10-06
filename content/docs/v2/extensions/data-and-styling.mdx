@@ -1,0 +1,221 @@
+---
+title: Data and Styling
+description: Read Panel data, call your extension's API, style components, and translate text.
+---
+
+These tools work in any frontend component: slots, screens, columns, and replacements.
+
+## Using Panel Data
+
+The SDK has hooks for the data your pages need. Server Notes uses two:
+
+```tsx
+import { useCurrentServerRequired, useServerPermission } from '@pterodactyl/sdk';
+
+const server = useCurrentServerRequired();
+const canEdit = useServerPermission('file.update');
+```
+
+`useCurrentServerRequired` returns the current server on server pages. `useServerPermission` returns whether the current user has a permission on that server. Other hooks return the current user, the site settings, and live server events. See the [SDK reference](./reference.mdx#hooks).
+
+The SDK also exposes the Panel's queries and mutations for files, startup configuration, and backups:
+
+```tsx
+import { useCurrentServerRequired, useServerFiles } from '@pterodactyl/sdk';
+
+const server = useCurrentServerRequired();
+const files = useServerFiles(server.attributes.uuid, '/', (response) => response.data);
+```
+
+Pass the server UUID to these hooks so they share the native page's cache entries. Query option factories are available for `useQuery`, prefetching, or direct cache access. File writes, startup changes, and backup creation have mutation hooks that update or invalidate the same cache. Startup writes are serialized per server.
+
+If your own endpoint changes native data, await `invalidateServerData(uuid, domains)` after it succeeds. Supported domains are `server`, `files`, `fileContent`, `startup`, and `backups`. See [Server Data](./reference.mdx#server-data) for queries and [Mutations](./reference.mdx#mutations) for writes.
+
+## Calling Your API
+
+Call your backend with the SDK's `http` client. It is the client the Panel uses, so requests are already signed in. Server Notes keeps its API calls in `src/client/api.ts`:
+
+```ts
+import { http } from '@pterodactyl/sdk';
+
+export interface Note {
+    body: string;
+    updated_at: string | null;
+}
+
+const noteUrl = (server: string) => `/api/client/servers/${server}/extensions/server-notes/note`;
+
+export const noteQueryKey = (server: string) => ['server-notes', server] as const;
+
+export async function getNote(server: string): Promise<Note> {
+    const { data } = await http.get<Note>(noteUrl(server));
+
+    return data;
+}
+
+export async function saveNote(server: string, body: string): Promise<Note> {
+    const { data } = await http.put<Note>(noteUrl(server), { body });
+
+    return data;
+}
+```
+
+The Panel shares its copy of TanStack Query with extensions, so you can use `useQuery` and `useMutation` directly. The Notes screen loads and saves the note like this:
+
+```tsx
+import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+    Button,
+    ServerContentBlock,
+    Spinner,
+    TextArea,
+    TitledGreyBox,
+    httpErrorToHuman,
+    toast,
+    useCurrentServerRequired,
+    useServerPermission,
+} from '@pterodactyl/sdk';
+import { getNote, noteQueryKey, saveNote } from '../api';
+import { maxLength } from '../config';
+
+export default function NotesScreen() {
+    const server = useCurrentServerRequired();
+    const identifier = server.attributes.identifier;
+    const canEdit = useServerPermission('file.update');
+    const queryClient = useQueryClient();
+    const [body, setBody] = useState('');
+
+    const note = useQuery({ queryKey: noteQueryKey(identifier), queryFn: () => getNote(identifier) });
+
+    useEffect(() => {
+        if (note.data) {
+            setBody(note.data.body);
+        }
+    }, [note.data]);
+
+    const save = useMutation({
+        mutationFn: () => saveNote(identifier, body),
+        onSuccess: (saved) => {
+            queryClient.setQueryData(noteQueryKey(identifier), saved);
+            toast.success('Notes saved.');
+        },
+        onError: (error) => toast.error(httpErrorToHuman(error)),
+    });
+
+    return (
+        <ServerContentBlock title={'Notes'}>
+            <TitledGreyBox title={'Notes'}>
+                {note.isLoading ? (
+                    <Spinner centered />
+                ) : (
+                    <div style={{ display: 'grid', gap: '1rem' }}>
+                        <TextArea
+                            rows={12}
+                            value={body}
+                            maxLength={maxLength()}
+                            readOnly={!canEdit}
+                            onChange={(event) => setBody(event.target.value)}
+                        />
+                        {canEdit && (
+                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                                <Button isLoading={save.isPending} onClick={() => save.mutate()}>
+                                    Save notes
+                                </Button>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </TitledGreyBox>
+        </ServerContentBlock>
+    );
+}
+```
+
+`httpErrorToHuman` turns an API error into a message you can show the user.
+
+## Generated API Clients
+
+The scaffold includes an OpenAPI generator and a script that connects its generated client to the Panel's shared transport. Enable your extension so its routes are loaded, and document the controller parameters and responses for Scribe. Then generate the specification and extension client from the Panel root:
+
+```bash
+composer docs:openapi
+npm run extension:api:generate -- server-notes
+```
+
+This extracts routes from the client, server, admin, and application API areas, writes `extensions/server-notes/openapi.yaml`, and generates code in `src/client/generated`. The generated functions and query options use `@pterodactyl/sdk/api`, so they keep the Panel's authentication and query client.
+
+If you already have the extension's `openapi.yaml`, run `npm run api:generate` inside the extension package. This requires the scaffold's OpenAPI configuration and externalization script.
+
+## Components and Styling
+
+The SDK includes the Panel's own components, such as `Button`, `Input`, `TextArea`, `Select`, `Switch`, `Dialog`, `Alert`, `TitledGreyBox`, and `ServerContentBlock`, so your pages match the Panel. `toast` shows notifications. See the [SDK reference](./reference.mdx#components) for the full list.
+
+The scaffold's entry file imports `src/client/styles.css`, which includes Tailwind's theme and utilities plus the SDK's mapping to the Panel's design tokens:
+
+```css title="src/client/styles.css"
+@import 'tailwindcss/theme.css' layer(theme);
+@import 'tailwindcss/utilities.css' layer(utilities);
+@import '@pterodactyl/sdk/theme.css';
+@source './**/*.{ts,tsx}';
+```
+
+Use classes such as `bg-card`, `text-foreground`, and `border-border` to follow the active theme. Keep Tailwind preflight out of extension styles so it does not reset the Panel's elements. Use an extension-specific prefix for any custom CSS selectors.
+
+The Panel loads the entry stylesheet before calling `setup`, and loads styles for screen chunks when they are imported. The [theme guide](../guides/customization/themes.mdx#tokens) lists the shared tokens.
+
+## Frontend Translations
+
+Call `loadExtensionTranslations()` in your provider and add a translation group, such as `resources/lang/en/messages.php`. Read it in screens and slots with `useExtensionTranslation('messages')`:
+
+```tsx
+import { useExtensionTranslation } from '@pterodactyl/sdk';
+
+const { t, ready } = useExtensionTranslation('messages');
+```
+
+The hook uses the current Panel locale and the `ext-server-notes::messages` namespace. Use `ready` to handle loading and `t('title')` to read the group's `title` key.
+
+## Shared Packages
+
+The Panel provides React, React DOM, TanStack Query, and the SDK to your bundle at runtime. They are left out of your build, so every extension uses the Panel's copy. Any other package you import is bundled into your extension.
+
+Import `toast` from the SDK, not from `sonner` directly, or your notifications will not appear.
+
+
+## Configuration Types
+
+Mark public settings with `frontend()` and their value type with `frontendType(...)`. Enable the extension so its definitions are loaded, then generate its TypeScript types from the Panel root:
+
+```bash
+php artisan p:extension:types extensions/server-notes
+```
+
+This writes `src/client/extension-types.ts` with the extension ID, literal screen IDs, registered permissions, and declared public configuration keys. Secret settings are excluded.
+
+Use these types with `defineConfiguredExtension`, whose parser checks runtime values before your `setup` function uses them:
+
+```tsx
+import { defineConfiguredExtension } from '@pterodactyl/sdk';
+import type { ExtensionConfig, ExtensionScreenId } from './extension-types';
+import { setConfig } from './config';
+import NotePreview from './NotePreview';
+import './styles.css';
+
+export default defineConfiguredExtension<ExtensionConfig, ExtensionScreenId>(
+    (config) => {
+        const maxLength = config.max_length ?? 2000;
+        if (typeof maxLength !== 'number') throw new Error('Invalid maximum note length.');
+        return { ...config, max_length: maxLength };
+    },
+    {
+        setup({ config, slots, screens }) {
+            setConfig(config);
+            screens.register('notes', () => import('./screens/NotesScreen'));
+            slots.register('server.console.before', NotePreview);
+        },
+    }
+);
+```
+
+If your bundle also renders on pages before sign-in, handle the empty public configuration in your parser. Server Notes can fall back to the setting's default value there.

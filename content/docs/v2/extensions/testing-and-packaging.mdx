@@ -1,0 +1,104 @@
+---
+title: Testing and Packaging
+description: Test an extension, build it, package it for release, and keep it secure.
+---
+
+Test the extension before you share it, then build and package it.
+
+## Testing
+
+Frontend scaffolds include Vitest, jsdom, Testing Library, and a test against the real SDK runtime. Run the checks inside the extension directory:
+
+```bash
+npm run typecheck
+npm test
+```
+
+For components that need the Panel's router, current user, permissions, server, or query cache, use `createExtensionTestHost` and `createTestServer` from `@pterodactyl/sdk/testing`. For the Notes screen, mock the extension's API response and provide a server context:
+
+```tsx title="src/client/screens/NotesScreen.spec.tsx"
+import { afterEach, expect, test, vi } from 'vitest';
+import { cleanup, render, screen } from '@testing-library/react';
+import { createExtensionTestHost, createTestServer } from '@pterodactyl/sdk/testing';
+import NotesScreen from './NotesScreen';
+
+vi.mock('../api', async (importOriginal) => ({
+    ...(await importOriginal<typeof import('../api')>()),
+    getNote: vi.fn().mockResolvedValue({ body: 'Remember to make a backup.', updated_at: null }),
+}));
+
+let host: ReturnType<typeof createExtensionTestHost> | undefined;
+afterEach(() => {
+    cleanup();
+    host?.dispose();
+    host = undefined;
+});
+
+test('loads notes inside the Panel', async () => {
+    host = createExtensionTestHost({
+        extensionId: 'server-notes',
+        server: createTestServer({ owner: false, permissions: ['file.update'] }),
+    });
+    render(<NotesScreen />, { wrapper: host.Wrapper });
+    expect(await screen.findByDisplayValue('Remember to make a backup.')).toBeTruthy();
+});
+```
+
+Create one host per test, then unmount its wrapper and dispose of it afterwards. The host also supports a typed admin resource, navigation, websocket events, and connection changes. The scaffold's `vitest.config.mjs` supplies SDK aliases and setup through `@pterodactyl/sdk/vitest`; keep them when you customize the configuration.
+
+Backend routes and jobs need their own tests for validation and authorization. The generated GitHub Actions workflow runs frontend type checks, tests, and builds.
+
+## Building and Packaging
+
+Build the frontend. The build writes `dist/client.js` and a file for each screen:
+
+```bash
+npm run build
+```
+
+From the Panel root, check the built package before installing it:
+
+```bash
+php artisan p:extension:doctor extensions/server-notes
+```
+
+This checks the manifest, runtime and extension dependencies, autoload directories, and built frontend files, and reports errors without installing the package.
+
+### Watching Changes
+
+To build, publish, and enable a local extension, run the development command from the Panel root:
+
+```bash
+php artisan p:extension:dev extensions/server-notes --watch --enable
+```
+
+It runs an initial build, then runs the extension's `npm run dev` and republishes each successful build. A failed build keeps the last published version. With `APP_DEBUG=true`, open the Panel after starting the watcher, and the browser reloads after each successfully published build. Press Ctrl+C to stop the watcher. Without `--watch`, the command builds and publishes once.
+
+### Creating a Package
+
+To create a `.pteroext` archive, run:
+
+```bash
+php artisan p:extension:pack extensions/server-notes --output=server-notes.pteroext
+```
+
+The archive contains the manifest and runtime directories: routes, migrations, resources, built assets, vendor dependencies, and declared PHP autoload directories. It excludes dotfiles, symlinks, `node_modules`, and test or coverage directories. An existing archive is kept unless you pass `--force`.
+
+Check the package's contents before distributing it. Put custom runtime files in a directory the packager includes. Files under the PHP autoload directories, including `src/client`, are included unless the rules above exclude them.
+
+Administrators install this file as described in [Installing Extensions](./index.mdx#installing-extensions).
+
+## Security
+
+Your extension runs with the same access as the Panel. Treat it like Panel code:
+
+- Validate every request, and check permissions before changing data.
+- Never expose secrets as frontend settings; every signed-in user can read public configuration.
+- Declare secret settings with `secret()`, or use `setSecret` for managed values.
+- Prefix your database tables so they cannot clash with the Panel's tables.
+
+Declare and test the Panel, SDK, PHP, and extension versions your package supports. Compatibility constraints check versions; they do not replace tests of your extension's behavior.
+
+## Example Extension
+
+The Panel repository includes a frontend-only example in `packages/hello-world`. It shows slots, a server page, live server events, and the subuser permission editor slot.

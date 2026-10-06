@@ -5,11 +5,11 @@ description: The software Pterodactyl 2.0 needs, and how it works with Wings.
 
 ## Introduction
 
-This page lists the software the Panel needs to run. If you use the [Docker image](./docker.mdx), everything except the database and Redis is already included.
+The Panel needs the software below. The [Docker image](./docker.mdx) includes everything except the database and Redis.
 
 ## Panel Requirements
 
-Your server needs the following:
+Your server needs:
 
 - PHP 8.3 or 8.4
 - Composer 2
@@ -18,11 +18,11 @@ Your server needs the following:
 - A web server, such as NGINX, that serves the Panel's `public` directory
 - A queue worker and a cron entry for the scheduler
 
-The Panel is tested against each of these PHP and database versions. Other database servers, such as PostgreSQL and SQLite, are not supported.
+The Panel is tested against each of these PHP and database versions. Other databases, such as PostgreSQL and SQLite, are not supported.
 
 ### PHP Extensions
 
-Most PHP installations already include the extensions the Panel needs, such as OpenSSL, Sodium, and Tokenizer. These usually have to be installed separately:
+Most PHP installations include some required extensions, such as OpenSSL, Sodium, and Tokenizer. These usually need a separate install:
 
 - BCMath
 - Intl
@@ -31,25 +31,25 @@ Most PHP installations already include the extensions the Panel needs, such as O
 - XML
 - Zip
 
-On Ubuntu, these packages install PHP 8.3 with every required extension:
+On Ubuntu and Debian, install PHP 8.3 with every required extension. Debian and Ubuntu 22.04 first need the PHP repository from [Getting Started](./getting-started.mdx#installing-dependencies):
 
 ```bash
 apt -y install php8.3 php8.3-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,intl}
 ```
 
-To confirm that PHP has everything the Panel needs, run this command from the Panel directory:
+To check that PHP has everything, run this from the Panel directory:
 
 ```bash
 composer check-platform-reqs --no-dev
 ```
 
-If PHP-FPM uses a different PHP installation from the command line, make sure it has the same extensions.
+If PHP-FPM uses a different PHP installation than the command line, give it the same extensions.
 
 ### Building From Source
 
-2.0 has no release yet, so a Panel installed from the `2.0-develop` branch needs its frontend built from source. The Docker image already contains the built frontend.
+2.0 has no release yet, so a Panel installed from the `2.0-develop` branch must build its frontend. The Docker image includes a built frontend.
 
-To build from source, you need Node.js 22.12 or newer. Run these commands from the Panel directory:
+This needs Node.js 22.12 or newer. From the Panel directory, run:
 
 ```bash
 npm ci
@@ -60,16 +60,16 @@ npm run build:production
 
 Pterodactyl officially supports two ways to run the Panel:
 
-- A native installation on Ubuntu 22.04 or 24.04. See [Getting Started](./getting-started.mdx).
+- A native installation on Ubuntu 22.04 or 24.04, or Debian 11, 12, or 13. See [Getting Started](./getting-started.mdx).
 - The [Docker image](./docker.mdx), which supports AMD64 and ARM64.
 
-Other Linux distributions may work, but they often need changes to the installation steps, and we cannot help with those installations. The upgrade from 1.x has been tested on Ubuntu 24.04.
+Other Linux distributions may work, but often need changed installation steps, and we cannot help with them. The upgrade from 1.x was tested on Ubuntu 24.04.
 
 ## Wings
 
-Wings runs on each node and manages your game servers with Docker. You install it separately from the Panel. It is not part of the Panel image.
+Wings runs on each node and manages your game servers with Docker. Install it separately. It is not part of the Panel image.
 
-There is no Wings version table for 2.0 yet. Wings 1.13.2 and 1.13.3 work with the 2.0 Panel. In testing, they handled everything below without changes:
+There is no Wings version table for 2.0 yet. Wings 1.13.2 and 1.13.3 work with the 2.0 Panel, and handled all of this in testing without changes:
 
 - Power actions and server status.
 - Files and the console.

@@ -1,76 +1,148 @@
 ---
 title: Troubleshooting
-description: Find and fix common problems with the Panel.
+description: Find and fix common problems with the Panel and Wings.
 ---
+
+## Matching an Error
+
+Paste an error message or log line below. If it matches a known problem, you see the cause and the fix. Every problem it knows is also covered on this page or the page it links to.
+
+<TroubleshootingMatcher />
 
 ## Reading Error Logs
 
-When the Panel shows an unexpected error, the first thing to check is its log. This command shows the last 100 lines of today's log:
+When the Panel shows an unexpected error, check its log first. To show the last 100 lines of today's log, run:
 
 ```bash
 tail -n 100 /var/www/pterodactyl/storage/logs/laravel-$(date +%F).log
 ```
 
+For Wings, read its service log on the node:
+
+```bash
+journalctl -u wings -n 100 --no-pager
+```
+
+To collect the details support usually asks for, such as versions, main configuration values, and recent log lines, run `wings diagnostics` on the node. It asks whether to include your Panel's address and the logs, and whether to review the report before upload. Answer yes to the review so you can check it first.
+
 ### Finding the Error
 
-Each error in the log starts with a line that has the date and time in brackets, followed by a long stack trace. The line with the date is the one that describes the problem, for example:
+Each error in the Panel's log starts with a line that has the date and time in brackets, followed by a long stack trace. The dated line describes the problem, for example:
 
 ```text
 [2026-09-29 10:15:02] production.ERROR: file_put_contents(/var/www/pterodactyl/storage/framework/views/...): Failed to open stream: Permission denied
 ```
 
-This error means the web server cannot write to the `storage` directory, which usually means the file permissions are wrong. You may ignore the stack trace below the line when looking for the cause.
+Here the web server cannot write to `storage`, which usually means wrong file permissions. You can ignore the stack trace below the line.
 
-To show only these lines, without the stack traces, run:
+To show only these lines, without stack traces, run:
 
 ```bash
 tail -n 1000 /var/www/pterodactyl/storage/logs/laravel-$(date +%F).log | grep "\[$(date +%Y)"
 ```
 
-When you ask for help, include these lines. Remove any passwords or keys first.
+Include these lines when you ask for help. Remove any passwords or keys first.
 
 ## The Panel Shows a Blank Page
 
-If the Panel loads but shows a blank page, open your browser's developer console to see the error.
+If the Panel loads a blank page, open your browser's developer console to see the error.
 
-An extension can stop the Panel's pages from loading. To check, set `PTERODACTYL_EXTENSIONS_ENABLED=false` in your `.env` file, run `php artisan config:clear`, and reload the page. If the Panel works again, find the extension that causes the problem with `php artisan p:extension:list`, and disable it with `php artisan p:extension:disable`. See [Extensions](../extensions/index.mdx#troubleshooting).
+An extension can stop pages from loading. To check, set `PTERODACTYL_EXTENSIONS_ENABLED=false` in `.env`, run `php artisan config:clear`, and reload. If the Panel works again, find the faulty extension with `php artisan p:extension:list` and disable it with `php artisan p:extension:disable`. See [Extensions](../extensions/index.mdx#troubleshooting).
+
+If the log says `The Vite manifest has not been generated yet`, the frontend has not been built. See [Building From Source](./requirements.mdx#building-from-source).
+
+## 502 Bad Gateway
+
+NGINX and Caddy pass PHP requests to PHP-FPM through a socket, such as `/run/php/php8.3-fpm.sock`. A `502 Bad Gateway` means that socket does not exist: PHP-FPM is stopped, or your web server configuration names a PHP version that is not installed. This often follows a PHP upgrade.
+
+```bash
+systemctl status php8.3-fpm
+ls /run/php/
+```
+
+Make sure your web server configuration names a socket that `ls` shows, then reload the web server. See [Updating the Web Server](../guides/configuration/php-upgrade.mdx#updating-the-web-server).
+
+## Sign-In Fails With a CSRF or 419 Error
+
+If signing in fails with `CSRF token mismatch.` or `419 Page Expired`, your browser is not sending the session cookie back. Usually `APP_URL` in `.env` does not match the address you open the Panel at:
+
+- If `APP_URL` starts with `https://`, `php artisan p:environment:setup` sets `SESSION_SECURE_COOKIE=true`. Browsers then send the cookie only over HTTPS, so signing in over plain HTTP always fails.
+- The Panel treats only requests from the host in `APP_URL` as signed-in browser requests. A different domain or IP address does not work.
+
+Set `APP_URL` to the exact address you use, then clear the configuration cache:
+
+```bash
+php artisan config:clear
+```
+
+Behind a reverse proxy or Cloudflare, also set `TRUSTED_PROXIES`, as described in [Reverse Proxies](./additional-configuration.mdx#reverse-proxies).
 
 ## Cannot Connect to a Server
-
-If the Panel cannot connect to a server, work through these checks.
 
 ### Basic Checks
 
 - **Wings is running.** Check it with `systemctl status wings`.
 - **The browser shows no errors.** Open the developer console and look for red errors.
-- **The node's configuration matches.** Wings' `/etc/pterodactyl/config.yml` must match the configuration shown under **Admin → Nodes**, on the node's **Configuration** tab.
-- **The firewall allows Wings' ports.** Wings uses port `8080` or `8443` for HTTP(S), and `2022` for SFTP.
+- **The node's configuration matches.** Wings' `/etc/pterodactyl/config.yml` must match the node's **Configuration** tab under **Admin → Nodes**.
+- **The firewall allows Wings' ports.** Wings uses `8080` (or the node's **Daemon Port**) for its API, and `2022` for SFTP.
 - **No ad blocker is blocking the Panel or Wings.**
-- **The Panel can reach Wings.** Run `curl https://node.example.com:8080` on the Panel's server, using your node's domain.
-- **The Panel and Wings use the same scheme.** If the Panel uses HTTPS, Wings must use HTTPS too.
+- **The Panel can reach Wings.** On the Panel's server, run `curl https://node.example.com:8080` with your node's domain.
+- **The Panel and Wings use the same scheme.** If the Panel uses HTTPS, Wings must too.
 - **Certificates are valid.** If Wings uses HTTPS, check that its certificate has not expired.
+
+`Could not establish a connection to the machine running this server` means Wings did not answer at all. `There was an error while communicating with the machine running this server` means Wings answered with an error; find the message's `request_id` in the Wings log.
 
 ### Advanced Checks
 
-- **Run Wings in debug mode.** Stop Wings and run `wings --debug` to see its errors directly. If you need help, ask on [Discord](https://discord.gg/pterodactyl).
-- **Check DNS.** Use `dig` or `nslookup` to confirm that your domains point to the right addresses.
-- **Check Cloudflare.** If you use Cloudflare, turn off its proxy (the orange cloud) for your Wings domain.
-- **Check NAT.** If Wings is behind a firewall, such as pfSense, make sure the correct ports are forwarded to it.
-- **Add host entries.** When the Panel and Wings run on one server, it can help to add an `/etc/hosts` entry that points the Panel's domain at the server.
+- **Run Wings in debug mode.** Stop Wings and run `wings --debug` to see its errors. For help, ask on [Discord](https://discord.gg/pterodactyl).
+- **Check DNS.** Use `dig` or `nslookup` to confirm your domains point to the right addresses.
+- **Check Cloudflare.** Turn off Cloudflare's proxy (the orange cloud) for your Wings domain.
+- **Check NAT.** If Wings is behind a firewall, such as pfSense, forward the correct ports to it.
+- **Add host entries.** When the Panel and Wings share a server, an `/etc/hosts` entry pointing the Panel's domain at the server can help.
+
+## The Console Does Not Connect
+
+The console does not go through the Panel. Your browser connects straight to Wings, at the node's FQDN and Daemon Port. If the console stays disconnected or shows "Server connection failed", check:
+
+- **The scheme.** If the Panel uses HTTPS, the node must use SSL too. Browsers block insecure connections from a secure page.
+- **The certificate.** Open `https://<node FQDN>:8080` in your browser. Any certificate warning there also breaks the console.
+- **The origin.** Wings only accepts console connections from pages at the `remote` address in its `config.yml`. It must match your browser's address bar exactly, including `https://`, with no trailing slash. List any other Panel addresses under `allowed_origins`. See [Panel Connection](../wings/configuration.mdx#panel-connection).
+
+"Server connection rejected" means Wings and the Panel disagree on the node's token. Run the auto-deploy command from the node's **Configuration** tab again with `--override`, and restart Wings.
+
+## SFTP Login Fails
+
+- **Use the right username:** your Panel username, a period, and the server's 8-character ID, such as `admin.1a2b3c4d`. Copy it from **SFTP Details** on the server's **Settings** page.
+- **Use the right port.** Wings' SFTP server listens on `2022` by default, not `22`.
+- **Use your Panel password**, or an SSH key you added to your account.
+- **Subusers need the SFTP permission.** The server's owner and administrators always have it.
+- **Wait after repeated failures.** Wings and the Panel rate-limit login attempts.
+
+On the node, `journalctl -u wings` shows why Wings refused a login, for example `failed to validate user credentials (invalid format)` for a badly formatted username.
+
+## Wings Does Not Start
+
+Run `journalctl -u wings -n 50 --no-pager`, or stop the service and run `wings --debug`. Look for the last error before Wings exits:
+
+- **`Configuration File Not Found`:** `/etc/pterodactyl/config.yml` does not exist. See [Configuring Wings](../wings/installing.mdx#configuring-wings).
+- **`failed to configure HTTPS server`:** SSL is on, but the certificate or key file is missing. See [Creating SSL Certificates](../guides/tutorials/ssl-certificates.mdx).
+- **`address already in use`:** another program uses Wings' API or SFTP port.
+- **`failed to configure docker environment`:** Docker is not running. Start it with `systemctl enable --now docker`.
+- **`failed to load server configurations`:** Wings could not get its servers from the Panel. If the error ends in `(HTTP/403)`, the node's token does not match; run the auto-deploy command again with `--override`. Otherwise, check that `remote` is reachable from the node.
 
 ## Invalid MAC Exception
 
 <Callout type="warn">
-This error only happens when the Panel's `APP_KEY` does not match the key that encrypted its data. This usually means a database backup was restored into a new installation without the original `.env` file. **Always restore the `.env` file together with the database.**
+This error only happens when `APP_KEY` does not match the key that encrypted the data, usually because a database backup was restored into a new installation without the original `.env` file. **Always restore the `.env` file together with the database.**
 </Callout>
 
-The error appears in the log as an invalid MAC when decrypting. The only fix is to restore the original `APP_KEY` in your `.env` file. If the original key is lost, the encrypted data cannot be recovered.
+The log shows it as an invalid MAC when decrypting. The only fix is to restore the original `APP_KEY` in `.env`. If that key is lost, the encrypted data cannot be recovered.
 
 ## Servers Have No Internet Access
 
-This is usually a DNS problem. By default, Wings gives containers the DNS servers `1.1.1.1` and `1.0.0.1`. Some hosts block them.
+This is usually DNS. By default, Wings gives containers the DNS servers `1.1.1.1` and `1.0.0.1`, which some hosts block.
 
-To find the DNS servers your host uses, try these commands:
+To find your host's DNS servers, try:
 
 ```bash
 # NetworkManager
@@ -80,19 +152,17 @@ nmcli -g ip4.dns,ip6.dns dev show
 resolvectl status
 ```
 
-You may also look in `/etc/resolv.conf` or `/etc/network/interfaces`.
+Or look in `/etc/resolv.conf` or `/etc/network/interfaces`.
 
-If your host uses different DNS servers, replace `1.1.1.1` and `1.0.0.1` in Wings' `/etc/pterodactyl/config.yml` with them. Put IPv6 addresses in the IPv6 section. Then restart Wings.
+Replace `1.1.1.1` and `1.0.0.1` under `docker.network.dns` in Wings' `/etc/pterodactyl/config.yml` with your host's servers. Restart Wings, then restart the server so its container uses the new servers.
 
 ## Schedules Do Not Run
 
-Work through these checks:
-
 - **Check the queue worker's log** with `journalctl -xeu pteroq`, and restart it with `systemctl restart pteroq`.
 - **Clear the scheduler's cache** with `php /var/www/pterodactyl/artisan schedule:clear-cache`.
-- **Check the cron entry.** Run `crontab -l` as root, and check that the scheduler line from [Getting Started](./getting-started.mdx#scheduler) is there.
-- **Check PHP.** Run `php -v` and compare it with the [requirements](./requirements.mdx).
-- **Test the schedule on its own.** Make its first task something that shows up in the console, such as `say test` on a Minecraft server. This tells you whether the problem is the schedule or its tasks.
-- **Check the time zones.** Schedules that run at the wrong time usually mean mismatched time zones. Compare the system's (`timedatectl`), the Panel's (`APP_TIMEZONE` in `.env`), and Wings' (`timezone` in `config.yml`).
-- **Check the database and Redis.** Run `systemctl status mariadb` and `systemctl status redis-server`. If either is not running, check its log with `journalctl -xeu`.
+- **Check the cron entry.** Run `crontab -l` as root and confirm the scheduler line from [Getting Started](./getting-started.mdx#scheduler) is there.
+- **Check PHP.** Compare `php -v` with the [requirements](./requirements.mdx).
+- **Test the schedule on its own.** Make its first task something visible in the console, such as `say test` on a Minecraft server, to tell whether the schedule or its tasks are the problem.
+- **Check the time zones.** Schedules at the wrong time usually mean mismatched time zones. Compare the system's (`timedatectl`), the Panel's (`APP_TIMEZONE` in `.env`), and Wings' (`timezone` in `config.yml`).
+- **Check the database and Redis.** Run `systemctl status mariadb` and `systemctl status redis-server`. If either is stopped, check its log with `journalctl -xeu`.
 - **Check the Panel's log**, as described in [Reading Error Logs](#reading-error-logs).

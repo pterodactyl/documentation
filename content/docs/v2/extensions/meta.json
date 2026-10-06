@@ -1,9 +1,12 @@
 {
   "title": "Extensions",
-  "root": true,
   "pages": [
     "index",
     "building",
+    "backend",
+    "frontend",
+    "data-and-styling",
+    "testing-and-packaging",
     "reference"
   ]
 }

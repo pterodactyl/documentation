@@ -1,0 +1,35 @@
+---
+title: How Pterodactyl Works
+description: The parts of Pterodactyl, and the ports they use to talk to each other.
+---
+
+Pterodactyl has two parts. The **Panel** is the website where you manage users, nodes, and servers. **Wings** runs on each node and runs your game servers in Docker containers.
+
+<ArchitectureTour />
+
+## The Parts
+
+- **Panel.** A web server (NGINX, Apache, or Caddy) and PHP. It keeps its data in MariaDB or MySQL, and uses Redis for sessions, caching, and background jobs.
+- **Wings.** A service on each node. It runs game servers, streams their consoles to your browser, and serves their files over SFTP.
+- **Game servers.** One Docker container per server, created and managed by Wings. Players connect to them directly, on the ports you assign to each server.
+
+## Ports
+
+| From | To | Default port | Used for |
+| --- | --- | --- | --- |
+| Browser | Panel | 443 (80 without SSL) | The Panel website |
+| Browser | Wings | 8080 | Consoles, file uploads and downloads |
+| SFTP client | Wings | 2022 | Server files |
+| Panel | Wings | 8080 | Creating servers, managing files, installs and backups |
+| Wings | Panel | 443 (80 without SSL) | Server settings, results, and SFTP logins |
+| Players | Game servers | The server's ports | Playing the game |
+
+You can change 8080 and 2022 for each node in the Panel.
+
+## What This Means for Your Setup
+
+- The Panel must reach each node on port 8080, and each node must reach the Panel.
+- Your users' browsers connect to nodes directly, so each node needs a domain name they can reach. If the Panel uses HTTPS, each node needs its own SSL certificate.
+- Game servers keep running when the Panel is down, because Wings runs them.
+
+To set up a node, see [Installing Wings](../wings/installing.mdx).

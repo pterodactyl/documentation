@@ -5,30 +5,28 @@ description: Write the script that downloads and sets up a server's files.
 
 ## Introduction
 
-The install script runs when a server is created, and again whenever it is reinstalled. Its job is to put everything the server needs into the server's directory: the game server itself, its configuration files, and any mods.
-
-The script runs in its own temporary container, separate from the one the server later runs in. You set it up on the egg's **Install Script** tab.
+The install script runs when a server is created or reinstalled, and puts everything the server needs into its directory: the game server, its configuration files, and any mods. It runs in a temporary container separate from the server's own, and you set it up on the egg's **Install Script** tab.
 
 ## Script Settings
 
 - **Install Script:** The script itself.
 - **Script Container:** The Docker image the script runs in. Pick one with the tools your script needs, such as `curl` or `unzip`.
 - **Script Entrypoint Command:** The program that runs the script, usually `bash`. Alpine images do not include `bash`, so use `ash` with them.
-- **Copy Script From:** Use another egg's install script instead of writing one. Leave **Install Script** empty when you use this. See [Sharing a Script](#sharing-a-script).
-- **Privileged Installation Script:** Kept for older versions of the daemon. Wings does not use it.
+- **Copy Script From:** Use another egg's install script. Leave **Install Script** empty when you do. See [Sharing a Script](#sharing-a-script).
+- **Privileged Installation Script:** Kept for older daemon versions. Wings does not use it.
 
 ### Script Containers
 
-Pterodactyl publishes installer images that include common tools:
+Pterodactyl publishes installer images with common tools:
 
 - `ghcr.io/pterodactyl/installers:debian` includes `bash`, `curl`, `wget`, `git`, and `tar`.
 - `ghcr.io/pterodactyl/installers:alpine` includes `curl`, `wget`, `git`, `tar`, `unzip`, and `jq`, but not `bash`.
 
-The community publishes more at `ghcr.io/ptero-eggs/installers`, with `debian`, `alpine`, and `ubuntu` tags. You may use any other image as well, such as `eclipse-temurin:21-jdk` if the install needs Java.
+The community publishes more at `ghcr.io/ptero-eggs/installers`, with `debian`, `alpine`, and `ubuntu` tags. Any other image works too, such as `eclipse-temurin:21-jdk` if the install needs Java.
 
 ## Writing the Script
 
-The server's files are at `/mnt/server` inside the install container. **Only what the script puts in `/mnt/server` is kept.** Anything else, such as packages it installs, disappears when the script finishes. If the server needs a package to run, it must be in the server's [Docker image](./egg-docker-images.mdx) instead.
+The server's files are at `/mnt/server` in the install container. **Only what the script puts in `/mnt/server` is kept.** Anything else, such as installed packages, is lost when the script finishes. Packages the server needs to run belong in its [Docker image](./egg-docker-images.mdx).
 
 The egg's [variables](./egg-variables.mdx) are available as environment variables, along with `SERVER_MEMORY`, `SERVER_IP`, and `SERVER_PORT`.
 
@@ -44,22 +42,22 @@ curl -sSL "https://example.com/downloads/server-${SERVER_VERSION}.tar.gz" | tar 
 echo "max_players=${MAX_PLAYERS}" > server.cfg
 ```
 
-The script runs as root in the install container. When it finishes, Wings gives the files to the user its servers run as.
+The script runs as root. When it finishes, Wings gives the files to the user its servers run as.
 
-A server is also reinstalled when a user or administrator chooses **Reinstall**. The script then runs again over the server's existing files, so make sure it does not overwrite files users have changed, such as their worlds, unless that is what you want.
+When a user or administrator chooses **Reinstall**, the script runs again over the server's existing files. Do not overwrite files users have changed, such as worlds, unless you intend to.
 
 ## Checking the Output
 
-The console on the server's page shows the script's output while it runs. Wings also saves the output of the latest install on the node:
+The server's console shows the script's output while it runs. Wings also saves the latest install's output on the node:
 
 ```bash
 cat /var/log/pterodactyl/install/<server uuid>.log
 ```
 
-Wings does not check whether the script succeeded. Even if a command fails, or the script exits with an error, the server is marked as installed. Check the output when you write a new script, and fix any errors before you reinstall the server.
+Wings does not check whether the script succeeded. The server is marked installed even if a command fails or the script exits with an error. Check a new script's output and fix errors before reinstalling.
 
 ## Sharing a Script
 
-Several eggs often install the same way, such as different Minecraft server types. Instead of copying the script into each one, write it in one egg, and select that egg under **Copy Script From** in the others. Leave their **Install Script** empty. If an egg has its own script, that script runs instead.
+When several eggs install the same way, such as different Minecraft server types, write the script in one egg and select that egg under **Copy Script From** in the others. Leave their **Install Script** empty: if an egg has its own script, that script runs instead.
 
-An egg that copies its script cannot itself be copied from. The **Eggs Using This Script** card lists the eggs that copy an egg's script.
+An egg that copies its script cannot be copied from. The **Eggs Using This Script** card lists the eggs copying an egg's script.

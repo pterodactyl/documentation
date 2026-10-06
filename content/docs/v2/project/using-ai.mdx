@@ -1,0 +1,124 @@
+---
+title: Using AI With Pterodactyl
+description: AI assistants are tools you choose to use. What that means for you, what support to expect, and how to give an assistant the docs.
+---
+
+## Introduction
+
+An AI assistant is a tool, like a search engine or a forum post. Pterodactyl does not build, test, or support any assistant, and this documentation is written for people. If you use one, you run the commands, so the results are yours.
+
+## You Are Responsible
+
+<Callout type="error" title="Use AI at your own risk">
+Pterodactyl, its maintainers, and its community are not responsible for anything an assistant tells you, or for what happens when you follow it, including lost data, a broken Panel, or a compromised server.
+</Callout>
+
+Assistants make things up. They mix 1.x and 2.0, invent commands and settings, and sound just as confident when they are wrong. Before you use anything an assistant gives you:
+
+- **Understand it.** If you cannot explain what a command does, do not run it.
+- **Check it against the docs.** The documentation is the reference: when an assistant and a page disagree, the page wins.
+- **Try it on a copy first.** Back up your database and Panel directory before any upgrade or change.
+- **Keep your secrets out of it.** Never paste your `.env` file, `APP_KEY`, API keys, node tokens, or database passwords into a chat.
+
+## Getting Help
+
+The community helps people run Pterodactyl. It does not review, fix, or finish an assistant's work, and nobody owes you a walkthrough of its mistakes.
+
+If you get stuck after using an assistant, go back to the documentation and follow it yourself. If you still need help:
+
+- Say that you used an assistant, and what it had you change.
+- Share the exact commands you ran, the full error, and the relevant logs, not the assistant's explanation of them.
+- Accept that helpers may decline. They volunteer their time and decide how to spend it.
+
+Do not use an assistant to write bug reports, pull requests, or messages to the community. The [contributing guide](https://github.com/pterodactyl/panel/blob/2.0-develop/CONTRIBUTING.md) requires you to disclose any AI help in a pull request, and to write titles, descriptions, comments, and discussion posts yourself.
+
+## Giving an Assistant the Docs
+
+If you use an assistant, give it the documentation for the version you run. Otherwise it answers from memory: 2.0 replaces nests with tags, so an assistant that remembers 1.x will tell you to create a nest that no longer exists.
+
+### Copy a Page
+
+The **Copy Markdown** button under each page's title copies the whole page as Markdown, ready to paste into a chat.
+
+The **Open** menu next to it shows the page as Markdown, or opens a chat about the page in ChatGPT, Claude, or Cursor.
+
+### Markdown Addresses
+
+Add `.md` to the end of any page's address to get it as Markdown. For example, the upgrade guide is at:
+
+```text
+https://docs.pterodactyl.io/v2/upgrading/upgrading-from-v1.md
+```
+
+Give these addresses to an assistant that can open web pages. Tools that send an `Accept: text/markdown` header also get Markdown from a page's normal address.
+
+### The Whole Site
+
+Two files describe the whole site:
+
+- [`/llms.txt`](https://docs.pterodactyl.io/llms.txt) lists every page with a link and a one-line description.
+- [`/llms-full.txt`](https://docs.pterodactyl.io/llms-full.txt) contains every page, including the full API reference, in one file. At about 900 KB, it is more than many assistants can read at once.
+
+Both files cover 1.x and 2.0, so tell the assistant which version you run. For most jobs, a few specific pages work better than the whole site.
+
+## Prompts
+
+These prompts point an assistant at the right pages and tell it to follow them. They do not make its answers correct, and everything in [You Are Responsible](#you-are-responsible) still applies.
+
+Paste a prompt into an assistant that can open web pages. If yours cannot, open each `.md` address yourself and paste the pages after the prompt. Replace the parts in angle brackets before you send it.
+
+### Upgrading a 1.x Panel
+
+This prompt fills in your install directory and PHP version from **Your setup**:
+
+<SetupPanel fields={['path', 'php']} />
+
+```text title="Upgrade prompt"
+I want to upgrade my Pterodactyl Panel from 1.x to 2.0. Read these pages first, and follow them instead of what you remember about Pterodactyl:
+
+- https://docs.pterodactyl.io/v2/upgrading/changes-from-v1.md
+- https://docs.pterodactyl.io/v2/upgrading/upgrading-from-v1.md
+- https://docs.pterodactyl.io/v2/upgrading/testing-the-upgrade.md
+
+My Panel is a native installation in /var/www/pterodactyl. PHP runs as the php8.3-fpm service.
+
+Work through the upgrade guide with me one step at a time. Before each step, tell me what it changes and how to undo it. Ask me for anything you need to know, such as my 1.x version, my web server, or whether I use a billing module. Do not suggest php artisan p:upgrade. Do not ask for my .env file or my API keys. If the guide does not cover something, say so instead of guessing.
+```
+
+### Writing an Egg
+
+Before you write an egg, check whether the community catalog at [eggs.pterodactyl.io](https://eggs.pterodactyl.io) already has one. You can import it from **Admin → Eggs**.
+
+```text title="Egg prompt"
+I want to write a Pterodactyl 2.0 egg for <game or app>. Read these pages first, and follow them instead of what you remember about Pterodactyl:
+
+- https://docs.pterodactyl.io/v2/guides/egg-creation/creating-custom-egg.md
+- https://docs.pterodactyl.io/v2/guides/egg-creation/egg-docker-images.md
+- https://docs.pterodactyl.io/v2/guides/egg-creation/egg-config-parser.md
+- https://docs.pterodactyl.io/v2/guides/egg-creation/egg-variables.md
+- https://docs.pterodactyl.io/v2/guides/egg-creation/egg-install-script.md
+
+In 2.0, eggs do not belong to a nest. Suggest tags instead.
+
+Give me each value I need to enter for the egg: the Docker images, the startup command, the stop command, the start configuration, and the configuration files. Then give me the variables with their input rules, and the install script. If you are not sure about a value, say so instead of guessing.
+```
+
+If the game needs its own Docker image, add `https://docs.pterodactyl.io/v2/guides/egg-creation/creating-custom-image.md` to the list. Test the egg on a server you can delete before you share it.
+
+### Building an Extension
+
+```text title="Extension prompt"
+I want to build a Pterodactyl 2.0 extension that <what the extension should do>. Read these pages first, and follow them instead of what you remember about Pterodactyl:
+
+- https://docs.pterodactyl.io/v2/extensions.md
+- https://docs.pterodactyl.io/v2/extensions/building.md
+- https://docs.pterodactyl.io/v2/extensions/backend.md
+- https://docs.pterodactyl.io/v2/extensions/frontend.md
+- https://docs.pterodactyl.io/v2/extensions/data-and-styling.md
+- https://docs.pterodactyl.io/v2/extensions/testing-and-packaging.md
+- https://docs.pterodactyl.io/v2/extensions/reference.md
+
+Start from the php artisan p:extension:make command. Only use the manifest fields, backend helpers, SDK exports, and slots that the reference lists. If something I want is not possible with them, tell me instead of changing the Panel's own files.
+```
+
+An extension runs with full access to your Panel. Read and understand an assistant's code before you install it, as you would an extension from a stranger.

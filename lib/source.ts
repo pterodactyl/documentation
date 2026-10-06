@@ -63,7 +63,9 @@ ${JSON.stringify(operation, null, 2)}
     return [`# ${page.data.title}`, page.data.description, ...sections].filter(Boolean).join('\n\n');
   }
 
-  const processed = await page.data.getText('processed');
+  // Interactive widgets (<SetupPanel />, <ArchitectureTour />, ...) mean nothing as text;
+  // the prose around them carries the same information.
+  const processed = (await page.data.getText('processed')).replace(/^<[A-Z][A-Za-z]*(?:\s[^\n]*)?\/>\n?/gm, '');
 
   return `# ${page.data.title}
 

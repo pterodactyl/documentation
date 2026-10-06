@@ -1,6 +1,5 @@
 {
   "title": "Community Guides",
-  "root": true,
   "pages": [
     "tutorials",
     "configuration",

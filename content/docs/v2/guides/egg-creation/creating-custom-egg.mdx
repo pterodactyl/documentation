@@ -5,17 +5,15 @@ description: Import an egg, or create your own, and organize eggs with tags.
 
 ## Introduction
 
-An egg tells the Panel how to install and run one kind of server, such as a Minecraft server or a Discord bot. It defines the Docker image the server runs in, the command that starts it, the settings users may change, and the script that installs it.
-
-In Pterodactyl 1.x, eggs belonged to nests. In 2.0, nests are gone, and you organize eggs with [tags](../../project/terminology.mdx) instead.
+An egg tells the Panel how to install and run one kind of server, such as a Minecraft server or a Discord bot: its Docker image, startup command, user-editable settings, and install script. You organize eggs with [tags](../../project/terminology.mdx).
 
 <Callout type="warn">
-Do not edit the eggs that ship with the Panel. Every Panel update replaces them with their latest versions, and your changes are lost. To change one, export it, import it as a new egg, and edit the copy.
+Do not edit the eggs that ship with the Panel. Every Panel update replaces them, and your changes are lost. To change one, export it, import it as a new egg, and edit the copy.
 </Callout>
 
-Eggs are managed under **Admin → Eggs**. You may get a new egg in three ways:
+Manage eggs under **Admin → Eggs**. There are three ways to add one:
 
-- **Browse Catalog** finds and imports eggs from the community catalog at [eggs.pterodactyl.io](https://eggs.pterodactyl.io).
+- **Browse Catalog** imports eggs from the community catalog at [eggs.pterodactyl.io](https://eggs.pterodactyl.io).
 - **Import Egg** uploads an egg file you already have.
 - **New Egg** creates an egg from scratch.
 
@@ -23,13 +21,13 @@ Eggs are managed under **Admin → Eggs**. You may get a new egg in three ways:
 
 ### From the Catalog
 
-Click **Browse Catalog**. Search by name or description, or pick a **Category**, then click **Import** on the egg you want. The Panel downloads the egg and adds it with its variables and install script.
+Click **Browse Catalog**. Search by name or description, or pick a **Category**, then click **Import** on the egg you want. The Panel adds it with its variables and install script.
 
-The Panel keeps the catalog for an hour. Click **Refresh Catalog** to load the latest list.
+The catalog is cached for an hour. Click **Refresh Catalog** to load the latest list.
 
 ### From a File
 
-Click **Import Egg**, choose the egg's `.json` file, and click **Import Egg**. The Panel accepts eggs exported from Pterodactyl 1.x and 2.x.
+Click **Import Egg**, choose the egg's `.json` file, and click **Import Egg**. Eggs exported from Pterodactyl 1.x and 2.x are accepted.
 
 An imported egg has no tags. Add them on the egg's **Tags** tab.
 
@@ -41,7 +39,7 @@ Click **New Egg**. The form has two sections.
 
 - **Name:** The name users see as their server's type.
 - **Description:** A description of the egg.
-- **Force Outgoing IP:** Makes the server's outgoing traffic use its primary allocation's IP address. Turn this on for games that check the address a server connects from. It also stops the server from reaching other servers on the node through the internal network.
+- **Force Outgoing IP:** Sends the server's outgoing traffic from its primary allocation's IP address. Use it for games that check the address a server connects from. It also blocks the server from reaching other servers on the node over the internal network.
 - **Docker Images:** The images servers may run in, one per line. See [Docker Images](./egg-docker-images.mdx).
 - **Startup Command:** The command that starts the server. See [Startup and Configuration](./egg-config-parser.mdx).
 - **Features:** Optional, comma-separated names of [features](#features) that help users fix common problems, such as `eula` for Minecraft.
@@ -50,19 +48,19 @@ Click **New Egg**. The form has two sections.
 
 These settings control how Wings starts, watches, and stops the server. See [Startup and Configuration](./egg-config-parser.mdx) for each one.
 
-Click **Create Egg**. The Panel opens the new egg. Next, add its [variables](./egg-variables.mdx) and its [install script](./egg-install-script.mdx).
+Click **Create Egg**. The Panel opens the new egg, where you add its [variables](./egg-variables.mdx) and [install script](./egg-install-script.mdx).
 
 ### Features
 
-A feature watches the server's console for a known problem, and shows the user a message that helps them fix it. The Panel includes these features:
+A feature watches the console for a known problem and shows the user how to fix it. Built-in features:
 
 | Feature | What It Does |
 | --- | --- |
 | `eula` | Asks the user to accept Minecraft's EULA when the server will not start without it. |
-| `java_version` | Lets the user choose another Docker image when the server needs a different Java version. |
-| `gsl_token` | Tells the user when the server's Steam Game Server Login Token is missing or invalid. |
+| `java_version` | Lets the user pick another Docker image when the server needs a different Java version. |
+| `gsl_token` | Warns when the server's Steam Game Server Login Token is missing or invalid. |
 | `pid_limit` | Explains that the server has started too many processes. |
-| `steam_disk_space` | Tells the user when SteamCMD runs out of disk space. |
+| `steam_disk_space` | Warns when SteamCMD runs out of disk space. |
 | `hytale_oauth` | Shows the sign-in link when a Hytale server asks for authentication. |
 
 Extensions may add their own features.
@@ -71,27 +69,27 @@ Extensions may add their own features.
 
 An egg's page has four tabs:
 
-- **Configuration:** The settings you entered when you created it.
-- **Tags:** The tags assigned to the egg.
-- **Variables:** The settings users and administrators may change for each server. See [Egg Variables](./egg-variables.mdx).
+- **Configuration:** The settings you entered at creation.
+- **Tags:** The egg's tags.
+- **Variables:** Per-server settings that users and administrators can change. See [Egg Variables](./egg-variables.mdx).
 - **Install Script:** The script that installs the server. See [Install Scripts](./egg-install-script.mdx).
 
-The buttons at the top of the page do the following:
+Buttons at the top of the page:
 
-- **Export** downloads the egg as a `.json` file. Settings the egg copies from another egg are written into the file, so the file works on its own.
-- **Update From File** replaces the egg's settings with those from a file. Variables that are not in the file are removed. Servers that already use the egg keep their startup command and Docker image.
-- **Delete Egg** deletes the egg. You cannot delete an egg that servers use, or that other eggs copy their settings from.
+- **Export** downloads the egg as a `.json` file. Settings inherited from another egg are written in, so the file is self-contained.
+- **Update From File** replaces the egg's settings with a file's. Variables missing from the file are removed. Servers already using the egg keep their startup command and Docker image.
+- **Delete Egg** deletes the egg. You cannot delete an egg that servers use, or that other eggs copy settings from.
 
 ## Organizing Eggs With Tags
 
 Tags group related eggs, such as every Minecraft egg. To create one, open **Admin → Tags**, click **New Tag**, and enter:
 
 - **Name:** The label shown throughout the Panel.
-- **Slug:** A short, stable identifier used by the API, such as `minecraft`. It cannot be only numbers.
-- **Color:** Optional. A hexadecimal color for the tag.
+- **Slug:** A short, stable API identifier, such as `minecraft`. It cannot be only numbers.
+- **Color:** Optional. A hexadecimal color.
 
-Then open an egg, select its **Tags** tab, choose the tags under **Assigned Tags**, and click **Save tags**.
+To assign tags, open an egg's **Tags** tab, choose tags under **Assigned Tags**, and click **Save tags**.
 
-Some slugs are reserved for built-in game tags: `srcds`, `bedrock`, `minecraft`, `rust`, `garrysmod`, `fivem`, and `voice`. When you create a tag with one of these slugs, the Panel sets its name and color, such as **Minecraft** for `minecraft`, and you cannot edit or delete it afterwards.
+These slugs are reserved for built-in game tags: `srcds`, `bedrock`, `minecraft`, `rust`, `garrysmod`, `fivem`, and `voice`. A tag created with one of them gets its name and color from the Panel, such as **Minecraft** for `minecraft`, and cannot be edited or deleted.
 
-A new installation has no tags, and the eggs that ship with the Panel have none assigned. When you upgrade from 1.x, the Panel creates tags from your nests instead. See [Nests Are Replaced by Tags](../../upgrading/changes-from-v1.mdx#nests-are-replaced-by-tags).
+A new installation has no tags, and the bundled eggs have none assigned. Upgrading from 1.x creates tags from your nests. See [Nests Are Replaced by Tags](../../upgrading/changes-from-v1.mdx#nests-are-replaced-by-tags).
