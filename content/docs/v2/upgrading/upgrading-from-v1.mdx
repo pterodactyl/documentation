@@ -145,6 +145,8 @@ mv /var/www/pterodactyl /var/www/pterodactyl-1.x
 mv /var/www/pterodactyl-2.0 /var/www/pterodactyl
 ```
 
+Add the `/assets/` block for your web server from [Webserver Configuration](../panel/webserver-configuration.mdx) to your existing configuration, then reload the web server.
+
 Finally, clear the caches and restart PHP and the queue worker:
 
 ```bash
@@ -166,7 +168,7 @@ php artisan up
 
 You do not need to change these:
 
-- **Server configuration.** Your NGINX configuration, cron entry, and `pteroq` service work without changes.
+- **Server configuration.** Your cron entry and `pteroq` service work without changes.
 - **Environment file.** Your `.env` file works as it is. 2.0 still reads the 1.x setting names, such as `CACHE_DRIVER`.
 - **Wings.** Wings 1.13.2 works with the 2.0 Panel. You can upgrade Wings later.
 - **Users.** Passwords, two-factor authentication, and SSH keys keep working.
