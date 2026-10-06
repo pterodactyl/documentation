@@ -1,0 +1,30 @@
+app/layout.tsx
+  s_6c8dd67bf20fa7::t_8feb6192b702e1 31,34-35
+app/page.tsx
+  s_6c8dd67bf20fa7::t_1fb403117eb6ed 7
+  s_6c8dd67bf20fa7::t_c0dee7f55a86db 147
+components/wordmark.tsx
+  s_6c8dd67bf20fa7::t_553ac31149aee9 10-12
+app/global.css
+  s_6c8dd67bf20fa7::t_cc5d9c32eb586f 113-142
+  s_6c8dd67bf20fa7::t_580df34237f270 150-175
+  s_6c8dd67bf20fa7::t_2b5765735da724 206-209
+public/pterodactyl-lockup-light.svg
+  s_6c8dd67bf20fa7::t_90bcd3658df0b7 1-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2e6a3501e3530619f6b9918a18c0fd5c75ad1a9a",
+  "prompts": {},
+  "sessions": {
+    "s_6c8dd67bf20fa7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8a1d6075-1823-4013-8b5e-8bc1e58afbdb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
