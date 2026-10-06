@@ -376,6 +376,63 @@ ExtensionSettingDefinition::make('webhook_token', 'webhook_token', '', ['nullabl
 
 A secret uses a password control, is encrypted in the database, and is returned blank to the admin form. An empty update keeps the saved secret. Secrets cannot use `frontend()`. Choosing `field('password')` on its own does not enable encryption.
 
+### Form Fields
+
+An extension may add its own fields to the Panel's admin forms for users, nodes, servers, eggs, locations, mounts, and database hosts. The values are submitted with the form, validated with your rules, and saved in the same request as the Panel's own changes. Register the fields in your provider with `registerFormFields`, passing the form, your validation rules, and optionally callbacks to load and save the values.
+
+Server Notes lets administrators edit a server's note from the server's admin page:
+
+```php
+use Pterodactyl\Models\Server;
+use ServerNotes\Models\Note;
+
+public function boot(): void
+{
+    // ...
+
+    $this->registerFormFields(
+        'admin.server',
+        ['body' => ['nullable', 'string', 'max:2000']],
+        fn (Server $server): array => ['body' => Note::query()->where('server_id', $server->id)->value('body') ?? ''],
+        fn (Server $server, array $values) => Note::query()->updateOrCreate(
+            ['server_id' => $server->id],
+            ['body' => $values['body'] ?? ''],
+        ),
+    );
+}
+```
+
+The forms are `admin.user`, `admin.node`, `admin.server`, `admin.egg`, `admin.location`, `admin.mount`, and `admin.databaseHost`. Each one covers both the create and edit pages for that resource.
+
+The load callback receives the saved resource and returns its current values, keyed by field. The save callback receives the saved resource and the submitted values. It only receives fields you declared rules for, and only the ones that were submitted, so read each value with a fallback.
+
+For the `admin.user` and `admin.server` forms the callbacks are optional. Without them, the values are stored in your [scoped settings](#scoped-settings-and-secrets) for that user or server, keyed by field name. Your backend code can then read them with `$this->settings()->forUser($user)->get('plan')`. The other forms have nothing to store values against, so they require both callbacks.
+
+The Panel prefixes your rules with `extensions.{id}.` and only applies them when the request includes your extension's values. API clients that never send them are not affected, and your stored values stay as they are. A rule that refers to another field must use the full path, such as `required_if:extensions.server-notes.mode,custom`.
+
+A field's value must be a string, a number, a boolean, `null`, or a list of strings and numbers. The Panel rejects any other value with a validation error. If your load callback returns one, or throws, the failure is recorded against your extension in **Admin → Extensions**.
+
+#### Saving
+
+Your save callback runs inside the same database transaction as the Panel's change. If it throws, the whole change is rolled back and the request fails, so nothing is half saved. Creating a server is the exception: Wings reads the new server while it installs it, so the server is committed first and your values are saved once provisioning succeeds.
+
+While your extension is disabled, or fails to load, its fields are neither validated nor saved.
+
+#### The API
+
+The fields are part of the Admin API. The create and update endpoints for each resource accept an `extensions` object, keyed by extension ID and then by field. For example, alongside the other fields of a server details update:
+
+```json
+{
+    "name": "Survival",
+    "extensions": {
+        "server-notes": { "body": "Restart nightly at 04:00." }
+    }
+}
+```
+
+`GET /api/admin/extensions/forms/{form}/{id}` returns the current values of every extension with fields on that form. It needs the same read permission as the resource itself. The Panel's forms use it to fill in your fields. See [Native Forms](#native-forms) to render them.
+
 ### Server Operation Events
 
 To react to a completed server operation, register a listener with `listenToServerOperations` in your provider. It receives a `Pterodactyl\Events\Server\OperationCompleted` object with the server UUID, operation, success flag, and resource UUID.
@@ -676,7 +733,7 @@ it('shows the file name with native details', () => {
 
 `createTestServerCard` provides a server-card fixture. Override its `state` to test loading, unavailable, or ready presentation. Component test hosts provide the native view and parts without issuing core queries.
 
-### File Actions and Native Forms
+### File Actions
 
 The file manager has slots for its toolbar, row actions, and selected-file actions. They receive the current server, directory, files, selected names, and callbacks to refresh or change the selection. A row action also receives its file.
 
@@ -696,7 +753,11 @@ slots.register('server.files.toolbar', RefreshFiles);
 
 Wrap asynchronous click handlers in `useExtensionAction` so failures are attributed to your extension. Use the SDK's file mutations for writes, and check the user's permission on both the frontend and backend.
 
-The `panel.users.detail.form` slot receives the native user form. Contributed controls and validators use its existing values and save with the Panel's **Save Changes** action:
+### Native Forms
+
+Every admin create and edit form has a slot inside the form itself, such as `panel.servers.create.form` and `panel.servers.detail.details.form`. The [admin slot reference](./reference.mdx#native-form-slots) lists all fourteen. The slot receives the native `form`, `kind` (the form's name, such as `admin.server`), and `mode`, which is `'create'` or `'edit'`. Edit slots also receive the saved `resource`.
+
+Controls you add with `form.AppField` share the form's validation, pending state, and **Save** button. You can render one of the Panel's own fields again, or add a validator to it:
 
 ```tsx
 slots.register('panel.users.detail.form', ({ data }) => (
@@ -709,9 +770,35 @@ slots.register('panel.users.detail.form', ({ data }) => (
 ));
 ```
 
-Use the existing fields in `AdminUserFormValues`. Keep extension-specific values in scoped settings or your own endpoint. The slot does not add arbitrary fields to the Panel's user API.
+To add a field of your own, register it on the backend with [`registerFormFields`](#form-fields), then render it under `extensions.{id}.{field}`. Declare the field's type once, so the name and value are checked:
 
-The `server.startup.form` slot receives the current startup configuration, pending state, and a `setDockerImage` callback that checks the user's permission and keeps the native cache current. See [Slot Data](./reference.mdx#slot-data) for these contracts.
+```tsx
+declare module '@pterodactyl/sdk' {
+    interface ExtensionFormFieldMap {
+        'admin.server': { 'server-notes': { body: string } };
+    }
+}
+
+// In setup:
+slots.register('panel.servers.create.form', ({ data }) => (
+    <data.form.AppField name="extensions.server-notes.body" defaultValue="">
+        {(field) => <field.TextAreaField label="Server note" />}
+    </data.form.AppField>
+));
+slots.register('panel.servers.detail.details.form', ({ data }) => (
+    <data.form.AppField name="extensions.server-notes.body">
+        {(field) => <field.TextAreaField label="Server note" />}
+    </data.form.AppField>
+));
+```
+
+`ExtensionFormFieldMap` is keyed by form, then by your extension ID. Without the declaration, the Panel's forms do not know your fields, and TypeScript rejects the field name.
+
+Only pass `defaultValue` on create forms. A field's `defaultValue` replaces the form's value until the user edits the field, so on an edit form it would overwrite the value the Panel loaded. That is why the example registers the create and edit slots separately.
+
+On an edit page, the Panel loads your current values before it shows the form. It only makes that request when an extension has fields on that form, so forms without extension fields load as before. If your values fail to load, your components are hidden from that form, so a save cannot overwrite what you have stored. The values are saved with the Panel's own change; see [Form Fields](#form-fields) for how they are validated and stored.
+
+The `server.startup.form` slot is not a form you add fields to. It receives the current startup configuration, pending state, and a `setDockerImage` callback that checks the user's permission and keeps the native cache current. See [Slot Data](./reference.mdx#slot-data) for these contracts.
 
 ### Using Panel Data
 

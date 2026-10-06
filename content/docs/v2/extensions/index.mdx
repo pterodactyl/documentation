@@ -130,3 +130,5 @@ An extension marked **invalid** has a broken `extension.json` file. It cannot be
 When an extension's content fails to load, users see a message with a recovery action. Render failures offer a retry; failed screen files require a page reload. Frontend failures seen by the current browser are also shown in **Admin → Extensions**. Open your browser's developer console for the full error.
 
 Also check that the extension is enabled, and reload the page. The Panel only loads extension changes when the page is reloaded.
+
+Fields that an extension adds to an admin form, such as the server or user forms, are hidden on an edit page when the extension's stored values cannot be loaded. This stops a save from overwriting them. The cause is recorded on the extension's card in **Admin → Extensions**.

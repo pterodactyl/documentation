@@ -89,6 +89,7 @@ The `Pterodactyl\Extensions\ExtensionProvider` class offers these protected meth
 | `registerSettings($definition)` | Register the extension's settings. |
 | `settings()` | Return the extension's key-value settings store. |
 | `registerPermissions($description, $keys)` | Register permission keys and their descriptions under `ext.{id}.{key}`. |
+| `registerFormFields($form, $rules, $load = null, $save = null)` | Add fields to a native admin form. See [Form Fields](#form-fields). |
 | `listenToServerOperations($listener)` | Listen for an immutable `OperationCompleted` result; errors are recorded against the extension. |
 | `loadExtensionViews()` | Load Blade views from `resources/views`, as `ext-{id}::view`. |
 | `loadExtensionTranslations()` | Load translations from `resources/lang`, as `ext-{id}::key`. |
@@ -163,6 +164,31 @@ You may also use these core permission names:
 | Schedules | `schedule.create`, `schedule.read`, `schedule.update`, `schedule.delete` |
 | Settings | `settings.rename`, `settings.reinstall` |
 | Activity | `activity.read` |
+
+### Form Fields
+
+`registerFormFields($form, $rules, $load = null, $save = null)` adds fields to a native admin form. `$rules` are Laravel validation rules keyed by field; field names start with a lowercase letter and use letters, digits, and underscores. `$load` is called as `$load($resource)` and returns the current values. `$save` is called as `$save($resource, $values)` with the submitted fields you declared.
+
+| Form | Pages | Resource | Without callbacks |
+| --- | --- | --- | --- |
+| `admin.user` | Create user, user details | `User` | Stored in `settings()->forUser($user)` |
+| `admin.node` | Create node, node Settings tab | `Node` | Callbacks required |
+| `admin.server` | Create server, server Details tab | `Server` | Stored in `settings()->forServer($server)` |
+| `admin.egg` | Create egg, egg Configuration tab | `Egg` | Callbacks required |
+| `admin.location` | Create location, location details | `Location` | Callbacks required |
+| `admin.mount` | Create mount, mount details | `Mount` | Callbacks required |
+| `admin.databaseHost` | Create database host, database host details | `DatabaseHost` | Callbacks required |
+
+Pass both callbacks or neither. An extension may register fields for each form once. Registering an unknown form, an empty rule set, or an invalid field name stops the extension from loading.
+
+| Behaviour | Detail |
+| --- | --- |
+| Request shape | The create and update endpoints of each resource accept `extensions: { [extensionId]: { [field]: value } }`. |
+| Validation | Rules are applied as `extensions.{id}.{field}`, and only when the request includes the extension's values. Cross-field rules must use the full path. |
+| Values | A string, number, boolean, `null`, or a list of strings and numbers. Anything else fails validation. |
+| Saving | Inside the same database transaction as the core change, except server creation, which saves after provisioning succeeds. An exception from `$save` fails the request. |
+| Loading | `GET /api/admin/extensions/forms/{form}/{id}` returns every extension's values, keyed by extension ID. It needs the resource's read permission. A `$load` that throws or returns an invalid value is recorded with an `ExtensionLoadFailed` event in the `form` phase, and that extension's values are left out. |
+| Availability | Fields of a disabled or failed extension are neither validated, saved, nor loaded. |
 
 ### Events
 
@@ -390,7 +416,12 @@ The SDK also exports `toast`, for notifications.
 | `ExtensionResourceContext` | The typed admin resource union with `kind` and `resource`. |
 | `FileManagerSlotData`, `FileRowSlotData` | Native file context, selection, and callbacks; the row contract also has `file`. |
 | `StartupFormSlotData` | Startup configuration and native callbacks. |
-| `AdminUserFormSlotData`, `AdminUserFormValues` | The native user resource, bound form, and its existing field names. |
+| `AdminUserFormSlotData`, `AdminUserFormValues` | The native user resource, bound form, and its field names. |
+| `CreateFormSlotData`, `EditFormSlotData` | The data of a create or edit form slot: `kind`, `mode`, `form`, and on edit forms `resource`. |
+| `FormSlotName`, `FormSlotDataMap` | The native form slot names and the data each one receives. |
+| `ExtensionFormName`, `ExtensionFormResources` | The form names accepted by `registerFormFields`, and the resource type of each. |
+| `ExtensionFormFieldMap` | An interface to augment with your fields' types, keyed by form and then by extension ID. |
+| `ExtensionFieldValues`, `ExtensionFieldValue` | The `extensions` values of a form, and the type of one field value. |
 | `ExtensionTableRows`, `ExtensionTableName`, `ExtensionTableColumn` | Native table row and column contracts. |
 | `ComponentName`, `ReplacementProps`, `ComponentPartProps`, `ComponentParts`, `DefaultComponentProps` | Component replacement names, props, native parts, and default-view props. |
 | `ServerCardModel`, `ServerCardState`, `ServerCardMetric`, `FileDetailsModel` | Read-only presentation models. |
@@ -448,9 +479,11 @@ Slots are named places on the Panel's pages where extensions may render componen
 | `FileRowSlotData` | The file manager fields, plus the current `file`. |
 | `StartupFormSlotData` | `server`, `configuration`, `isPending`, `canChangeDockerImage`, `setDockerImage(image)`, and `refresh()`. |
 | `ExtensionResourceContext` | `kind` and the matching native `resource`. Detail action slots narrow this to their own resource kind. |
-| `AdminUserFormSlotData` | `kind: 'admin.user'`, `resource`, and the native `form`. Use `form.AppField` for existing user fields. |
+| `CreateFormSlotData` | `kind`, `mode: 'create'`, and the native `form`. |
+| `EditFormSlotData` | `kind`, `mode: 'edit'`, the saved `resource`, and the native `form`. |
+| `AdminUserFormSlotData` | The `EditFormSlotData` of the user details form, with `kind: 'admin.user'`. |
 
-The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `password`, `rootAdmin`, and `language`. Contributed controls share validation, pending state, submission, and persistence with the Panel's form. Extension-specific values need scoped settings or an extension endpoint.
+The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `password`, `rootAdmin`, and `language`. Every native form also has an `extensions` field holding the values of fields that extensions registered with `registerFormFields`; render yours as `extensions.{id}.{field}`. Contributed controls share validation, pending state, submission, and persistence with the Panel's form.
 
 ### Navigation Slots
 
@@ -540,6 +573,8 @@ The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `p
 
 ### Admin Slots
 
+The slots inside the native admin forms are listed under [Native Form Slots](#native-form-slots).
+
 | Slot | Location | Position | `data` |
 | --- | --- | --- | --- |
 | `panel.navigation.before` | Admin navigation | Before | None |
@@ -553,7 +588,6 @@ The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `p
 | `panel.users.detail.before` | User details page | Before | `RouteSlotData` |
 | `panel.users.detail.after` | User details page | After | `RouteSlotData` |
 | `panel.users.detail.actions` | User detail header | Actions | `admin.user` resource context |
-| `panel.users.detail.form` | Native user form | Inside | `AdminUserFormSlotData` |
 | `panel.locations.before` | Locations list | Before | `RouteSlotData` |
 | `panel.locations.after` | Locations list | After | `RouteSlotData` |
 | `panel.locations.detail.before` | Location details page | Before | `RouteSlotData` |
@@ -636,3 +670,23 @@ The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `p
 | `panel.apiKeys.before` | API keys page | Before | `RouteSlotData` |
 | `panel.apiKeys.after` | API keys page | After | `RouteSlotData` |
 
+### Native Form Slots
+
+These slots render inside the native admin forms, just before the form's actions. `panel.users.detail.form` is the exception: it renders above the user form's fields. Their components can render fields bound to the form; see [Native Forms](./building.mdx#native-forms).
+
+| Slot | Form | Page | `data` |
+| --- | --- | --- | --- |
+| `panel.users.create.form` | `admin.user` | Create user page | `CreateFormSlotData` |
+| `panel.users.detail.form` | `admin.user` | User details page | `AdminUserFormSlotData` |
+| `panel.nodes.create.form` | `admin.node` | Create node page | `CreateFormSlotData` |
+| `panel.nodes.detail.settings.form` | `admin.node` | Node Settings tab | `EditFormSlotData` |
+| `panel.servers.create.form` | `admin.server` | Create server page | `CreateFormSlotData` |
+| `panel.servers.detail.details.form` | `admin.server` | Server Details tab | `EditFormSlotData` |
+| `panel.eggs.create.form` | `admin.egg` | Create egg page | `CreateFormSlotData` |
+| `panel.eggs.detail.configuration.form` | `admin.egg` | Egg Configuration tab | `EditFormSlotData` |
+| `panel.locations.create.form` | `admin.location` | New location dialog | `CreateFormSlotData` |
+| `panel.locations.detail.form` | `admin.location` | Location details page | `EditFormSlotData` |
+| `panel.mounts.create.form` | `admin.mount` | Create mount page | `CreateFormSlotData` |
+| `panel.mounts.detail.form` | `admin.mount` | Mount details page | `EditFormSlotData` |
+| `panel.databaseHosts.create.form` | `admin.databaseHost` | Create database host page | `CreateFormSlotData` |
+| `panel.databaseHosts.detail.form` | `admin.databaseHost` | Database host details page | `EditFormSlotData` |
