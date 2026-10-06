@@ -7,7 +7,6 @@ export function baseOptions(): BaseLayoutProps {
       title: <Wordmark />,
       url: '/',
     },
-    themeSwitch: { enabled: false },
     githubUrl: 'https://github.com/pterodactyl',
     links: [
       { text: 'Eggs', url: 'https://eggs.pterodactyl.io', external: true },

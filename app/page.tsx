@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 import { source } from '@/lib/source';
 import { Wordmark } from '@/components/wordmark';
 import { HomeSearch } from '@/components/home-search';
+import { ThemeSwitch } from 'fumadocs-ui/layouts/shared/slots/theme-switch';
 
 export const metadata: Metadata = {
   title: { absolute: 'Pterodactyl Documentation' },
@@ -143,6 +144,7 @@ export default function HomePage() {
             <a href="https://pterodactyl.io" className="hidden text-ui text-fg-subtle transition-colors hover:text-white sm:block">
               pterodactyl.io
             </a>
+            <ThemeSwitch />
             <a
               href="https://github.com/pterodactyl"
               aria-label="Pterodactyl on GitHub"

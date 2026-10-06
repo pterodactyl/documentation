@@ -28,11 +28,11 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en" className={`dark ${plex.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${plex.variable} ${jetbrains.variable}`} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
         <RootProvider
-          // Dark only, like the panel these pages document.
-          theme={{ enabled: false }}
+          // Dark by default, like the panel these pages document.
+          theme={{ defaultTheme: 'dark' }}
           search={{ SearchDialog }}
         >
           {children}

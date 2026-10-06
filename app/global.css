@@ -110,15 +110,69 @@
   --font-mono: var(--font-jetbrains), ui-monospace, 'SF Mono', monospace;
 }
 
+/* Light mode swaps canvas and ink, and deepens the data colours for contrast. */
+:root:not(.dark) {
+  --color-black: #ffffff;
+  --color-white: #0a0a0a;
+
+  --color-accent-soft: rgba(61, 123, 253, 0.1);
+  --color-accent-glow: rgba(61, 123, 253, 0.35);
+
+  --color-fg-strong: rgba(10, 10, 10, 0.85);
+  --color-fg-muted: rgba(10, 10, 10, 0.65);
+  --color-fg-subtle: rgba(10, 10, 10, 0.55);
+  --color-fg-faint: rgba(10, 10, 10, 0.4);
+  --color-fg-dim: rgba(10, 10, 10, 0.3);
+  --color-fg-ghost: rgba(10, 10, 10, 0.25);
+
+  --color-hairline: rgba(10, 10, 10, 0.08);
+  --color-hairline-strong: rgba(10, 10, 10, 0.14);
+  --color-tick: rgba(10, 10, 10, 0.3);
+
+  --color-surface: rgba(10, 10, 10, 0.02);
+  --color-surface-raised: rgba(10, 10, 10, 0.05);
+  --color-surface-flat: #fafafa;
+  --color-surface-raised-flat: #f3f3f3;
+
+  --color-red: #dc2626;
+  --color-green: #16a34a;
+  --color-yellow: #ca8a04;
+  --color-blue: #2563eb;
+}
+
 /* ==================================================================== *
  * Fumadocs, re-inked
  *
  * The docs chrome (sidebar, contents rail, search, code blocks) is
  * Fumadocs'. It reads its colours from these variables, so the system is
  * applied here once instead of by overriding components one by one.
- * The site is dark only, like the panel it documents.
  * ==================================================================== */
-:root,
+:root {
+  --color-fd-background: #ffffff;
+  --color-fd-foreground: rgba(10, 10, 10, 0.85);
+  --color-fd-muted: #f3f3f3;
+  --color-fd-muted-foreground: rgba(10, 10, 10, 0.55);
+  --color-fd-popover: #fafafa;
+  --color-fd-popover-foreground: rgba(10, 10, 10, 0.85);
+  --color-fd-card: #fafafa;
+  --color-fd-card-foreground: #0a0a0a;
+  --color-fd-border: rgba(10, 10, 10, 0.08);
+  --color-fd-primary: #0a0a0a;
+  --color-fd-primary-foreground: #ffffff;
+  --color-fd-secondary: #f3f3f3;
+  --color-fd-secondary-foreground: rgba(10, 10, 10, 0.85);
+  --color-fd-accent: rgba(10, 10, 10, 0.05);
+  --color-fd-accent-foreground: #0a0a0a;
+  --color-fd-ring: #3d7bfd;
+  --color-fd-overlay: rgba(0, 0, 0, 0.3);
+
+  --color-fd-info: #2563eb;
+  --color-fd-warning: #ca8a04;
+  --color-fd-error: #dc2626;
+  --color-fd-success: #16a34a;
+  --color-fd-idea: #ca8a04;
+}
+
 .dark {
   --color-fd-background: #0a0a0a;
   --color-fd-foreground: rgba(245, 245, 245, 0.85);
@@ -149,6 +203,10 @@
 @layer base {
   html {
     background-color: var(--color-black);
+    color-scheme: light;
+  }
+
+  html.dark {
     color-scheme: dark;
   }
 
