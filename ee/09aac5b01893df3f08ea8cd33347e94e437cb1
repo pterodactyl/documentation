@@ -1,0 +1,31 @@
+content/docs/v2/upgrading/upgrading-from-v1.mdx
+  s_6c8dd67bf20fa7::t_32874e233b9cb4 107-120
+  s_6c8dd67bf20fa7::t_4b4e4657e6940b 74,79-82
+  s_6c8dd67bf20fa7::t_0b03e02f0e85ee 34
+content/docs/v2/panel/getting-started.mdx
+  s_6c8dd67bf20fa7::t_37f89c561fc114 65-73
+  s_6c8dd67bf20fa7::t_26cb00a778f1d7 41
+  s_6c8dd67bf20fa7::t_dc5bab69eb42eb 83,86-89,93-98
+content/docs/v2/guides/tutorials/artisan.mdx
+  s_6c8dd67bf20fa7::t_716d39799f455a 147
+content/docs/v2/panel/requirements.mdx
+  s_6c8dd67bf20fa7::t_b6b4a2f34881be 50
+content/docs/v2/panel/updating.mdx
+  s_6c8dd67bf20fa7::t_a0d9f99689479c 29,32-35,41,45-46,94-97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ee09aac5b01893df3f08ea8cd33347e94e437cb1",
+  "prompts": {},
+  "sessions": {
+    "s_6c8dd67bf20fa7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8a1d6075-1823-4013-8b5e-8bc1e58afbdb",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
