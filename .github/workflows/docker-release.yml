@@ -62,3 +62,14 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      # Tells the deployment repo that a new image exists. Where that is and
+      # what it does with the sha live over there.
+      - name: Notify deployment
+        if: github.ref == 'refs/heads/v2'
+        run: |
+          curl -sf -X POST \
+            -H "Authorization: Bearer ${{ secrets.DEPLOY_DISPATCH_TOKEN }}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ secrets.DEPLOY_DISPATCH_REPO }}/dispatches" \
+            -d "{\"event_type\":\"deploy-image\",\"client_payload\":{\"app\":\"ptero-docs\",\"image\":\"${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}\",\"tag\":\"sha-${GITHUB_SHA}\"}}"
