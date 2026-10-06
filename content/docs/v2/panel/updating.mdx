@@ -26,19 +26,24 @@ php artisan down
 
 ### Download the Update
 
-Download the new release and unpack it over the current files. Replace `<version>` with the release you are updating to:
+2.0 has no release yet, so download the latest `2.0-develop` branch and unpack it over the current files:
 
 ```bash
-curl -L https://github.com/pterodactyl/panel/releases/download/<version>/panel.tar.gz | tar -xzv
+curl -Lo panel.zip https://github.com/pterodactyl/panel/archive/refs/heads/2.0-develop.zip
+unzip -q panel.zip
+cp -a panel-2.0-develop/. .
+rm -rf panel-2.0-develop panel.zip
 chmod -R 755 storage/* bootstrap/cache
 ```
 
 ### Update Dependencies
 
-Install the PHP dependencies for the new release:
+Install the PHP dependencies, then rebuild the frontend:
 
 ```bash
 COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
+npm ci
+npm run build:production
 ```
 
 ### Clear Cached Files
@@ -85,6 +90,10 @@ php artisan up
 ```
 
 ## Updating With One Command
+
+<Callout type="error" title="Not until 2.0 is released">
+`p:upgrade` only installs releases, and 2.0 has none yet. Without `--release` it downloads the latest release, which is 1.x, and breaks a 2.0 Panel. Use the manual steps above for now.
+</Callout>
 
 The `p:upgrade` command runs all of the steps above for you. Pass the release you want to install:
 

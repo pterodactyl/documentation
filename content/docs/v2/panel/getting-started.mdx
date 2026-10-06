@@ -38,6 +38,7 @@ The Panel needs:
 - A web server, such as NGINX, Apache, or Caddy.
 - `curl`, `tar`, and `unzip`.
 - Composer 2.
+- Node.js 22.12 or newer, to build the frontend.
 
 On Ubuntu 24.04, install everything with:
 
@@ -61,6 +62,15 @@ Composer is the dependency manager for PHP. Install it with:
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
+### Installing Node.js
+
+Ubuntu's own Node.js package is too old to build the frontend. Install Node.js 22 from NodeSource:
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+apt -y install nodejs
+```
+
 ## Downloading the Panel
 
 Create the directory the Panel will live in, and move into it:
@@ -70,16 +80,22 @@ mkdir -p /var/www/pterodactyl
 cd /var/www/pterodactyl
 ```
 
-Next, download the release archive, unpack it, and make the `storage` and `bootstrap/cache` directories writable:
+2.0 has no release yet, so download the `2.0-develop` branch. Unpack it, and make the `storage` and `bootstrap/cache` directories writable:
 
 ```bash
-curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/<2.0 version>/panel.tar.gz
-tar -xzf panel.tar.gz
-rm panel.tar.gz
+curl -Lo panel.zip https://github.com/pterodactyl/panel/archive/refs/heads/2.0-develop.zip
+unzip -q panel.zip
+cp -a panel-2.0-develop/. .
+rm -rf panel-2.0-develop panel.zip
 chmod -R 755 storage/* bootstrap/cache/
 ```
 
-The archive already contains the built frontend, so you do not need Node.js.
+The branch does not include the built frontend. Build it:
+
+```bash
+npm ci
+npm run build:production
+```
 
 ## Creating the Database
 

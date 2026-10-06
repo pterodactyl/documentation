@@ -31,7 +31,7 @@ Pterodactyl 2.0 needs PHP 8.3 or newer and the `intl` extension. The 1.x install
 apt install php8.3-intl
 ```
 
-You do not need Node.js. The release archive already contains the built frontend.
+You also need Node.js 22.12 or newer to build the frontend. The steps below show how to install it.
 
 ### Update Your Billing Module
 
@@ -71,14 +71,15 @@ tar -czf /root/panel-1.x-files.tar.gz -C /var/www pterodactyl
 
 ### Download 2.0
 
-Create a new directory and unpack the 2.0 release archive into it. Download it by its version number, not through `latest`:
+2.0 has no release yet, so download the `2.0-develop` branch. Create a new directory and unpack it there:
 
 ```bash
 mkdir /var/www/pterodactyl-2.0
 cd /var/www/pterodactyl-2.0
-curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/<2.0 version>/panel.tar.gz
-tar -xzf panel.tar.gz
-rm panel.tar.gz
+curl -Lo panel.zip https://github.com/pterodactyl/panel/archive/refs/heads/2.0-develop.zip
+unzip -q panel.zip
+cp -a panel-2.0-develop/. .
+rm -rf panel-2.0-develop panel.zip
 ```
 
 Then copy your `.env` file from 1.x. You do not need to change it:
@@ -101,6 +102,20 @@ If Composer reports a missing PHP extension, install it and run the command agai
 
 ```bash
 composer check-platform-reqs --no-dev
+```
+
+The branch does not include the built frontend, so build it with Node.js 22.12 or newer. If `node --version` prints an older version, or no version, install Node.js 22 from NodeSource first:
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+apt -y install nodejs
+```
+
+Then build the frontend:
+
+```bash
+npm ci
+npm run build:production
 ```
 
 ### Migrate the Database
