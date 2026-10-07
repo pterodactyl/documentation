@@ -23,6 +23,7 @@ This page lists everything available to extensions. For a guided introduction, s
 | `requires.extensions` | No | Required extension IDs mapped to version constraints. Each dependency must be enabled. |
 | `description` | No | Short description shown in the admin area. |
 | `author` | No | Author shown in the admin area. |
+| `icon` | No | Icon shown for the extension on the admin **Extensions** page, up to 255 characters. Either a [Lucide](https://lucide.dev/icons) icon name in kebab-case, such as `life-buoy`, or the relative path of a PNG, JPEG, or WebP image inside the extension, such as `icon.png`. See [Extension Icons](#extension-icons). Without an icon, the page shows the extension's initials. |
 | `provider` | No | Fully qualified class name of the service provider. Must extend `Pterodactyl\Extensions\ExtensionProvider`. |
 | `autoload` | No | PSR-4 map of namespace prefixes to directories inside the extension, such as `{"ServerNotes\\": "src"}`. |
 | `routes.root` | No | Top-level URL prefixes for `registerRootRoutes`, up to 8, such as `["go"]`. Each is a lowercase slug of up to 48 characters. Prefixes the Panel uses or another enabled extension claims are rejected. |
@@ -67,6 +68,30 @@ Screen URLs use these roots, followed by the screen's `path`:
 | `admin.user` | `/panel/users/{id}` |
 | `admin.egg` | `/panel/eggs/{eggId}` |
 
+### Extension Icons
+
+The `icon` key accepts two forms:
+
+```json
+"icon": "life-buoy"
+```
+
+```json
+"icon": "resources/icon.png"
+```
+
+A value made of lowercase letters, numbers, and single hyphens is a Lucide icon name. A name this Panel does not ship renders the default icon, and `p:extension:doctor` warns about it.
+
+A value ending in `.png`, `.jpg`, `.jpeg`, or `.webp` is an image path, relative to the extension's root and using `/` between directories. No directory or file name may start with a dot, so the path cannot leave the extension. The Panel accepts the image when:
+
+- It is a PNG, JPEG, or WebP image, judged from the file's contents rather than its name. SVG is not supported.
+- It is at most 512 KB and at most 2048 pixels on each side.
+- It resolves to a file inside the extension. A symlink that points outside the extension is refused.
+
+Use a square image of at least 128 pixels. The Panel shows it at 40 pixels, scaled to fit, on the extension's own background.
+
+The Panel serves the image from the installed extension to administrators who can view extensions, at `/api/admin/extensions/{id}/icon`, so it shows while the extension is disabled. It does not need to be in `dist`. The `icon_url` field of the [Admin API](../api/index.mdx)'s extension list holds the image's URL, including a version that changes with the file's contents. An image that is missing or fails these checks leaves `icon_url` empty, and the page shows the extension's initials. The manifest stays valid, and `p:extension:doctor` warns about the image.
+
 Compatibility is checked before activation. Dependencies load first; incompatible packages and dependency cycles are skipped. Disable dependents before disabling or removing a required extension.
 
 <ManifestChecker />
@@ -81,10 +106,10 @@ Compatibility is checked before activation. Dependencies load first; incompatibl
 | `p:extension:disable {id}` | Disable an extension, keeping its files and data. |
 | `p:extension:remove {id}` | Delete an extension's files and published assets, keeping its tables and settings. |
 | `p:extension:list` | List installed extensions and their state. |
-| `p:extension:doctor {path}` | Check an unpacked package's manifest, compatibility, autoload directories, and built files without installing it. |
+| `p:extension:doctor {path}` | Check an unpacked package's manifest, compatibility, autoload directories, and built files without installing it. Warns about icon names this Panel does not ship and icon images it cannot serve. |
 | `p:extension:dev {path}` | Build and publish once. Add `--enable` to enable the package and `--watch` to publish each successful rebuild. Browser reload requires `APP_DEBUG=true`. |
 | `p:extension:types {path}` | Generate literal extension, screen, permission, and public configuration types. Defaults to `src/client/extension-types.ts`; change it with `--output`. Settings and permission definitions load only when the extension is enabled. |
-| `p:extension:pack {path}` | Create a runtime `.pteroext` archive. Defaults to `{id}-{version}.pteroext` in the working directory. Options: `--output`, `--force`. |
+| `p:extension:pack {path}` | Create a runtime `.pteroext` archive, including the image named by `icon`. Defaults to `{id}-{version}.pteroext` in the working directory. Options: `--output`, `--force`. |
 
 ## Backend
 

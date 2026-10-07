@@ -34,7 +34,10 @@ export const COMPONENT_NAMES = ['dashboard.serverCard', 'server.files.details', 
 export const ID_REGEX = '/^[a-z][a-z0-9-]{0,47}$/';
 
 /** ExtensionManifest.php:27 */
-export const ICON_REGEX = '/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/';
+export const ICON_REGEX = '/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/D';
+
+/** ExtensionManifest.php:29 */
+export const ICON_FILE_REGEX = '/^(?:[A-Za-z0-9_-][A-Za-z0-9_.-]*\\/)*[A-Za-z0-9_-][A-Za-z0-9_.-]*\\.(?:png|jpe?g|webp)$/D';
 
 /** ExtensionManifest.php:30 */
 export const RESERVED_IDS = ['pterodactyl', 'panel', 'core'];
@@ -191,6 +194,7 @@ export const STRUCTURE_RULES: StructureRule[] = [
   r('description', ['nullable', 'string'], 'A string or null', 96),
   r('author', ['nullable', 'string'], 'A string or null', 97),
   r('provider', ['nullable', 'string'], 'A string or null', 98),
+  r('icon', ['nullable', 'string', 'max:255'], 'A string of up to 255 characters, or null', 107),
   r('autoload', ['sometimes', 'array'], 'An object', 99),
   r('requires', ['sometimes', 'array:panel,sdk,php,extensions'], 'An object with only panel, sdk, php and extensions', 100),
   r('requires.panel', ['sometimes', 'string', 'max:255'], 'A string of up to 255 characters', 101),
@@ -241,6 +245,8 @@ const CUSTOM_MESSAGES: Record<string, string> = {
   'version.string': 'Manifest field "version" is required and must be a string.',
   'version.max': 'Manifest field "version" must not be longer than 64 characters.',
   'provider.string': 'Manifest "provider" must be a class name string.',
+  'icon.string': 'Manifest "icon" must be a lucide icon name or an image path string.',
+  'icon.max': 'Manifest "icon" must not be longer than 255 characters.',
   'autoload.array': 'Manifest "autoload" must map "Vendor\\\\Prefix\\\\" to a source directory.',
   'ui.array': 'Manifest "ui" must be an object with an "entry" path.',
   'ui.entry.required_with': 'Manifest "ui" must be an object with an "entry" path.',
@@ -895,6 +901,29 @@ export function checkManifest(source: string, options: CheckOptions): ManifestRe
     });
   }
 
+  // ExtensionManifestValidator.php:80-81
+  const icon = value('icon');
+  if (typeof icon === 'string' && icon.length <= 255) {
+    const name = pcre(ICON_REGEX).test(icon);
+    const file = pcre(ICON_FILE_REGEX).test(icon);
+    add({
+      key: 'icon',
+      stage: 'read',
+      group: 'Identity',
+      label: name ? 'Icon is a lucide icon name' : 'Icon is a lucide icon name or an image inside the package',
+      path: 'icon',
+      status: name || file ? 'pass' : 'fail',
+      message:
+        name || file
+          ? undefined
+          : 'Manifest "icon" must be a lucide icon name such as "life-buoy", or the relative path of a .png, .jpg or .webp image inside the package.',
+      note: file
+        ? 'The image must exist, be a PNG, JPEG or WebP of at most 512 KB and 2048 px per side, and stay inside the package. p:extension:doctor checks the file; without it the extension list shows initials.'
+        : undefined,
+      source: `${V}:80-81`,
+    });
+  }
+
   // ExtensionRepository.php:64-66
   if (id !== undefined) {
     const matches = id === options.directory;
@@ -1018,6 +1047,7 @@ export function checkManifest(source: string, options: CheckOptions): ManifestRe
     'autoload',
     'ui',
     'provider',
+    'icon',
     'directory',
   ];
   let rejection: CheckResult | undefined;

@@ -154,6 +154,22 @@ The `extension.json` file in the extension's root tells the Panel what the exten
 
 The `provider` and `autoload` keys load your PHP code. The `ui` key loads your frontend bundle and declares its pages. `ui.prefix` is the Tailwind prefix for your extension's classes, derived from the ID unless you pass `--prefix`. The Panel rejects a build whose Tailwind utilities or theme variables do not use it. Leave out the keys for any half you do not use. See the [Extension Reference](./reference.mdx#manifest) for every key.
 
+### Icon
+
+Administrators see each extension as a card on the **Extensions** page. Without an `icon`, the card shows the extension's initials. Set `icon` to a [Lucide](https://lucide.dev/icons) icon name:
+
+```json
+"icon": "notebook-pen"
+```
+
+Or ship an image in the extension and give its path:
+
+```json
+"icon": "icon.png"
+```
+
+The image must be a PNG, JPEG, or WebP file of at most 512 KB and 2048 pixels on each side. Use a square image of at least 128 pixels. `p:extension:pack` includes it in the package wherever it is, and `p:extension:doctor` warns if the Panel cannot show it. See [Extension Icons](./reference.mdx#extension-icons) for the full rules.
+
 ### Compatibility
 
 Declare the versions your extension supports with `requires.panel`, `requires.sdk`, and `requires.php`. Constraints use Composer syntax, such as `^2.0.0-beta.4` or `>=8.3 <9.0`. The values above match the development Panel and its SDK.

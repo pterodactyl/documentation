@@ -62,7 +62,7 @@ From the Panel root, check the built package before installing it:
 php artisan p:extension:doctor extensions/server-notes
 ```
 
-This checks the manifest, runtime and extension dependencies, autoload directories, and built frontend files, and reports errors without installing the package.
+This checks the manifest, runtime and extension dependencies, autoload directories, and built frontend files, and reports errors without installing the package. It also warns about an `icon` the extensions page cannot show: a Lucide name this Panel does not ship, or an image that is missing, too large, or not a PNG, JPEG, or WebP file.
 
 ### Watching Changes
 
@@ -82,7 +82,7 @@ To create a `.pteroext` archive, run:
 php artisan p:extension:pack extensions/server-notes --output=server-notes.pteroext
 ```
 
-The archive contains the manifest and runtime directories: routes, migrations, resources, built assets, vendor dependencies, and declared PHP autoload directories. It excludes dotfiles, symlinks, `node_modules`, and test or coverage directories. An existing archive is kept unless you pass `--force`.
+The archive contains the manifest, the image named by `icon`, and runtime directories: routes, migrations, resources, built assets, vendor dependencies, and declared PHP autoload directories. It excludes dotfiles, symlinks, `node_modules`, and test or coverage directories. An existing archive is kept unless you pass `--force`.
 
 Check the package's contents before distributing it. Put custom runtime files in a directory the packager includes. Files under the PHP autoload directories, including `src/client`, are included unless the rules above exclude them.
 
