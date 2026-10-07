@@ -1,0 +1,25 @@
+content/docs/v2/project/how-it-works.mdx
+  s_0c078e69478431::t_579fcc6aa4e92d 3,10-20
+content/docs/v2/guides/egg-creation/creating-custom-egg.mdx
+  s_0c078e69478431::t_862a8bc027965c 8
+content/docs/v2/index.mdx
+  s_0c078e69478431::t_a19a73a17ac0e8 15
+next.config.mjs
+  s_0c078e69478431::t_7496758d071b25 16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "bacaebfdf01137f4ba870ad71b8626022cbc4460",
+  "prompts": {},
+  "sessions": {
+    "s_0c078e69478431": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "712c1fd7-2642-4677-8ee0-0f91d015a28e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
