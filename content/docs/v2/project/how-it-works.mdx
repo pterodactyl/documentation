@@ -1,17 +1,23 @@
 ---
 title: How Pterodactyl Works
-description: The parts of Pterodactyl, and the ports they use to talk to each other.
+description: The parts of Pterodactyl, the terms these pages use, and the ports between them.
 ---
 
 Pterodactyl has two parts. The **Panel** is the website where you manage users, nodes, and servers. **Wings** runs on each node and runs your game servers in Docker containers.
 
 <ArchitectureTour />
 
-## The Parts
+## Terms
 
-- **Panel.** A web server (NGINX, Apache, or Caddy) and PHP. It keeps its data in MariaDB or MySQL, and uses Redis for sessions, caching, and background jobs.
-- **Wings.** A service on each node. It runs game servers, streams their consoles to your browser, and serves their files over SFTP.
-- **Game servers.** One Docker container per server, created and managed by Wings. Players connect to them directly, on the ports you assign to each server.
+- **Panel.** The website where you manage users, nodes, and servers. It runs on a web server (NGINX, Apache, or Caddy) with PHP, keeps its data in MariaDB or MySQL, and uses Redis for sessions, caching, and background jobs.
+- **Node.** A machine that runs Wings. One node can host many servers. The Panel and Wings can run on the same machine.
+- **Wings.** The Go service on each node. It runs servers in Docker, streams their consoles to your browser, and serves their files over SFTP.
+- **Server.** A game or application server created in the Panel. Each server runs in its own container on a node, and players connect to it directly on the ports you assign to it.
+- **Container.** The isolated environment Docker creates for each server. It limits the server's CPU, memory, and disk use, and keeps it apart from other servers on the same node.
+- **Docker image.** A package with everything a server needs to run, such as Java for a Minecraft server. Pterodactyl publishes its images as [yolks](../guides/egg-creation/egg-docker-images.mdx).
+- **Egg.** The configuration for one type of server, such as Paper or BungeeCord for Minecraft: its Docker image, startup command, settings, and install script.
+- **Tag.** A label on an egg or a node. Tags group eggs, for example by game, and decide which nodes a server can be deployed to. Tags replace the nests used in 1.x.
+- **Extension.** A package that adds features to the Panel. See [Extensions](../extensions/index.mdx).
 
 ## Ports
 
