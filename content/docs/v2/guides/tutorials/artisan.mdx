@@ -5,7 +5,7 @@ description: Manage users, nodes, servers, and the Panel itself from the command
 
 ## Introduction
 
-Artisan is the command-line interface included with Laravel, the framework the Panel is built on. The Panel adds its own Artisan commands, which all start with `p:`. Run them from the Panel's directory:
+Artisan is the command-line interface of Laravel, the framework the Panel is built on. The Panel's own commands start with `p:`. Run them from the Panel's directory:
 
 ```bash
 cd /var/www/pterodactyl
@@ -18,7 +18,7 @@ To see a command's options, use `help`:
 php artisan help p:user:make
 ```
 
-Most commands ask for any value you do not pass as an option. To run a command without questions, such as in a script, pass every option and add `--no-interaction`.
+Most commands prompt for any value you do not pass as an option. To run one without prompts, such as in a script, pass every option and add `--no-interaction`.
 
 ## Users
 
@@ -28,13 +28,13 @@ Most commands ask for any value you do not pass as an option. To run a command w
 php artisan p:user:make
 ```
 
-The command asks for the user's email address, username, first and last name, password, and whether the user is an administrator. You may pass these as options instead:
+The command asks for the email address, username, first and last name, password, and whether the user is an administrator. You can pass these as options instead:
 
 ```bash
 php artisan p:user:make --email=jane@example.com --username=jane --name-first=Jane --name-last=Doe --admin=0
 ```
 
-The command still asks for the password, so that it does not end up in your shell history. To create the user without a password, add `--no-password`. The Panel then emails the user a link to set one.
+The command still asks for the password, to keep it out of your shell history. To create the user without a password, add `--no-password`. The Panel then emails the user a link to set one.
 
 ### Deleting a User
 
@@ -42,18 +42,18 @@ The command still asks for the password, so that it does not end up in your shel
 php artisan p:user:delete --user=jane@example.com
 ```
 
-The `--user` option matches the start of a user's ID, username, or email address. The command lists the matching users and asks which one to delete. A user who still owns servers cannot be deleted.
+`--user` matches the start of a user's ID, username, or email address. The command lists the matches and asks which one to delete. A user who still owns servers cannot be deleted.
 
 ### Disabling Two-Factor Authentication
 
-If a user loses access to their two-factor device and recovery codes, you may turn off two-factor authentication for them:
+If a user loses their two-factor device and recovery codes, turn off two-factor authentication for them:
 
 ```bash
 php artisan p:user:disable2fa --email=jane@example.com
 ```
 
 <Callout type="warn">
-Only do this after you have confirmed the user's identity. Anyone who knows the user's password can then sign in.
+Confirm the user's identity first. Afterward, anyone who knows the user's password can sign in.
 </Callout>
 
 ## Locations and Nodes
@@ -73,7 +73,7 @@ A location that still has nodes cannot be deleted.
 php artisan p:node:make
 ```
 
-The command asks for the same details as the **New node** page in the admin area, including the node's location ID, domain name, ports, and resource limits. Run `php artisan help p:node:make` to see the matching options.
+The command asks for the same details as the admin area's **New node** page, including the location ID, domain name, ports, and resource limits. Run `php artisan help p:node:make` for the matching options.
 
 ### Listing Nodes
 
@@ -81,17 +81,17 @@ The command asks for the same details as the **New node** page in the admin area
 php artisan p:node:list
 ```
 
-Add `--format=json` to get the list as JSON.
+Add `--format=json` for JSON output.
 
 ### Showing a Node's Configuration
 
-This prints the Wings configuration for a node, the same file the node's **Configuration** tab shows. Pass the node's ID or UUID:
+Prints a node's Wings configuration, the same file its **Configuration** tab shows. Pass the node's ID or UUID:
 
 ```bash
 php artisan p:node:configuration 1
 ```
 
-You may save it straight to Wings' configuration file when the Panel and Wings run on the same machine:
+If the Panel and Wings run on the same machine, you can save it straight to Wings' configuration file:
 
 ```bash
 php artisan p:node:configuration 1 > /etc/pterodactyl/config.yml
@@ -103,7 +103,7 @@ Add `--format=json` to print it as JSON.
 
 ### Power Actions for Many Servers
 
-`p:server:bulk-power` sends a power action to many servers at once. The action is `start`, `stop`, `restart`, or `kill`:
+`p:server:bulk-power` sends `start`, `stop`, `restart`, or `kill` to many servers at once:
 
 ```bash
 # Restart every server.
@@ -116,7 +116,7 @@ php artisan p:server:bulk-power restart --servers=1,2,3
 php artisan p:server:bulk-power stop --nodes=1,2
 ```
 
-The `--servers` and `--nodes` options take IDs. Without either option, the action applies to every server. Before it starts, the command tells you how many servers it will affect and asks you to confirm.
+`--servers` and `--nodes` take IDs. Without either, the action applies to every server. The command first shows how many servers it will affect and asks you to confirm.
 
 ## The Panel
 
@@ -126,11 +126,11 @@ The `--servers` and `--nodes` options take IDs. Without either option, the actio
 php artisan p:info
 ```
 
-This shows the Panel's version, its address, and its database, cache, and email settings. Include this output when you ask for help, after you remove any passwords.
+Shows the Panel's version, address, and database, cache, and email settings. Include this output when you ask for help, with any passwords removed.
 
 ### Changing the Environment
 
-These commands update the settings in your `.env` file. They are the same commands you ran during installation:
+These commands update your `.env` file. They are the same ones you ran during installation:
 
 ```bash
 php artisan p:environment:setup
@@ -144,7 +144,7 @@ php artisan p:environment:mail
 php artisan p:upgrade --release=<version>
 ```
 
-This downloads a new release and runs the update steps for you. Until 2.0 is released, update with the manual steps instead. See [Updating the Panel](../../panel/updating.mdx#updating-with-one-command).
+Downloads a new release and runs the update steps for you. Until 2.0 is released, use the manual steps instead. See [Updating the Panel](../../panel/updating.mdx#updating-with-one-command).
 
 ### Viewing Telemetry Data
 
@@ -152,7 +152,7 @@ This downloads a new release and runs the update steps for you. Until 2.0 is rel
 php artisan p:telemetry
 ```
 
-This prints the anonymous usage data the Panel sends when telemetry is enabled, without sending it. See [Telemetry](../../panel/additional-configuration.mdx#telemetry).
+Prints the anonymous usage data the Panel sends when telemetry is enabled, without sending it. See [Telemetry](../../panel/additional-configuration.mdx#telemetry).
 
 ## Extensions and Themes
 

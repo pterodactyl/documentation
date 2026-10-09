@@ -1,0 +1,41 @@
+---
+title: How Pterodactyl Works
+description: The parts of Pterodactyl, the terms these pages use, and the ports between them.
+---
+
+Pterodactyl has two parts. The **Panel** is the website where you manage users, nodes, and servers. **Wings** runs on each node and runs your game servers in Docker containers.
+
+<ArchitectureTour />
+
+## Terms
+
+- **Panel.** The website where you manage users, nodes, and servers. It runs on a web server (NGINX, Apache, or Caddy) with PHP, keeps its data in MariaDB or MySQL, and uses Redis for sessions, caching, and background jobs.
+- **Node.** A machine that runs Wings. One node can host many servers. The Panel and Wings can run on the same machine.
+- **Wings.** The Go service on each node. It runs servers in Docker, streams their consoles to your browser, and serves their files over SFTP.
+- **Server.** A game or application server created in the Panel. Each server runs in its own container on a node, and players connect to it directly on the ports you assign to it.
+- **Container.** The isolated environment Docker creates for each server. It limits the server's CPU, memory, and disk use, and keeps it apart from other servers on the same node.
+- **Docker image.** A package with everything a server needs to run, such as Java for a Minecraft server. Pterodactyl publishes its images as [yolks](../guides/egg-creation/egg-docker-images.mdx).
+- **Egg.** The configuration for one type of server, such as Paper or BungeeCord for Minecraft: its Docker image, startup command, settings, and install script.
+- **Tag.** A label on an egg or a node. Tags group eggs, for example by game, and decide which nodes a server can be deployed to. Tags replace the nests used in 1.x.
+- **Extension.** A package that adds features to the Panel. See [Extensions](../extensions/index.mdx).
+
+## Ports
+
+| From | To | Default port | Used for |
+| --- | --- | --- | --- |
+| Browser | Panel | 443 (80 without SSL) | The Panel website |
+| Browser | Wings | 8080 | Consoles, file uploads and downloads |
+| SFTP client | Wings | 2022 | Server files |
+| Panel | Wings | 8080 | Creating servers, managing files, installs and backups |
+| Wings | Panel | 443 (80 without SSL) | Server settings, results, and SFTP logins |
+| Players | Game servers | The server's ports | Playing the game |
+
+You can change 8080 and 2022 for each node in the Panel.
+
+## What This Means for Your Setup
+
+- The Panel must reach each node on port 8080, and each node must reach the Panel.
+- Your users' browsers connect to nodes directly, so each node needs a domain name they can reach. If the Panel uses HTTPS, each node needs its own SSL certificate.
+- Game servers keep running when the Panel is down, because Wings runs them.
+
+To set up a node, see [Installing Wings](../wings/installing.mdx).

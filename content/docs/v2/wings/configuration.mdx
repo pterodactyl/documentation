@@ -1,6 +1,259 @@
 ---
-title: Additional Configuration
-description: Advanced configuration options for Wings
+title: Configuration
+description: What each setting in Wings' config.yml does, and when to change it.
 ---
 
-<include>../../v1/wings/configuration.mdx</include>
+## Introduction
+
+Wings reads `/etc/pterodactyl/config.yml` at startup. The Panel creates it, through the auto-deploy command or as a copy from the node's **Configuration** tab. See [Configuring Wings](./installing.mdx#configuring-wings).
+
+The Panel's file only has the keys the Panel knows about. At startup, Wings fills in every other key with its default and writes the complete file back, so the file on a running node is much longer.
+
+After you edit the file, restart Wings:
+
+```bash
+systemctl restart wings
+```
+
+Container settings, such as DNS servers and limits, apply the next time each server starts, because Wings creates a new container on every start.
+
+<WingsConfigExplorer />
+
+<Callout type="warn">
+Back up the file before you edit it. If the YAML is invalid, Wings stops with `error while reading configuration file`. Indent with spaces, not tabs, and keep indentation consistent.
+</Callout>
+
+## How the Panel and Wings Share the File
+
+When you save a node's settings, the Panel sends Wings an updated configuration with the tokens, ports, SSL settings, and upload limit, and Wings writes it to `config.yml`. Some parts behave differently:
+
+- Wings listens on a new port only after it restarts.
+- Wings keeps its certificate and key paths when you change the node's FQDN. Update `api.ssl.cert` and `api.ssl.key` yourself.
+- `wings configure` and these updates do not copy `system.data` or `allowed_mounts`. If you changed the Daemon Base Path or use mounts, set these two keys by hand. Copying the whole file from the **Configuration** tab does include them.
+- If the Panel cannot reach Wings, it saves your changes anyway and tells you to update `config.yml` yourself.
+- With `ignore_panel_config_updates: true`, Wings ignores these updates, and the file only changes when you edit it.
+
+## Panel Connection
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `remote` | Set by the Panel | The Panel's address, such as `https://panel.example.com`. Wings calls the Panel's API here. |
+| `token_id` | Set by the Panel | Identifies the node to the Panel. Secret. |
+| `token` | Set by the Panel | The secret Wings and the Panel share. Secret. |
+| `remote_query.timeout` | `30` | Seconds Wings waits for each request to the Panel. |
+| `remote_query.boot_servers_per_page` | `50` | Servers Wings requests per page at startup. Larger pages can make the Panel run out of memory. |
+| `allowed_origins` | `[]` | Extra browser origins Wings accepts, besides `remote`. |
+| `allow_cors_private_network` | `false` | Only for Wings without SSL on an internal IP address. |
+
+`remote` must match the address in your browser exactly, including `https://` and with no trailing slash. Wings only accepts console connections from that origin or from one in `allowed_origins`. If you open the Panel from more than one address, list the others:
+
+```yml
+allowed_origins:
+- https://panel.example.net
+```
+
+At startup, Wings fetches its servers from `remote`. If it cannot reach the Panel, it stops with `failed to load server configurations`.
+
+### Keeping the Token Out of the File
+
+`token_id` and `token` are secrets that the auto-deploy command fills in. Never share them, and remove them before you post your configuration anywhere.
+
+To keep them out of `config.yml`, set either value to `file://` followed by a path to read it from a file, or to `${NAME}` to read an environment variable:
+
+```yml
+token: file:///etc/pterodactyl/token
+```
+
+The environment variables `WINGS_TOKEN_ID` and `WINGS_TOKEN` override both values.
+
+## API and SSL
+
+The Panel calls Wings' API to manage servers. Browsers also connect to it directly, for the console and for file uploads and downloads.
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `api.host` | `0.0.0.0` | The address the API listens on. |
+| `api.port` | `8080` | Must match the node's **Daemon Port** in the Panel. |
+| `api.ssl.enabled` | `false` | The Panel writes `true` when the node uses SSL and is not behind a proxy. |
+| `api.ssl.cert` | Set by the Panel | `/etc/letsencrypt/live/<FQDN>/fullchain.pem` |
+| `api.ssl.key` | Set by the Panel | `/etc/letsencrypt/live/<FQDN>/privkey.pem` |
+| `api.upload_limit` | `100` | The largest file manager upload, in MB. Set it with the node's **Upload Size Limit**. |
+| `api.disable_remote_download` | `false` | Turns off downloading files from a URL in the file manager. |
+| `api.trusted_proxies` | `[]` | Proxies allowed to pass on the client's address. |
+
+If the Panel uses HTTPS, Wings must too, because browsers block insecure connections from a secure page. Wings loads its certificate at startup: if the files are missing, it stops with `failed to configure HTTPS server`, and after a renewal it needs a restart. See [Creating SSL Certificates](../guides/tutorials/ssl-certificates.mdx).
+
+### Behind a Reverse Proxy
+
+If a proxy handles HTTPS for Wings, turn on **Behind Proxy** in the node's settings. The Panel then writes `api.ssl.enabled: false`, and Wings serves plain HTTP. The Panel and browsers still connect to `https://<FQDN>:<Daemon Port>`, so your proxy must accept HTTPS there and forward requests to Wings.
+
+Add your proxy's address to `trusted_proxies` so the activity log records your users' addresses, not the proxy's:
+
+```yml
+api:
+  trusted_proxies:
+  - 192.0.2.10
+```
+
+Entries may be IP addresses or ranges such as `192.0.2.0/24`. Any other entry stops Wings at startup. SFTP does not use HTTP, so users connect to it directly, not through the proxy.
+
+## SFTP
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `system.sftp.bind_address` | `0.0.0.0` | The address the SFTP server listens on. |
+| `system.sftp.bind_port` | `2022` | Must match the node's **Daemon SFTP Port** in the Panel. |
+| `system.sftp.read_only` | `false` | Refuses every change over SFTP. |
+
+Users sign in with their Panel account. The username is their Panel username, a period, and the server's 8-character ID, as shown under **SFTP Details** on the server's **Settings** page. Wings keeps its SFTP host key in the data directory, under `.sftp/`.
+
+## Directories
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `system.root_directory` | `/var/lib/pterodactyl` | Wings' own data, such as its database and each server's state. |
+| `system.data` | `/var/lib/pterodactyl/volumes` | Server files, one directory per server. |
+| `system.backup_directory` | `/var/lib/pterodactyl/backups` | Local backups. |
+| `system.archive_directory` | `/var/lib/pterodactyl/archives` | Archives for server transfers. |
+| `system.tmp_directory` | `/tmp/pterodactyl` | Scratch space for installation scripts. |
+| `system.log_directory` | `/var/log/pterodactyl` | `wings.log`, and installation logs under `install/`. |
+
+Move existing server directories before you change `system.data`, or servers whose files are still at the old path appear empty.
+
+## System
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `system.username` | `pterodactyl` | The user that owns server files. Wings creates it if it does not exist. |
+| `system.timezone` | Detected | Passed to every container. Must be a name such as `Europe/Berlin`. |
+| `system.check_permissions_on_boot` | `true` | Fixes file ownership before each server starts. |
+| `system.disk_check_interval` | `150` | Seconds Wings reuses a server's measured disk usage. `0` turns disk checking off. |
+| `system.websocket_log_count` | `150` | Lines of earlier output a new console connection receives. |
+| `system.enable_log_rotate` | `true` | Writes `/etc/logrotate.d/wings` if it does not exist. |
+| `debug` | `false` | Debug logging. `wings --debug` does the same for one run. |
+| `app_name` | `Pterodactyl` | The name in Wings' console messages. |
+
+If servers with many files are slow to start at "Ensuring file permissions are set correctly", set `check_permissions_on_boot` to `false`. Wings then stops fixing files that other tools changed.
+
+Low values for `disk_check_interval` make Wings measure every server's files often, which costs a lot of disk I/O and CPU.
+
+### Crash Detection
+
+When a server stops without anyone pressing **Stop**, Wings prints its exit code and whether it ran out of memory, then starts it again.
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `system.crash_detection.enabled` | `true` | Restart servers after a crash. |
+| `system.crash_detection.detect_clean_exit_as_crash` | `true` | Also treat an exit with code 0 as a crash. |
+| `system.crash_detection.timeout` | `60` | If a server crashes again within this many seconds, Wings does not restart it. `0` always restarts it. |
+
+### Backups and Transfers
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `system.backups.write_limit` | `0` | Maximum backup write speed, in MiB/s. Also applies to S3 backups, which are written locally first. `0` means no limit. |
+| `system.backups.compression_level` | `best_speed` | `none`, `best_speed`, or `best_compression`. |
+| `system.backups.restore_host_allowlist` | `[]` | Private or internal hosts that backup restores may download from. |
+| `system.transfers.download_limit` | `0` | Maximum speed at which this node downloads a transferred server, in MiB/s. `0` means no limit. |
+
+## Docker
+
+### Network
+
+On first start, Wings creates a Docker network named `pterodactyl_nw`, with the bridge `pterodactyl0`. If the network already exists, Wings uses it as is.
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `docker.network.dns` | `1.1.1.1`, `1.0.0.1` | DNS servers for every container. |
+| `docker.network.name` | `pterodactyl_nw` | The network's name. |
+| `docker.network.network_mode` | `pterodactyl_nw` | The network containers join. |
+| `docker.network.interface` | `172.18.0.1` | The network's gateway. Allocations on `127.0.0.1` are mapped to it. |
+| `docker.network.interfaces.v4.subnet` | `172.18.0.0/16` | Only used when Wings creates the network. |
+| `docker.network.interfaces.v6.subnet` | `fdba:17c8:6c94::/64` | Only used when Wings creates the network. |
+| `docker.network.enable_icc` | `true` | Lets containers reach each other. |
+| `docker.network.network_mtu` | `1500` | The bridge's MTU. |
+
+If servers cannot resolve domain names, your host may block the default DNS servers. Replace them with your host's, as described in [Servers Have No Internet Access](../panel/troubleshooting.mdx#servers-have-no-internet-access).
+
+To change the subnet, stop every server on the node, then remove the network so Wings creates it again. Docker cannot remove a network that running containers still use.
+
+```bash
+systemctl stop wings
+docker network rm pterodactyl_nw
+systemctl start wings
+```
+
+To give containers the host's network directly, set both `name` and `network_mode` to `host`:
+
+```yml
+docker:
+  network:
+    name: host
+    network_mode: host
+```
+
+<Callout type="warn">
+Host networking removes Docker's network isolation. Every server can then listen on any address and port of the node, not only on its own allocations. Do not use it on nodes that host servers for others.
+</Callout>
+
+### Private Registries
+
+To pull images from a registry that needs a login, add it under `docker.registries`, keyed by the registry's address:
+
+```yml
+docker:
+  registries:
+    registry.example.com:
+      username: registryuser
+      password: registrypassword
+```
+
+Wings uses the entry whose address matches the image's registry.
+
+### Container Limits
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `docker.tmpfs_size` | `100` | The size of `/tmp` in each container, in MB. It uses host memory and does not count toward the server's limit. |
+| `docker.container_pid_limit` | `512` | The most processes a container may run. `0` removes the limit, which we do not recommend. |
+| `docker.installer_limits.memory` | `1024` | Memory for installation containers, in MB, if higher than the server's own limit. |
+| `docker.installer_limits.cpu` | `100` | CPU for installation containers, in percent, if higher than the server's own limit. |
+| `docker.overhead.override` | `false` | Use your own memory overhead instead of the defaults. |
+
+Programs like Java use more memory than their configured heap, so Docker allows each container some memory above the server's limit. By default, Wings adds 15% for servers with up to 2048 MB, 10% up to 4096 MB, and 5% above that. To use your own steps, set `override: true`:
+
+```yml
+docker:
+  overhead:
+    override: true
+    default_multiplier: 1.05
+    multipliers:
+      2048: 1.15
+      4096: 1.10
+```
+
+### CPU
+
+These settings only affect servers with a CPU limit.
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `docker.cpu_period` | `100000` | The CPU scheduling window, in microseconds. Limits scale with it. |
+| `docker.cpu_burst.enabled` | `true` | Lets a server spend saved CPU time on short spikes. Needs Linux 5.14 or newer. |
+| `docker.cpu_burst.percent` | `100` | How much a server may burst, relative to its limit. |
+| `docker.cpu_shares` | `0` | The server's weight when the CPU is fully busy. `0` uses Docker's default. `1024` restores the behavior of older Wings versions, which favors the host's own services. |
+
+## Console Throttling
+
+Wings limits how fast a server may print to its console, so a runaway process cannot flood Wings and the browser. When a server prints more than `lines` lines within `line_reset_interval` milliseconds, Wings drops the extra output and prints "Server is outputting console data too quickly -- throttling...".
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `throttles.lines` | `2000` | Lines allowed per interval. |
+| `throttles.line_reset_interval` | `100` | The interval, in milliseconds. |
+
+Wings writes a `throttles.enabled` key, but does not read it. Throttling is always on; raise `lines` to loosen it.
+
+## Mounts
+
+`allowed_mounts` lists the host directories that servers may mount. Wings skips a mount whose source is outside these, and logs `skipping custom server mount, not in list of allowed mount points`. See [Using Mounts](../guides/configuration/mounts.mdx).

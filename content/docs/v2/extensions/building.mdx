@@ -1,19 +1,25 @@
 ---
 title: Building Extensions
-description: Create an extension with API endpoints, settings, pages, and contributions to the Panel's own interface.
+description: Create an extension with API endpoints, settings, pages, and additions to the Panel's interface.
 ---
 
 ## Introduction
 
-An extension has two halves. The backend is PHP code that runs inside the Panel, like a Laravel package. The frontend is a React bundle that the Panel loads in the browser. An extension may have either half, or both.
+An extension has a PHP backend that runs inside the Panel like a Laravel package, a React frontend that the Panel loads in the browser, or both. This guide builds an example extension, **Server Notes**, that adds a **Notes** page to every server, shows the notes above the console, stores them in its own database table, and has a setting for the maximum note length.
 
-This guide builds an example extension called **Server Notes**. It lets users keep notes on each server. It adds a **Notes** page to every server, shows the notes above the console, stores them in its own database table, and has a setting for the maximum note length.
+Read [Extensions](./index.mdx) first to learn how extensions are installed and managed.
 
-Before you start, read [Extensions](./index.mdx) to learn how extensions are installed and managed.
+The guide has five parts:
+
+1. **Building Extensions** (this page): create the extension and write its manifest.
+2. [Backend](./backend.mdx): the service provider, routes, database, settings, and background work.
+3. [Frontend](./frontend.mdx): slots, screens, tabs, table columns, and component replacements.
+4. [Data and Styling](./data-and-styling.mdx): Panel data, your API, components, and translations.
+5. [Testing and Packaging](./testing-and-packaging.mdx): tests, builds, packages, and security.
 
 ## Requirements
 
-To build extensions, you need:
+You need:
 
 - A Pterodactyl 2.0 source checkout, set up as a development Panel.
 - PHP 8.3 or newer and Composer.
@@ -25,17 +31,17 @@ Extensions created from a Panel checkout use its local `@pterodactyl/sdk` packag
 npm run sdk:testing
 ```
 
-This provides the runtime used by extension tests. Build it again when you change the SDK source.
+Extension tests use this runtime. Rebuild it when you change the SDK source.
 
 ## Creating an Extension
 
-Run the `p:extension:make` Artisan command from your Panel checkout:
+From your Panel checkout, run `p:extension:make`:
 
 ```bash
 php artisan p:extension:make server-notes --name="Server Notes" --description="Keep shared notes on each server."
 ```
 
-The command creates the extension in the Panel's `extensions` directory. Next, install its frontend dependencies and build it:
+This creates the extension in the Panel's `extensions` directory. Install its frontend dependencies and build it:
 
 ```bash
 cd extensions/server-notes
@@ -52,55 +58,67 @@ Then install and enable it in your development Panel:
 php artisan p:extension:install extensions/server-notes --enable
 ```
 
-The `p:extension:make` command accepts these options:
+`p:extension:make` accepts these options:
 
 | Option | Description |
 | --- | --- |
-| `--name` | The display name. Defaults to the ID in title case. |
-| `--description` | A short description. |
-| `--author` | The author's name. |
+| `--name` | Display name. Defaults to the ID in title case. |
+| `--description` | Short description. |
+| `--author` | Author's name. |
+| `--prefix` | Tailwind prefix for the extension's classes, 2 to 12 lowercase letters. Defaults to one derived from the ID. |
 | `--no-ui` | Create a backend-only extension, with no frontend. |
 | `--out` | Create the extension in a different directory. |
 | `--force` | Replace an existing directory. |
 
 ### Extension IDs
 
-The ID names your extension everywhere: its directory, its URLs, and its settings. An ID must start with a lowercase letter, and may only contain lowercase letters, numbers, and hyphens. It can be up to 48 characters long. The IDs `pterodactyl`, `panel`, and `core` are reserved.
+The ID names your extension everywhere: its directory, URLs, and settings. It must start with a lowercase letter, contain only lowercase letters, numbers, and hyphens, and be at most 48 characters. `pterodactyl`, `panel`, and `core` are reserved.
 
 The extension's directory must have the same name as its ID.
 
 ### Directory Structure
 
-After you add the files from this guide, the Server Notes extension looks like this:
+With the files from this guide added, Server Notes looks like this:
 
 ```text
 server-notes/
+├── .github/workflows/ci.yml
+├── .gitignore
 ├── extension.json
+├── README.md
 ├── database/
 │   └── migrations/
 │       └── 2026_09_29_000000_create_ext_server_notes_notes_table.php
 ├── routes/
 │   └── server.php
+├── scripts/
+│   └── externalize-api.mjs
 ├── src/
 │   ├── ServerNotesProvider.php
 │   ├── Http/Controllers/NoteController.php
 │   ├── Models/Note.php
 │   └── client/
 │       ├── index.tsx
+│       ├── styles.css
 │       ├── api.ts
 │       ├── config.ts
 │       ├── NotePreview.tsx
-│       └── screens/NotesScreen.tsx
+│       └── screens/
+│           ├── NotesScreen.tsx
+│           └── NotesScreen.spec.tsx
+├── openapi-ts.config.ts
 ├── package.json
+├── postcss.config.mjs
 ├── tsconfig.json
-└── vite.config.mjs
+├── vite.config.mjs
+└── vitest.config.mjs
 ```
 
-The command also creates sample client routes, a `StatusController`, and a screen test. Replace the sample code with your extension's code, and update the test to render your screen. Frontend packages include `styles.css`, PostCSS and Vitest configuration, OpenAPI client generation, and a GitHub Actions workflow for types, tests, and builds.
+The command also creates sample client routes in `routes/client.php`, a `StatusController`, and a `ServerScreen` with a test. Server Notes replaces them with the files above. `openapi-ts.config.ts` and `scripts/externalize-api.mjs` generate API clients, and the GitHub Actions workflow runs type checks, tests, and builds. With `--no-ui`, the command creates only the manifest, provider, sample controller and routes, migrations directory, `.gitignore`, and `README.md`.
 
 ## The Manifest
 
-Every extension has an `extension.json` file in its root directory. It tells the Panel what the extension is and how to load it:
+The `extension.json` file in the extension's root tells the Panel what the extension is and how to load it:
 
 ```json
 {
@@ -110,7 +128,7 @@ Every extension has an `extension.json` file in its root directory. It tells the
     "version": "1.0.0",
     "requires": {
         "panel": "^2.0.0-dev",
-        "sdk": "^2.0.0-beta.3",
+        "sdk": "^2.0.0-beta.4",
         "php": "^8.3"
     },
     "description": "Keep shared notes on each server.",
@@ -121,6 +139,7 @@ Every extension has an `extension.json` file in its root directory. It tells the
     "ui": {
         "entry": "dist/client.js",
         "mode": "native",
+        "prefix": "sn",
         "screens": [
             {
                 "id": "notes",
@@ -133,13 +152,29 @@ Every extension has an `extension.json` file in its root directory. It tells the
 }
 ```
 
-The `provider` and `autoload` keys load your PHP code. The `ui` key loads your frontend bundle and declares the pages it adds. Leave out the keys for any half your extension does not use. See the [Extension Reference](./reference.mdx#manifest) for every key.
+The `provider` and `autoload` keys load your PHP code. The `ui` key loads your frontend bundle and declares its pages. `ui.prefix` is the Tailwind prefix for your extension's classes, derived from the ID unless you pass `--prefix`. The Panel rejects a build whose Tailwind utilities or theme variables do not use it. Leave out the keys for any half you do not use. See the [Extension Reference](./reference.mdx#manifest) for every key.
+
+### Icon
+
+Administrators see each extension as a card on the **Extensions** page. Without an `icon`, the card shows the extension's initials. Set `icon` to a [Lucide](https://lucide.dev/icons) icon name:
+
+```json
+"icon": "notebook-pen"
+```
+
+Or ship an image in the extension and give its path:
+
+```json
+"icon": "icon.png"
+```
+
+The image must be a PNG, JPEG, or WebP file of at most 512 KB and 2048 pixels on each side. Use a square image of at least 128 pixels. `p:extension:pack` includes it in the package wherever it is, and `p:extension:doctor` warns if the Panel cannot show it. See [Extension Icons](./reference.mdx#extension-icons) for the full rules.
 
 ### Compatibility
 
-Use `requires.panel`, `requires.sdk`, and `requires.php` to declare the versions your extension supports. Constraints use Composer syntax, such as `^2.0.0-beta.3` or `>=8.3 <9.0`. The values above match the development Panel and its SDK.
+Declare the versions your extension supports with `requires.panel`, `requires.sdk`, and `requires.php`. Constraints use Composer syntax, such as `^2.0.0-beta.4` or `>=8.3 <9.0`. The values above match the development Panel and its SDK.
 
-If your extension needs another extension, declare its ID and version constraint under `requires.extensions`:
+To depend on another extension, declare its ID and version constraint under `requires.extensions`:
 
 ```json
 "requires": {
@@ -149,1005 +184,8 @@ If your extension needs another extension, declare its ID and version constraint
 }
 ```
 
-The required extension must be enabled before yours can be enabled. The Panel loads dependencies first, rejects dependency cycles, and skips extensions whose requirements are not met. A failed dependency also prevents its dependents from loading.
+The required extension must be enabled before yours can be. The Panel loads dependencies first, rejects dependency cycles, and skips extensions with unmet requirements. If a dependency fails, its dependents do not load either.
 
-The `$schema` entry provides manifest completion in editors that support JSON Schema. The Panel validates the manifest when installing and enabling the package.
+The `$schema` entry enables manifest completion in editors that support JSON Schema. The Panel validates the manifest when the package is installed and enabled.
 
-## The Backend
-
-### The Service Provider
-
-The backend starts in a service provider. It works like a Laravel service provider, and it must extend `Pterodactyl\Extensions\ExtensionProvider`:
-
-```php
-<?php
-
-namespace ServerNotes;
-
-use Pterodactyl\Extensions\ExtensionProvider;
-
-class ServerNotesProvider extends ExtensionProvider
-{
-    public function boot(): void
-    {
-        $this->registerApiRoutes();
-        $this->loadExtensionMigrations();
-    }
-}
-```
-
-Use the `register` method for container bindings, and the `boot` method for everything else. The base class gives you helper methods for routes, migrations, settings, views, and translations. They are covered below.
-
-The Panel loads your provider on every request. If it throws an exception, the Panel skips your extension and shows the error in the admin area. The rest of the Panel keeps working.
-
-### Routes
-
-Place your routes in the `routes` directory. The `registerApiRoutes` method loads each of these files, when it exists, under its own URL prefix and middleware:
-
-| File | URL prefix | Who can call it |
-| --- | --- | --- |
-| `routes/client.php` | `/api/client/extensions/{id}` | Any signed-in user, or a Client API key. |
-| `routes/server.php` | `/api/client/servers/{server}/extensions/{id}` | Users with access to the server. |
-| `routes/admin.php` | `/api/admin/extensions/{id}` | Root administrators. |
-| `routes/application.php` | `/api/application/extensions/{id}` | Root administrators, including Application API keys. |
-
-These routes use the same authentication, two-factor, and rate-limit middleware as the Panel's own API. Your extension does not need to handle sign-in.
-
-Server Notes adds two server routes:
-
-```php
-<?php
-
-use Illuminate\Support\Facades\Route;
-use ServerNotes\Http\Controllers\NoteController;
-
-// GET|PUT /api/client/servers/{server}/extensions/server-notes/note
-Route::get('/note', [NoteController::class, 'show']);
-Route::put('/note', [NoteController::class, 'update']);
-```
-
-In server routes, the `{server}` parameter is already resolved. Type-hint `Pterodactyl\Models\Server` in your controller to receive it:
-
-```php
-public function show(Server $server): JsonResponse
-{
-    $note = Note::query()->where('server_id', $server->id)->first();
-
-    return new JsonResponse([
-        'body' => $note->body ?? '',
-        'updated_at' => $note?->updated_at?->toAtomString(),
-    ]);
-}
-```
-
-If you need a web route instead of an API route, call `registerWebRoutes` or `registerAuthenticatedWebRoutes` with the path to a route file. Web routes are served under `/extensions/{id}`. See the [Extension Reference](./reference.mdx#route-helpers).
-
-### Authorization
-
-The Panel already checks that the user may access the server before your server routes run. Users without access receive a `404` response.
-
-To check a specific permission, use the `can` method with one of the Panel's [subuser permissions](./reference.mdx#permissions). The server owner and root administrators pass every check. Server Notes lets any user read the notes, but only users who may edit files can change them:
-
-```php
-public function update(Request $request, Server $server): JsonResponse
-{
-    abort_unless($request->user()->can('file.update', $server), 403, 'You do not have permission to edit notes.');
-
-    // ...
-}
-```
-
-To define permissions for your own features, call `registerPermissions` in the provider's `boot` method:
-
-```php
-$this->registerPermissions('Manage server notes.', [
-    'read' => 'Read server notes.',
-    'update' => 'Change server notes.',
-]);
-```
-
-These keys become `ext.server-notes.read` and `ext.server-notes.update`. They appear in the server's subuser permission editor. Use them with `$user->can(...)`, `useServerPermission(...)`, and a server screen's `permission` list. A wildcard such as `ext.server-notes.*` covers only that extension's permissions.
-
-### Database Migrations
-
-Place your migrations in `database/migrations`, and call `loadExtensionMigrations` in your provider's `boot` method. The Panel runs them when an administrator enables your extension.
-
-You should start your table names with `ext_`, followed by your extension's ID, with underscores instead of hyphens. This keeps them apart from the Panel's own tables:
-
-```php
-Schema::create('ext_server_notes_notes', function (Blueprint $table) {
-    $table->id();
-    $table->unsignedInteger('server_id')->unique();
-    $table->text('body');
-    $table->timestamps();
-
-    $table->foreign('server_id')->references('id')->on('servers')->cascadeOnDelete();
-});
-```
-
-The Panel runs your migrations before marking your extension enabled. Disabling or removing the extension keeps its tables, so reinstalling it brings its data back. Package recovery does not undo database schema changes. Design migrations so you can identify and recover from a partially completed change.
-
-You may use Eloquent models for your tables as usual:
-
-```php
-<?php
-
-namespace ServerNotes\Models;
-
-use Illuminate\Database\Eloquent\Model;
-
-class Note extends Model
-{
-    protected $table = 'ext_server_notes_notes';
-
-    protected $fillable = ['server_id', 'body'];
-}
-```
-
-### Settings
-
-An extension may define settings that administrators change from **Admin → Extensions**. The Panel builds the settings form for you. Define your settings in your provider's `boot` method:
-
-```php
-use Pterodactyl\Services\Extensions\ExtensionSettingDefinition;
-use Pterodactyl\Services\Extensions\ExtensionSettingsDefinition;
-
-public function boot(): void
-{
-    // ...
-
-    $this->registerSettings(new ExtensionSettingsDefinition($this->settings(), [
-        ExtensionSettingDefinition::make('max_length', 'max_length', 2000, ['required', 'integer', 'min:100', 'max:20000'])
-            ->label('Maximum note length')
-            ->help('The longest note, in characters, that users can save.')
-            ->field('number')
-            ->frontend()
-            ->frontendType('number'),
-    ]));
-}
-```
-
-The `make` method takes the setting's storage key, the name of its form field, its default value, and its validation rules. Give each setting rules that match the values you accept.
-
-The `field` method chooses the form control: `text`, `password`, `number`, `toggle`, or `select`. For a `select` field, pass the options as the second argument:
-
-```php
-ExtensionSettingDefinition::make('mode', 'mode', 'simple', ['required', 'in:simple,advanced'])
-    ->field('select', [
-        ['value' => 'simple', 'label' => 'Simple'],
-        ['value' => 'advanced', 'label' => 'Advanced'],
-    ]);
-```
-
-To read a setting in your backend code, type-hint `ExtensionSettingsRegistry $registry` in your controller or job and get your definition from it. Unsaved settings return their default value:
-
-```php
-use Pterodactyl\Services\Extensions\ExtensionSettingsRegistry;
-
-$maxLength = $registry->get('server-notes')->get('max_length');
-```
-
-Server Notes uses the setting to validate new notes:
-
-```php
-public function update(Request $request, Server $server, ExtensionSettingsRegistry $settings): JsonResponse
-{
-    abort_unless($request->user()->can('file.update', $server), 403, 'You do not have permission to edit notes.');
-
-    $data = $request->validate([
-        'body' => ['present', 'nullable', 'string', 'max:'.$settings->get('server-notes')->get('max_length')],
-    ]);
-
-    $note = Note::query()->updateOrCreate(['server_id' => $server->id], ['body' => $data['body'] ?? '']);
-
-    return new JsonResponse([
-        'body' => $note->body,
-        'updated_at' => $note->updated_at->toAtomString(),
-    ]);
-}
-```
-
-The `frontend` method sends the setting's value to your frontend bundle as `config`. **Every signed-in user can read frontend settings**, so never mark a secret as a frontend setting. Pages shown before signing in, such as the login page, still load your bundle, but its `config` is empty there. Use `frontendType` to declare the public value's type, such as `number`, `boolean`, or `string`. The Panel checks this type before exposing the value.
-
-For values your extension manages itself, and that administrators should not edit, use the key-value store returned by `$this->settings()`. It offers the `get`, `set`, `forget`, and `all` methods.
-
-### Scoped Settings and Secrets
-
-The store returned by `settings()` is global to your extension. Use `forUser($user)` or `forServer($server)` to keep separate values for each persisted user or server. `for($model)` does the same for any user, server, node, egg, location, mount, or database host. Deleting the model deletes its scoped settings:
-
-```php
-$preferences = $this->settings()->forUser($user);
-$preferences->set('show_preview', true);
-
-$serverSettings = $this->settings()->forServer($server);
-$serverSettings->set('summary_enabled', true);
-$serverSettings->setSecret('webhook_token', $token);
-```
-
-Read a secret with the same `get` method. Use `setSecret` whenever you replace it, so it stays encrypted. The settings definition also supports `forUser` and `forServer` when you need defaults, normalization, and validation for scoped values.
-
-For a secret in the administrator's settings form, add `secret()` to its definition:
-
-```php
-ExtensionSettingDefinition::make('webhook_token', 'webhook_token', '', ['nullable', 'string', 'max:2000'])
-    ->label('Webhook token')
-    ->secret();
-```
-
-A secret uses a password control, is encrypted in the database, and is returned blank to the admin form. An empty update keeps the saved secret. Secrets cannot use `frontend()`. Choosing `field('password')` on its own does not enable encryption.
-
-### Form Fields
-
-An extension may add its own fields to the Panel's admin create and edit forms for users, servers, nodes, eggs, locations, mounts, and database hosts. The Panel validates the values with the form, saves them in the same database transaction, and returns them on the resource. Declare the fields in a class that extends `Pterodactyl\Extensions\Fields`, and register it in your provider with `registerFields`, once for each model.
-
-As an example extension: Server Notes lets administrators edit a server's note from the server's admin pages:
-
-```php
-<?php
-
-namespace ServerNotes;
-
-use Pterodactyl\Extensions\Fields;
-use Pterodactyl\Models\Server;
-use ServerNotes\Models\Note;
-
-final class ServerNoteFields extends Fields
-{
-    public function rules(): array
-    {
-        return ['body' => ['nullable', 'string', 'max:2000']];
-    }
-
-    public function values(Server $server): array
-    {
-        return ['body' => Note::query()->where('server_id', $server->id)->value('body') ?? ''];
-    }
-
-    public function save(Server $server, array $values): void
-    {
-        Note::query()->updateOrCreate(['server_id' => $server->id], ['body' => $values['body'] ?? '']);
-    }
-}
-```
-
-```php
-use Pterodactyl\Models\Server;
-
-public function boot(): void
-{
-    // ...
-
-    $this->registerFields(Server::class, ServerNoteFields::class);
-}
-```
-
-Every method is optional. The Panel calls them through the service container, like the methods of a form request, so each one may type-hint the model it extends and any other dependency. A model parameter always receives the model being changed. Every method except `values` and `save` also runs while the model is being created, so a model parameter in `rules`, `authorize`, `secrets`, `attributes`, or `messages` must be nullable, such as `?Server $server`. It is `null` on create.
-
-| Method | Purpose |
-| --- | --- |
-| `rules()` | Laravel validation rules, keyed by field name. They apply to your values alone, so `required_if:mode,custom` refers to your own `mode` field. |
-| `values($model)` | The current values, keyed by field name. |
-| `save($model, array $values)` | Stores the validated values. The second parameter must be named `$values`. |
-| `authorize()` | Whether the signed-in administrator may see and change the values. |
-| `secrets()` | The names of fields that hold credentials. |
-| `attributes()`, `messages()` | Field names and messages for validation errors, as on a form request. |
-
-A field's value must be a string, a number, a boolean, `null`, or a list of those.
-
-If you leave out both `values` and `save`, the Panel stores the values for you. Read them in your backend code with `$this->settings()->fields($model)`. They are kept apart from your other scoped settings, so `for`, `forUser`, and `forServer` never return them. Implement both methods to keep the values in your own tables instead, where you can index and query them. Implementing only one of them stops your extension from loading.
-
-#### Validation
-
-When a model is created, the rules of every extension the administrator may change run, whether or not the request includes its values, so a `required` field always holds. When a model is updated, the rules run for each extension the request includes, even with no values. An update that leaves your extension out does not run your rules or your `save` method, and your stored values stay as they are.
-
-The Panel's admin forms always send every extension they show, edited or not. In the admin area, `required` therefore works like it does for the Panel's own fields, and `save` always receives your complete values. Validation errors are reported as `extensions.{id}.{field}`.
-
-#### Saving
-
-Your `save` method runs inside the transaction that writes the model, after its row is written and before Wings is contacted. If it throws, the whole change is rolled back and the request fails, so nothing is half saved. Put work that must wait for the commit, such as calling an external service, in `DB::afterCommit()`.
-
-While your extension is disabled, or fails to load, any values sent for it are ignored, and its stored values stay as they are.
-
-#### Authorization and Secrets
-
-Only root administrators reach the admin endpoints, and `$user->can()` passes every check for a root administrator. To limit who may change your fields, decide on something else in `authorize`, such as the administrator's ID or a role your extension keeps. Type-hint `#[CurrentUser] User $admin` to get the signed-in administrator. A request that sends values `authorize` refuses gets a `403` response, and the values are left out of the resource, so the forms do not show them.
-
-Fields named by `secrets` are encrypted when the Panel stores them, and returned as `********`. A save that sends the mask, or leaves the field out, keeps the stored value, and `save` receives it. Sending `null` or an empty string clears it.
-
-#### The API
-
-The Admin API's create and update endpoints for each of these resources accept an `extensions` object, keyed by extension ID and then by field. For example, alongside the other fields of a server details update:
-
-```json
-{
-    "name": "Survival",
-    "extensions": {
-        "server-notes": { "body": "Restart nightly at 04:00." }
-    }
-}
-```
-
-Responses about one resource include the values as `attributes.extensions`. Lists leave them out. If your `values` method throws, the failure is recorded against your extension in **Admin → Extensions**, and your values are left out of the response.
-
-To accept and return your values on the Application API as well, add the `#[ApplicationApi]` attribute (`Pterodactyl\Extensions\Attributes\ApplicationApi`) to your class. This covers the Application API's user, node, location, and server endpoints, so a billing system that provisions through it can set your fields. The create rule applies there too: if a marked class has a `required` field, creating a resource through the Application API fails until the request includes it.
-
-To draw the fields in the admin forms, see [Native Forms](#native-forms).
-
-### Server Operation Events
-
-To react to a completed server operation, register a listener with `listenToServerOperations` in your provider. It receives a `Pterodactyl\Events\Server\OperationCompleted` object with the server UUID, operation, success flag, and resource UUID.
-
-The operations are `provision`, `install`, `reinstall`, and `backup`. Events are dispatched after the database transaction commits. Provisioning is reported after Wings accepts the server. The values are read-only, so a listener does not depend on a model being available later.
-
-See [Server Operation Events](./reference.mdx#server-operation-events) for the event fields. If a listener throws, the Panel records the failure against the extension.
-
-### Job Progress
-
-For work that takes time, inject `Pterodactyl\Services\Extensions\ExtensionJobProgress` into your controller or job. Create a snapshot for the user starting the work:
-
-```php
-$job = $progress->begin('server-notes', $user, $server, 'ext.server-notes.update');
-```
-
-Return `$job->id` to the frontend and pass it to your worker. Update that ID as the work proceeds:
-
-```php
-$progress->update('server-notes', $jobId, 40, 'Reading server notes.');
-$progress->update('server-notes', $jobId, 100, 'Summary ready.', 'completed');
-```
-
-Progress may only move forwards, from 0 to 100. The status is `running`, `completed`, or `failed`; a finished snapshot cannot be changed. Omit the server and permission arguments for a user-only job. User jobs, and server jobs without a permission, are visible only to their creator and root administrators. A server job with a permission is visible to users who still have that permission and access to the server.
-
-Web requests and workers must use the same cache store. Snapshots expire according to `extensions.progress_retention_seconds`, which defaults to one hour after the last update. Store any results or audit history separately.
-
-Use `useExtensionJobProgress` in a screen or slot to show the snapshot. Pass the server UUID for a server job:
-
-```tsx
-import { Spinner, useExtensionJobProgress } from '@pterodactyl/sdk';
-
-export function JobProgress({ id, serverUuid }: { id: string; serverUuid: string }) {
-    const progress = useExtensionJobProgress(id, { serverUuid });
-
-    if (progress.error) return <p>Progress is unavailable.</p>;
-    if (!progress.data) return <Spinner />;
-
-    return <p>{progress.data.message} ({progress.data.percent}%)</p>;
-}
-```
-
-The hook polls while the job is running, reads the latest snapshot after reconnecting, and stops after completion, failure, or loss of access.
-
-### Views and Translations
-
-To use Blade views, place them in `resources/views` and call `loadExtensionViews`. To use translations, place them in `resources/lang` and call `loadExtensionTranslations`. Both use the `ext-{id}` namespace, such as `ext-server-notes::notes.title`.
-
-## The Frontend
-
-### The Entry File
-
-The frontend starts in `src/client/index.tsx`. It default-exports an extension definition with a `setup` function:
-
-```tsx
-import { definePterodactylExtension } from '@pterodactyl/sdk';
-import './styles.css';
-import { setConfig } from './config';
-import NotePreview from './NotePreview';
-
-export default definePterodactylExtension({
-    setup({ config, slots, screens }) {
-        setConfig(config);
-
-        screens.register('notes', () => import('./screens/NotesScreen'));
-        slots.register('server.console.before', NotePreview);
-    },
-});
-```
-
-The Panel calls `setup` once when the page loads. The function receives:
-
-- `meta`, with your extension's `id` and `version`.
-- `config`, with the values of your [frontend settings](#settings).
-- `slots`, to place components on the Panel's pages.
-- `screens`, to add your own pages.
-- `columns`, to add columns to supported admin tables.
-
-The `setup` function must register everything right away. It cannot be `async`.
-
-Screens do not receive `config` directly. To use it on a page, save it in a small module, as Server Notes does in `src/client/config.ts`:
-
-```ts
-import type { ExtensionConfig } from '@pterodactyl/sdk';
-
-let config: ExtensionConfig = {};
-
-export function setConfig(value: ExtensionConfig): void {
-    config = value;
-}
-
-export function maxLength(): number {
-    return typeof config.max_length === 'number' ? config.max_length : 2000;
-}
-```
-
-### Slots
-
-Slots are named places on the Panel's pages where your extension may add content. For example, `server.console.before` renders above the server console. To use a slot, register a component for it:
-
-```tsx
-slots.register('server.console.before', NotePreview);
-```
-
-Slots pass the data appropriate to their location. Console slots receive the current server; file action slots receive file and selection context; most other page slots receive route data. Server Notes uses the console slot's server to load the note:
-
-```tsx
-import { useQuery } from '@tanstack/react-query';
-import { TitledGreyBox, type SdkServer } from '@pterodactyl/sdk';
-import { getNote, noteQueryKey } from './api';
-
-export default function NotePreview({ data: server }: { data: SdkServer }) {
-    const identifier = server.attributes.identifier;
-    const { data: note } = useQuery({
-        queryKey: noteQueryKey(identifier),
-        queryFn: () => getNote(identifier),
-    });
-
-    if (!note?.body) {
-        return null;
-    }
-
-    return (
-        <TitledGreyBox title={'Server notes'}>
-            <p style={{ whiteSpace: 'pre-line' }}>{note.body.split('\n').slice(0, 3).join('\n')}</p>
-        </TitledGreyBox>
-    );
-}
-```
-
-The [slot reference](./reference.mdx#slots) lists every slot and its `data`. If you register a slot name that does not exist, your extension does not load. The error appears in the browser console.
-
-When several extensions use the same slot, their components render in the Panel's configured extension order, with dependencies loaded first. If your component throws an error, only your component is hidden. The user sees a notice with an option to retry.
-
-### Screens
-
-Screens are full pages. Adding a screen takes two steps. First, declare it in `extension.json` under `ui.screens`:
-
-```json
-"screens": [
-    {
-        "id": "notes",
-        "area": "server",
-        "path": "notes",
-        "nav": { "label": "Notes" }
-    }
-]
-```
-
-Then register its component in `setup`, using the same ID. Load it with a dynamic `import`, so its code is only downloaded when the page is opened:
-
-```tsx
-screens.register('notes', () => import('./screens/NotesScreen'));
-```
-
-The screen's `area` decides where the page lives:
-
-| Area | URL | Who can open it |
-| --- | --- | --- |
-| `server` | `/server/{server}/{path}` | Users with access to the server. |
-| `account` | `/account/{path}` | Any signed-in user. |
-| `admin` | `/panel/{path}` | Root administrators. |
-
-When a screen has a `nav` label, it gets a link in its area's navigation, after the Panel's own items. A screen without `nav` has a URL, but no navigation item. Use `nav.order` to sort extension items, and `nav.icon` or `nav.badge` to add an icon or short label.
-
-On `server` screens, you may set `permission` to a list of subuser permissions. The page and its navigation item are then only shown to users with at least one of them. Only server screens accept `permission`; account screens are for signed-in users, and admin screens are for root administrators. Your backend routes must also authorize the request.
-
-Choose a `path` that the Panel does not already use in that area. Paths start with a static segment and may contain named parameters, such as `logs/$date`. Screen components receive `ScreenComponentProps`, whose `data.params.date` holds that value. The name `$id` is reserved for the Panel. A navigation item for a parameterized path must provide its values in `nav.params`.
-
-Every screen declared in `extension.json` must be registered in `setup`. If one is missing, or if an ID does not match, the Panel does not load your extension.
-
-### Detail Tabs and Navigation
-
-An admin screen can be a tab inside a node, server, user, or egg detail page. Set `parent` to the matching resource, and keep `area` as `admin`:
-
-```json
-{
-    "id": "node-notes",
-    "area": "admin",
-    "parent": "admin.node",
-    "path": "notes",
-    "nav": { "label": "Notes", "order": 10, "icon": "file" }
-}
-```
-
-Register `node-notes` with `screens.register` as usual. Its URL is `/panel/nodes/{id}/notes`. Inside the screen, `useCurrentResource()` returns `{ kind: 'admin.node', resource }`. Check `kind` to read the fields for that resource. The [screen reference](./reference.mdx#manifest) lists every parent and URL.
-
-Use `PanelLink` for links and `usePanelNavigate` for actions. Both use the Panel's router. You can name an extension screen rather than build its URL:
-
-```tsx
-import { PanelLink } from '@pterodactyl/sdk';
-
-<PanelLink destination={{
-    extension: 'server-notes',
-    screen: 'node-notes',
-    params: { id: String(nodeId) },
-}}>
-    Open notes
-</PanelLink>
-```
-
-For a core route, use `destination={{ to: '/server/$id/files', params: { id: identifier } }}`. `usePanelLocation()` returns the current path, search, and parameters.
-
-### Table Columns
-
-Use `columns.register` during `setup` to add a column to the native node, server, or egg table:
-
-```tsx
-columns.register('admin.nodes', {
-    id: 'notes-host',
-    label: 'Notes host',
-    component: ({ data }) => <span>{data.attributes.fqdn}</span>,
-});
-```
-
-The `data` prop is typed for that table. Columns appear after the Panel's own columns and follow extension order. Each cell has its own error boundary. Use [Table Columns](./reference.mdx#table-columns) for the supported table names.
-
-### Component Replacements
-
-Use a component replacement to change a supported part of the Panel's presentation. The Panel continues to own its data queries, navigation, permissions, selection, menus, and mutations.
-
-Declare the component names in your manifest, together with an SDK constraint:
-
-```json
-"requires": {
-    "sdk": ">=2.0.0-beta.3 <3.0"
-},
-"ui": {
-    "entry": "dist/client.js",
-    "components": ["dashboard.serverCard", "server.files.details"]
-}
-```
-
-Register an implementation for every declared component in `setup`. The registration accepts a component or a lazy importer:
-
-```tsx
-export default definePterodactylExtension({
-    setup({ components }) {
-        components.replace('dashboard.serverCard', {
-            load: () => import('./ServerCard'),
-        });
-        components.replace('server.files.details', {
-            load: () => import('./FileDetails'),
-        });
-    },
-});
-```
-
-In `src/client/FileDetails.tsx`, customize the name while keeping the Panel's icon, size, and timestamp:
-
-```tsx
-import type { ComponentPartProps, ReplacementProps } from '@pterodactyl/sdk';
-
-function FileName({ model }: ComponentPartProps<'server.files.details'>) {
-    return <div className="flex-1 truncate font-medium text-foreground">{model.name}</div>;
-}
-
-export default function FileDetails({ Default }: ReplacementProps<'server.files.details'>) {
-    return <Default parts={{ name: FileName }} />;
-}
-```
-
-In `src/client/ServerCard.tsx`, use the default card with your own spacing:
-
-```tsx
-import type { ReplacementProps } from '@pterodactyl/sdk';
-
-export default function ServerCard({ Default }: ReplacementProps<'dashboard.serverCard'>) {
-    return <Default className="gap-3" />;
-}
-```
-
-Each replacement receives a read-only `model`, the native `Default` component, and typed `parts`. `Default` accepts `className` and partial part replacements. For a complete layout, render your own markup and use the native parts as needed, such as `<parts.metrics model={model} />`. Define part components outside your render function so their identity stays stable. The native server-card identity part includes the `dashboard.serverRow.name.after` slot; include that part when retaining its contributions.
-
-These are presentation areas inside core links. Keep them free of buttons, links, inputs, and other interactive elements. Add actions through the existing action slots. Refer to [Component Replacements](./reference.mdx#component-replacements) for models and parts.
-
-Enabling an extension activates its replacements. A component can have one enabled owner. The Panel rejects an enable or update that conflicts with another enabled extension, naming the component and owner. Disable the existing owner before enabling a competing extension.
-
-All rows on a page share one loading decision. While an implementation loads, its presentation area shows a skeleton. If setup or the implementation fails, or loading exceeds five seconds, the area uses the native view. A late import cannot replace that view on the same page. Render failures also restore native presentation while retaining core state. Keep asynchronous rendering inside a local `Suspense` boundary, and use `useExtensionAction` for extension callbacks. The Panel does not retry mutations when restoring a view.
-
-Test your replacement against the native default and parts:
-
-```tsx
-import { render, screen } from '@testing-library/react';
-import { expect, it } from 'vitest';
-import { createComponentTestHost, createTestFileDetails } from '@pterodactyl/sdk/testing';
-import FileDetails from './FileDetails';
-
-it('shows the file name with native details', () => {
-    const host = createComponentTestHost('server.files.details', {
-        model: createTestFileDetails({ name: 'server.properties' }),
-    });
-    render(<FileDetails {...host.props} />, { wrapper: host.Wrapper });
-    expect(screen.getByText('server.properties')).toBeTruthy();
-    expect(screen.getByText('1 KiB')).toBeTruthy();
-});
-```
-
-`createTestServerCard` provides a server-card fixture. Override its `state` to test loading, unavailable, or ready presentation. Component test hosts provide the native view and parts without issuing core queries.
-
-### File Actions
-
-The file manager has slots for its toolbar, row actions, and selected-file actions. They receive the current server, directory, files, selected names, and callbacks to refresh or change the selection. A row action also receives its file.
-
-For example, a toolbar control can refresh the native file list:
-
-```tsx
-import { Button, useExtensionAction, type FileManagerSlotData } from '@pterodactyl/sdk';
-
-function RefreshFiles({ data }: { data: FileManagerSlotData }) {
-    const refresh = useExtensionAction('refresh files', () => data.refresh());
-    return <Button disabled={data.isFetching} onClick={refresh}>Refresh files</Button>;
-}
-
-// In setup:
-slots.register('server.files.toolbar', RefreshFiles);
-```
-
-Wrap asynchronous click handlers in `useExtensionAction` so failures are attributed to your extension. Use the SDK's file mutations for writes, and check the user's permission on both the frontend and backend.
-
-### Native Forms
-
-To draw the fields your [`Fields` class](#form-fields) declares, register a component for the form with `forms.extend`. The component receives a `field(name)` function that binds one of your fields to the form: its `value`, a `setValue` callback, an `id` for its label, and `error`, the Panel's validation message from the last save until the field changes.
-
-```tsx
-import { definePterodactylExtension, Label, TextArea, type FormExtension } from '@pterodactyl/sdk';
-
-const NoteField: FormExtension<{ body: string }, 'admin.server'> = ({ field }) => {
-    const body = field('body');
-
-    return (
-        <div>
-            <Label htmlFor={body.id}>Server note</Label>
-            <TextArea id={body.id} value={body.value ?? ''} onChange={(event) => body.setValue(event.target.value)} />
-            {body.error && <p className={'input-help error'}>{body.error}</p>}
-        </div>
-    );
-};
-
-export default definePterodactylExtension({
-    setup({ forms }) {
-        forms.extend('admin.server', NoteField);
-    },
-});
-```
-
-The component also receives `values`, your saved values with the edits made so far; `mode`, which is `'create'` or `'edit'`; and `resource`, the saved resource when editing. Type the values with `FormExtension`'s first parameter, so `field` only accepts your field names.
-
-The forms are `admin.user`, `admin.server`, `admin.node`, `admin.egg`, `admin.location`, `admin.mount`, and `admin.database_host`. Each one covers the resource's create page and its edit page. For servers, the edit page is the **Details** tab. The Panel draws each extension's component under the extension's name, inside an error boundary, so a component that throws only hides itself.
-
-The Panel only draws your fields when your backend registered a `Fields` class for that model and the administrator may change them. When editing, it also leaves your component out if your values could not be read. A save then cannot write over what you have stored.
-
-The `panel.users.detail.form` slot is different: it renders inside the user details form and receives the native `form`, so you can draw one of the Panel's own user fields again, or add a validator to it. It cannot add fields of its own:
-
-```tsx
-slots.register('panel.users.detail.form', ({ data }) => (
-    <data.form.AppField
-        name="username"
-        validators={{ onSubmit: ({ value }) => value.length < 3 ? 'Use at least three characters.' : undefined }}
-    >
-        {(field) => <field.TextField label="Managed username" />}
-    </data.form.AppField>
-));
-```
-
-The `server.startup.form` slot receives the current startup configuration, pending state, and a `setDockerImage` callback that checks the user's permission and keeps the native cache current. See [Slot Data](./reference.mdx#slot-data) for these contracts.
-
-### Using Panel Data
-
-The SDK has hooks for the data your pages need. Server Notes uses two of them:
-
-```tsx
-import { useCurrentServerRequired, useServerPermission } from '@pterodactyl/sdk';
-
-const server = useCurrentServerRequired();
-const canEdit = useServerPermission('file.update');
-```
-
-The `useCurrentServerRequired` hook returns the current server on server pages. The `useServerPermission` hook returns whether the current user has a permission on that server. Other hooks return the current user, the site settings, and live server events. See the [SDK reference](./reference.mdx#hooks).
-
-The SDK also exposes the Panel's queries and mutations for files, startup configuration, and backups. For example:
-
-```tsx
-import { useCurrentServerRequired, useServerFiles } from '@pterodactyl/sdk';
-
-const server = useCurrentServerRequired();
-const files = useServerFiles(server.attributes.uuid, '/', (response) => response.data);
-```
-
-Use the server UUID for these hooks so they share the native page's cache entries. Query option factories are available when you need `useQuery`, prefetching, or direct cache access. File writes, startup changes, and backup creation have mutation hooks that update or invalidate the same cache. Startup writes are serialized for each server.
-
-If your own endpoint changes native data, await `invalidateServerData(uuid, domains)` after it succeeds. Supported domains are `server`, `files`, `fileContent`, `startup`, and `backups`. See [Server Data](./reference.mdx#server-data) for the queries and [Mutations](./reference.mdx#mutations) for the write operations.
-
-### Calling Your API
-
-Use the SDK's `http` client to call your backend. It is the same client the Panel uses, so requests are already signed in. Server Notes keeps its API calls in `src/client/api.ts`:
-
-```ts
-import { http } from '@pterodactyl/sdk';
-
-export interface Note {
-    body: string;
-    updated_at: string | null;
-}
-
-const noteUrl = (server: string) => `/api/client/servers/${server}/extensions/server-notes/note`;
-
-export const noteQueryKey = (server: string) => ['server-notes', server] as const;
-
-export async function getNote(server: string): Promise<Note> {
-    const { data } = await http.get<Note>(noteUrl(server));
-
-    return data;
-}
-
-export async function saveNote(server: string, body: string): Promise<Note> {
-    const { data } = await http.put<Note>(noteUrl(server), { body });
-
-    return data;
-}
-```
-
-The Panel shares its copy of TanStack Query with extensions, so you may use `useQuery` and `useMutation` directly. The Notes screen loads and saves the note like this:
-
-```tsx
-import { useEffect, useState } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import {
-    Button,
-    ServerContentBlock,
-    Spinner,
-    TextArea,
-    TitledGreyBox,
-    httpErrorToHuman,
-    toast,
-    useCurrentServerRequired,
-    useServerPermission,
-} from '@pterodactyl/sdk';
-import { getNote, noteQueryKey, saveNote } from '../api';
-import { maxLength } from '../config';
-
-export default function NotesScreen() {
-    const server = useCurrentServerRequired();
-    const identifier = server.attributes.identifier;
-    const canEdit = useServerPermission('file.update');
-    const queryClient = useQueryClient();
-    const [body, setBody] = useState('');
-
-    const note = useQuery({ queryKey: noteQueryKey(identifier), queryFn: () => getNote(identifier) });
-
-    useEffect(() => {
-        if (note.data) {
-            setBody(note.data.body);
-        }
-    }, [note.data]);
-
-    const save = useMutation({
-        mutationFn: () => saveNote(identifier, body),
-        onSuccess: (saved) => {
-            queryClient.setQueryData(noteQueryKey(identifier), saved);
-            toast.success('Notes saved.');
-        },
-        onError: (error) => toast.error(httpErrorToHuman(error)),
-    });
-
-    return (
-        <ServerContentBlock title={'Notes'}>
-            <TitledGreyBox title={'Notes'}>
-                {note.isLoading ? (
-                    <Spinner centered />
-                ) : (
-                    <div style={{ display: 'grid', gap: '1rem' }}>
-                        <TextArea
-                            rows={12}
-                            value={body}
-                            maxLength={maxLength()}
-                            readOnly={!canEdit}
-                            onChange={(event) => setBody(event.target.value)}
-                        />
-                        {canEdit && (
-                            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                                <Button isLoading={save.isPending} onClick={() => save.mutate()}>
-                                    Save notes
-                                </Button>
-                            </div>
-                        )}
-                    </div>
-                )}
-            </TitledGreyBox>
-        </ServerContentBlock>
-    );
-}
-```
-
-The `httpErrorToHuman` function turns an API error into a message you can show to the user.
-
-### Generated API Clients
-
-The scaffold includes an OpenAPI generator and a script that connects its generated client to the Panel's shared transport. Enable your extension so its routes are loaded, and document the controller parameters and responses for Scribe. From the Panel root, generate the specification and extension client:
-
-```bash
-composer docs:openapi
-npm run extension:api:generate -- server-notes
-```
-
-This extracts routes from the client, server, admin, and application API areas, writes `extensions/server-notes/openapi.yaml`, and generates code in `src/client/generated`. The generated functions and query options use `@pterodactyl/sdk/api`, so they keep the Panel's authentication and query client.
-
-When you already have the extension's `openapi.yaml`, run `npm run api:generate` inside the extension package. The scaffold's OpenAPI configuration and externalization script are required for this workflow.
-
-### Components and Styling
-
-The SDK includes the Panel's own components, so your pages look like the rest of the Panel. They include `Button`, `Input`, `TextArea`, `Select`, `Switch`, `Dialog`, `Alert`, `TitledGreyBox`, and `ServerContentBlock`. The `toast` function shows notifications. See the [SDK reference](./reference.mdx#components) for the full list.
-
-The scaffold imports `src/client/styles.css` from its entry file. It includes Tailwind's theme and utilities, plus the SDK's mapping to the Panel's design tokens:
-
-```css title="src/client/styles.css"
-@import 'tailwindcss/theme.css' layer(theme);
-@import 'tailwindcss/utilities.css' layer(utilities);
-@import '@pterodactyl/sdk/theme.css';
-@source './**/*.{ts,tsx}';
-```
-
-Use classes such as `bg-card`, `text-foreground`, and `border-border` to follow the active theme. Keep Tailwind preflight out of extension styles so it does not reset the Panel's elements. Use an extension-specific prefix for any custom CSS selectors.
-
-The Panel loads the entry stylesheet before calling `setup` and loads styles for screen chunks when they are imported. The [theme guide](../guides/customization/themes.mdx#tokens) lists the shared tokens.
-
-### Frontend Translations
-
-Register `loadExtensionTranslations()` in your provider and add a translation group, such as `resources/lang/en/messages.php`. Read it inside your screens and slots with `useExtensionTranslation('messages')`:
-
-```tsx
-import { useExtensionTranslation } from '@pterodactyl/sdk';
-
-const { t, ready } = useExtensionTranslation('messages');
-```
-
-The hook uses the current Panel locale and the `ext-server-notes::messages` namespace. Use `ready` to handle loading, and `t('title')` to read the group's `title` key.
-
-### Shared Packages
-
-The Panel provides React, React DOM, TanStack Query, and the SDK to your bundle at runtime. They are not included in your build, and every extension uses the same copy as the Panel. Any other package you import is bundled into your extension.
-
-Import `toast` from the SDK rather than from `sonner` directly. Otherwise, your notifications will not appear.
-
-## Configuration Types
-
-Mark public settings with `frontend()` and their value type with `frontendType(...)`. After enabling the extension so its definitions are loaded, generate its TypeScript types from the Panel root:
-
-```bash
-php artisan p:extension:types extensions/server-notes
-```
-
-This writes `src/client/extension-types.ts`, containing the extension ID, literal screen IDs, registered permissions, and declared public configuration keys. Secret settings are excluded.
-
-Use these types with `defineConfiguredExtension`. Its parser checks runtime values before your `setup` function uses them:
-
-```tsx
-import { defineConfiguredExtension } from '@pterodactyl/sdk';
-import type { ExtensionConfig, ExtensionScreenId } from './extension-types';
-import { setConfig } from './config';
-import NotePreview from './NotePreview';
-import './styles.css';
-
-export default defineConfiguredExtension<ExtensionConfig, ExtensionScreenId>(
-    (config) => {
-        const maxLength = config.max_length ?? 2000;
-        if (typeof maxLength !== 'number') throw new Error('Invalid maximum note length.');
-        return { ...config, max_length: maxLength };
-    },
-    {
-        setup({ config, slots, screens }) {
-            setConfig(config);
-            screens.register('notes', () => import('./screens/NotesScreen'));
-            slots.register('server.console.before', NotePreview);
-        },
-    }
-);
-```
-
-If your bundle also renders on pages before sign-in, handle the empty public configuration in your parser. For Server Notes, you can use the setting's default value there.
-
-## Testing
-
-Frontend scaffolds include Vitest, jsdom, Testing Library, and a test against the real SDK runtime. Run them inside the extension directory:
-
-```bash
-npm run typecheck
-npm test
-```
-
-Use `createExtensionTestHost` and `createTestServer` from `@pterodactyl/sdk/testing` for components that need the Panel's router, current user, permissions, server, or query cache. For the Notes screen, mock the extension's API response and provide a server context:
-
-```tsx title="src/client/screens/NotesScreen.spec.tsx"
-import { afterEach, expect, test, vi } from 'vitest';
-import { cleanup, render, screen } from '@testing-library/react';
-import { createExtensionTestHost, createTestServer } from '@pterodactyl/sdk/testing';
-import NotesScreen from './NotesScreen';
-
-vi.mock('../api', async (importOriginal) => ({
-    ...(await importOriginal<typeof import('../api')>()),
-    getNote: vi.fn().mockResolvedValue({ body: 'Remember to make a backup.', updated_at: null }),
-}));
-
-let host: ReturnType<typeof createExtensionTestHost> | undefined;
-afterEach(() => {
-    cleanup();
-    host?.dispose();
-    host = undefined;
-});
-
-test('loads notes inside the Panel', async () => {
-    host = createExtensionTestHost({
-        extensionId: 'server-notes',
-        server: createTestServer({ owner: false, permissions: ['file.update'] }),
-    });
-    render(<NotesScreen />, { wrapper: host.Wrapper });
-    expect(await screen.findByDisplayValue('Remember to make a backup.')).toBeTruthy();
-});
-```
-
-Create one host per test, unmount its wrapper, and dispose it afterwards. The host also supports a typed admin resource, navigation, websocket events, and connection changes. The scaffold's `vitest.config.mjs` supplies SDK aliases and setup through `@pterodactyl/sdk/vitest`; keep them when customizing the configuration.
-
-Backend routes and jobs need their own tests for validation and authorization. The generated GitHub Actions workflow runs frontend type checks, tests, and builds.
-
-## Building and Packaging
-
-Build the frontend with npm. The build writes `dist/client.js`, plus a file for each screen:
-
-```bash
-npm run build
-```
-
-From the Panel root, check the built package before installing it:
-
-```bash
-php artisan p:extension:doctor extensions/server-notes
-```
-
-The check covers the manifest, runtime and extension dependencies, autoload directories, and built frontend files. It reports errors without installing the package.
-
-### Watching Changes
-
-Use the development command from the Panel root to build, publish, and enable a local extension:
-
-```bash
-php artisan p:extension:dev extensions/server-notes --watch --enable
-```
-
-It performs an initial build, then runs the extension's `npm run dev` and republishes each successful build. A failed build keeps the last published version. With `APP_DEBUG=true`, open the Panel after starting the watcher; the browser reloads after a successfully published build. Stop the watcher with Ctrl+C when you finish. Without `--watch`, the command builds and publishes once.
-
-### Creating a Package
-
-Create a `.pteroext` archive with the packaging command:
-
-```bash
-php artisan p:extension:pack extensions/server-notes --output=server-notes.pteroext
-```
-
-The archive contains the manifest and runtime directories: routes, migrations, resources, built assets, vendor dependencies, and declared PHP autoload directories. It excludes dotfiles, symlinks, `node_modules`, and test or coverage directories. An existing archive is kept unless you pass `--force`.
-
-Check the package's contents before distributing it. Put custom runtime files in a directory included by the packager. Files under the PHP autoload directories, including `src/client`, are included unless excluded by the rules above.
-
-Administrators install this file as described in [Installing Extensions](./index.mdx#installing-extensions).
-
-## Security
-
-Your extension runs with the same access as the Panel. Treat it like Panel code:
-
-- Validate every request, and check permissions before changing data.
-- Never expose secrets as frontend settings. Every signed-in user can read public configuration.
-- Declare secret settings with `secret()`, or use `setSecret` for managed values.
-- Prefix your database tables, so they cannot clash with the Panel's tables.
-
-Declare and test the Panel, SDK, PHP, and extension versions your package supports. Compatibility constraints check versions; they do not replace tests of your extension's behavior.
-
-## Example Extension
-
-The Panel repository includes a frontend-only example in `packages/hello-world`. It shows slots, a server page, live server events, and the subuser permission editor slot.
+<ManifestChecker />

@@ -5,22 +5,22 @@ description: Build your own Docker image for an egg, when the official images do
 
 ## Introduction
 
-If none of the [official images](./egg-docker-images.mdx) has what your server needs, you may build your own. This guide builds a small image based on Debian, in the same way as the official images.
+If none of the [official images](./egg-docker-images.mdx) has what your server needs, build your own. This guide builds a small Debian-based image the same way the official images are built.
 
-You need Docker on the machine where you build the image. You may build it on a node, or on your own computer.
+You need Docker on the build machine, either a node or your own computer.
 
 ## How Wings Runs an Image
 
-An image for Pterodactyl must work with the way Wings runs containers:
+The image must work with how Wings runs containers:
 
-- **The server's files are at `/home/container`.** Wings mounts the server's directory there. The image's working directory should be `/home/container`.
-- **The server does not run as root.** Wings runs the container as its own `pterodactyl` system user, whose user ID differs from node to node. Do not rely on running as root, or on a particular user name or ID.
-- **The startup command is in the `STARTUP` variable.** Wings does not run the command itself. It passes it to the container in the `STARTUP` environment variable, with the egg's variables still written as `{{NAME}}`. The image's entrypoint must turn it into a command and run it.
-- **The stop command `^C` goes to the main process.** If the entrypoint starts the server with `exec`, the server itself receives the signal and can shut down cleanly.
+- **The server's files are at `/home/container`.** Wings mounts the server's directory there. Set the image's working directory to `/home/container`.
+- **The server does not run as root.** Wings runs the container as its `pterodactyl` system user, whose user ID differs between nodes. Do not rely on root, or on a specific user name or ID.
+- **The startup command is in the `STARTUP` variable.** Wings does not run the command itself. It passes it in the `STARTUP` environment variable, with the egg's variables still written as `{{NAME}}`. The entrypoint must expand and run it.
+- **The stop command `^C` goes to the main process.** If the entrypoint starts the server with `exec`, the server receives the signal and can shut down cleanly.
 
 ## The Dockerfile
 
-Create a directory for the image, with a file named `Dockerfile`:
+Create a directory for the image containing a `Dockerfile`:
 
 ```dockerfile title="Dockerfile"
 FROM --platform=$TARGETOS/$TARGETARCH debian:bookworm-slim
@@ -38,7 +38,7 @@ COPY --chmod=755 ./entrypoint.sh /entrypoint.sh
 CMD ["/bin/bash", "/entrypoint.sh"]
 ```
 
-Install everything the server needs to run in the `RUN` step. The `container` user and the `USER` and `HOME` variables give programs a normal home directory to work with.
+Install everything the server needs to run in the `RUN` step. The `container` user and the `USER` and `HOME` variables give programs a normal home directory.
 
 ## The Entrypoint
 
@@ -63,11 +63,11 @@ printf "\033[1m\033[33mcontainer@pterodactyl~ \033[0m%s\n" "$PARSED"
 exec env ${PARSED}
 ```
 
-The last line runs the command directly, not through a shell, like the official images do. Shell features such as `&&` and `|` do not work in the startup command. If an egg needs them, change the last line to `exec bash -c "${PARSED}"`.
+Like the official images, the last line runs the command directly, not through a shell, so `&&` and `|` do not work in the startup command. If an egg needs them, change the last line to `exec bash -c "${PARSED}"`.
 
 ## Building the Image
 
-Build the image and give it a name. To use it on other nodes, push it to a registry, such as the GitHub Container Registry:
+Build and tag the image. To use it on other nodes, push it to a registry such as the GitHub Container Registry:
 
 ```bash
 docker build -t ghcr.io/your-name/my-image:latest .
@@ -76,4 +76,4 @@ docker push ghcr.io/your-name/my-image:latest
 
 Then add `ghcr.io/your-name/my-image:latest` to the egg's **Docker Images**.
 
-To try an image on a single node without a registry, build it on that node and enter its name with a `~` in front, such as `~my-image:latest`. Wings then uses the image on the node instead of downloading it. See [Local Images](./egg-docker-images.mdx#local-images).
+To test on one node without a registry, build the image on that node and prefix its name with `~`, such as `~my-image:latest`. Wings then uses the local image instead of pulling it. See [Local Images](./egg-docker-images.mdx#local-images).

@@ -5,16 +5,16 @@ description: Choose the Docker images an egg's servers run in.
 
 ## Introduction
 
-Every server runs in a Docker container. The egg's Docker image decides what the container has installed, such as Java for a Minecraft server or Python for a bot. Choose an image that has everything the server needs to **run**. Tools that are only needed to install the server belong in the [install script's container](./egg-install-script.mdx) instead.
+Every server runs in a Docker container, and the egg's image decides what it has installed, such as Java for a Minecraft server or Python for a bot. Choose an image with everything the server needs to **run**; tools needed only for installing belong in the [install script's container](./egg-install-script.mdx).
 
 ## Official Images
 
-Pterodactyl publishes a set of images, called yolks, at `ghcr.io/pterodactyl/yolks`. The source is in the [pterodactyl/yolks](https://github.com/pterodactyl/yolks) repository.
+Pterodactyl publishes images, called yolks, at `ghcr.io/pterodactyl/yolks`. The source is in the [pterodactyl/yolks](https://github.com/pterodactyl/yolks) repository.
 
 | Tag | Contents |
 | --- | --- |
 | `debian`, `alpine` | A general-purpose Debian or Alpine system. |
-| `java_8` to `java_25` | Java, for Minecraft servers and other Java programs. Tags ending in `j9`, such as `java_17j9`, use the OpenJ9 runtime. |
+| `java_8` to `java_25` | Java, for Minecraft and other Java programs. Tags ending in `j9`, such as `java_17j9`, use the OpenJ9 runtime. |
 | `nodejs_12` to `nodejs_20` | Node.js. |
 | `python_3.7` to `python_3.11` | Python. |
 | `go_1.14` to `go_1.26`, `go_latest` | Go. |
@@ -25,23 +25,23 @@ For example, this image runs Java 21:
 ghcr.io/pterodactyl/yolks:java_21
 ```
 
-The community maintains many more images at `ghcr.io/ptero-eggs/yolks`, in the [Ptero-Eggs/yolks](https://github.com/Ptero-Eggs/yolks) repository, including newer versions of these languages, .NET, Wine, and databases. The eggs in the [catalog](./creating-custom-egg.mdx#from-the-catalog) often use them.
+The community maintains more images at `ghcr.io/ptero-eggs/yolks` ([Ptero-Eggs/yolks](https://github.com/Ptero-Eggs/yolks)), including newer language versions, .NET, Wine, and databases. The eggs in the [catalog](./creating-custom-egg.mdx#from-the-catalog) often use them.
 
 To build your own image, see [Creating a Custom Image](./creating-custom-image.mdx).
 
 ## Offering Several Images
 
-An egg may offer more than one image. Enter one image per line in the egg's **Docker Images** field. To give an image a friendly name, put the name and a `|` before it:
+To offer several images, enter one per line in the egg's **Docker Images** field. To name an image, put the name and a `|` before it:
 
 ```text
 Java 17|ghcr.io/pterodactyl/yolks:java_17
 Java 21|ghcr.io/pterodactyl/yolks:java_21
 ```
 
-A line without a name uses the image itself as its name.
+A line without a name shows the image itself.
 
-When you create a server, you pick one of the egg's images, or enter a different image. Users may switch between the egg's images on their server's **Startup** page. The change takes effect the next time the server starts. If you gave the server an image that is not one of the egg's, users cannot change it.
+When you create a server, you pick one of the egg's images or enter another. Users can switch between the egg's images on their server's **Startup** page; the change applies on the next start. If the server's image is not one of the egg's, users cannot change it.
 
 ## Local Images
 
-Wings downloads an egg's image the first time a server needs it. If you built an image on the node yourself and it is not in any registry, put a `~` in front of its name, such as `~my-game-server:latest`. Wings then uses the image already on the node, and does not try to download it.
+Wings downloads an egg's image the first time a server needs it. For an image you built on the node that is not in any registry, put a `~` before its name, such as `~my-game-server:latest`. Wings then uses the local image and does not try to download it.

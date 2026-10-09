@@ -1,9 +1,9 @@
 {
   "title": "Project Information",
-  "root": true,
   "pages": [
     "about",
-    "terminology",
-    "community"
+    "how-it-works",
+    "community",
+    "using-ai"
   ]
 }

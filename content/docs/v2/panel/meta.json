@@ -1,6 +1,5 @@
 {
   "title": "Panel",
-  "root": true,
   "pages": [
     "requirements",
     "getting-started",

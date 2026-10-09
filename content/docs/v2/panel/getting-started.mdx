@@ -5,58 +5,111 @@ description: Install Pterodactyl Panel 2.0 on your own server.
 
 ## Introduction
 
-This guide installs the Panel on a Linux server that you control. You need root access to the server.
-
-The Panel is a complex system with several moving parts. You should be comfortable with basic Linux administration before you start: installing packages, editing files, and managing services.
+This guide installs the Panel on a Linux server where you have root access. You should be comfortable installing packages, editing files, and managing services.
 
 <Callout title="Prefer Docker?">
-The Panel is also available as a Docker image, which includes the web server, queue worker, and scheduler. See [Docker Deployment](./docker.mdx).
+The Panel's Docker image includes the web server, queue worker, and scheduler. See [Docker Deployment](./docker.mdx).
 </Callout>
 
-To upgrade an existing 1.x Panel instead, follow [Upgrading From 1.x](../upgrading/upgrading-from-v1.mdx).
+To upgrade a 1.x Panel, follow [Upgrading From 1.x](../upgrading/upgrading-from-v1.mdx).
 
 ## Choosing an Operating System
 
-The Panel supports these versions of Ubuntu:
+Supported operating systems:
 
 | Operating System | Versions | Notes |
 | --- | --- | --- |
 | Ubuntu | 24.04 | Recommended. Includes PHP 8.3. |
 | | 22.04 | Needs an extra repository for PHP 8.3. |
+| Debian | 13 | Needs an extra repository for PHP. |
+| | 12 | Needs extra repositories for PHP, MariaDB, and Redis. |
+| | 11 | Needs extra repositories for PHP, MariaDB, and Redis. |
 
-Pterodactyl officially supports Ubuntu and the Panel's [Docker image](./docker.mdx). Other Linux distributions may work, but they often need changes to these steps, and we cannot help with those installations.
+Pterodactyl officially supports Ubuntu, Debian, and the Panel's [Docker image](./docker.mdx). Other Linux distributions may work, but often need changes to these steps, and we cannot help with them.
 
-This guide uses Ubuntu 24.04.
+Pick your operating system, PHP version, and web server. The commands on this page follow your choices.
+
+<SetupPanel fields={['os', 'php', 'webserver', 'path']} />
 
 ## Installing Dependencies
 
 The Panel needs:
 
-- PHP 8.3 or newer, with the `cli`, `fpm`, `gd`, `mysql`, `mbstring`, `bcmath`, `xml`, `curl`, `zip`, and `intl` extensions.
-- MariaDB 10.11 or newer, or MySQL 8 or newer.
+- PHP 8.3 or 8.4, with the `cli`, `gd`, `mysql`, `mbstring`, `bcmath`, `xml`, `curl`, `zip`, and `intl` extensions. NGINX and Caddy also need PHP-FPM.
+- MariaDB 10.11 or 11, or MySQL 8 or 9.
 - Redis.
 - A web server, such as NGINX, Apache, or Caddy.
 - `curl`, `tar`, and `unzip`.
 - Composer 2.
 - Node.js 22.12 or newer, to build the frontend.
 
-On Ubuntu 24.04, install everything with:
-
-```bash
-apt update
-apt -y install php8.3 php8.3-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,intl} mariadb-server nginx redis-server tar unzip curl
-```
-
-On Ubuntu 22.04, add the PHP repository first:
+<ShowFor ppa={true}>
+Ubuntu 24.04 includes PHP 8.3. Other PHP versions, and PHP on Ubuntu 22.04, need the PHP repository. Add it:
 
 ```bash
 apt -y install software-properties-common
 LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 ```
+</ShowFor>
+
+<ShowFor os={['debian-13', 'debian-12', 'debian-11']}>
+Debian needs Sury's repository for PHP. Add it:
+
+```bash
+apt -y install curl ca-certificates gnupg2 lsb-release
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php.list
+curl -fsSL https://packages.sury.org/php/apt.gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/sury-keyring.gpg
+```
+</ShowFor>
+
+<ShowFor os={['debian-12', 'debian-11']}>
+Debian 11 and 12 also need the Redis and MariaDB repositories:
+
+```bash
+curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash
+```
+</ShowFor>
+
+<ShowFor webserver="nginx">
+Install everything:
+
+```bash
+apt update
+apt -y install php8.3 php8.3-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,intl} mariadb-server redis-server tar unzip curl nginx
+```
+</ShowFor>
+
+<ShowFor webserver="apache">
+Install everything, including Apache's PHP module:
+
+```bash
+apt update
+apt -y install php8.3 php8.3-{common,cli,gd,mysql,mbstring,bcmath,xml,curl,zip,intl} mariadb-server redis-server tar unzip curl apache2 libapache2-mod-php8.3
+```
+</ShowFor>
+
+<ShowFor webserver="caddy">
+Caddy is not in Ubuntu's default repositories. Add Caddy's repository:
+
+```bash
+apt -y install debian-keyring debian-archive-keyring apt-transport-https curl gnupg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+```
+
+Then install everything:
+
+```bash
+apt update
+apt -y install php8.3 php8.3-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,intl} mariadb-server redis-server tar unzip curl caddy
+```
+</ShowFor>
 
 ### Installing Composer
 
-Composer is the dependency manager for PHP. Install it with:
+Install Composer, the PHP dependency manager:
 
 ```bash
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
@@ -64,7 +117,7 @@ curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin
 
 ### Installing Node.js
 
-Ubuntu's own Node.js package is too old to build the frontend. Install Node.js 22 from NodeSource:
+Ubuntu's Node.js is too old to build the frontend. Install Node.js 22 from NodeSource:
 
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
@@ -73,14 +126,14 @@ apt -y install nodejs
 
 ## Downloading the Panel
 
-Create the directory the Panel will live in, and move into it:
+Create the Panel's directory and move into it:
 
 ```bash
 mkdir -p /var/www/pterodactyl
 cd /var/www/pterodactyl
 ```
 
-2.0 has no release yet, so download the `2.0-develop` branch. Unpack it, and make the `storage` and `bootstrap/cache` directories writable:
+2.0 has no release yet, so download the `2.0-develop` branch. Unpack it and make `storage` and `bootstrap/cache` writable:
 
 ```bash
 curl -Lo panel.zip https://github.com/pterodactyl/panel/archive/refs/heads/2.0-develop.zip
@@ -90,7 +143,7 @@ rm -rf panel-2.0-develop panel.zip
 chmod -R 755 storage/* bootstrap/cache/
 ```
 
-The branch does not include the built frontend. Build it:
+The branch has no built frontend. Build it:
 
 ```bash
 npm ci
@@ -99,13 +152,13 @@ npm run build:production
 
 ## Creating the Database
 
-The Panel needs its own database, and a database user with access to it. Open the MariaDB console:
+The Panel needs its own database and a user with access to it. Open the MariaDB console:
 
 ```bash
 mariadb -u root
 ```
 
-Then create the user and the database. Replace `yourPassword` with a strong, unique password:
+Create the user and database. Replace `yourPassword` with a strong, unique password:
 
 ```sql
 CREATE USER 'pterodactyl'@'127.0.0.1' IDENTIFIED BY 'yourPassword';
@@ -118,7 +171,7 @@ exit
 
 ### Installing PHP Dependencies
 
-Copy the example environment file, install the PHP dependencies, and generate the application key:
+Copy the example environment file, install PHP dependencies, and generate the application key:
 
 ```bash
 cp .env.example .env
@@ -126,12 +179,12 @@ COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
 php artisan key:generate --force
 ```
 
-Only run `php artisan key:generate` on a new installation. Running it on an existing Panel makes its encrypted data unreadable.
+Only run `php artisan key:generate` on a new installation. On an existing Panel, it makes encrypted data unreadable.
 
 <Callout type="error" title="Back up your application key">
-The `APP_KEY` value in your `.env` file encrypts sensitive data, such as API keys, node tokens, and two-factor secrets. **If you lose it, that data cannot be recovered, even from a database backup.**
+`APP_KEY` in `.env` encrypts sensitive data, such as API keys, node tokens, and two-factor secrets. **If you lose it, that data cannot be recovered, even from a database backup.**
 
-Save a copy somewhere other than the server, such as a password manager. To print it, run:
+Save a copy off the server, such as in a password manager. To print it, run:
 
 ```bash
 grep APP_KEY /var/www/pterodactyl/.env
@@ -140,7 +193,7 @@ grep APP_KEY /var/www/pterodactyl/.env
 
 ### Configuring the Environment
 
-The Panel includes commands that set up its environment for you. They ask about your Panel's address, sessions, caching, the database, and email:
+These commands set up the environment. They ask about your Panel's address, sessions, caching, the database, and email:
 
 ```bash
 php artisan p:environment:setup
@@ -148,21 +201,21 @@ php artisan p:environment:database
 php artisan p:environment:mail
 ```
 
-When `p:environment:setup` asks for the cache, session, and queue drivers, choose Redis. For email, choose `smtp` to use your own mail server. The `mail` option uses PHP's built-in mail sending, which is not recommended.
+In `p:environment:setup`, choose Redis for the cache, session, and queue drivers. For email, choose `smtp` to use your own mail server. The `mail` option uses PHP's built-in mail sending, which is not recommended.
 
 ### Setting Up the Database
 
-Next, create the database tables and add the default eggs:
+Create the database tables and add the default eggs:
 
 ```bash
 php artisan migrate --seed --force
 ```
 
-This may take a while. Do not stop the command before it finishes.
+This may take a while. Do not stop it before it finishes.
 
 ### Creating the First User
 
-Create an administrator account, so that you can sign in:
+Create an administrator account to sign in with:
 
 ```bash
 php artisan p:user:make
@@ -170,7 +223,7 @@ php artisan p:user:make
 
 ### Setting Permissions
 
-Finally, give the web server user ownership of the Panel's files:
+Give the web server user ownership of the Panel's files:
 
 ```bash
 chown -R www-data:www-data /var/www/pterodactyl/*
@@ -178,7 +231,7 @@ chown -R www-data:www-data /var/www/pterodactyl/*
 
 ## Queue and Scheduler
 
-The Panel sends email, runs server schedules, and does other work in the background. This needs a scheduler and a queue worker.
+The Panel sends email, runs server schedules, and does other background work through a scheduler and a queue worker.
 
 ### Scheduler
 
@@ -188,7 +241,7 @@ Open root's crontab:
 crontab -e
 ```
 
-Then add this line, which runs the Panel's scheduler every minute:
+Add this line to run the scheduler every minute:
 
 ```text
 * * * * * php /var/www/pterodactyl/artisan schedule:run >> /dev/null 2>&1
@@ -196,7 +249,7 @@ Then add this line, which runs the Panel's scheduler every minute:
 
 ### Queue Worker
 
-Create a file named `pteroq.service` in `/etc/systemd/system` with these contents:
+Create `pteroq.service` in `/etc/systemd/system`:
 
 ```text
 [Unit]
@@ -216,7 +269,7 @@ RestartSec=5s
 WantedBy=multi-user.target
 ```
 
-Then enable Redis and the queue worker, so that they start when the server boots:
+Enable Redis and the queue worker so they start on boot:
 
 ```bash
 systemctl enable --now redis-server
@@ -225,8 +278,8 @@ systemctl enable --now pteroq.service
 
 ## Next Steps
 
-The Panel is installed. Next, [configure your web server](./webserver-configuration.mdx) so that you can open the Panel in your browser. Then [install Wings](../wings/installing.mdx) on each node.
+Next, [configure your web server](./webserver-configuration.mdx) to open the Panel in your browser. Then [install Wings](../wings/installing.mdx) on each node.
 
 ### Telemetry
 
-The Panel sends anonymous usage statistics to help us improve Pterodactyl. `p:environment:setup` asks whether to enable it. See [Telemetry](./additional-configuration.mdx#telemetry) for what is collected and how to turn it off.
+The Panel sends anonymous usage statistics to help improve Pterodactyl. `p:environment:setup` asks whether to enable it. See [Telemetry](./additional-configuration.mdx#telemetry) for what is collected and how to turn it off.

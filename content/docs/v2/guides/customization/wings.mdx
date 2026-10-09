@@ -5,21 +5,21 @@ description: Compile Wings from its source code.
 
 ## Introduction
 
-Wings is written in Go, so you may change its source code and compile your own binary. This guide shows how to build it. It does not explain Wings' code; you need to know Go to change it.
+Wings is written in Go, so you can change its source and compile your own binary. This guide covers building only; changing the code requires knowing Go.
 
 <Callout type="warn">
-Build and test your binary on a development machine before you use it on a node that runs servers for other people.
+Build and test your binary on a development machine before using it on a node that runs servers for other people.
 </Callout>
 
 ## Requirements
 
 You need Git, and Go at the version shown on the `go` line of Wings' [`go.mod`](https://github.com/pterodactyl/wings/blob/develop/go.mod) file, or newer. Follow Go's [installation instructions](https://go.dev/doc/install).
 
-Wings only runs on Linux. Building on Linux is the simplest way to get a working binary.
+Wings runs only on Linux, so building on Linux is the simplest way to get a working binary.
 
 ## Building
 
-Download the source code, and build Wings from it:
+Clone the source and build Wings:
 
 ```bash
 git clone https://github.com/pterodactyl/wings.git
@@ -27,11 +27,11 @@ cd wings
 go build -o wings wings.go
 ```
 
-This creates a `wings` binary in the current directory. It is built for the machine you build on. To build for a node with a different CPU, set `GOARCH`, for example `GOOS=linux GOARCH=arm64 go build -o wings wings.go`.
+This creates a `wings` binary in the current directory, built for the current machine. To build for a node with a different CPU, set `GOARCH`, for example `GOOS=linux GOARCH=arm64 go build -o wings wings.go`.
 
 ## Installing Your Binary
 
-Keep a copy of the current binary, so that you can go back to it:
+Back up the current binary, then install yours:
 
 ```bash
 systemctl stop wings
@@ -41,11 +41,11 @@ chmod u+x /usr/local/bin/wings
 systemctl start wings
 ```
 
-If Wings does not start, stop the service and run Wings in the foreground to see its errors:
+If Wings does not start, stop the service and run it in the foreground to see its errors:
 
 ```bash
 systemctl stop wings
 wings --debug
 ```
 
-To go back to the original binary, move `wings-backup` back to `/usr/local/bin/wings`, and start the service again.
+To roll back, move `wings-backup` back to `/usr/local/bin/wings` and start the service again.

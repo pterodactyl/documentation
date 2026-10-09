@@ -13,6 +13,7 @@ const config = {
             { source: '/docs', destination: '/', permanent: true },
             { source: '/docs/:path*', destination: '/:path*', permanent: true },
             { source: '/api-v2/:path*', destination: '/v2/api/:path*', permanent: true },
+            { source: '/v2/project/terminology', destination: '/v2/project/how-it-works#terms', permanent: true },
             { source: '/v2/api/endpoints/:path*', destination: '/v2/api/authentication/:path*', permanent: true },
             ...['project', 'panel', 'wings', 'guides'].map((section) => ({
                 source: `/${section}/:path*`,

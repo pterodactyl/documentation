@@ -5,23 +5,22 @@ description: Configure NGINX, Apache, or Caddy to serve the Panel.
 
 ## Introduction
 
-The Panel needs a web server that sends requests to PHP and serves the files in `/var/www/pterodactyl/public`. Choose one of the configurations below. Each one replaces `<domain>` with your Panel's domain name or IP address.
+The web server passes requests to PHP and serves `/var/www/pterodactyl/public`. Pick your web server and enter your Panel's domain or IP address; the configuration below fills them in.
 
 <Callout type="warn">
-The configurations with SSL need a certificate for your domain. Create it before you continue, or the web server will not start. See [Creating SSL Certificates](../guides/tutorials/ssl-certificates.mdx). Caddy with automatic SSL creates its own certificate.
+SSL configurations need a certificate for your domain first, or the web server will not start. See [Creating SSL Certificates](../guides/tutorials/ssl-certificates.mdx). Caddy with automatic SSL creates its own.
 </Callout>
 
-These configurations assume PHP 8.3. If you use a different PHP version, change `php8.3` in the socket paths to match it.
+<SetupPanel fields={['domain', 'webserver', 'ssl', 'php', 'path']} />
 
-<Tabs items={['NGINX With SSL', 'NGINX Without SSL', 'Apache With SSL', 'Apache Without SSL', 'Caddy With Automatic SSL', 'Caddy Without SSL']}>
-<Tab value="NGINX With SSL">
-First, remove the default NGINX site:
+<ShowFor webserver="nginx" ssl={true}>
+Remove the default NGINX site:
 
 ```bash
 rm /etc/nginx/sites-enabled/default
 ```
 
-Then create `/etc/nginx/sites-available/pterodactyl.conf` with the contents below.
+Create `/etc/nginx/sites-available/pterodactyl.conf`:
 
 ```nginx title="pterodactyl.conf"
 server {
@@ -97,22 +96,22 @@ server {
 }
 ```
 
-Finally, enable the site and restart NGINX.
+Enable the site and restart NGINX:
 
 ```bash
 ln -s /etc/nginx/sites-available/pterodactyl.conf /etc/nginx/sites-enabled/pterodactyl.conf
 systemctl restart nginx
 ```
-</Tab>
+</ShowFor>
 
-<Tab value="NGINX Without SSL">
-First, remove the default NGINX site:
+<ShowFor webserver="nginx" ssl={false}>
+Remove the default NGINX site:
 
 ```bash
 rm /etc/nginx/sites-enabled/default
 ```
 
-Then create `/etc/nginx/sites-available/pterodactyl.conf` with the contents below.
+Create `/etc/nginx/sites-available/pterodactyl.conf`:
 
 ```nginx title="pterodactyl.conf"
 server {
@@ -170,23 +169,23 @@ server {
 }
 ```
 
-Finally, enable the site and restart NGINX.
+Enable the site and restart NGINX:
 
 ```bash
 ln -s /etc/nginx/sites-available/pterodactyl.conf /etc/nginx/sites-enabled/pterodactyl.conf
 systemctl restart nginx
 ```
-</Tab>
+</ShowFor>
 
-<Tab value="Apache With SSL">
-Apache runs PHP through its own PHP module. Install it, then disable the default site:
+<ShowFor webserver="apache" ssl={true}>
+Install Apache and its PHP module, then disable the default site:
 
 ```bash
 apt -y install apache2 libapache2-mod-php8.3
 a2dissite 000-default.conf
 ```
 
-Then create `/etc/apache2/sites-available/pterodactyl.conf` with the contents below.
+Create `/etc/apache2/sites-available/pterodactyl.conf`:
 
 ```apache title="pterodactyl.conf"
 <VirtualHost *:80>
@@ -226,24 +225,24 @@ Then create `/etc/apache2/sites-available/pterodactyl.conf` with the contents be
 </VirtualHost>
 ```
 
-Finally, enable the site and the modules it needs, and restart Apache.
+Enable the site and its modules, and restart Apache:
 
 ```bash
 a2ensite pterodactyl.conf
 a2enmod rewrite ssl
 systemctl restart apache2
 ```
-</Tab>
+</ShowFor>
 
-<Tab value="Apache Without SSL">
-Apache runs PHP through its own PHP module. Install it, then disable the default site:
+<ShowFor webserver="apache" ssl={false}>
+Install Apache and its PHP module, then disable the default site:
 
 ```bash
 apt -y install apache2 libapache2-mod-php8.3
 a2dissite 000-default.conf
 ```
 
-Then create `/etc/apache2/sites-available/pterodactyl.conf` with the contents below.
+Create `/etc/apache2/sites-available/pterodactyl.conf`:
 
 ```apache title="pterodactyl.conf"
 <VirtualHost *:80>
@@ -271,17 +270,17 @@ Then create `/etc/apache2/sites-available/pterodactyl.conf` with the contents be
 </VirtualHost>
 ```
 
-Finally, enable the site and the rewrite module, and restart Apache.
+Enable the site and the rewrite module, and restart Apache:
 
 ```bash
 a2ensite pterodactyl.conf
 a2enmod rewrite
 systemctl restart apache2
 ```
-</Tab>
+</ShowFor>
 
-<Tab value="Caddy With Automatic SSL">
-Caddy requests and renews a certificate for your domain automatically. Your domain must point at the server, and ports 80 and 443 must be reachable from the internet.
+<ShowFor webserver="caddy" ssl={true}>
+Caddy gets and renews a certificate automatically. Your domain must point at the server, and ports 80 and 443 must be reachable from the internet.
 
 Replace the contents of `/etc/caddy/Caddyfile` with:
 
@@ -340,17 +339,17 @@ Replace the contents of `/etc/caddy/Caddyfile` with:
 }
 ```
 
-If your domain uses Cloudflare's proxy, Caddy needs a DNS challenge to get its certificate. See [Caddy's documentation](https://caddyserver.com/docs/automatic-https#dns-challenge).
+Behind Cloudflare's proxy, Caddy needs a DNS challenge to get its certificate. See [Caddy's documentation](https://caddyserver.com/docs/automatic-https#dns-challenge).
 
-Finally, restart Caddy:
+Restart Caddy:
 
 ```bash
 systemctl restart caddy
 ```
-</Tab>
+</ShowFor>
 
-<Tab value="Caddy Without SSL">
-Replace the contents of `/etc/caddy/Caddyfile` with the configuration below. It is the same as the SSL configuration, except that it listens on port 80 and does not set `HTTPS`.
+<ShowFor webserver="caddy" ssl={false}>
+Replace the contents of `/etc/caddy/Caddyfile` with:
 
 ```text title="Caddyfile"
 {
@@ -405,14 +404,13 @@ Replace the contents of `/etc/caddy/Caddyfile` with the configuration below. It 
 }
 ```
 
-Finally, restart Caddy:
+Restart Caddy:
 
 ```bash
 systemctl restart caddy
 ```
-</Tab>
-</Tabs>
+</ShowFor>
 
 ## After Configuring Your Web Server
 
-Open your Panel's address in a browser and sign in with the user you created. If you changed from HTTP to HTTPS, make sure `APP_URL` in your `.env` file starts with `https://`, then run `php artisan config:clear`.
+Open your Panel's address and sign in with the user you created. If you switched from HTTP to HTTPS, make sure `APP_URL` in `.env` starts with `https://`, then run `php artisan config:clear`.

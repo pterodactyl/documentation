@@ -5,7 +5,7 @@ description: Share a directory from a node with the servers on it.
 
 ## Introduction
 
-A mount makes a directory on the node available inside a server's container. You might use one to share a large map, a mod pack, or a set of plugins between several servers, without copying the files into each server.
+A mount makes a directory on the node available inside a server's container, for example to share a large map, a mod pack, or plugins between servers without copying them into each one.
 
 A mount has a **source**, the directory on the node, and a **target**, the path where it appears inside the container.
 
@@ -15,19 +15,14 @@ Servers only share a mount's files when they run on the same node. Mounts are no
 
 ## Allowing the Directory in Wings
 
-For security, Wings only mounts directories that its configuration allows. The Panel adds the source of every mount attached to a node to that node's configuration, under `allowed_mounts`:
+For security, Wings only mounts directories listed under `allowed_mounts` in `/etc/pterodactyl/config.yml`:
 
 ```yaml
 allowed_mounts:
   - /var/lib/pterodactyl/mounts
 ```
 
-Wings reads its configuration when it starts, so it does not see mounts you create later until you update `/etc/pterodactyl/config.yml` and restart Wings. You may either:
-
-- add the source directory to `allowed_mounts` in `/etc/pterodactyl/config.yml` yourself, or
-- run the auto-deploy command from the node's **Configuration** tab again, with `--override`. This replaces the whole file, so only do this if you have not changed it by hand.
-
-Then restart Wings:
+Add each mount's source directory to this list yourself, then restart Wings:
 
 ```bash
 systemctl restart wings
@@ -37,20 +32,20 @@ A directory in `allowed_mounts` also allows every directory inside it.
 
 ## Creating a Mount
 
-Open **Admin → Mounts** and click **New Mount**. Fill in these fields:
+Open **Admin → Mounts**, click **New Mount**, and fill in:
 
-- **Name:** A unique name for the mount.
-- **Description:** Optional notes about the mount.
+- **Name:** A unique name.
+- **Description:** Optional notes.
 - **Source:** The absolute path of the directory on the node, such as `/var/lib/pterodactyl/mounts/maps`. Create the directory on each node you attach the mount to.
 - **Target:** The absolute path inside the container, such as `/home/container/maps`. It cannot be `/home/container` itself.
-- **Read Only:** Whether servers can only read the mount's files, not change them.
-- **User Mountable:** Not used yet. Users cannot add mounts to their own servers, so only administrators can attach mounts.
+- **Read Only:** Whether servers can only read the mount's files.
+- **User Mountable:** Not used yet. Users cannot add mounts to their own servers; only administrators can attach mounts.
 
-Click **Create Mount**. On the mount's page, use **Attach Eggs** and **Attach Nodes** to choose where the mount may be used. A server can only use a mount that is attached to both its egg and its node.
+Click **Create Mount**. On the mount's page, use **Attach Eggs** and **Attach Nodes** to choose where it may be used. A server can only use a mount attached to both its egg and its node.
 
 ## Attaching a Mount to a Server
 
-1. Open the server in **Admin → Servers**, and select its **Mounts** tab. The tab appears once the server has been installed.
+1. Open the server in **Admin → Servers** and select its **Mounts** tab. The tab appears once the server is installed.
 2. Click **Mount** next to the mount.
 3. Restart the server.
 

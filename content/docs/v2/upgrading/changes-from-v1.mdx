@@ -5,7 +5,9 @@ description: The changes in Pterodactyl 2.0 that affect existing 1.x installatio
 
 ## Introduction
 
-This page lists the changes in 2.0 that affect 1.x installations. Each change says how likely it is to affect you. When you are ready to upgrade, follow [Upgrading From 1.x](./upgrading-from-v1.mdx).
+This page lists the 2.0 changes that affect 1.x installations, and how likely each one is to affect you. Answer the questions below to see which apply to your Panel, then follow [Upgrading From 1.x](./upgrading-from-v1.mdx) to upgrade.
+
+<ImpactIndex />
 
 ## High Impact Changes
 
@@ -13,27 +15,27 @@ This page lists the changes in 2.0 that affect 1.x installations. Each change sa
 
 **Likelihood Of Impact: High**
 
-The Panel now needs PHP 8.3 or newer and the `intl` PHP extension. The 1.x installation guide does not install `intl`. On Ubuntu, you may install it with:
+The Panel now needs PHP 8.3 or newer and the `intl` PHP extension. 1.x also ran on PHP 8.2, and the 1.x installation guide does not install `intl`. On Ubuntu, install it with:
 
 ```bash
 apt install php8.3-intl
 ```
 
-See [Requirements](../panel/requirements.mdx) for the full list.
+If `php -v` shows a version older than 8.3, upgrade PHP first with [Upgrading PHP](../guides/configuration/php-upgrade.mdx). [Requirements](../panel/requirements.mdx) has the full list.
 
 ### Upgrading With p:upgrade
 
 **Likelihood Of Impact: High**
 
-Do not use `php artisan p:upgrade` or the 1.x update steps to move to 2.0. Both download the latest release and unpack it on top of your 1.x files, which leaves your Panel offline. Once 2.0 is released, running `p:upgrade` without `--release` will download 2.0.
+Do not use `php artisan p:upgrade` or the 1.x update steps to move to 2.0. Both download the latest release and unpack it over your 1.x files, which leaves your Panel offline. Once 2.0 is released, `p:upgrade` without `--release` will download 2.0.
 
-Follow [Upgrading From 1.x](./upgrading-from-v1.mdx) instead. It installs 2.0 in a new directory.
+Instead, follow [Upgrading From 1.x](./upgrading-from-v1.mdx), which installs 2.0 in a new directory.
 
 ### Nest Endpoints Removed From the Application API
 
 **Likelihood Of Impact: High**
 
-The `/api/application/nests` endpoints have been removed. Requests to them now return `404`. Use the egg and tag endpoints instead:
+The `/api/application/nests` endpoints are removed and now return `404`. Use the egg and tag endpoints instead:
 
 | 1.x | 2.0 |
 | --- | --- |
@@ -42,27 +44,50 @@ The `/api/application/nests` endpoints have been removed. Requests to them now r
 | `GET /api/application/nests/{nest}/eggs` | `GET /api/application/eggs?filter[tag]={slug}` |
 | `GET /api/application/nests/{nest}/eggs/{egg}` | `GET /api/application/eggs/{egg}` |
 
-When the upgrade turns a nest with two or more eggs into a tag, the tag records the nest's ID in its `legacy_nest_id` attribute, so an integration that stored nest IDs can find the matching tag. Not every nest becomes a tag; see [Review Egg Tags](./upgrading-from-v1.mdx#review-egg-tags). To see an egg's tags, add `?include=tags` to an egg request. The tag endpoints need the same read permission as the egg endpoints.
+When the upgrade turns a nest with two or more eggs into a tag, the tag stores the nest's ID in its `legacy_nest_id` attribute, so integrations that stored nest IDs can find the matching tag. Not every nest becomes a tag; see [Review Egg Tags](./upgrading-from-v1.mdx#review-egg-tags). To get an egg's tags, add `?include=tags` to an egg request. The tag endpoints need the same read permission as the egg endpoints.
 
-This mostly affects billing modules. If you use the official [WHMCS module](https://github.com/pterodactyl/whmcs), update it before you upgrade the Panel. The updated module works with both 1.x and 2.0. If you use another billing module, ask its developer whether it supports 2.0.
+This mostly affects billing modules. If you use the official [WHMCS module](https://github.com/pterodactyl/whmcs), update it before you upgrade the Panel; the updated module works with 1.x and 2.0. For any other billing module, ask its developer whether it supports 2.0.
 
-Your existing API keys keep working. The other Application API requests that billing modules make, such as creating, suspending, and deleting servers, work as before.
+Existing API keys keep working, as do the other Application API requests billing modules make, such as creating, suspending, and deleting servers.
 
 ## Medium Impact Changes
+
+### The /assets/ Web Server Block
+
+**Likelihood Of Impact: Medium**
+
+The 2.0 web server configuration adds a block for `/assets/`. It serves the Panel's `public/assets` directory, where themes and extensions publish their files, as plain files: it never passes them to PHP, and it refuses hidden files.
+
+The Panel loads without the block, but add it to your configuration when you upgrade. [Switch to 2.0](./upgrading-from-v1.mdx#switch-to-20) shows it for NGINX, Apache, and Caddy. The Docker image already includes it.
 
 ### Nests Are Replaced by Tags
 
 **Likelihood Of Impact: Medium**
 
-Eggs are now grouped with tags instead of nests. An egg can have several tags, and tags can also be added to nodes. The upgrade turns your existing nests into tags. See [Review Egg Tags](./upgrading-from-v1.mdx#review-egg-tags) for how each nest is converted.
+Eggs are now grouped with tags instead of nests. An egg can have several tags, and nodes can have tags too. The upgrade turns your nests into tags; [Review Egg Tags](./upgrading-from-v1.mdx#review-egg-tags) explains how.
+
+Your eggs keep working, and 2.0 can import egg files exported from 1.x.
 
 The `nests` table stays in your database, but 2.0 no longer updates it. Eggs and servers created on 2.0 do not belong to a nest.
+
+### Changes to 1.x Panel Files
+
+**Likelihood Of Impact: Medium**
+
+The upgrade installs 2.0 in a new directory and copies only your `.env` file. Anything you changed or added in the 1.x Panel directory stays behind, such as an edited theme, a modified page, or files from an addon installer.
+
+You cannot copy these changes across: 2.0 has a rebuilt frontend and a new admin area, so changes to 1.x source files do not apply. Rebuild them for 2.0 instead:
+
+- To change colors, corners, or console colors, create a [theme](../guides/customization/themes.mdx). Themes need no frontend build.
+- To add pages or features, use an [extension](../extensions/index.mdx).
+
+Both keep working when you update the Panel.
 
 ### Database Versions
 
 **Likelihood Of Impact: Medium**
 
-The Panel is tested with MariaDB 10.11 and 11, and with MySQL 8 and 9. The old 1.x minimums of MySQL 5.7 and MariaDB 10.2 are not tested with 2.0. If you run an older database server, you should upgrade it first.
+The Panel is tested with MariaDB 10.11 and 11, and MySQL 8 and 9. The 1.x minimums, MySQL 5.7 and MariaDB 10.2, are not tested with 2.0. If you run an older database server, upgrade it first.
 
 ## Low Impact Changes
 
@@ -70,16 +95,16 @@ The Panel is tested with MariaDB 10.11 and 11, and with MySQL 8 and 9. The old 1
 
 **Likelihood Of Impact: Low**
 
-2.0 adds an Admin API at `/api/admin`. The new admin area uses it to manage the Panel, including eggs, tags, settings, and extensions. The Client API and the Application API keep their existing paths. See the [API overview](../api/index.mdx).
+2.0 adds an Admin API at `/api/admin`, which the new admin area uses to manage the Panel, including eggs, tags, settings, and extensions. The Client and Application APIs keep their paths. See the [API overview](../api/index.mdx).
 
 ### Building the Frontend
 
 **Likelihood Of Impact: Low**
 
-This only affects you if you build the Panel from source. The frontend is now built with npm and Vite instead of Yarn and Webpack, and needs Node.js 22.12 or newer. The `--openssl-legacy-provider` option is no longer needed. The release archive already contains the built frontend.
+This affects you only if you build the Panel from source, which until 2.0 is released includes everyone following [Upgrading From 1.x](./upgrading-from-v1.mdx). The frontend now builds with npm and Vite instead of Yarn and Webpack, and needs Node.js 22.12 or newer. The `--openssl-legacy-provider` option is no longer needed. The release archive will contain the built frontend.
 
 ### Docker Image
 
 **Likelihood Of Impact: Low**
 
-The Panel Docker image now includes the queue worker and the scheduler, so you do not need a separate worker service or cron entry. The image does not run database migrations when it starts. You run them yourself as part of each deployment. See [Docker Deployment](../panel/docker.mdx).
+The Panel Docker image now includes the queue worker and the scheduler, so you need no separate worker service or cron entry. It does not run database migrations when it starts; run them yourself in each deployment. See [Docker Deployment](../panel/docker.mdx).

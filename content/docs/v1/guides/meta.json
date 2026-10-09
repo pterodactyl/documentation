@@ -1,6 +1,5 @@
 {
   "title": "Community Guides",
-  "root": true,
   "pages": [
     "panel-installation",
     "wings-installation",

@@ -5,17 +5,17 @@ description: Rebuild the Panel's frontend after you change its source code.
 
 ## Introduction
 
-The Panel's frontend is written in React and TypeScript. The release archive includes the frontend already built, and its source code in `resources/scripts`. If you change the source, you must rebuild the frontend before the change appears.
+The Panel's frontend is written in React and TypeScript. The release archive ships it prebuilt, with its source in `resources/scripts`; if you change the source, rebuild the frontend to see the change.
 
 <Callout type="warn">
-Changes to the Panel's source code are lost when you update the Panel, because the update replaces those files. Before you change the source, check whether an [extension](../../extensions/index.mdx) or a [theme](./themes.mdx) can do what you need. Both keep working across updates.
+Updating the Panel replaces its source files, so your changes are lost. First check whether an [extension](../../extensions/index.mdx) or a [theme](./themes.mdx) can do what you need. Both keep working across updates.
 </Callout>
 
 Build on a development or staging machine if you can. Building uses a lot of memory and CPU for a few minutes.
 
 ## Installing Node.js
 
-Building needs Node.js 22.12 or newer. Ubuntu's own Node.js package is too old, so install it from NodeSource:
+Building needs Node.js 22.12 or newer. Ubuntu's package is too old, so install it from NodeSource:
 
 ```bash
 curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
@@ -24,7 +24,7 @@ apt -y install nodejs
 
 ## Building the Frontend
 
-From the Panel's directory, install the build tools, then build the frontend:
+Install the build tools, then build the frontend:
 
 ```bash
 cd /var/www/pterodactyl
@@ -32,7 +32,7 @@ npm ci
 npm run build:production
 ```
 
-The build writes the new frontend to `public/assets`. Give the web server user ownership of the files again, then reload the Panel in your browser:
+The build writes to `public/assets`. Give the web server user ownership of the files again, then reload the Panel in your browser:
 
 ```bash
 chown -R www-data:www-data /var/www/pterodactyl/*
@@ -40,10 +40,10 @@ chown -R www-data:www-data /var/www/pterodactyl/*
 
 ## Working on the Frontend
 
-While you work on a change, run this command. It rebuilds the frontend every time you save a file:
+While working on a change, run this to rebuild the frontend every time you save a file:
 
 ```bash
 npm run watch
 ```
 
-Stop it with `CTRL+C`, and run `npm run build:production` once you are done.
+Stop it with `CTRL+C`, then run `npm run build:production` when you are done.

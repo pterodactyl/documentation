@@ -5,15 +5,15 @@ description: Run the Pterodactyl 2.0 Panel with Docker Compose.
 
 ## Introduction
 
-The Panel image runs the whole Panel in one container: NGINX, PHP 8.4, the queue worker, and the scheduler. You provide the database and Redis. Wings and your game servers run separately, on your nodes.
+The Panel image runs the whole Panel in one container: NGINX, PHP 8.4, the queue worker, and the scheduler. You provide the database and Redis; Wings and game servers run on your nodes.
 
 Before you start, read the [requirements](./requirements.mdx).
 
 ## Choosing an Image
 
-Always deploy an image with a specific version tag or digest. The example Compose file uses `ghcr.io/pterodactyl/panel:latest`, which does not point to 2.0 until 2.0 is released.
+Always deploy a specific version tag or digest. The example Compose file uses `ghcr.io/pterodactyl/panel:latest`, which does not point to 2.0 until 2.0 is released.
 
-You may also build the image yourself from a 2.0 source checkout:
+To build the image yourself, run this from a 2.0 source checkout:
 
 ```bash
 docker build --pull -t pterodactyl-panel:2.0-local .
@@ -21,7 +21,7 @@ docker build --pull -t pterodactyl-panel:2.0-local .
 
 ## Configuration
 
-Copy `docker-compose.example.yml` to `compose.yaml`. If you built the image yourself, set the `panel` service's `image` to `pterodactyl-panel:2.0-local`. Then review `APP_URL`, the database credentials, the mail settings, the ports, and the mounted paths.
+Copy `docker-compose.example.yml` to `compose.yaml`. If you built the image yourself, set the `panel` service's `image` to `pterodactyl-panel:2.0-local`. Review `APP_URL`, the database credentials, mail settings, ports, and mounted paths.
 
 The example uses MariaDB 11.4 and Redis 7.4. These settings control the services inside the Panel container:
 
@@ -36,11 +36,11 @@ The example uses MariaDB 11.4 and Redis 7.4. These settings control the services
 
 `QUEUE_WORKER_ENABLED` and `SCHEDULER_ENABLED` must be exactly `true` or `false`.
 
-The container already runs the queue worker and the scheduler. Do not also set up the `pteroq` service or the cron entry from the 1.x guide.
+The container runs the queue worker and scheduler itself. Do not also set up the `pteroq` service or the cron entry from [Getting Started](./getting-started.mdx#queue-and-scheduler).
 
 ## Persistent Data
 
-The example Compose file stores these paths outside the container:
+The example Compose file keeps these paths outside the container:
 
 | Path | Contents |
 | --- | --- |
@@ -53,17 +53,17 @@ The example Compose file stores these paths outside the container:
 | `/var/lib/mysql` in the database container | The Panel database |
 | `/data` in the Redis container | Redis data |
 
-On first start, the container creates `/app/var/.env` with new keys. It keeps using that file when you recreate the container.
+On first start, the container creates `/app/var/.env` with new keys, and reuses it when you recreate the container.
 
-**Back up the database and `/app/var/.env` together.** If you run several Panel containers, they must all use the same `APP_KEY` and `HASHIDS_SALT`. Never generate new keys for an existing Panel.
+**Back up the database and `/app/var/.env` together.** All Panel containers must share the same `APP_KEY` and `HASHIDS_SALT`. Never generate new keys for an existing Panel.
 
-Game server files and their backups are stored on your Wings nodes, not in these volumes.
+Game server files and their backups live on your Wings nodes, not in these volumes.
 
 ## Running Migrations
 
-The container does not migrate the database when it starts. You run migrations yourself, once per deployment, before the new version serves traffic. This way, starting an extra container never changes your database.
+The container does not migrate the database on start. Run migrations yourself, once per deployment, before the new version serves traffic. That way, starting an extra container never changes your database.
 
-For a new installation, start the database and Redis, migrate, create your first administrator, and then start the Panel:
+For a new installation, start the database and Redis, migrate, create your first administrator, then start the Panel:
 
 ```bash
 docker compose -f compose.yaml up -d database cache
@@ -72,16 +72,16 @@ docker compose -f compose.yaml run --rm panel php artisan p:user:make
 docker compose -f compose.yaml up -d panel
 ```
 
-These steps are for new installations only. Moving an existing 1.x database into this image has not been tested yet. To upgrade a native 1.x installation, see [Upgrading From 1.x](../upgrading/upgrading-from-v1.mdx).
+These steps are for new installations only. Moving an existing 1.x database into this image is not tested yet. To upgrade a native 1.x installation, see [Upgrading From 1.x](../upgrading/upgrading-from-v1.mdx).
 
 ## HTTPS
 
-The container can request a certificate from Let's Encrypt. Set `APP_URL` to your `https://` address, set `LE_EMAIL`, and keep `/etc/letsencrypt` on a volume. The certificate request only works if your domain reaches the container on port 80.
+To get a Let's Encrypt certificate, set `APP_URL` to your `https://` address, set `LE_EMAIL`, and keep `/etc/letsencrypt` on a volume. Your domain must reach the container on port 80.
 
-If a reverse proxy handles HTTPS for you, leave `LE_EMAIL` empty. Send traffic from the proxy to the container's HTTP port, and configure the Panel's trusted proxies.
+If a reverse proxy handles HTTPS, leave `LE_EMAIL` empty. Send the proxy's traffic to the container's HTTP port, and configure the Panel's trusted proxies.
 
 ## Wings
 
-The Compose file does not run Wings, and it does not give the Panel access to Docker. Install Wings separately on each node.
+The Compose file does not run Wings or give the Panel access to Docker. Install Wings separately on each node.
 
-The Panel and Wings may run on the same machine. Game servers run in their own images, chosen by each egg. Make sure those images support your node's CPU architecture. The Panel image supporting ARM64 does not mean every game does.
+The Panel and Wings may share a machine. Game servers run in their own images, chosen by each egg, and those images must support your node's CPU architecture. An ARM64 Panel image does not mean every game supports ARM64.
