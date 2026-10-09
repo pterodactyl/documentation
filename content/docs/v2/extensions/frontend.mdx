@@ -264,7 +264,7 @@ it('shows the file name with native details', () => {
 
 `createTestServerCard` provides a server-card fixture; override its `state` to test loading, unavailable, or ready presentation. Component test hosts provide the native view and parts without issuing core queries.
 
-## File Actions and Native Forms
+## File Actions
 
 The file manager has slots for its toolbar, row actions, and selected-file actions. They receive the current server, directory, files, selected names, and callbacks to refresh or change the selection. Row actions also receive their file.
 
@@ -284,7 +284,39 @@ slots.register('server.files.toolbar', RefreshFiles);
 
 Wrap asynchronous click handlers in `useExtensionAction` so failures are attributed to your extension. Use the SDK's file mutations for writes, and check the user's permission on both frontend and backend.
 
-The `panel.users.detail.form` slot receives the native user form. Contributed controls and validators use its existing values and save with the Panel's **Save Changes** action:
+## Native Forms
+
+To draw the fields your [`Fields` class](./backend.mdx#form-fields) declares, register a component for the form with `forms.extend`. The component receives a `field(name)` function that binds one of your fields to the form: its `value`, a `setValue` callback, an `id` for its label, and `error`, the Panel's validation message from the last save until the field changes.
+
+```tsx
+import { definePterodactylExtension, Label, TextArea, type FormExtension } from '@pterodactyl/sdk';
+
+const NoteField: FormExtension<{ body: string }, 'admin.server'> = ({ field }) => {
+    const body = field('body');
+
+    return (
+        <div>
+            <Label htmlFor={body.id}>Server note</Label>
+            <TextArea id={body.id} value={body.value ?? ''} onChange={(event) => body.setValue(event.target.value)} />
+            {body.error && <p className={'input-help error'}>{body.error}</p>}
+        </div>
+    );
+};
+
+export default definePterodactylExtension({
+    setup({ forms }) {
+        forms.extend('admin.server', NoteField);
+    },
+});
+```
+
+The component also receives `values`, your saved values with the edits made so far; `mode`, which is `'create'` or `'edit'`; and `resource`, the saved resource when editing. Type the values with `FormExtension`'s first parameter, so `field` only accepts your field names.
+
+The forms are `admin.user`, `admin.server`, `admin.node`, `admin.egg`, `admin.location`, `admin.mount`, and `admin.database_host`. Each one covers the resource's create page and its edit page. For servers, the edit page is the **Details** tab. The Panel draws each extension's component under the extension's name, inside an error boundary, so a component that throws only hides itself.
+
+The Panel only draws your fields when your backend registered a `Fields` class for that model and the administrator may change them. When editing, it also leaves your component out if your values could not be read. A save then cannot write over what you have stored.
+
+The `panel.users.detail.form` slot is different: it renders inside the user details form and receives the native `form`, so you can draw one of the Panel's own user fields again, or add a validator to it. It cannot add fields of its own:
 
 ```tsx
 slots.register('panel.users.detail.form', ({ data }) => (
@@ -296,7 +328,5 @@ slots.register('panel.users.detail.form', ({ data }) => (
     </data.form.AppField>
 ));
 ```
-
-Use the existing fields in `AdminUserFormValues`. The slot does not add arbitrary fields to the Panel's user API, so keep extension-specific values in scoped settings or your own endpoint.
 
 The `server.startup.form` slot receives the current startup configuration, pending state, and a `setDockerImage` callback that checks the user's permission and keeps the native cache current. See [Slot Data](./reference.mdx#slot-data) for these contracts.
