@@ -1,0 +1,19 @@
+app/page.tsx
+  s_41d9126c9dc228::t_45a305cb4b3ef3 145-146
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8bd283f9b52d96cdb47ea22567c1b2f058ecbe83",
+  "prompts": {},
+  "sessions": {
+    "s_41d9126c9dc228": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7c31571c-68a2-4eb2-9cc8-0afffd10ca03",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
