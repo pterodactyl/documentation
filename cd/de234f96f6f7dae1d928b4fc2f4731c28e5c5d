@@ -1,0 +1,102 @@
+components/home/api-exchange.tsx
+  s_41d9126c9dc228::t_c4808daa251ca5 1-163
+  s_41d9126c9dc228::t_aac21d6ccbc372 164
+components/home/row-index.tsx
+  s_41d9126c9dc228::t_b5ba069bf4cb49 1-9,11-51
+  s_41d9126c9dc228::t_e0dbf4966b5364 10
+components/home/field.tsx
+  s_41d9126c9dc228::t_ef6472a752a3e3 1-16
+components/home/path-row.tsx
+  s_41d9126c9dc228::t_e1e8f3162028ea 3
+  s_41d9126c9dc228::t_8d23e46e8d45b8 1-2,4-41,43-46,48-60
+  s_41d9126c9dc228::t_948aeaa94115b7 42,47
+app/page.tsx
+  s_41d9126c9dc228::t_33247a6c6a8407 162-170,172
+  s_41d9126c9dc228::t_8527ce90e0d4c3 157-161,175,186,192-194,196-200,209-221
+  s_41d9126c9dc228::t_4e62fc3eef23ad 4-5,7,10-16,28-29,42,57-69,101-103,115-116,130-133,144-145,155-156,176-185,187,195,201-206,222-223,227,231-237,242,245,247,254,263,266-268,270-360,365,367,391
+  s_41d9126c9dc228::t_2e42afea510f70 43,171,174,265,368
+app/layout.tsx
+  s_41d9126c9dc228::t_39b7e8a4813bec 31
+  s_41d9126c9dc228::t_6b64187e91bd29 4,7-10,12,18
+components/home/setup-preview.tsx
+  s_41d9126c9dc228::t_c83e0dcf631a3b 1-158,177-190
+  s_41d9126c9dc228::t_7ecb44c9f182f3 159-176
+components/home/upgrade-progress.tsx
+  s_41d9126c9dc228::t_3b3d5a8369833f 1-77
+app/global.css
+  s_41d9126c9dc228::t_1270fee6e5bd48 6-11,74,76
+components/docs/store.ts
+  s_41d9126c9dc228::t_88d4696b44479c 1-58
+components/docs/upgrade-steps.ts
+  s_41d9126c9dc228::t_4b6296a34afab6 1-45
+components/docs/widgets/architecture-tour.tsx
+  s_41d9126c9dc228::t_8dfdf9125835a8 96
+components/docs/widgets/egg-playground.tsx
+  s_41d9126c9dc228::t_a4e772c4e410a4 897
+components/docs/widgets/extension-tools/demos.tsx
+  s_41d9126c9dc228::t_02974de6334660 57,272
+components/docs/widgets/extension-tools/manifest-checker.tsx
+  s_41d9126c9dc228::t_c91c92a197bf67 208
+components/docs/widgets/troubleshooting-matcher.tsx
+  s_41d9126c9dc228::t_f78bee9d5cad04 146,166-167
+components/docs/widgets/upgrade-checklist.tsx
+  s_41d9126c9dc228::t_cd9a96eaab48ee 5-6
+components/docs/widgets/wings-config-explorer.tsx
+  s_41d9126c9dc228::t_b47545dd404f19 205
+content/docs/v2/upgrading/changes-from-v1.mdx
+  s_41d9126c9dc228::t_7c3aeb433a03db 8
+kit/README.md
+  s_41d9126c9dc228::t_fcc875ceee326e 1-49
+kit/VENDORED.md
+  s_41d9126c9dc228::t_42848676232b98 1-5
+kit/canvas/lightbuffer.ts
+  s_41d9126c9dc228::t_a23c9a794bd488 1-110
+kit/canvas/spark.ts
+  s_41d9126c9dc228::t_622f7fbbfe5ea7 1-67
+kit/core/bayer.ts
+  s_41d9126c9dc228::t_ccdfa222184313 1-56
+kit/core/gl.ts
+  s_41d9126c9dc228::t_acc9eb287e405f 1-50
+kit/core/loop.ts
+  s_41d9126c9dc228::t_208b8339c1e972 1-92
+kit/hues.ts
+  s_41d9126c9dc228::t_a0d1929d6ca4df 1-12
+kit/index.ts
+  s_41d9126c9dc228::t_5ae39e270f01c3 1-18
+kit/kit.css
+  s_41d9126c9dc228::t_12babfe51d592f 1-386
+kit/package.json
+  s_41d9126c9dc228::t_66763be7aefba9 1-24
+kit/react/DitherImage.tsx
+  s_41d9126c9dc228::t_376468eacd3bd0 1-46
+kit/react/DitherSpark.tsx
+  s_41d9126c9dc228::t_7f9910bcc38bf3 1-35
+kit/react/Halftone.tsx
+  s_41d9126c9dc228::t_e57385369c9d03 1-21
+kit/react/LightField.tsx
+  s_41d9126c9dc228::t_ed68d8695dc227 1-71
+kit/react/index.ts
+  s_41d9126c9dc228::t_0ca00d6186d2be 1-6
+kit/shaders/ditherimage.ts
+  s_41d9126c9dc228::t_af0270415556b5 1-253
+kit/shaders/lightfield.ts
+  s_41d9126c9dc228::t_201981728eb54a 1-248
+kit/tokens.css
+  s_41d9126c9dc228::t_e53727362772a6 1-254
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "cdde234f96f6f7dae1d928b4fc2f4731c28e5c5d",
+  "prompts": {},
+  "sessions": {
+    "s_41d9126c9dc228": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7c31571c-68a2-4eb2-9cc8-0afffd10ca03",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
