@@ -1,0 +1,24 @@
+{
+  "name": "@pterodactyl/kit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pterodactyl's shared visual system: tokens, rails, and the dither shaders, as TypeScript and CSS with thin React components.",
+  "exports": {
+    ".": "./index.ts",
+    "./react": "./react/index.ts",
+    "./tokens.css": "./tokens.css",
+    "./kit.css": "./kit.css"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  }
+}

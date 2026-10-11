@@ -1,0 +1,254 @@
+/* ==================================================================== *
+ * @pterodactyl/kit · tokens
+ *
+ * The design tokens every Pterodactyl surface shares (pterodactyl.io, the
+ * docs, the egg library). Import after Tailwind:
+ *
+ *   @import 'tailwindcss';
+ *   @import '<kit>/tokens.css';
+ *   @import '<kit>/kit.css';
+ *
+ * Terminal-dark precision: near-black canvas, Mona Sans for words,
+ * JetBrains Mono for machine truth, Signal Blue as the one accent. A site
+ * that loads its fonts through a bundler (next/font) hands them over as
+ * --kit-font-sans and --kit-font-mono; otherwise the family names apply.
+ *
+ * Two rules this block exists to enforce:
+ *   1. Every white-alpha value derives from Terminal White (#f5f5f5).
+ *      There is no second white. `rgba(255,255,255,…)` is a bug.
+ *   2. Text and border alphas come off a fixed ladder
+ *      (85 / 65 / 55 / 40 / 30 / 25). Use the named rungs below rather
+ *      than `text-white/47`: the rung names make drift impossible.
+ *
+ * Light mode is opt in: put `light` on <html> (Fumadocs and next-themes
+ * do). Canvas and ink swap, the ladder becomes ink at the same alphas, the
+ * data colours deepen for contrast. Media wells (--color-ink) stay dark in
+ * both: they are screens.
+ *
+ * See DESIGN.md for the system these encode.
+ * ==================================================================== */
+@theme {
+  /* ---- Canvas ---------------------------------------------------- */
+  --color-black: #0a0a0a; /* the page */
+  --color-ink: #050505; /* deepest well, behind inset media */
+  --color-white: #f5f5f5; /* Terminal White — the one white */
+
+  /* ---- Accent ---------------------------------------------------- */
+  --color-accent: #3d7bfd; /* Signal Blue — "this is live" */
+  --color-accent-soft: rgba(61, 123, 253, 0.14);
+  --color-accent-glow: rgba(61, 123, 253, 0.6); /* signal glow only */
+
+  /* ---- Foreground ladder (Terminal White at fixed alphas) --------- */
+  --color-fg-strong: rgba(245, 245, 245, 0.85);
+  --color-fg-muted: rgba(245, 245, 245, 0.65);
+  --color-fg-subtle: rgba(245, 245, 245, 0.55);
+  --color-fg-faint: rgba(245, 245, 245, 0.4);
+  --color-fg-dim: rgba(245, 245, 245, 0.3);
+  --color-fg-ghost: rgba(245, 245, 245, 0.25);
+
+  /* ---- Lines ----------------------------------------------------- */
+  --color-hairline: rgba(245, 245, 245, 0.08); /* the default border */
+  --color-hairline-strong: rgba(245, 245, 245, 0.14);
+  --color-tick: rgba(245, 245, 245, 0.3); /* rail intersections only */
+
+  /* ---- Surfaces (translucent white over the canvas) --------------- */
+  --color-surface: rgba(245, 245, 245, 0.02);
+  --color-surface-raised: rgba(245, 245, 245, 0.05);
+  /* the same two fills composited over the canvas, for anything that has
+     to stay opaque: a cell in a shared-line grid, a popover */
+  --color-surface-flat: #0f0f0f;
+  --color-surface-raised-flat: #161616;
+
+  /* ---- Data states — instruments only, never chrome --------------- */
+  --color-red: #ef4444; /* danger, overload, suspended */
+  --color-green: #4ade80; /* running, healthy, zero-counters */
+  --color-yellow: #fbbf24; /* warnings, warm window light */
+  --color-blue: #60a5fa; /* INFO level, JSON keys */
+  --color-rave: #a855f7; /* club light — the block party only */
+
+  /* ---- Section hues ----------------------------------------------- *
+   * The panel's five quick themes. A page section may take one as its
+   * hue: its light field, its marks, its index dot. Never on body text. */
+  --color-hue-blue: #3d7bfd;
+  --color-hue-emerald: #34d399;
+  --color-hue-violet: #a78bfa;
+  --color-hue-amber: #f5a524;
+  --color-hue-rose: #fb7185;
+
+  /* ---- Pixel-art street palette (the isolation demo) -------------- */
+  --color-roof: #23252b;
+  --color-roof-lit: #2a2d34;
+  --color-wall: #15171c;
+  --color-door: #0c0d10;
+
+  /* ---- Fonts ----------------------------------------------------- *
+   * Mona Sans, GitHub's open-source grotesk: drawn for the place this
+   * project lives. Variable in weight, so headings sit at 560 without
+   * loading a second file. */
+  --font-display: var(--kit-font-sans, 'Mona Sans'), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--kit-font-sans, 'Mona Sans'), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--kit-font-mono, 'JetBrains Mono'), ui-monospace, 'SF Mono', monospace;
+
+  /* ---- Motion ---------------------------------------------------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ---- Weights --------------------------------------------------- *
+   * One job each. Mona Sans is variable, so headings sit at 560 rather
+   * than the heavier 600, and nothing else needs a step of its own.
+   *   400 regular  all prose and all data
+   *   500 medium   UI labels: nav, buttons, table headers
+   *   560          every heading (baked into the size tokens below)
+   * Weight rides on the size tokens, so `font-medium` and `font-semibold`
+   * should be rare in markup. */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+
+  /* ---- Type scale ------------------------------------------------ *
+   * Every size on the page is one of these. If a design needs a size
+   * that is not here, it gets added here first — arbitrary values like
+   * `text-[15px]` are the thing this scale exists to prevent.
+   *
+   * Four families, by what the text IS:
+   *   mono-*  data (machine truth)
+   *   ui-*    interface chrome (labels, links, buttons)
+   *   body    / lead — prose
+   *   title / figure / headline / display — headings
+   *
+   * Mono sizes are the four rungs data is allowed to be set at.      */
+  --text-mono-xs: 0.625rem; /* 10px — counters, crumbs */
+  --text-mono-sm: 0.6875rem; /* 11px — status strips */
+  --text-mono-md: 0.75rem; /* 12px — log lines */
+  --text-mono-lg: 0.8125rem; /* 13px — code blocks */
+
+  --text-ui-sm: 0.75rem; /* 12px — legal, copyright, fine print */
+  --text-ui-sm--font-weight: 400;
+  --text-ui: 0.875rem; /* 14px — nav links, buttons, footer links */
+  --text-ui--font-weight: 500;
+
+  /* a note under a control or in a widget */
+  --text-note: 0.8125rem; /* 13px */
+  --text-note--line-height: 1.55;
+  --text-body: 0.9375rem; /* 15px — body copy */
+  --text-body--line-height: 1.625;
+  --text-lead: 1.125rem; /* 18px — lead paragraphs */
+  --text-lead--line-height: 1.6;
+
+  /* A number presented as a headline (count-ups, big stats). Reads as
+     display scale but is data, so it sits on its own rung. */
+  --text-metric: 4.5rem; /* 72px */
+  --text-metric--line-height: 1;
+  --text-metric--letter-spacing: -0.03em;
+  --text-metric--font-weight: 600;
+
+  /* Display faces carry their own weight and tracking so `font-display`
+     stays a pure family utility (Tailwind generates it from --font-display)
+     and nothing has to re-declare `font-semibold tracking-tight`. */
+  --text-figure: clamp(1.875rem, 3.2vw, 3rem); /* headings set into a figure */
+  --text-figure--line-height: 1.05;
+  --text-figure--letter-spacing: -0.025em;
+  --text-figure--font-weight: 560;
+  /* the heading of one entry in a list or a widget */
+  --text-entry: 1.0625rem; /* 17px */
+  --text-entry--line-height: 1.3;
+  --text-entry--letter-spacing: -0.01em;
+  --text-entry--font-weight: 560;
+  --text-title: 1.5rem; /* card + figure headings (h3) */
+  --text-title--line-height: 1.2;
+  --text-title--letter-spacing: -0.02em;
+  --text-title--font-weight: 560;
+  --text-headline: clamp(2.25rem, 4.4vw, 4rem); /* section h2 */
+  --text-headline--line-height: 1.02;
+  --text-headline--letter-spacing: -0.032em;
+  --text-headline--font-weight: 560;
+  /* The scroll-read statement: body-adjacent, set at headline weight */
+  --text-statement: clamp(1.625rem, 3vw, 2.75rem);
+  --text-statement--line-height: 1.18;
+  --text-statement--letter-spacing: -0.025em;
+  --text-statement--font-weight: 520;
+  /* Display scale has exactly two call sites: the hero title and the closing
+     CTA. They used to carry separate clamps that both capped at 7rem anyway,
+     so it is one token now and the page's two loudest moments cannot drift
+     apart. The 6rem ceiling is deliberate: past that a headline is shouting
+     rather than leading, and long words start to overflow narrow viewports. */
+  --text-display: clamp(2.5rem, 6.6vw, 5.75rem);
+  --text-display--line-height: 0.98;
+  --text-display--letter-spacing: -0.04em;
+  --text-display--font-weight: 560;
+
+  /* ---- Structure ------------------------------------------------- */
+  --spacing-rail: 90rem; /* wrapper max width */
+  --spacing-nav: 4rem; /* sticky header height */
+
+  /* ---- Depth ------------------------------------------------------ *
+   * A semantic z scale. Nothing on this page should ever be given a
+   * bare number, and nothing needs a 9999.                            */
+  --z-base: 1;
+  --z-raised: 10;
+  --z-sticky: 20;
+  --z-nav: 50;
+  --z-overlay: 60;
+
+  /* ---- Measure ---------------------------------------------------- *
+   * Prose line length, replacing seven ad-hoc `max-w-*` values. Sized
+   * in ch against --text-body so the measure holds if the size moves. */
+  --container-measure: 68ch; /* body copy in an open section */
+  --container-measure-sm: 44ch; /* body copy inside a bento cell */
+}
+
+/* ---- Inset rhythm ----------------------------------------------------
+ * "Pad a slab" was written six different ways across the page. There are
+ * only three jobs, each with a mobile and an `sm:` value:
+ *
+ *   gutter → the page's horizontal inset. Every slab uses it, so the text
+ *            column lines up from the nav all the way to the footer.
+ *   cell   → a bento cell's inset (tighter; cells are small).
+ *   band   → the vertical air a full-width section gets.
+ *
+ * `@theme static` rather than plain `@theme`: these are consumed by the
+ * `pad-*` utilities below, and Tailwind does not scan @utility bodies when
+ * deciding which theme variables to emit — under plain @theme, any value
+ * not also written in markup gets tree-shaken and the utility silently
+ * resolves to nothing. `static` pins them.
+ *
+ * They remain usable directly (`px-gutter`, `inset-x-cell`) for the cases
+ * that need a single axis; prefer the `pad-*` utilities otherwise.
+ * ---------------------------------------------------------------------- */
+@theme static {
+  --spacing-gutter: 1.25rem; /* 20px */
+  --spacing-gutter-lg: 2.5rem; /* 40px */
+  --spacing-cell: 1.25rem; /* 20px */
+  --spacing-cell-lg: 2.5rem; /* 40px */
+  --spacing-band: 3.5rem; /* 56px */
+  --spacing-band-lg: 5rem; /* 80px */
+}
+
+/* ---- Light mode ------------------------------------------------------- */
+.light {
+  --color-black: #ffffff;
+  --color-white: #0a0a0a;
+
+  --color-accent-soft: rgba(61, 123, 253, 0.1);
+  --color-accent-glow: rgba(61, 123, 253, 0.35);
+
+  --color-fg-strong: rgba(10, 10, 10, 0.85);
+  --color-fg-muted: rgba(10, 10, 10, 0.65);
+  --color-fg-subtle: rgba(10, 10, 10, 0.55);
+  --color-fg-faint: rgba(10, 10, 10, 0.4);
+  --color-fg-dim: rgba(10, 10, 10, 0.3);
+  --color-fg-ghost: rgba(10, 10, 10, 0.25);
+
+  --color-hairline: rgba(10, 10, 10, 0.08);
+  --color-hairline-strong: rgba(10, 10, 10, 0.14);
+  --color-tick: rgba(10, 10, 10, 0.3);
+
+  --color-surface: rgba(10, 10, 10, 0.02);
+  --color-surface-raised: rgba(10, 10, 10, 0.05);
+  --color-surface-flat: #fafafa;
+  --color-surface-raised-flat: #f3f3f3;
+
+  --color-red: #dc2626;
+  --color-green: #16a34a;
+  --color-yellow: #ca8a04;
+  --color-blue: #2563eb;
+}

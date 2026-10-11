@@ -27,7 +27,6 @@ export function SlotDemo() {
   return (
     <Widget
       title="Slots"
-      description="Click a dashed area to see its slot. Turn on Server Notes to see its card appear in the slot it registers."
       actions={<Toggle label="Server Notes installed" checked={installed} onChange={setInstalled} />}
     >
       <PanelFrame>
@@ -55,7 +54,7 @@ export function SlotDemo() {
 
         <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_10rem]">
           <div className="rounded-md border border-hairline bg-surface-flat p-3 font-mono text-mono-sm leading-relaxed text-fg-muted">
-            <p>[04:00:01 INFO]: Starting minecraft server version 1.21.1</p>
+            <p>[04:00:01 INFO]: Starting minecraft server version 26.3</p>
             <p>[04:00:03 INFO]: Preparing level &quot;world&quot;</p>
             <p>[04:00:09 INFO]: Done (6.2s)! For help, type &quot;help&quot;</p>
             <p className="text-fg-faint">&gt; _</p>
@@ -101,7 +100,6 @@ export function ScreenDemo() {
   return (
     <Widget
       title="Screens"
-      description="A screen is a page of its own. Turn the registration and the nav label on and off to see what each one does."
       actions={
         <div className="flex flex-wrap gap-4">
           <Toggle label="Registered in setup" checked={registered} onChange={setRegistered} />
@@ -271,7 +269,7 @@ export function ReplacementDemo() {
   );
 
   return (
-    <Widget title="Component replacements" description="Pick a version of the dashboard's server card. The highlighted parts are the extension's.">
+    <Widget title="Component replacements" description="Highlighted parts are the extension's.">
       <Segmented<Variant> label="Version" value={variant} onChange={setVariant} options={(Object.keys(VARIANTS) as Variant[]).map((value) => ({ value, label: VARIANTS[value].label }))} />
 
       <div className="mt-4">

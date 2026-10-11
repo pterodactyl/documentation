@@ -2,64 +2,9 @@
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { applySetup, useSetup } from '../setup';
+import { createStore } from '../store';
+import { checklist, NO_STEPS, STEP_GROUPS, STEP_IDS, STEPS, useCompletedSteps } from '../upgrade-steps';
 import { Button, Label, Segmented, Status, Widget } from '../widget';
-
-/* ==================================================================== *
- * Browser storage
- *
- * Each store keeps one JSON value under a namespaced key, survives
- * reloads, and follows changes made in other tabs. The server and the
- * first client render use the fallback, so hydration matches.
- * ==================================================================== */
-
-function createStore<T>(key: string, fallback: T, sanitize: (value: unknown) => T) {
-  let current = fallback;
-  let loaded = false;
-
-  const read = (): T => {
-    if (!loaded && typeof window !== 'undefined') {
-      loaded = true;
-      try {
-        const raw = window.localStorage.getItem(key);
-        current = raw === null ? fallback : sanitize(JSON.parse(raw));
-      } catch {
-        // Private windows and blocked storage keep the current value.
-      }
-    }
-
-    return current;
-  };
-
-  const write = (next: T): void => {
-    current = next;
-    loaded = true;
-    try {
-      window.localStorage.setItem(key, JSON.stringify(next));
-    } catch {
-      // The value still applies for this page view.
-    }
-    window.dispatchEvent(new Event(key));
-  };
-
-  const subscribe = (callback: () => void) => {
-    const onStorage = (event: StorageEvent) => {
-      if (event.key !== null && event.key !== key) return;
-      loaded = false;
-      callback();
-    };
-    window.addEventListener(key, callback);
-    window.addEventListener('storage', onStorage);
-
-    return () => {
-      window.removeEventListener(key, callback);
-      window.removeEventListener('storage', onStorage);
-    };
-  };
-
-  const server = () => fallback;
-
-  return { read, write, subscribe, server };
-}
 
 /* ==================================================================== *
  * Shared pieces
@@ -122,43 +67,6 @@ const linkClass = 'text-white underline decoration-fg-dim underline-offset-4 hov
  * Each anchor is the id of that step's heading on the page.
  * ==================================================================== */
 
-interface UpgradeStep {
-  id: string;
-  group: 0 | 1 | 2;
-  title: string;
-  anchor: string;
-  /** Filled in with the reader's install directory and PHP version. */
-  hint: string;
-}
-
-const STEP_GROUPS = ['Before you upgrade', 'Upgrade', 'After upgrading'] as const;
-
-const STEPS: readonly UpgradeStep[] = [
-  { id: 'latest-1x', group: 0, title: 'Update to the latest 1.x release', anchor: 'update-to-the-latest-1x-release', hint: 'Panel 1.12.0 or newer' },
-  { id: 'intl', group: 0, title: 'Install the intl PHP extension', anchor: 'install-the-intl-php-extension', hint: 'php8.3-intl' },
-  { id: 'billing', group: 0, title: 'Update your billing module', anchor: 'update-your-billing-module', hint: 'Skip if you have none' },
-  { id: 'maintenance', group: 1, title: 'Enter maintenance mode', anchor: 'enter-maintenance-mode', hint: 'php artisan down' },
-  { id: 'backup', group: 1, title: 'Back up your Panel', anchor: 'back-up-your-panel', hint: 'Database, .env, files' },
-  { id: 'download', group: 1, title: 'Download 2.0', anchor: 'download-20', hint: '/var/www/pterodactyl-2.0' },
-  { id: 'dependencies', group: 1, title: 'Install dependencies', anchor: 'install-dependencies', hint: 'Composer, then npm' },
-  { id: 'migrate', group: 1, title: 'Migrate the database', anchor: 'migrate-the-database', hint: 'php artisan migrate' },
-  { id: 'switch', group: 1, title: 'Switch to 2.0', anchor: 'switch-to-20', hint: 'Swap, add /assets/' },
-  { id: 'online', group: 1, title: 'Exit maintenance mode', anchor: 'exit-maintenance-mode', hint: 'php artisan up' },
-  { id: 'egg-tags', group: 2, title: 'Review egg tags', anchor: 'review-egg-tags', hint: 'Admin → Eggs' },
-  { id: 'keep-1x', group: 2, title: 'Keep your 1.x files', anchor: 'keep-your-1x-files', hint: '/var/www/pterodactyl-1.x' },
-];
-
-const STEP_IDS = STEPS.map((step) => step.id);
-const NO_STEPS: readonly string[] = [];
-
-const checklist = createStore<readonly string[]>('pterodactyl-docs:upgrade-checklist', NO_STEPS, (value) =>
-  Array.isArray(value) ? STEP_IDS.filter((id) => value.includes(id)) : NO_STEPS,
-);
-
-function useCompletedSteps(): readonly string[] {
-  return useSyncExternalStore(checklist.subscribe, checklist.read, checklist.server);
-}
-
 function setStep(id: string, done: boolean): void {
   const current = new Set(checklist.read());
   if (done) current.add(id);
@@ -196,7 +104,6 @@ export function UpgradeChecklist() {
     <div ref={frame} id="upgrade-checklist" className="scroll-mt-24">
       <Widget
         title="Upgrade checklist"
-        description="Tick each step when you finish it. Your progress is saved in this browser."
         actions={
           <Button onClick={() => checklist.write(NO_STEPS)} disabled={done.size === 0}>
             Reset
@@ -479,7 +386,6 @@ export function ImpactIndex({ page = '' }: { page?: string }) {
   return (
     <Widget
       title="Does this affect you?"
-      description="Answer a few questions about your Panel to see which changes apply. Your answers are saved in this browser."
       actions={
         <Button onClick={() => answersStore.write(DEFAULT_ANSWERS)} disabled={answers.install === 'native' && answers.factors.length === 0}>
           Reset

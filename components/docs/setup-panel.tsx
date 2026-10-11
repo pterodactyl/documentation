@@ -45,7 +45,6 @@ export function SetupPanel({ fields = ALL_FIELDS }: { fields?: Field[] }) {
   return (
     <Widget
       title="Your setup"
-      description="Commands and configuration files on this site update to match. Saved in this browser only."
       actions={
         <Button onClick={resetSetup}>
           <span className="flex items-center gap-1.5">

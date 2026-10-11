@@ -202,10 +202,7 @@ export function WingsConfigExplorer() {
   }
 
   return (
-    <Widget
-      title="Explore Wings' config.yml"
-      description="Hover or click a key to see what it does. Change the options above the file to see which lines they change."
-    >
+    <Widget title="Explore Wings' config.yml">
       <div className="grid gap-5 lg:grid-cols-2">
         <div>
           <Label>Your Panel</Label>

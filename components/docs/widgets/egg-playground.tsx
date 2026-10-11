@@ -391,7 +391,6 @@ export function EggVariablePlayground() {
   return (
     <Widget
       title="Startup command playground"
-      description="Edit the command, a variable, or its rules. The preview shows what the Panel does with them."
       actions={
         <Segmented
           label="Example egg"
@@ -895,10 +894,7 @@ export function ConfigParserPlayground() {
   };
 
   return (
-    <Widget
-      title="Configuration file playground"
-      description="Pick a parser, then edit the egg's find rules, the server, or the file. The result shows the file after Wings updates it."
-    >
+    <Widget title="Configuration file playground">
       <div className="@container">
       <Segmented label="Parser" value={parser} onChange={setParser} options={PARSERS.map((p) => ({ value: p, label: p }))} />
       <TryRow

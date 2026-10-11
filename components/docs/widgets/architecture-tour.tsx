@@ -93,7 +93,7 @@ export function ArchitectureTour() {
   const activeBoxes = new Set(EDGES.filter((edge) => active.has(edge.id)).flatMap((edge) => [edge.from, edge.to]));
 
   return (
-    <Widget title="How the parts connect" description="Pick a task to see which connections it uses. The numbers are the default ports.">
+    <Widget title="How the parts connect">
       <Segmented<Task>
         label="Task"
         value={task}

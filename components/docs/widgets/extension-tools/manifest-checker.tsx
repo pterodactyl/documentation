@@ -205,10 +205,7 @@ export function ManifestChecker() {
   };
 
   return (
-    <Widget
-      title="Check a manifest"
-      description="Edit extension.json and watch the checks the Panel runs on it. Then break it on purpose."
-    >
+    <Widget title="Check a manifest">
       <div className="flex flex-wrap items-center gap-2">
         <span className="eyebrow mr-1">Break it</span>
         {PRESETS.map((item) => (

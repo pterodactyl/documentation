@@ -122,7 +122,6 @@ export function TroubleshootingMatcher() {
   return (
     <Widget
       title="Match an error to its fix"
-      description="Paste an error or a log line. Known problems that match it appear below, best match first."
       actions={
         text ? (
           <Button onClick={() => choose('')}>Clear</Button>
@@ -144,7 +143,7 @@ export function TroubleshootingMatcher() {
       />
 
       <div className="mt-4">
-        <Label>Try one</Label>
+        <Label>Common problems</Label>
         <div className="flex flex-wrap gap-2">
           {EXAMPLES.map((example) => (
             <button
@@ -164,10 +163,8 @@ export function TroubleshootingMatcher() {
         </div>
       </div>
 
-      <div className="mt-6 border-t border-hairline pt-5" aria-live="polite">
-        {!hasInput ? (
-          <p className="text-note text-fg-faint">Matches appear here as you type.</p>
-        ) : matches.length === 0 ? (
+      <div className={hasInput ? 'mt-6 border-t border-hairline pt-5' : undefined} aria-live="polite">
+        {!hasInput ? null : matches.length === 0 ? (
           <NoMatch setup={setup} />
         ) : (
           <>

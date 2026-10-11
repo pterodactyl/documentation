@@ -1,0 +1,386 @@
+/* ==================================================================== *
+ * @pterodactyl/kit · primitives
+ *
+ * The structure and the small parts every page is built from: the rails,
+ * the inset rhythm, buttons, the pill, status lights, the figure card, the
+ * halftone mask and the light field's fallback. Import after tokens.css.
+ * See DESIGN.md § Layout and § Components.
+ * ==================================================================== */
+
+/* ---- Base ------------------------------------------------------------ */
+@layer base {
+  /* bare border-* and divide-* utilities default to the hairline */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--color-hairline);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-black);
+    color-scheme: dark;
+  }
+  html.light {
+    color-scheme: light;
+  }
+
+  body {
+    background-color: var(--color-black);
+    color: var(--color-white);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: #f5f5f5;
+  }
+
+  /* quiet scrollbars, in the hairline tone */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-hairline-strong);
+    border-radius: 999px;
+  }
+
+  /* even heading rags; fewer orphans in prose */
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* ---- Rails ------------------------------------------------------------
+ * The signature. Every top-level slab is a `wrapper`, so their 1px side
+ * borders stack into two continuous rails running the height of the page.
+ * A slab adds `border-t` for the rule across, and `rail-ticks` for the
+ * small triangles where that rule meets the rails. */
+@utility wrapper {
+  position: relative;
+  width: 100%;
+  max-width: min(var(--spacing-rail), calc(100% - 1.5rem));
+  margin-inline: auto;
+  border-left: 1px solid var(--color-hairline);
+  border-right: 1px solid var(--color-hairline);
+  @media (width >= 40rem) {
+    max-width: min(var(--spacing-rail), calc(100% - 2rem));
+  }
+}
+
+@utility rail-ticks {
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+  }
+  &::before {
+    left: 0;
+    border-left-color: var(--color-tick);
+  }
+  &::after {
+    right: 0;
+    border-right-color: var(--color-tick);
+  }
+}
+
+/* ---- The inset rhythm ---------------------------------------------------
+ * The only three ways anything is padded: a section's own text block, a
+ * cell, and a thin band. Phone value, then 40rem and up. */
+@utility pad-section {
+  padding-inline: var(--spacing-gutter);
+  padding-block: var(--spacing-band);
+  @media (width >= 40rem) {
+    padding-inline: var(--spacing-gutter-lg);
+    padding-block: var(--spacing-band-lg);
+  }
+}
+
+@utility pad-cell {
+  padding: var(--spacing-cell);
+  @media (width >= 40rem) {
+    padding: var(--spacing-cell-lg);
+  }
+}
+
+@utility pad-band {
+  padding-inline: var(--spacing-gutter);
+  padding-block: calc(var(--spacing-gutter) * 2 / 3);
+  @media (width >= 40rem) {
+    padding-inline: var(--spacing-gutter-lg);
+  }
+}
+
+/* A small label. Sparingly: a footer column, a form group. Never above every
+   section heading. */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-mono-sm);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-fg-subtle);
+}
+
+/* ---- Dither as CSS --------------------------------------------------------
+ * `halftone`: an image seen through the 3px dot grid, in pure CSS (a mask of
+ * dots). For thumbnails and tiles where a shader would be too much; reveal
+ * the full image beneath on hover or focus. */
+@utility halftone {
+  mask-image: radial-gradient(circle at center, #000 0.9px, transparent 1.15px);
+  mask-size: 3px 3px;
+  filter: saturate(1.2) brightness(1.25);
+}
+
+/* <Halftone>: the dots over the full image, which develops on hover, on focus
+   within, or while [data-active] */
+.halftone-frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  background: var(--color-ink);
+}
+.halftone-frame > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+.halftone-dots {
+  mask-image: radial-gradient(circle at center, #000 0.9px, transparent 1.15px);
+  mask-size: 3px 3px;
+  filter: saturate(1.2) brightness(1.25);
+  transition: opacity 0.45s ease;
+}
+.halftone-full {
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 0.45s var(--ease-out),
+    transform 0.8s var(--ease-out);
+}
+.halftone-frame[data-active] > .halftone-full,
+.halftone-frame:focus-within > .halftone-full {
+  opacity: 1;
+  transform: scale(1);
+}
+.halftone-frame[data-active] > .halftone-dots,
+.halftone-frame:focus-within > .halftone-dots {
+  opacity: 0;
+}
+@media (hover: hover) {
+  .halftone-frame:hover > .halftone-full {
+    opacity: 1;
+    transform: scale(1);
+  }
+  .halftone-frame:hover > .halftone-dots {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .halftone-dots,
+  .halftone-full {
+    transition: none;
+  }
+}
+
+/* Media that reads as continuing past the edge it bleeds off */
+@utility bleed-b {
+  mask-image: linear-gradient(to bottom, #000 68%, transparent 100%);
+}
+
+/* A light field that fades out at the top and bottom of its band, so it
+   never ends on a hard line against the rule above or below */
+@utility fade-y {
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 22%, #000 84%, transparent 100%);
+}
+
+/* Edge-to-edge marquee: layout and the faded ends; the script drives it */
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+}
+@utility marquee-mask {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+
+/* The one sanctioned glow on chrome: a live status light */
+@utility signal-glow {
+  box-shadow: 0 0 12px 2px var(--color-accent-glow);
+}
+
+/* ---- Buttons -------------------------------------------------------------
+ * Two, and only two. In the components layer so a utility on the same
+ * element can still adjust them (an icon-only button sets px-0). */
+@layer components {
+  .btn {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 0.5rem;
+    padding: 0.625rem 1.125rem;
+    font-size: var(--text-ui);
+    font-weight: 500;
+    white-space: nowrap;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease,
+      opacity 0.2s ease,
+      transform 0.25s var(--ease-out);
+  }
+  /* phones set buttons side by side at their own width, so they run tighter */
+  @media (width < 40rem) {
+    .btn {
+      padding-inline: 1rem;
+    }
+  }
+  .btn:active {
+    transform: scale(0.98);
+  }
+  .btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  .btn-primary {
+    background-color: var(--color-white);
+    color: var(--color-black);
+  }
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+  .btn-ghost {
+    border: 1px solid var(--color-hairline-strong);
+    background-color: color-mix(in srgb, var(--color-black) 55%, transparent);
+    color: var(--color-fg-strong);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-fg-ghost);
+    background-color: var(--color-surface-raised);
+    color: var(--color-white);
+  }
+
+  /* An announcement pill: a tinted tag, a line, a chevron that steps on hover */
+  .pill {
+    display: inline-flex;
+    min-height: 2rem;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--color-hairline-strong);
+    border-radius: 9999px;
+    background-color: var(--color-surface);
+    padding: 0.25rem 0.75rem 0.25rem 0.3125rem;
+    font-size: var(--text-ui-sm);
+    font-weight: 500;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .pill > span:first-child {
+    border-radius: 9999px;
+    background-color: var(--color-accent-soft);
+    padding: 0.125rem 0.5rem;
+  }
+  .pill svg {
+    transition: transform 0.3s var(--ease-out);
+  }
+  .pill:hover {
+    border-color: var(--color-fg-ghost);
+    background-color: var(--color-surface-raised);
+  }
+  .pill:hover svg {
+    transform: translateX(2px);
+  }
+
+  /* A card that sits on a figure's light: near-opaque ink, a hairline, a long
+     soft shadow. The blur only where the canvas beneath it is still enough to
+     afford it; phones get a more opaque fill instead. */
+  .figure-card {
+    border: 1px solid var(--color-hairline-strong);
+    border-radius: 0.75rem;
+    background: color-mix(in srgb, var(--color-black) 84%, transparent);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.9);
+  }
+  /* on paper a shadow that deep reads as a smudge; it lifts less */
+  .light .figure-card {
+    box-shadow: 0 24px 60px -32px rgba(10, 10, 10, 0.28);
+  }
+  @media (width < 40rem) {
+    .figure-card {
+      backdrop-filter: none;
+      background: color-mix(in srgb, var(--color-black) 92%, transparent);
+    }
+  }
+}
+
+/* ---- Status lights --------------------------------------------------------
+ * Grey when stopped; it only glows while something runs. Only a transition
+ * pulses (is-starting); a standing state that wants attention (a
+ * pre-release, a warning) holds still in yellow (is-warning). */
+.status-dot {
+  width: 0.4375rem;
+  height: 0.4375rem;
+  flex-shrink: 0;
+  border-radius: 9999px;
+  background-color: var(--color-fg-ghost);
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.status-dot.is-starting {
+  background-color: var(--color-yellow);
+  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-yellow) 55%, transparent);
+  animation: kit-pulse 1s ease-in-out infinite;
+}
+.status-dot.is-warning {
+  background-color: var(--color-yellow);
+  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-yellow) 45%, transparent);
+}
+.status-dot.is-running {
+  background-color: var(--color-green);
+  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-green) 55%, transparent);
+}
+.status-dot.is-error {
+  background-color: var(--color-red);
+  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-red) 55%, transparent);
+}
+@keyframes kit-pulse {
+  50% {
+    opacity: 0.35;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .status-dot.is-starting {
+    animation: none;
+  }
+}
+
+/* ---- The light field ---------------------------------------------------------
+ * `lf-canvas` is a light field's canvas. Without WebGL it falls back to a
+ * plain radial wash in the field's hue (set --hue, or Signal Blue). */
+.lf-canvas[data-fallback] {
+  background: radial-gradient(55% 45% at 50% 70%, color-mix(in srgb, var(--hue, var(--color-accent)) 22%, transparent), transparent 75%);
+}
