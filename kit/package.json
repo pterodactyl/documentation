@@ -14,9 +14,13 @@
     "*.css"
   ],
   "peerDependencies": {
+    "lucide-react": ">=0.400",
     "react": ">=18"
   },
   "peerDependenciesMeta": {
+    "lucide-react": {
+      "optional": true
+    },
     "react": {
       "optional": true
     }

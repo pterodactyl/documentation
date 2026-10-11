@@ -139,7 +139,7 @@ export function TroubleshootingMatcher() {
         spellCheck={false}
         autoComplete="off"
         placeholder="Could not establish a connection to the machine running this server..."
-        className="block w-full resize-y rounded-lg border border-hairline bg-black px-3 py-2.5 font-mono text-mono-lg leading-relaxed text-fg-strong placeholder:text-fg-ghost focus:border-accent focus:outline-none"
+        className="block w-full resize-y rounded-lg border border-hairline bg-black/40 px-3 py-2.5 font-mono text-mono-lg leading-relaxed text-fg-strong placeholder:text-fg-ghost focus:border-accent focus:outline-none"
       />
 
       <div className="mt-4">

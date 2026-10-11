@@ -2,10 +2,36 @@
  * @pterodactyl/kit · primitives
  *
  * The structure and the small parts every page is built from: the rails,
- * the inset rhythm, buttons, the pill, status lights, the figure card, the
+ * the inset rhythm, buttons, status lights, the dot-matrix sign, the figure card, the
  * halftone mask and the light field's fallback. Import after tokens.css.
  * See DESIGN.md § Layout and § Components.
  * ==================================================================== */
+
+/* ---- The fallback for Mona Sans --------------------------------------------
+ * Until Mona Sans arrives, text is set in Arial changed to Mona Sans's size
+ * and line metrics (measured: ascent 1.09em, descent 0.32em; the width of a
+ * line of copy), so the swap moves nothing on the page. Two faces, because
+ * headings (560) are set bold and body text regular, and the two differ in
+ * width. A site that loads Mona Sans through next/font gets its own
+ * fallback from there. */
+@font-face {
+  font-family: 'Mona Sans Fallback';
+  src: local('Arial'), local('ArialMT');
+  font-weight: 100 549;
+  size-adjust: 102.18%;
+  ascent-override: 106.67%;
+  descent-override: 31.32%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: 'Mona Sans Fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT');
+  font-weight: 550 900;
+  size-adjust: 97.71%;
+  ascent-override: 111.56%;
+  descent-override: 32.75%;
+  line-gap-override: 0%;
+}
 
 /* ---- Base ------------------------------------------------------------ */
 @layer base {
@@ -282,99 +308,344 @@
     color: var(--color-white);
   }
 
-  /* An announcement pill: a tinted tag, a line, a chevron that steps on hover */
-  .pill {
-    display: inline-flex;
-    min-height: 2rem;
-    align-items: center;
-    gap: 0.5rem;
-    border: 1px solid var(--color-hairline-strong);
-    border-radius: 9999px;
-    background-color: var(--color-surface);
-    padding: 0.25rem 0.75rem 0.25rem 0.3125rem;
-    font-size: var(--text-ui-sm);
-    font-weight: 500;
-    transition:
-      border-color 0.2s ease,
-      background-color 0.2s ease;
-  }
-  .pill > span:first-child {
-    border-radius: 9999px;
-    background-color: var(--color-accent-soft);
-    padding: 0.125rem 0.5rem;
-  }
-  .pill svg {
-    transition: transform 0.3s var(--ease-out);
-  }
-  .pill:hover {
-    border-color: var(--color-fg-ghost);
-    background-color: var(--color-surface-raised);
-  }
-  .pill:hover svg {
-    transform: translateX(2px);
-  }
-
-  /* A card that sits on a figure's light: near-opaque ink, a hairline, a long
-     soft shadow. The blur only where the canvas beneath it is still enough to
-     afford it; phones get a more opaque fill instead. */
+  /* A card that sits on a figure's light. The light must show through it:
+     half ink over a wide blur of the light, with the light's colour raised
+     (saturate, brightness), so the dots behind read as a coloured glow in the
+     card. A hairline and a long soft shadow. Other cards on a light use the
+     same two values (--glass-ink, --glass-filter); phones get a smaller blur,
+     which costs less on each frame of the animation beneath. */
   .figure-card {
     border: 1px solid var(--color-hairline-strong);
     border-radius: 0.75rem;
-    background: color-mix(in srgb, var(--color-black) 84%, transparent);
-    backdrop-filter: blur(14px);
+    background: color-mix(in srgb, var(--color-black) var(--glass-ink), transparent);
+    backdrop-filter: var(--glass-filter);
     box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.9);
   }
   /* on paper a shadow that deep reads as a smudge; it lifts less */
   .light .figure-card {
     box-shadow: 0 24px 60px -32px rgba(10, 10, 10, 0.28);
   }
-  @media (width < 40rem) {
-    .figure-card {
-      backdrop-filter: none;
-      background: color-mix(in srgb, var(--color-black) 92%, transparent);
-    }
+}
+
+:root {
+  --glass-ink: 50%;
+  --glass-filter: blur(20px) saturate(2) brightness(2);
+}
+@media (width < 40rem) {
+  :root {
+    --glass-filter: blur(12px) saturate(2) brightness(2);
+  }
+}
+/* `glass`: the same fill and blur for any other card or frame that can sit
+   on a light (the docs' widget frame). On a plain page it reads as
+   surface-flat, so the same frame works on and off a light. */
+@utility glass {
+  background: color-mix(in srgb, var(--color-black) var(--glass-ink), transparent);
+  backdrop-filter: var(--glass-filter);
+}
+/* On white, brightness only bleaches the dots; colour alone carries them */
+.light {
+  --glass-filter: blur(20px) saturate(2.2);
+}
+@media (width < 40rem) {
+  .light {
+    --glass-filter: blur(12px) saturate(2.2);
   }
 }
 
+/* ---- The closing band (SiteFooter band) ------------------------------------
+ * Signal Blue across the wrapper, with the whole mark drawn large on the dot
+ * grid. The band darkens toward its foot in dots, the way the light fields
+ * shade. */
+.sitefooter-band {
+  position: relative;
+  isolation: isolate;
+  height: 10rem;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-hairline);
+  background: var(--color-accent);
+}
+@media (width >= 40rem) {
+  .sitefooter-band {
+    height: 15rem;
+  }
+}
+.sitefooter-band::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, rgba(10, 10, 10, 0.6), transparent 75%);
+  -webkit-mask: var(--kit-dots);
+  -webkit-mask-composite: source-in;
+  mask: var(--kit-dots);
+  mask-composite: intersect;
+}
+.sitefooter-mark {
+  position: absolute;
+  right: 5%;
+  bottom: 10%;
+  height: 80%;
+  width: auto;
+  color: #fff;
+  -webkit-mask: var(--kit-dots);
+  -webkit-mask-composite: source-in;
+  mask: var(--kit-dots);
+  mask-composite: intersect;
+}
+
+/* ---- The dot grid as a mask ------------------------------------------------
+ * Square 2px dots at the 3px step, the grid every light is drawn on. Paint a
+ * colour or a gradient, then mask it with this (and mask-composite: intersect)
+ * to draw it as dots: the status lights, the dot-matrix sign, the theme
+ * swatches. A box whose sides are a multiple of 3px gets whole dots. */
+:root {
+  --kit-dots:
+    linear-gradient(to right, #000 2px, transparent 2px) 0.5px 0.5px / 3px 3px,
+    linear-gradient(to bottom, #000 2px, transparent 2px) 0.5px 0.5px / 3px 3px;
+}
+
 /* ---- Status lights --------------------------------------------------------
- * Grey when stopped; it only glows while something runs. Only a transition
- * pulses (is-starting); a standing state that wants attention (a
- * pre-release, a warning) holds still in yellow (is-warning). */
+ * A status light is drawn on the dot grid, like the light fields: a 5 × 5
+ * patch of square dots at the 3px pitch, brightest in the middle and falling
+ * off to the edge. A small lamp seen through the dither, not a glowing orb.
+ * The box stays 7px, so the light takes the same room in a line as before;
+ * the dots spill 4px past it on each side.
+ *
+ * Grey and small when stopped; it only spreads while something runs. Only a
+ * transition (is-starting) blinks, in steps like a lamp, not a fade. A
+ * standing state that wants attention (a pre-release, a warning) holds still
+ * in yellow (is-warning). A lamp in any other colour (a section's hue) is
+ * is-lit with the colour in --lamp. */
 .status-dot {
+  --lamp: var(--color-fg-faint);
+  --spread: 38%;
+  position: relative;
   width: 0.4375rem;
   height: 0.4375rem;
   flex-shrink: 0;
-  border-radius: 9999px;
-  background-color: var(--color-fg-ghost);
-  transition:
-    background-color 0.3s ease,
-    box-shadow 0.3s ease;
+}
+.status-dot::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: radial-gradient(
+    closest-side,
+    var(--lamp) 0 30%,
+    color-mix(in srgb, var(--lamp) 55%, transparent) var(--spread),
+    color-mix(in srgb, var(--lamp) 22%, transparent) calc(var(--spread) + 30%),
+    transparent calc(var(--spread) + 42%)
+  );
+  -webkit-mask: var(--kit-dots);
+  -webkit-mask-composite: source-in;
+  mask: var(--kit-dots);
+  mask-composite: intersect;
+}
+.status-dot:not(.is-starting, .is-warning, .is-running, .is-error, .is-lit) {
+  --spread: 12%;
 }
 .status-dot.is-starting {
-  background-color: var(--color-yellow);
-  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-yellow) 55%, transparent);
-  animation: kit-pulse 1s ease-in-out infinite;
+  --lamp: var(--color-yellow);
+}
+.status-dot.is-starting::before {
+  animation: kit-blink 1s steps(1, end) infinite;
 }
 .status-dot.is-warning {
-  background-color: var(--color-yellow);
-  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-yellow) 45%, transparent);
+  --lamp: var(--color-yellow);
 }
 .status-dot.is-running {
-  background-color: var(--color-green);
-  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-green) 55%, transparent);
+  --lamp: var(--color-green);
 }
 .status-dot.is-error {
-  background-color: var(--color-red);
-  box-shadow: 0 0 10px 1px color-mix(in srgb, var(--color-red) 55%, transparent);
+  --lamp: var(--color-red);
 }
-@keyframes kit-pulse {
+@keyframes kit-blink {
   50% {
     opacity: 0.35;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .status-dot.is-starting {
+  .status-dot.is-starting::before {
     animation: none;
+  }
+}
+
+/* ---- The dot-matrix sign -----------------------------------------------------
+ * `dot-matrix`: words drawn on the dot grid. The glyphs show only through
+ * square 2px dots at the 3px pitch, and their glow is dots too. For a short
+ * sign of two to five characters (a version: "2.0"), set large and heavy so
+ * every stroke covers a column of dots. Never for words that must be read
+ * as text. */
+@utility dot-matrix {
+  text-shadow: 0 0 0.35em color-mix(in srgb, currentColor 70%, transparent);
+  -webkit-mask: var(--kit-dots);
+  -webkit-mask-composite: source-in;
+  mask: var(--kit-dots);
+  mask-composite: intersect;
+}
+
+/* ---- The top bar's menus (react/SiteNav) ---------------------------------
+ * One panel holds every menu. It takes the size of the open menu and moves
+ * under its item, so going from one menu to the next is one movement: the
+ * old menu slides out to one side as the new one comes in from the other. */
+.sitenav-panel {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: var(--w);
+  height: var(--h);
+  translate: var(--x) 0;
+  overflow: hidden;
+  border: 1px solid var(--color-hairline-strong);
+  border-radius: 0.75rem;
+  background: var(--color-surface-flat);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.9);
+  transform-origin: top center;
+  animation: sitenav-in 0.22s var(--ease-out);
+  transition:
+    opacity 0.18s ease,
+    transform 0.22s var(--ease-out);
+}
+.sitenav-panel[data-settled] {
+  transition:
+    opacity 0.18s ease,
+    transform 0.22s var(--ease-out),
+    translate 0.36s var(--ease-out),
+    width 0.36s var(--ease-out),
+    height 0.36s var(--ease-out);
+}
+.sitenav-panel:not([data-open]) {
+  opacity: 0;
+  transform: translateY(-4px) scale(0.985);
+  pointer-events: none;
+}
+.light .sitenav-panel {
+  box-shadow: 0 24px 60px -32px rgba(10, 10, 10, 0.28);
+}
+@keyframes sitenav-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.985);
+  }
+}
+
+.sitenav-pane {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  transition:
+    opacity 0.18s ease,
+    translate 0.36s var(--ease-out),
+    visibility 0s 0.18s;
+}
+.sitenav-pane[data-pos='active'] {
+  transition:
+    opacity 0.24s ease 0.04s,
+    translate 0.36s var(--ease-out),
+    visibility 0s;
+}
+.sitenav-pane[data-pos='before'],
+.sitenav-pane[data-pos='after'] {
+  opacity: 0;
+  visibility: hidden;
+}
+.sitenav-pane[data-pos='before'] {
+  translate: -1.5rem 0;
+}
+.sitenav-pane[data-pos='after'] {
+  translate: 1.5rem 0;
+}
+
+/* The light pools under the address at the foot of the first column (the
+   figure) and is gone before the words above it and the column's edge. A
+   fixed size, so a change of menu never resizes the canvas. */
+.sitenav-light {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 15rem;
+  height: 16rem;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at 30% 100%, #000 18%, transparent 46%);
+}
+
+/* Phones: the menu fills the screen, its bar where the page's bar is */
+.sitenav-sheet {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  /* a scrollbar would narrow the sheet as a section opens and move its bar
+     off the page's bar beneath it */
+  scrollbar-width: none;
+  background: var(--color-black);
+  color: var(--color-white);
+}
+.sitenav-sheet::-webkit-scrollbar {
+  display: none;
+}
+.sitenav-sheet::backdrop {
+  background: transparent;
+}
+.sitenav-sheet[open] {
+  animation: sitenav-fade 0.22s ease;
+}
+.sitenav-sheet[open] .sitenav-sheet-body {
+  animation: sitenav-rise 0.4s var(--ease-out);
+}
+@keyframes sitenav-fade {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes sitenav-rise {
+  from {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+}
+.sitenav-fold {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.32s var(--ease-out);
+}
+.sitenav-fold[data-open] {
+  grid-template-rows: 1fr;
+}
+.sitenav-fold > div {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sitenav-panel,
+  .sitenav-panel[data-settled],
+  .sitenav-pane,
+  .sitenav-pane[data-pos='active'] {
+    animation: none;
+    transition:
+      opacity 0.12s ease,
+      visibility 0s 0.12s;
+  }
+  .sitenav-panel:not([data-open]) {
+    transform: none;
+  }
+  .sitenav-pane[data-pos] {
+    translate: none;
+  }
+  .sitenav-sheet[open],
+  .sitenav-sheet[open] .sitenav-sheet-body {
+    animation: none;
+  }
+  .sitenav-fold {
+    transition: none;
   }
 }
 

@@ -14,8 +14,11 @@
 //
 // `hole` falls the picture away towards the middle, for when something sits
 // on top of it (a card, a headline): 0 is the whole picture, 0.74 leaves only
-// a quarter of the brightness at the centre. Images are fetched one at a time
-// as they are shown, the next one behind it. Like every kit surface, it stops
+// a quarter of the brightness at the centre. `fill` is how the picture meets
+// a frame of another shape: 1 crops it to fill the frame, and a little less
+// shows more of the picture, which then reaches the frame's edges as its own
+// reflection, so the frame stays full. `zoom` is how far in it sits. Images are fetched as they are shown, the
+// next one behind it. Like every kit surface, it stops
 // its loop off screen and draws a single still frame under reduced motion.
 import { GLSL_BAYER, GLSL_NOISE } from '../core/bayer';
 import { createProgram, FULLSCREEN_VERT, fullscreenTriangle, loseContext, type RGB } from '../core/gl';
@@ -34,13 +37,20 @@ uniform float u_aspB;
 uniform vec2 u_ptr;
 uniform float u_hole;
 uniform vec3 u_ink;
+uniform float u_zoom;
+uniform float u_fill;
 ${GLSL_NOISE}
 ${GLSL_BAYER}
 
-// cover-fit a view uv (0..1, y down) into an image of the given aspect
+// fit a view uv (0..1, y down) into an image of the given aspect: cover at
+// fill 1, contain at fill 0. Past the image's edge it reflects, so a picture
+// shown a little wider than the frame still fills it.
 vec2 cover(vec2 uv, float img, float view, float zoom, vec2 pan) {
   vec2 s = view > img ? vec2(1.0, img / view) : vec2(view / img, 1.0);
-  return (uv - 0.5) * s / zoom + 0.5 + pan;
+  if (u_fill < 0.999) s = mix(view > img ? vec2(view / img, 1.0) : vec2(1.0, img / view), s, u_fill);
+  vec2 p = (uv - 0.5) * s / zoom + 0.5 + pan;
+  if (u_fill < 0.999) p = 1.0 - abs(1.0 - mod(p, 2.0));
+  return p;
 }
 
 void main() {
@@ -50,9 +60,11 @@ void main() {
   uv.y = 1.0 - uv.y;
   float view = u_res.x / u_res.y;
 
-  // a slow pan and breathe, nudged by the pointer
-  float zoom = 1.1 + 0.05 * sin(u_time * 0.07);
-  vec2 pan = vec2(sin(u_time * 0.045), cos(u_time * 0.038)) * 0.025 + u_ptr * 0.012;
+  // a slow pan and breathe, nudged by the pointer; the room to move comes
+  // from the zoom, so a picture never drifts past its own edge
+  float room = u_zoom - 1.0;
+  float zoom = u_zoom + room * 0.5 * sin(u_time * 0.07);
+  vec2 pan = vec2(sin(u_time * 0.045), cos(u_time * 0.038)) * room * 0.25 + u_ptr * room * 0.12;
   vec3 ca = texture2D(u_a, cover(uv, u_aspA, view, zoom, pan)).rgb;
   vec3 cb = texture2D(u_b, cover(uv, u_aspB, view, zoom, pan)).rgb;
 
@@ -94,6 +106,10 @@ export interface DitherImageOptions {
   cell?: number;
   /** 0..1: how far the picture falls away towards the centre */
   hole?: number;
+  /** how the picture meets a frame of another shape: 1 crops to fill it; a little less shows more, with mirrored edges (1) */
+  fill?: number;
+  /** how far in the picture sits; it drifts within the margin this leaves (1.1) */
+  zoom?: number;
   /** the well the dots sit in, 0..1 RGB (the kit's ink by default) */
   ink?: RGB;
 }
@@ -118,6 +134,8 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
   gl.uniform1i(u('u_a'), 0);
   gl.uniform1i(u('u_b'), 1);
   gl.uniform1f(u('u_hole'), opts.hole ?? 0);
+  gl.uniform1f(u('u_zoom'), opts.zoom ?? 1.1);
+  gl.uniform1f(u('u_fill'), opts.fill ?? 1);
   const ink = opts.ink ?? [0.0196, 0.0196, 0.0196];
   gl.uniform3f(u('u_ink'), ...ink);
 
@@ -129,29 +147,61 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
   let A: Tex = { tex: blank, aspect: 1 };
   let B = A;
 
-  const load = (url: string) =>
-    new Promise<Tex>((resolve) => {
-      const img = new Image();
-      img.decoding = 'async';
-      img.crossOrigin = 'anonymous';
-      img.onload = () => {
-        const tex = gl.createTexture()!;
-        gl.bindTexture(gl.TEXTURE_2D, tex);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        resolve({ tex, aspect: img.naturalWidth / img.naturalHeight });
-      };
-      img.onerror = () => resolve({ tex: blank, aspect: 1 });
-      img.src = url;
-    });
+  const images = new Map<string, Promise<HTMLImageElement | null>>();
+  const fetchImage = (url: string) => {
+    let p = images.get(url);
+    if (!p)
+      images.set(
+        url,
+        (p = new Promise((resolve) => {
+          const img = new Image();
+          img.decoding = 'async';
+          img.crossOrigin = 'anonymous';
+          img.onload = () => resolve(img);
+          img.onerror = () => resolve(null);
+          img.src = url;
+        })),
+      );
+    return p;
+  };
+
+  const picture = async (i: number): Promise<{ src: TexImageSource; aspect: number } | null> => {
+    const img = await fetchImage(urls[i]);
+    return img ? { src: img, aspect: img.naturalWidth / img.naturalHeight } : null;
+  };
+
+  // every texture made here, so the ones no longer shown can be freed
+  const made = new Set<WebGLTexture>();
+  const load = async (i: number): Promise<Tex> => {
+    const pic = await picture(i);
+    if (!pic) return { tex: blank, aspect: 1 };
+    const tex = gl.createTexture()!;
+    made.add(tex);
+    gl.bindTexture(gl.TEXTURE_2D, tex);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, pic.src);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    return { tex, aspect: pic.aspect };
+  };
   const cache = new Map<number, Promise<Tex>>();
   const texture = (i: number) => {
     let t = cache.get(i);
-    if (!t) cache.set(i, (t = load(urls[i])));
+    if (!t) cache.set(i, (t = load(i)));
     return t;
+  };
+  // Keep the textures on screen and the next one; free the rest of the GPU
+  // memory.
+  const sweep = async (keep: number[]) => {
+    for (const i of [...cache.keys()]) if (!keep.includes(i)) cache.delete(i);
+    const live = new Set<WebGLTexture>([A.tex, B.tex]);
+    for (const t of await Promise.all(cache.values())) live.add(t.tex);
+    for (const tex of made) {
+      if (live.has(tex)) continue;
+      gl.deleteTexture(tex);
+      made.delete(tex);
+    }
   };
 
   let mix = 0;
@@ -194,6 +244,7 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
           if (k >= 1) {
             A = B;
             mix = 0;
+            void sweep([latest, (latest + 1) % urls.length]);
             const done = tween.resolve;
             tween = null;
             done();
@@ -228,6 +279,7 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
       if (index !== latest) return;
       // fetch the one after it while this one is on screen
       void texture((index + 1) % urls.length);
+      void sweep([index, (index + 1) % urls.length]);
       tween?.resolve();
       tween = null;
       B = next;

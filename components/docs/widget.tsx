@@ -5,6 +5,8 @@ import type { InputHTMLAttributes, ReactNode } from 'react';
 /**
  * The frame every interactive piece in the docs sits in: a title, one line that
  * says what to do with it, and the widget itself. Keep widgets to one idea each.
+ * The frame is glass (kit.css), so on the home page's lights the light shows
+ * through it; the parts inside are tints, not fills, for the same reason.
  */
 export function Widget({
   title,
@@ -18,7 +20,7 @@ export function Widget({
   actions?: ReactNode;
 }) {
   return (
-    <section className="not-prose my-8 overflow-hidden rounded-xl border border-hairline-strong bg-surface-flat">
+    <section className="glass not-prose my-8 overflow-hidden rounded-xl border border-hairline-strong">
       <header className="flex flex-wrap items-start justify-between gap-3 border-b border-hairline px-5 py-4">
         <div className="min-w-0">
           <p className="text-entry text-white">{title}</p>
@@ -128,7 +130,7 @@ export function Status({ tone, children }: { tone: 'green' | 'red' | 'yellow' | 
 /** Monospace output, for rendered commands and results. */
 export function Output({ children }: { children: ReactNode }) {
   return (
-    <pre className="overflow-x-auto rounded-lg border border-hairline bg-black p-4 font-mono text-mono-lg leading-relaxed text-fg-strong">
+    <pre className="overflow-x-auto rounded-lg border border-hairline bg-black/40 p-4 font-mono text-mono-lg leading-relaxed text-fg-strong">
       {children}
     </pre>
   );

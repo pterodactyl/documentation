@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { ArrowRight, ChevronRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { ThemeSwitch } from 'fumadocs-ui/layouts/shared/slots/theme-switch';
 import { source } from '@/lib/source';
 import { HUES } from '@/kit';
-import { Wordmark } from '@/components/wordmark';
 import { HomeSearch } from '@/components/home-search';
+import { NavSearch } from '@/components/nav-search';
+import { SiteNav } from '@/kit/react/SiteNav';
+import { SiteFooter } from '@/kit/react/SiteFooter';
 import { Field } from '@/components/home/field';
 import { SetupPreview } from '@/components/home/setup-preview';
 import { UpgradeProgress } from '@/components/home/upgrade-progress';
@@ -68,36 +70,6 @@ const rows = [
   { id: 'troubleshooting', label: 'Troubleshooting', hue: HUES.rose },
   { id: 'api', label: 'The API', hue: HUES.emerald },
 ];
-
-const footer = [
-  {
-    heading: 'Documentation',
-    links: [
-      { label: 'Pterodactyl 1.x', href: '/v1' },
-      { label: 'Pterodactyl 2.0', href: '/v2' },
-      { label: 'API reference', href: '/v1/api' },
-      { label: 'Community guides', href: '/v1/guides/panel-installation' },
-    ],
-  },
-  {
-    heading: 'Repositories',
-    links: [
-      { label: 'panel', href: 'https://github.com/pterodactyl/panel' },
-      { label: 'wings', href: 'https://github.com/pterodactyl/wings' },
-      { label: 'documentation', href: 'https://github.com/pterodactyl/documentation' },
-    ],
-  },
-  {
-    heading: 'Project',
-    links: [
-      { label: 'pterodactyl.io', href: 'https://pterodactyl.io' },
-      { label: 'Eggs', href: 'https://eggs.pterodactyl.io' },
-      { label: 'Discord', href: 'https://discord.gg/pterodactyl' },
-      { label: 'GitHub', href: 'https://github.com/pterodactyl' },
-    ],
-  },
-];
-
 /** One slab between the page rails, ruled and ticked at the top. */
 function Section({ first = false, className = '', children }: { first?: boolean; className?: string; children: ReactNode }) {
   return <section className={`${first ? 'wrapper' : 'wrapper rail-ticks border-t'} ${className}`}>{children}</section>;
@@ -120,36 +92,7 @@ export default function HomePage() {
 
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
-      <header className="sticky top-0 z-40 border-b border-hairline bg-black/70 backdrop-blur-md">
-        <nav className="wrapper flex h-nav items-center justify-between gap-6 px-gutter" aria-label="Primary">
-          <div className="flex items-center gap-8">
-            <Link href="/" aria-label="Pterodactyl documentation, home">
-              <Wordmark />
-            </Link>
-            <div className="hidden items-center gap-7 md:flex">
-              <Link href="/v1" className="text-ui text-fg-subtle transition-colors hover:text-white">1.x</Link>
-              <Link href="/v2" className="text-ui text-fg-subtle transition-colors hover:text-white">2.0</Link>
-              <Link href="/v1/api" className="text-ui text-fg-subtle transition-colors hover:text-white">API</Link>
-              <a href="https://eggs.pterodactyl.io" className="text-ui text-fg-subtle transition-colors hover:text-white">Eggs</a>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="hidden lg:block">
-              <HomeSearch variant="nav" />
-            </div>
-            <a href="https://pterodactyl.io" className="hidden text-ui text-fg-subtle transition-colors hover:text-white sm:block">
-              pterodactyl.io
-            </a>
-            <ThemeSwitch />
-            <a href="https://github.com/pterodactyl" aria-label="Pterodactyl on GitHub" className="btn btn-ghost max-sm:w-11 max-sm:px-0">
-              <svg viewBox="0 0 24 24" className="size-4 shrink-0 fill-current" aria-hidden="true">
-                <path d="M12 1C5.923 1 1 5.923 1 12c0 4.867 3.149 8.979 7.521 10.436.55.096.756-.233.756-.522 0-.262-.013-1.128-.013-2.049-2.764.509-3.479-.674-3.699-1.292-.124-.317-.66-1.293-1.127-1.554-.385-.207-.936-.715-.014-.729.866-.014 1.485.797 1.691 1.128.99 1.663 2.571 1.196 3.204.907.096-.715.385-1.196.701-1.471-2.448-.275-5.005-1.224-5.005-5.432 0-1.196.426-2.186 1.128-2.956-.111-.275-.496-1.402.11-2.915 0 0 .921-.288 3.024 1.128a10.193 10.193 0 0 1 2.75-.371c.936 0 1.871.123 2.75.371 2.104-1.43 3.025-1.128 3.025-1.128.605 1.513.221 2.64.111 2.915.701.77 1.127 1.747 1.127 2.956 0 4.222-2.571 5.157-5.019 5.432.399.344.743 1.004.743 2.035 0 1.471-.014 2.654-.014 3.025 0 .289.206.632.756.522C19.851 20.979 23 16.854 23 12c0-6.077-4.922-11-11-11Z" />
-              </svg>
-              <span className="hidden sm:inline">GitHub</span>
-            </a>
-          </div>
-        </nav>
-      </header>
+      <SiteNav current="docs" search={<NavSearch />} actions={<ThemeSwitch className="max-sm:hidden" />} />
 
       <main className="flex-1">
         {/* The hero: search, and the reader's server, standing in the light */}
@@ -173,12 +116,7 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
             <div className="px-gutter pt-10 pb-12 sm:px-gutter-lg sm:pt-20 lg:pb-20">
-              <Link href="/v2/extensions" className="pill">
-                <span className="text-white">2.0 pre-release</span>
-                <span className="text-fg-subtle">Build extensions</span>
-                <ChevronRight className="size-3.5 text-fg-faint" strokeWidth={1.75} aria-hidden="true" />
-              </Link>
-              <h1 className="mt-6 font-display text-display">
+              <h1 className="font-display text-display">
                 Pterodactyl
                 <br />
                 <span className="text-fg-faint">Documentation</span>
@@ -274,6 +212,7 @@ export default function HomePage() {
                 title="The Panel manages."
                 quiet="Wings runs."
                 focus={[0.5, 0.2]}
+                light={{ mode: 'mesh', seed: 'how-it-works', intensity: 0.5, radius: 1.2 }}
                 links={[
                   { label: 'How Pterodactyl works', href: '/v2/project/how-it-works' },
                   { label: 'Panel requirements', href: '/v2/panel/requirements' },
@@ -291,7 +230,9 @@ export default function HomePage() {
                 hue={HUES.amber}
                 title="Moving to 2.0,"
                 quiet="one step at a time."
-                focus={[0.55, 0.3]}
+                flip
+                focus={[0.45, 0.3]}
+                light={{ pattern: 'lines', direction: 'up', chaos: 0.25, seed: 'upgrading' }}
                 links={[
                   { label: 'Upgrading from 1.x', href: '/v2/upgrading/upgrading-from-v1' },
                   { label: 'What changed from 1.x', href: '/v2/upgrading/changes-from-v1' },
@@ -311,6 +252,7 @@ export default function HomePage() {
                 title="Extend the Panel"
                 quiet="without forking it."
                 focus={[0.7, 0.4]}
+                light={{ mode: 'contour', seed: 'docs-extensions', intensity: 0.75, radius: 1.35 }}
                 links={[
                   { label: 'Extensions', href: '/v2/extensions' },
                   { label: 'Building an extension', href: '/v2/extensions/building' },
@@ -328,7 +270,9 @@ export default function HomePage() {
                 hue={HUES.rose}
                 title="Find the fix"
                 quiet="by its error."
+                flip
                 focus={[0.5, 0.5]}
+                light={{ mode: 'ripple', seed: 'troubleshooting', intensity: 0.6, radius: 1.1 }}
                 links={[
                   { label: 'Troubleshooting 2.0', href: '/v2/panel/troubleshooting' },
                   { label: 'Troubleshooting 1.x', href: '/v1/panel/troubleshooting' },
@@ -346,6 +290,7 @@ export default function HomePage() {
                 title="Automate it"
                 quiet="over the API."
                 focus={[0.6, 0.45]}
+                light={{ mode: 'stream', seed: 'api', intensity: 0.6 }}
                 links={[
                   { label: 'API reference 1.x', href: '/v1/api' },
                   { label: 'API reference 2.0', href: '/v2/api' },
@@ -362,37 +307,7 @@ export default function HomePage() {
         </Section>
       </main>
 
-      <footer className="wrapper rail-ticks border-t">
-        <div className="pad-section">
-          <div className="grid grid-cols-2 gap-x-6 gap-y-9 md:grid-cols-3 lg:grid-cols-[1.5fr_repeat(3,1fr)] lg:gap-12">
-            <div className="col-span-2 max-w-measure-sm md:col-span-3 lg:col-span-1">
-              <Wordmark />
-              <p className="mt-4 text-body text-fg-subtle">
-                The documentation for Pterodactyl, the open-source game server management panel. Written in the open;
-                corrections are a pull request away.
-              </p>
-            </div>
-            {footer.map((col) => (
-              <div key={col.heading}>
-                <p className="eyebrow mb-4">{col.heading}</p>
-                <ul className="space-y-2.5">
-                  {col.links.map((link) => (
-                    <li key={link.href}>
-                      <Link href={link.href} className="text-ui text-fg-subtle transition-colors hover:text-white">
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="pad-band flex flex-col items-center justify-between gap-3 border-t text-ui-sm text-fg-faint sm:flex-row">
-          <p>MIT Licensed · Pterodactyl® © Infraly and contributors</p>
-          <p className="font-mono">docs.pterodactyl.io</p>
-        </div>
-      </footer>
+      <SiteFooter current="docs" />
     </div>
   );
 }

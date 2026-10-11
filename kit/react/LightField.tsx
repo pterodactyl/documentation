@@ -1,6 +1,8 @@
 'use client';
 // <LightField>: the light field as a component. Position it like any canvas
-// (absolute inset-0, behind the content); it sizes itself to its box.
+// (absolute inset-0, behind the content); it sizes itself to its box. Every
+// prop can change on a live field: colour and intensity ease, the rest (the
+// mode, the motion, the pattern, the chaos...) change at once.
 //
 // The WebGL context is created as the canvas nears the viewport (or on the
 // next frame when `lazy` is off), never synchronously during mount: React's
@@ -30,13 +32,16 @@ export function LightField({ color = '#3d7bfd', color2, intensity = 1, lazy = tr
   const latest = useRef({ color, color2, intensity });
   latest.current = { color, color2, intensity };
 
-  // Mode, focus, radius and the rest are fixed for the life of the canvas.
+  const settings = JSON.stringify(opts);
+  const latestOpts = useRef(opts);
+  latestOpts.current = opts;
+
   useEffect(() => {
     const canvas = ref.current;
     if (!canvas) return;
     const mount = () => {
       const now = latest.current;
-      field.current = mountLightField(canvas, { ...opts, color: rgb(now.color), color2: now.color2 ? rgb(now.color2) : undefined, intensity: now.intensity });
+      field.current = mountLightField(canvas, { ...latestOpts.current, color: rgb(now.color), color2: now.color2 ? rgb(now.color2) : undefined, intensity: now.intensity });
     };
     let cancel: () => void;
     if (lazy) cancel = whenNear(canvas, mount);
@@ -59,6 +64,9 @@ export function LightField({ color = '#3d7bfd', color2, intensity = 1, lazy = tr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key, key2]);
   useEffect(() => field.current?.setIntensity(intensity), [intensity]);
+  // compared as text, so a new array for `focus` each render is not a change
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => field.current?.update(latestOpts.current), [settings]);
 
   return (
     <canvas

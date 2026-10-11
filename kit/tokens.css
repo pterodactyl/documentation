@@ -85,8 +85,8 @@
    * Mona Sans, GitHub's open-source grotesk: drawn for the place this
    * project lives. Variable in weight, so headings sit at 560 without
    * loading a second file. */
-  --font-display: var(--kit-font-sans, 'Mona Sans'), system-ui, -apple-system, sans-serif;
-  --font-sans: var(--kit-font-sans, 'Mona Sans'), system-ui, -apple-system, sans-serif;
+  --font-display: var(--kit-font-sans, 'Mona Sans'), 'Mona Sans Fallback', system-ui, -apple-system, sans-serif;
+  --font-sans: var(--kit-font-sans, 'Mona Sans'), 'Mona Sans Fallback', system-ui, -apple-system, sans-serif;
   --font-mono: var(--kit-font-mono, 'JetBrains Mono'), ui-monospace, 'SF Mono', monospace;
 
   /* ---- Motion ---------------------------------------------------- */

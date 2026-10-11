@@ -13,7 +13,7 @@ import { DynamicCodeBlock } from 'fumadocs-ui/components/dynamic-codeblock';
 /** The Panel's window: a thin top bar and a content area. */
 export function PanelFrame({ children, nav }: { children: ReactNode; nav?: ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-lg border border-hairline-strong bg-black">
+    <div className="overflow-hidden rounded-lg border border-hairline-strong bg-black/40">
       <div className="flex h-9 items-center justify-between border-b border-hairline px-3">
         <span className="text-ui-sm font-semibold text-fg-strong">Pterodactyl</span>
         <span className="size-5 rounded-full bg-surface-raised-flat ring-1 ring-hairline-strong" aria-hidden />
@@ -27,7 +27,7 @@ export function PanelFrame({ children, nav }: { children: ReactNode; nav?: React
 /** The Panel's TitledGreyBox: a card with an icon and a title. */
 export function GreyBox({ icon: Icon, title, children }: { icon?: LucideIcon; title: string; children: ReactNode }) {
   return (
-    <div className="rounded-md border border-hairline bg-surface-flat">
+    <div className="rounded-md border border-hairline bg-surface">
       <div className="flex items-center gap-2 border-b border-hairline px-3 py-2 text-ui-sm font-medium text-fg-strong">
         {Icon && <Icon aria-hidden className="size-3.5 text-fg-faint" strokeWidth={1.75} />}
         {title}
@@ -39,7 +39,7 @@ export function GreyBox({ icon: Icon, title, children }: { icon?: LucideIcon; ti
 
 export function PanelButton({ tone = 'neutral', children }: { tone?: 'neutral' | 'green' | 'red'; children: ReactNode }) {
   const tones = {
-    neutral: 'bg-surface-raised-flat text-fg-strong ring-hairline-strong',
+    neutral: 'bg-surface-raised text-fg-strong ring-hairline-strong',
     green: 'bg-green/15 text-green ring-green/30',
     red: 'bg-red/15 text-red ring-red/30',
   } as const;
@@ -49,7 +49,7 @@ export function PanelButton({ tone = 'neutral', children }: { tone?: 'neutral' |
 
 export function Stat({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: string }) {
   return (
-    <div className="flex items-center gap-2 rounded-md border border-hairline bg-surface-flat px-3 py-2">
+    <div className="flex items-center gap-2 rounded-md border border-hairline bg-surface px-3 py-2">
       <Icon aria-hidden className="size-3.5 text-fg-faint" strokeWidth={1.75} />
       <div className="min-w-0">
         <p className="text-mono-sm text-fg-faint">{label}</p>

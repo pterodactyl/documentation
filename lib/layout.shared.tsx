@@ -1,17 +1,12 @@
 import type { BaseLayoutProps } from 'fumadocs-ui/layouts/shared';
-import { Wordmark } from '@/components/wordmark';
+import { NoTitle } from '@/components/docs-frame';
 
+// The top bar is the kit's SiteNav (components/docs-frame.tsx). It has the
+// other sites, GitHub and search, so the sidebar does not repeat them.
 export function baseOptions(): BaseLayoutProps {
   return {
-    nav: {
-      title: <Wordmark />,
-      url: '/',
-    },
-    githubUrl: 'https://github.com/pterodactyl',
-    links: [
-      { text: 'Eggs', url: 'https://eggs.pterodactyl.io', external: true },
-      { text: 'Discord', url: 'https://discord.gg/pterodactyl', external: true },
-      { text: 'pterodactyl.io', url: 'https://pterodactyl.io', external: true },
-    ],
+    nav: { enabled: false },
+    searchToggle: { enabled: false },
+    slots: { navTitle: NoTitle },
   };
 }

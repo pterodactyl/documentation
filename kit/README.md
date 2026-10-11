@@ -8,7 +8,7 @@ code.
 | Path | What it is |
 | --- | --- |
 | `tokens.css` | The design tokens as a Tailwind v4 `@theme`, with an opt-in light mode (`html.light`) |
-| `kit.css` | The primitives: rails, the inset rhythm, buttons, the pill, status lights, the figure card, halftone |
+| `kit.css` | The primitives: rails, the inset rhythm, buttons, status lights, the dot-matrix sign, the figure card, halftone |
 | `core/` | The Bayer threshold (CPU and GLSL), the frame-loop contract, WebGL helpers |
 | `shaders/lightfield.ts` | Glow, beams and horizon as an ordered dither (WebGL) |
 | `shaders/ditherimage.ts` | Photographs as a live halftone with a dissolve (WebGL) |

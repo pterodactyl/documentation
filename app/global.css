@@ -157,6 +157,26 @@
   color: var(--color-white);
 }
 
+/* ---- The top bar ------------------------------------------------------
+ * The kit's SiteNav sits above Fumadocs' grid (components/docs-frame.tsx).
+ * Fumadocs keeps its sticky sidebar, contents rail and phone contents bar
+ * below a banner of this height: the bar and its bottom border.
+ * -------------------------------------------------------------------- */
+#nd-docs-layout {
+  --fd-banner-height: calc(var(--spacing-nav) + 1px);
+}
+
+/* The sidebar has no title row; the top bar names the site. */
+#nd-sidebar > div:first-child > div:first-child:empty {
+  display: none;
+}
+
+/* On a phone the page list opens over the top bar. */
+#nd-sidebar-mobile,
+div:has(+ #nd-sidebar-mobile) {
+  z-index: 60;
+}
+
 /* ---- Sidebar and contents rail --------------------------------------
  * The current page is marked the way everything live is on this site:
  * the words in white, the mark itself in Signal Blue.

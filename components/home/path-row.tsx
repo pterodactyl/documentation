@@ -1,13 +1,16 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { ArrowRight } from 'lucide-react';
+import type { LightFieldOptions } from '@/kit';
 import { Field } from './field';
 
 /**
  * One row of the front page's paths: a short claim on the left with where to
  * read more, and on the right a working piece of the docs standing in its
  * own light, in the row's hue. The same composition as pterodactyl.io's
- * feature rows (kit: FeatureRow), so the two sites read as one.
+ * feature rows (kit: FeatureRow), so the two sites read as one: `flip` puts
+ * the figure on the left on wide screens, and `light` gives each row's light
+ * its own scene and character.
  */
 export function PathRow({
   id,
@@ -16,6 +19,8 @@ export function PathRow({
   quiet,
   links,
   focus = [0.62, 0.35],
+  light = {},
+  flip = false,
   children,
   figure,
 }: {
@@ -25,12 +30,18 @@ export function PathRow({
   quiet: string;
   links: { label: string; href: string }[];
   focus?: [number, number];
+  light?: Omit<LightFieldOptions, 'color' | 'color2'>;
+  flip?: boolean;
   children: ReactNode;
   figure: ReactNode;
 }) {
   return (
-    <article id={id} data-row={id} className="grid grid-cols-1 scroll-mt-20 border-t border-hairline first:border-t-0 lg:min-h-[38rem] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
-      <div className="pad-cell flex flex-col gap-8 lg:py-16">
+    <article
+      id={id}
+      data-row={id}
+      className={`grid grid-cols-1 scroll-mt-20 border-t border-hairline first:border-t-0 lg:min-h-[38rem] ${flip ? 'lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]' : 'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]'}`}
+    >
+      <div className={`pad-cell flex flex-col gap-8 lg:py-16 ${flip ? 'lg:order-2' : ''}`}>
         <div>
           <h2 className="font-display text-figure">
             {title}
@@ -51,8 +62,10 @@ export function PathRow({
         </ul>
       </div>
 
-      <div className="relative isolate flex min-h-[26rem] min-w-0 items-center justify-center overflow-hidden border-t border-hairline bg-surface-flat p-4 sm:p-10 lg:border-t-0 lg:border-l">
-        <Field mode="beams" color={hue} focus={focus} radius={1.05} intensity={0.62} angle={-0.55} className="pointer-events-none absolute inset-0 -z-10 size-full" />
+      <div
+        className={`relative isolate flex min-h-[26rem] min-w-0 items-center justify-center overflow-hidden border-t border-hairline bg-surface-flat p-4 sm:p-10 lg:border-t-0 ${flip ? 'lg:border-r' : 'lg:border-l'}`}
+      >
+        <Field mode="beams" color={hue} focus={focus} radius={1.05} intensity={0.62} angle={-0.55} {...light} className="pointer-events-none absolute inset-0 -z-10 size-full" />
         <div className="w-full min-w-0 [&>section]:my-0">{figure}</div>
       </div>
     </article>

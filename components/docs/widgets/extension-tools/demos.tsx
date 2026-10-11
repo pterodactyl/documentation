@@ -53,7 +53,7 @@ export function SlotDemo() {
         </div>
 
         <div className="grid gap-2 sm:grid-cols-[minmax(0,1fr)_10rem]">
-          <div className="rounded-md border border-hairline bg-surface-flat p-3 font-mono text-mono-sm leading-relaxed text-fg-muted">
+          <div className="rounded-md border border-hairline bg-black/30 p-3 font-mono text-mono-sm leading-relaxed text-fg-muted">
             <p>[04:00:01 INFO]: Starting minecraft server version 26.3</p>
             <p>[04:00:03 INFO]: Preparing level &quot;world&quot;</p>
             <p>[04:00:09 INFO]: Done (6.2s)! For help, type &quot;help&quot;</p>
@@ -138,7 +138,7 @@ export function ScreenDemo() {
             <p className="whitespace-pre-line">{NOTE}</p>
           </GreyBox>
         ) : (
-          <div className="rounded-md border border-hairline bg-surface-flat p-6 text-center text-note text-fg-faint">The Panel&apos;s {current} page</div>
+          <div className="rounded-md border border-hairline bg-black/30 p-6 text-center text-note text-fg-faint">The Panel&apos;s {current} page</div>
         )}
         {registered && !label && (
           <p className="text-note text-fg-subtle">
@@ -184,7 +184,7 @@ export function ColumnDemo() {
       <PanelFrame>
         <div className="overflow-x-auto rounded-md border border-hairline">
           <table className="w-full min-w-[28rem] text-left text-ui-sm">
-            <thead className="bg-surface-flat text-mono-sm uppercase tracking-wide text-fg-faint">
+            <thead className="bg-surface text-mono-sm uppercase tracking-wide text-fg-faint">
               <tr>
                 <th className="px-3 py-2 font-medium">Name</th>
                 <th className="px-3 py-2 font-medium">Location</th>
@@ -275,12 +275,12 @@ export function ReplacementDemo() {
       <div className="mt-4">
         <PanelFrame>
           {variant === 'layout' ? (
-            <div className={`flex flex-col gap-2 rounded-md border border-hairline bg-surface-flat p-3 ${changed}`}>
+            <div className={`flex flex-col gap-2 rounded-md border border-hairline bg-black/30 p-3 ${changed}`}>
               <strong className="text-ui text-white">Survival SMP</strong>
               {metrics}
             </div>
           ) : (
-            <div className="flex flex-wrap items-center gap-4 rounded-md border border-hairline bg-surface-flat p-3">
+            <div className="flex flex-wrap items-center gap-4 rounded-md border border-hairline bg-black/30 p-3">
               <ServerIcon aria-hidden className="size-5 text-fg-faint" strokeWidth={1.75} />
               <div className={`min-w-0 flex-1 ${variant === 'part' ? changed + ' px-1' : ''}`}>
                 <p className="text-ui font-semibold text-white">
