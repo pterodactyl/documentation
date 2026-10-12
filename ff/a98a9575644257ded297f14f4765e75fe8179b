@@ -1,0 +1,29 @@
+kit/VENDORED.md
+  s_41d9126c9dc228::t_7f9fc8d9a797df 3
+kit/fonts.css
+  s_41d9126c9dc228::t_c05435e5d327de 1-358
+kit/fonts/OFL.txt
+  s_41d9126c9dc228::t_fd363b982da49a 1-289
+kit/react/SiteFooter.tsx
+  s_41d9126c9dc228::t_270c9afa74e6ad 8,16
+kit/shaders/ditherimage.ts
+  s_41d9126c9dc228::t_60395c787b8f2d 126,198-199,213-215,217,263,268-283,324
+kit/shaders/lightfield.ts
+  s_41d9126c9dc228::t_c466d39f88bbc3 115-116,404-408,465-468,475-484,519-535,537-539,542-553,555-557,612,617-660,689-690,695,699,701
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ffa98a9575644257ded297f14f4765e75fe8179b",
+  "prompts": {},
+  "sessions": {
+    "s_41d9126c9dc228": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7c31571c-68a2-4eb2-9cc8-0afffd10ca03",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
