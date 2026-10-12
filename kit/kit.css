@@ -353,47 +353,6 @@
   }
 }
 
-/* ---- The closing band (SiteFooter band) ------------------------------------
- * Signal Blue across the wrapper, with the whole mark drawn large on the dot
- * grid. The band darkens toward its foot in dots, the way the light fields
- * shade. */
-.sitefooter-band {
-  position: relative;
-  isolation: isolate;
-  height: 10rem;
-  overflow: hidden;
-  border-bottom: 1px solid var(--color-hairline);
-  background: var(--color-accent);
-}
-@media (width >= 40rem) {
-  .sitefooter-band {
-    height: 15rem;
-  }
-}
-.sitefooter-band::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(to top, rgba(10, 10, 10, 0.6), transparent 75%);
-  -webkit-mask: var(--kit-dots);
-  -webkit-mask-composite: source-in;
-  mask: var(--kit-dots);
-  mask-composite: intersect;
-}
-.sitefooter-mark {
-  position: absolute;
-  right: 5%;
-  bottom: 10%;
-  height: 80%;
-  width: auto;
-  color: #fff;
-  -webkit-mask: var(--kit-dots);
-  -webkit-mask-composite: source-in;
-  mask: var(--kit-dots);
-  mask-composite: intersect;
-}
-
 /* ---- The dot grid as a mask ------------------------------------------------
  * Square 2px dots at the 3px step, the grid every light is drawn on. Paint a
  * colour or a gradient, then mask it with this (and mask-composite: intersect)

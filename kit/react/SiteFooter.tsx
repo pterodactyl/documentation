@@ -5,25 +5,17 @@
 // so Astro renders it without an island and Next as a server component.
 import type { CSSProperties } from 'react';
 import { DISCORD_URL, GITHUB_URL, MENUS, SITES, resolveHref, type NavLink, type SiteId } from '../core/sites';
-import { Lockup, Mark } from './Lockup';
+import { Lockup } from './Lockup';
 import { DiscordMark, GitHubMark } from './Marks';
 
 export interface SiteFooterProps {
   /** the site this footer is on */
   current: SiteId;
-  /** the closing band in Signal Blue, with the mark drawn on the dot grid */
-  band?: boolean;
 }
 
-export function SiteFooter({ current, band = false }: SiteFooterProps) {
+export function SiteFooter({ current }: SiteFooterProps) {
   return (
     <footer className="wrapper rail-ticks border-t">
-      {band && (
-        <div className="sitefooter-band" aria-hidden="true">
-          <Mark className="sitefooter-mark" />
-        </div>
-      )}
-
       <div className="pad-section grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4 lg:grid-cols-[minmax(0,1.4fr)_repeat(4,minmax(0,1fr))] lg:gap-x-10">
         <div className="col-span-2 flex flex-col items-start gap-6 md:col-span-4 lg:col-span-1">
           <a href={resolveHref({ site: 'www', href: '/' }, current)} aria-label="Pterodactyl home" className="text-white">

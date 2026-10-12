@@ -123,7 +123,7 @@ export interface DitherImage {
 export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts: DitherImageOptions = {}): DitherImage {
   const reduce = prefersReducedMotion();
   const none: DitherImage = { show: () => Promise.resolve(), destroy: () => {} };
-  const gl = canvas.getContext('webgl', { antialias: false, alpha: false });
+  const gl = canvas.getContext('webgl', { antialias: false, alpha: false, depth: false, stencil: false, powerPreference: 'low-power' });
   const prog = gl && createProgram(gl, FULLSCREEN_VERT, FRAG);
   if (!gl || !prog) return none;
   fullscreenTriangle(gl, prog);
@@ -195,6 +195,8 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
   // memory.
   const sweep = async (keep: number[]) => {
     for (const i of [...cache.keys()]) if (!keep.includes(i)) cache.delete(i);
+    // and the decoded photos behind them (the HTTP cache keeps the files)
+    for (const url of [...images.keys()]) if (!keep.some((i) => urls[i] === url)) images.delete(url);
     const live = new Set<WebGLTexture>([A.tex, B.tex]);
     for (const t of await Promise.all(cache.values())) live.add(t.tex);
     for (const tex of made) {
@@ -208,7 +210,11 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
   let time = 30;
   let ptrX = 0, ptrY = 0, toX = 0, toY = 0;
 
+  // Far from the screen, the canvas gives back its drawing buffer and takes
+  // it back a screen's height before it can come into view (as lightfield.ts).
+  let parked = false;
   const size = () => {
+    if (parked) return;
     const r = canvas.getBoundingClientRect();
     const ratio = dpr();
     canvas.width = Math.max(1, Math.round(r.width * ratio));
@@ -254,10 +260,27 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
       }, { margin: '0px' });
 
   const ro = new ResizeObserver(() => {
+    if (parked) return;
     size();
     draw();
   });
   ro.observe(canvas);
+  const park = new IntersectionObserver(
+    (entries) => {
+      const near = entries.some((e) => e.isIntersecting);
+      if (!near && !parked) {
+        parked = true;
+        canvas.width = 1;
+        canvas.height = 1;
+      } else if (near && parked) {
+        parked = false;
+        size();
+        draw();
+      }
+    },
+    { rootMargin: '100% 0px' },
+  );
+  park.observe(canvas);
   const onPointer = (e: PointerEvent) => {
     if (!loop?.visible) return;
     const r = canvas.getBoundingClientRect();
@@ -298,6 +321,7 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
     destroy() {
       loop?.stop();
       ro.disconnect();
+      park.disconnect();
       window.removeEventListener('pointermove', onPointer);
       loseContext(gl);
     },

@@ -112,6 +112,8 @@ uniform float u_radius;
 uniform vec2 u_focus;
 uniform vec2 u_ptr;
 uniform float u_cell;
+// device pixels per canvas pixel: 1, or more for a coarse field (see size())
+uniform float u_k;
 uniform float u_dot;
 uniform float u_wash;
 uniform vec2 u_seed;
@@ -399,7 +401,11 @@ void main() {
   // a halftone is a print screen: its grid is turned 45°
   bool screen = u_pattern > 4.5;
   const float K = 0.70710678;
-  vec2 frag = screen ? mat2(K, K, -K, K) * gl_FragCoord.xy : gl_FragCoord.xy;
+  // the centre of the device pixels this fragment stands for: the fragment
+  // itself at full size, or its block of k × k for a coarse field, so the
+  // maths below runs on the same numbers either way
+  vec2 px = (floor(gl_FragCoord.xy) + 0.5) * u_k;
+  vec2 frag = screen ? mat2(K, K, -K, K) * px : px;
   vec2 cellId = floor(frag / u_cell);
   vec2 local = fract(frag / u_cell);
   vec2 centre = (cellId + 0.5) * u_cell;
@@ -456,17 +462,26 @@ function seedOffset(seed: number | string | undefined): [number, number] {
 
 export function mountLightField(canvas: HTMLCanvasElement, opts: LightFieldOptions): LightField {
   const noop: LightField = { setColor: () => {}, setIntensity: () => {}, update: () => {}, destroy: () => {} };
-  const gl = canvas.getContext('webgl', { premultipliedAlpha: true, antialias: false, alpha: true });
-  const prog = gl && createProgram(gl, FULLSCREEN_VERT, FRAG);
+  // No depth or stencil buffer: one full-screen triangle needs neither, and a
+  // depth buffer the size of the canvas is the second-largest thing it holds.
+  const gl = canvas.getContext('webgl', { premultipliedAlpha: true, antialias: false, alpha: true, depth: false, stencil: false, powerPreference: 'low-power' });
+  let prog = gl && createProgram(gl, FULLSCREEN_VERT, FRAG);
   if (!gl || !prog) {
     // the CSS fallback (a plain radial wash) keys off this
     canvas.dataset.fallback = '';
     return noop;
   }
-  fullscreenTriangle(gl, prog);
 
-  const u = (n: string) => gl.getUniformLocation(prog, n);
-  const uRes = u('u_res'), uTime = u('u_time'), uClock = u('u_clock'), uC1 = u('u_c1'), uC2 = u('u_c2'), uInt = u('u_int'), uPtr = u('u_ptr'), uCell = u('u_cell');
+  // The program's buffer and uniforms, found again whenever the context is
+  // restored (see park below).
+  const u = (n: string) => gl.getUniformLocation(prog!, n);
+  type Loc = WebGLUniformLocation | null;
+  let uRes: Loc, uTime: Loc, uClock: Loc, uC1: Loc, uC2: Loc, uInt: Loc, uPtr: Loc, uCell: Loc, uK: Loc;
+  const locate = () => {
+    fullscreenTriangle(gl, prog!);
+    [uRes, uTime, uClock, uC1, uC2, uInt, uPtr, uCell, uK] = ['u_res', 'u_time', 'u_clock', 'u_c1', 'u_c2', 'u_int', 'u_ptr', 'u_cell', 'u_k'].map(u);
+  };
+  locate();
 
   const { color, color2, intensity: startIntensity, ...rest } = opts;
   let settings: LightFieldSettings = rest;
@@ -501,16 +516,45 @@ export function mountLightField(canvas: HTMLCanvasElement, opts: LightFieldOptio
   let ptrX = 0, ptrY = 0, toPtrX = 0, toPtrY = 0;
   const reduce = prefersReducedMotion();
 
-  // Rendered at device resolution: the dither is a pixel grid, and scaling
-  // it would smear the dots.
+  // Far from the screen, the field gives back its drawing buffer and its
+  // context, and takes them back, and draws, a screen's height before it can
+  // come into view.
+  let parked = false;
+
+  // The dither is a grid of device pixels, so it is never smeared by a
+  // smooth scale. But a square dot of half a cell (every pattern but the
+  // halftone) needs only 2 × 2 distinct pixels per cell: the dot's corner and
+  // the wash around it. Such a field renders at that size, a ninth of the
+  // pixels at 2× density, and the browser scales it up by whole device
+  // pixels (pixelated), which is the same picture. The shader works in full-
+  // size device pixels (u_k), so its sums are the very same ones, and the
+  // canvas keeps its grid anchored to the bottom edge, as a full-size one is;
+  // the few extra pixels at the top and right fall outside the box, which
+  // clips them.
+  const coarse = () => settings.pattern !== 'halftone' && (settings.shape ?? 'square') === 'square' && (settings.dot ?? 0.5) === 0.5;
+  const box = canvas.parentElement ?? canvas;
   const size = () => {
+    if (parked) return;
+    const st = canvas.style;
+    st.width = st.height = st.marginTop = st.imageRendering = '';
     const r = canvas.getBoundingClientRect();
     const ratio = dpr();
-    canvas.width = Math.max(1, Math.round(r.width * ratio));
-    canvas.height = Math.max(1, Math.round(r.height * ratio));
+    const W = Math.max(1, Math.round(r.width * ratio));
+    const H = Math.max(1, Math.round(r.height * ratio));
+    const cellPx = Math.max(2, Math.round((settings.cell ?? 3) * ratio));
+    const k = coarse() && cellPx % 2 === 0 ? cellPx / 2 : 1;
+    canvas.width = Math.ceil(W / k);
+    canvas.height = Math.ceil(H / k);
+    if (k > 1) {
+      st.width = `${(canvas.width * k) / ratio}px`;
+      st.height = `${(canvas.height * k) / ratio}px`;
+      st.marginTop = `${-(canvas.height * k - H) / ratio}px`;
+      st.imageRendering = 'pixelated';
+    }
     gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.uniform2f(uRes, canvas.width, canvas.height);
-    gl.uniform1f(uCell, Math.max(2, Math.round((settings.cell ?? 3) * ratio)));
+    gl.uniform2f(uRes, W, H);
+    gl.uniform1f(uCell, cellPx);
+    gl.uniform1f(uK, k);
   };
 
   // A fixed offset so the still frame is a good-looking one, not t = 0.
@@ -565,11 +609,55 @@ export function mountLightField(canvas: HTMLCanvasElement, opts: LightFieldOptio
   const ro = new ResizeObserver(() => {
     window.clearTimeout(rz);
     rz = window.setTimeout(() => {
+      if (parked) return;
       size();
       draw((performance.now() - start) / 1000);
     }, 120);
   });
-  ro.observe(canvas);
+  // the box, not the canvas: a coarse canvas sets its own size
+  ro.observe(box);
+
+  // Parked, the field also gives its context back (a context costs memory
+  // of its own, whatever the canvas size), and restores it on the way back:
+  // the browser keeps compiled shaders, so the rebuild is quick.
+  const release = gl.getExtension('WEBGL_lose_context');
+  let released = false;
+  let dead = false;
+  const redraw = () => {
+    size();
+    dirty = true;
+    draw((performance.now() - start) / 1000);
+  };
+  canvas.addEventListener('webglcontextlost', (e) => e.preventDefault());
+  canvas.addEventListener('webglcontextrestored', () => {
+    if (dead) return;
+    prog = createProgram(gl, FULLSCREEN_VERT, FRAG);
+    if (!prog) return;
+    locate();
+    apply();
+    released = false;
+    if (!parked) redraw();
+  });
+  const park = new IntersectionObserver(
+    (entries) => {
+      const near = entries.some((e) => e.isIntersecting);
+      if (!near && !parked) {
+        parked = true;
+        canvas.width = 1;
+        canvas.height = 1;
+        if (release) {
+          release.loseContext();
+          released = true;
+        }
+      } else if (near && parked) {
+        parked = false;
+        if (released) release!.restoreContext();
+        else redraw();
+      }
+    },
+    { rootMargin: '100% 0px' },
+  );
+  park.observe(canvas);
 
   apply();
   listen();
@@ -595,20 +683,22 @@ export function mountLightField(canvas: HTMLCanvasElement, opts: LightFieldOptio
       }
     },
     update(next) {
-      const cellChanged = (next.cell ?? 3) !== (settings.cell ?? 3);
       settings = next;
       apply();
       listen();
-      if (cellChanged) size();
+      // the cell, the pattern and the dot decide the canvas's size
+      size();
       dirty = true;
       draw((performance.now() - start) / 1000);
     },
     destroy() {
+      dead = true;
       loop?.stop();
       window.clearTimeout(rz);
       ro.disconnect();
+      park.disconnect();
       if (listening) window.removeEventListener('pointermove', onPointer);
-      loseContext(gl);
+      if (!released) loseContext(gl);
     },
   };
 }
