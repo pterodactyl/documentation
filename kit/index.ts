@@ -11,7 +11,7 @@
 // Next (the docs) and Astro islands (pterodactyl.io) alike. See DESIGN.md.
 export { BAYER8, bayer, GLSL_BAYER, GLSL_NOISE } from './core/bayer';
 export { dpr, prefersReducedMotion, visibleLoop, whenNear, type VisibleLoop } from './core/loop';
-export { createProgram, fullscreenTriangle, FULLSCREEN_VERT, hexToRgb, loseContext, type RGB } from './core/gl';
+export { buildProgram, fullscreenTriangle, FULLSCREEN_VERT, hexToRgb, loseContext, type PendingProgram, type RGB } from './core/gl';
 export {
   mountLightField,
   type LightField,

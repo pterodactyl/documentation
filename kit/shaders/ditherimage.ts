@@ -21,7 +21,7 @@
 // next one behind it. Like every kit surface, it stops
 // its loop off screen and draws a single still frame under reduced motion.
 import { GLSL_BAYER, GLSL_NOISE } from '../core/bayer';
-import { createProgram, FULLSCREEN_VERT, fullscreenTriangle, loseContext, type RGB } from '../core/gl';
+import { buildProgram, FULLSCREEN_VERT, fullscreenTriangle, loseContext, whenBuilt, type RGB } from '../core/gl';
 import { dpr, prefersReducedMotion, visibleLoop } from '../core/loop';
 
 const FRAG = /* glsl */ `
@@ -124,20 +124,16 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
   const reduce = prefersReducedMotion();
   const none: DitherImage = { show: () => Promise.resolve(), destroy: () => {} };
   const gl = canvas.getContext('webgl', { antialias: false, alpha: false, depth: false, stencil: false, powerPreference: 'low-power' });
-  const prog = gl && createProgram(gl, FULLSCREEN_VERT, FRAG);
-  if (!gl || !prog) return none;
-  fullscreenTriangle(gl, prog);
+  const build = gl && buildProgram(gl, FULLSCREEN_VERT, FRAG);
+  if (!gl || !build) return none;
+  fullscreenTriangle(gl);
 
-  const u = (n: string) => gl.getUniformLocation(prog, n);
-  const uRes = u('u_res'), uTime = u('u_time'), uMix = u('u_mix'), uCell = u('u_cell');
-  const uAspA = u('u_aspA'), uAspB = u('u_aspB'), uPtr = u('u_ptr');
-  gl.uniform1i(u('u_a'), 0);
-  gl.uniform1i(u('u_b'), 1);
-  gl.uniform1f(u('u_hole'), opts.hole ?? 0);
-  gl.uniform1f(u('u_zoom'), opts.zoom ?? 1.1);
-  gl.uniform1f(u('u_fill'), opts.fill ?? 1);
+  // Nothing draws until the program is built (see whenBuilt): the textures
+  // load meanwhile.
+  type Loc = WebGLUniformLocation | null;
+  let prog: WebGLProgram | null = null;
+  let uRes: Loc, uTime: Loc, uMix: Loc, uCell: Loc, uAspA: Loc, uAspB: Loc, uPtr: Loc;
   const ink = opts.ink ?? [0.0196, 0.0196, 0.0196];
-  gl.uniform3f(u('u_ink'), ...ink);
 
   // a 1×1 ink texture stands in until the first image arrives
   const blank = gl.createTexture()!;
@@ -220,10 +216,17 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
     canvas.width = Math.max(1, Math.round(r.width * ratio));
     canvas.height = Math.max(1, Math.round(r.height * ratio));
     gl.viewport(0, 0, canvas.width, canvas.height);
+    if (!prog) {
+      // the ink, until there is a program to draw with
+      gl.clearColor(ink[0], ink[1], ink[2], 1);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      return;
+    }
     gl.uniform2f(uRes, canvas.width, canvas.height);
     gl.uniform1f(uCell, Math.max(2, Math.round((opts.cell ?? 3) * ratio)));
   };
   const draw = () => {
+    if (!prog) return;
     gl.activeTexture(gl.TEXTURE0);
     gl.bindTexture(gl.TEXTURE_2D, A.tex);
     gl.activeTexture(gl.TEXTURE1);
@@ -290,7 +293,21 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
   if (!reduce) window.addEventListener('pointermove', onPointer, { passive: true });
 
   size();
-  draw();
+  const cancelBuild = whenBuilt(canvas, build, (next) => {
+    if (!next) return;
+    prog = next;
+    gl.useProgram(prog);
+    const u = (n: string) => gl.getUniformLocation(next, n);
+    [uRes, uTime, uMix, uCell, uAspA, uAspB, uPtr] = ['u_res', 'u_time', 'u_mix', 'u_cell', 'u_aspA', 'u_aspB', 'u_ptr'].map(u);
+    gl.uniform1i(u('u_a'), 0);
+    gl.uniform1i(u('u_b'), 1);
+    gl.uniform1f(u('u_hole'), opts.hole ?? 0);
+    gl.uniform1f(u('u_zoom'), opts.zoom ?? 1.1);
+    gl.uniform1f(u('u_fill'), opts.fill ?? 1);
+    gl.uniform3f(u('u_ink'), ...ink);
+    size();
+    draw();
+  });
 
   let latest = -1;
   return {
@@ -319,6 +336,7 @@ export function mountDitherImage(canvas: HTMLCanvasElement, urls: string[], opts
       });
     },
     destroy() {
+      cancelBuild();
       loop?.stop();
       ro.disconnect();
       park.disconnect();

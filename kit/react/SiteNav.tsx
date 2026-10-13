@@ -87,6 +87,9 @@ function Menus({ current }: { current: SiteId }) {
   const [open, setOpen] = useState<MenuId | null>(null);
   // The panel stays on the page while it fades out.
   const [mounted, setMounted] = useState(false);
+  // After that it is only hidden, so its light keeps its GPU program: building
+  // one again stalls a page in some browsers (Firefox) for a moment.
+  const [made, setMade] = useState(false);
   const [box, setBox] = useState<{ x: number; w: number; h: number } | null>(null);
   // Off for the first frame after opening, so the panel appears in place
   // rather than sliding in from where it last was.
@@ -114,6 +117,7 @@ function Menus({ current }: { current: SiteId }) {
     window.clearTimeout(timer.current);
     setOpen(id);
     setMounted(true);
+    setMade(true);
   }, []);
   const hide = useCallback(() => {
     window.clearTimeout(timer.current);
@@ -275,7 +279,7 @@ function Menus({ current }: { current: SiteId }) {
         })}
       </ul>
 
-      {mounted && (
+      {made && (
         <div
           ref={panel}
           className="sitenav-panel"
@@ -286,6 +290,7 @@ function Menus({ current }: { current: SiteId }) {
               '--x': `${box?.x ?? 0}px`,
               '--w': `${box?.w ?? 0}px`,
               '--h': `${box?.h ?? 0}px`,
+              display: mounted ? undefined : 'none',
               visibility: box ? undefined : 'hidden',
             } as CSSProperties
           }
