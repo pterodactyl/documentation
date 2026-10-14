@@ -1,0 +1,41 @@
+app/page.tsx
+  s_4cabae41bceed9::t_17bc69b02b73e8 23,30,32,43-56,60-61,63,125,192,244,296
+components/docs/setup.ts
+  s_4cabae41bceed9::t_1ad7b43b86dbf6 9-10
+components/docs/widgets/troubleshooting/catalog.ts
+  s_4cabae41bceed9::t_7171852ca6887e 427
+components/docs/widgets/upgrade-checklist.tsx
+  s_4cabae41bceed9::t_fba96cf3a1f35e 334-335
+content/docs/meta.json
+  s_4cabae41bceed9::t_6aeb2edcf3cb30 3-4
+content/docs/v2/index.mdx
+  s_4cabae41bceed9::t_bc47b2338afe59 6-7
+content/docs/v2/panel/getting-started.mdx
+  s_4cabae41bceed9::t_f0d33e7a8895c0 53,63-64,125,128-129
+content/docs/v2/panel/requirements.mdx
+  s_4cabae41bceed9::t_bb9aabe05a463f 50,61,78
+content/docs/v2/panel/updating.mdx
+  s_4cabae41bceed9::t_696c9f06d86078 29,32,38
+content/docs/v2/upgrading/changes-from-v1.mdx
+  s_4cabae41bceed9::t_fcc625a8bd3113 104
+content/docs/v2/upgrading/upgrading-from-v1.mdx
+  s_4cabae41bceed9::t_60cb79d7397dc3 6-7,94,99
+kit/core/sites.ts
+  s_4cabae41bceed9::t_8820547bfd362f 59-68,129
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "137c69878c6c43d1e7fd6e1b4ce1032962b7233e",
+  "prompts": {},
+  "sessions": {
+    "s_4cabae41bceed9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9ab74d1d-a20d-4fbc-acd7-ee9d976e37e8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
