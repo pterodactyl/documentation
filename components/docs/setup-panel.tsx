@@ -11,11 +11,12 @@ const ALL_FIELDS: Field[] = ['os', 'php', 'webserver', 'ssl', 'domain', 'path'];
 
 type Distro = 'ubuntu' | 'debian';
 
-// The first version of each distribution is the one a distribution switch lands on.
+// The versions in the order shown, and the one a distribution switch lands on.
 const VERSIONS: Record<Distro, string[]> = {
-  ubuntu: ['24.04', '22.04'],
-  debian: ['13', '12', '11'],
+  ubuntu: ['26.04', '24.04', '22.04'],
+  debian: ['13', '12'],
 };
+const DEFAULT_VERSION: Record<Distro, string> = { ubuntu: '24.04', debian: '13' };
 
 /** One setting: its name on the left, its control on the right (stacked on narrow screens). */
 function Row({ label, icon: Icon, children }: { label: string; icon: LucideIcon; children: ReactNode }) {
@@ -63,7 +64,7 @@ export function SetupPanel({ fields = ALL_FIELDS }: { fields?: Field[] }) {
                   <Segmented<Distro>
                     label="Distribution"
                     value={distro}
-                    onChange={(next) => set({ os: `${next}-${VERSIONS[next][0]}` as OperatingSystem })}
+                    onChange={(next) => set({ os: `${next}-${DEFAULT_VERSION[next]}` as OperatingSystem })}
                     options={[
                       { value: 'ubuntu', label: 'Ubuntu' },
                       { value: 'debian', label: 'Debian' },

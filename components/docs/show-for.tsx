@@ -20,12 +20,12 @@ export function ShowFor({
   webserver?: WebServer | WebServer[];
   os?: OperatingSystem | OperatingSystem[];
   ssl?: boolean;
-  /** True for Ubuntu readers who need the PHP PPA: Ubuntu 22.04, or a PHP version Ubuntu does not ship. Debian always uses Sury's repository instead. */
+  /** True for Ubuntu readers who need the PHP PPA: Ubuntu 22.04, or a PHP version Ubuntu 24.04 does not ship. Ubuntu 26.04 and Debian use Sury's repository instead. */
   ppa?: boolean;
   children: ReactNode;
 }) {
   const setup = useSetup();
-  const needsPpa = setup.os.startsWith('ubuntu-') && (setup.os === 'ubuntu-22.04' || setup.php !== DEFAULT_PHP);
+  const needsPpa = (setup.os === 'ubuntu-24.04' && setup.php !== DEFAULT_PHP) || setup.os === 'ubuntu-22.04';
 
   const matches =
     (list(webserver)?.includes(setup.webserver) ?? true) &&

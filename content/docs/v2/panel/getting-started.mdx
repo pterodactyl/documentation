@@ -19,7 +19,8 @@ Supported operating systems:
 
 | Operating System | Versions | Notes |
 | --- | --- | --- |
-| Ubuntu | 24.04 | Recommended. Includes PHP 8.3. |
+| Ubuntu | 26.04 | Needs an extra repository for PHP 8.3. |
+| | 24.04 | Recommended. Includes PHP 8.3. |
 | | 22.04 | Needs an extra repository for PHP 8.3. |
 | Debian | 13 | Needs an extra repository for PHP. |
 | | 12 | Needs extra repositories for PHP, MariaDB, and Redis. |
@@ -50,8 +51,8 @@ LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 ```
 </ShowFor>
 
-<ShowFor os={['debian-13', 'debian-12']}>
-Debian needs Sury's repository for PHP. Add it:
+<ShowFor os={['debian-13', 'debian-12', 'ubuntu-26.04']}>
+Debian and Ubuntu 26.04 need Sury's repository for PHP. Add it:
 
 ```bash
 apt -y install curl ca-certificates gnupg2 lsb-release

@@ -31,7 +31,7 @@ Most PHP installations include some required extensions, such as OpenSSL, Sodium
 - XML
 - Zip
 
-On Ubuntu and Debian, install PHP 8.3 with every required extension. Debian and Ubuntu 22.04 first need the PHP repository from [Getting Started](./getting-started.mdx#installing-dependencies):
+On Ubuntu and Debian, install PHP 8.3 with every required extension. Debian, Ubuntu 26.04 and Ubuntu 22.04 first need a PHP repository from [Getting Started](./getting-started.mdx#installing-dependencies):
 
 ```bash
 apt -y install php8.3 php8.3-{common,cli,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip,intl}
@@ -58,7 +58,7 @@ npm run build:production
 
 Pterodactyl officially supports two ways to run the Panel:
 
-- A native installation on Ubuntu 22.04 or 24.04, or Debian 12 or 13. See [Getting Started](./getting-started.mdx).
+- A native installation on Ubuntu 22.04, 24.04 or 26.04, or Debian 12 or 13. See [Getting Started](./getting-started.mdx).
 - The [Docker image](./docker.mdx), which supports AMD64 and ARM64.
 
 Other Linux distributions may work, but often need changed installation steps, and we cannot help with them. The upgrade from 1.x was tested on Ubuntu 24.04.

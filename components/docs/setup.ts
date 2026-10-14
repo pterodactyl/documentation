@@ -6,8 +6,8 @@ import { useSyncExternalStore } from 'react';
  * and configuration files that match.
  */
 export type WebServer = 'nginx' | 'apache' | 'caddy';
-export type OperatingSystem = 'ubuntu-24.04' | 'ubuntu-22.04' | 'debian-13' | 'debian-12';
-export const OPERATING_SYSTEMS: readonly OperatingSystem[] = ['ubuntu-24.04', 'ubuntu-22.04', 'debian-13', 'debian-12'];
+export type OperatingSystem = 'ubuntu-26.04' | 'ubuntu-24.04' | 'ubuntu-22.04' | 'debian-13' | 'debian-12';
+export const OPERATING_SYSTEMS: readonly OperatingSystem[] = ['ubuntu-26.04', 'ubuntu-24.04', 'ubuntu-22.04', 'debian-13', 'debian-12'];
 
 export interface Setup {
   domain: string;
