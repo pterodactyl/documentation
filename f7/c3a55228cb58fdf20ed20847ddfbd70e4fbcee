@@ -1,0 +1,29 @@
+components/docs/setup-panel.tsx
+  s_4cabae41bceed9::t_eb1128a357e70a 14,16-17,19,67
+components/docs/setup.ts
+  s_4cabae41bceed9::t_0df7ece8588135 9-10
+components/docs/show-for.tsx
+  s_4cabae41bceed9::t_e29bb6fa016eee 23,28
+content/docs/v2/panel/getting-started.mdx
+  s_4cabae41bceed9::t_8ff1ed92477b73 22-23,54-55
+content/docs/v2/panel/requirements.mdx
+  s_4cabae41bceed9::t_0202235a867e2c 34,61
+content/docs/v2/wings/installing.mdx
+  s_4cabae41bceed9::t_3868b1b2ab56fd 10,18-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f7c3a55228cb58fdf20ed20847ddfbd70e4fbcee",
+  "prompts": {},
+  "sessions": {
+    "s_4cabae41bceed9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9ab74d1d-a20d-4fbc-acd7-ee9d976e37e8",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "robert dennis <31261583+robertdrakedennis@users.noreply.github.com>"
+    }
+  }
+}
