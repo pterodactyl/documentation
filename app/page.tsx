@@ -20,30 +20,16 @@ import { ArchitectureTour, SlotDemo, TroubleshootingMatcher } from '@/components
 export const metadata: Metadata = {
   title: { absolute: 'Pterodactyl Documentation' },
   description:
-    'Install, run and extend Pterodactyl: the Panel, Wings, the API reference and community guides, for 1.x and the 2.0 pre-release.',
+    'Install, run and extend Pterodactyl: the Panel, Wings, the API reference and community guides, for 2.0 and 1.x.',
 };
 
 const versions = [
   {
-    slug: 'v1',
-    name: 'Pterodactyl 1.x',
-    status: 'Stable',
-    live: 'is-running',
-    blurb: 'The current release. Start here unless you are testing what comes next.',
-    sections: [
-      { slug: 'project', label: 'Project', entry: 'about' },
-      { slug: 'panel', label: 'Panel', entry: 'getting-started' },
-      { slug: 'wings', label: 'Wings', entry: 'installing' },
-      { slug: 'guides', label: 'Community guides', entry: 'panel-installation' },
-      { slug: 'api', label: 'API reference' },
-    ],
-  },
-  {
     slug: 'v2',
     name: 'Pterodactyl 2.0',
-    status: 'Pre-release',
+    status: 'Open beta',
     live: 'is-warning',
-    blurb: 'The next major version, with extensions and a new API. Not yet for production.',
+    blurb: 'The new major version, with extensions, themes and a new admin area. Start here for a new Panel.',
     sections: [
       { slug: 'project', label: 'Project', entry: 'about' },
       { slug: 'panel', label: 'Panel', entry: 'requirements' },
@@ -54,13 +40,27 @@ const versions = [
       { slug: 'api', label: 'API reference' },
     ],
   },
+  {
+    slug: 'v1',
+    name: 'Pterodactyl 1.x',
+    status: 'Stable',
+    live: 'is-running',
+    blurb: 'The stable release line, for Panels that stay on 1.x while 2.0 is in beta.',
+    sections: [
+      { slug: 'project', label: 'Project', entry: 'about' },
+      { slug: 'panel', label: 'Panel', entry: 'getting-started' },
+      { slug: 'wings', label: 'Wings', entry: 'installing' },
+      { slug: 'guides', label: 'Community guides', entry: 'panel-installation' },
+      { slug: 'api', label: 'API reference' },
+    ],
+  },
 ];
 
 const quick = [
-  { label: 'Install the Panel', href: '/v1/panel/getting-started' },
-  { label: 'Install Wings', href: '/v1/wings/installing' },
+  { label: 'Install the Panel', href: '/v2/panel/getting-started' },
+  { label: 'Install Wings', href: '/v2/wings/installing' },
   { label: 'Upgrade to 2.0', href: '/v2/upgrading/upgrading-from-v1' },
-  { label: 'API reference', href: '/v1/api' },
+  { label: 'API reference', href: '/v2/api' },
 ];
 
 const rows = [
@@ -122,7 +122,7 @@ export default function HomePage() {
                 <span className="text-fg-faint">Documentation</span>
               </h1>
               <p className="mt-6 max-w-measure-sm text-lead text-fg-muted sm:mt-7">
-                Install, run and extend the Panel and Wings, for 1.x and the 2.0 pre-release.
+                Install, run and extend the Panel and Wings, for 2.0 and 1.x.
               </p>
               <div className="mt-8 max-w-xl">
                 <HomeSearch />
@@ -189,7 +189,7 @@ export default function HomePage() {
                 </ul>
 
                 <div className="mt-6">
-                  <Link href={`/${shelf.slug}`} className={shelf.slug === 'v1' ? 'btn btn-primary' : 'btn btn-ghost'}>
+                  <Link href={`/${shelf.slug}`} className={shelf.slug === 'v2' ? 'btn btn-primary' : 'btn btn-ghost'}>
                     Read the {shelf.name.replace('Pterodactyl ', '')} docs
                   </Link>
                 </div>
@@ -241,7 +241,7 @@ export default function HomePage() {
                 figure={<UpgradeProgress />}
               >
                 <p>
-                  Twelve steps in three stages, from updating 1.x to keeping your old files. 2.0 is a pre-release, so
+                  Twelve steps in three stages, from updating 1.x to keeping your old files. 2.0 is in open beta, so
                   test the upgrade on a copy first.
                 </p>
               </PathRow>
@@ -292,8 +292,8 @@ export default function HomePage() {
                 focus={[0.6, 0.45]}
                 light={{ mode: 'stream', seed: 'api', intensity: 0.6 }}
                 links={[
-                  { label: 'API reference 1.x', href: '/v1/api' },
                   { label: 'API reference 2.0', href: '/v2/api' },
+                  { label: 'API reference 1.x', href: '/v1/api' },
                 ]}
                 figure={<ApiExchange />}
               >

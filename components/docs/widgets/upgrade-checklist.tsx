@@ -331,8 +331,8 @@ const CHANGES: readonly Change[] = [
     anchor: 'building-the-frontend',
     impact: 'low',
     title: 'Building the frontend',
-    action: 'Build it with npm and Node.js 22.12 or newer.',
-    applies: (answers) => native(answers) || has('modified')(answers),
+    action: 'Only if you build from source: use npm and Node.js 22.12 or newer.',
+    applies: has('modified'),
   },
   {
     anchor: 'docker-image',

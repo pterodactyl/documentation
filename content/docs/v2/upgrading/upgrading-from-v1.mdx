@@ -3,8 +3,8 @@ title: Upgrading From 1.x
 description: Upgrade a native 1.x Panel installation to Pterodactyl 2.0.
 ---
 
-<Callout type="warn" title="Pre-release">
-Pterodactyl 2.0 is not released yet. Only follow this guide on a test copy of your Panel; see [Testing the Upgrade](./testing-the-upgrade.mdx).
+<Callout type="warn" title="Open beta">
+Pterodactyl 2.0 is in open beta. Try the upgrade on a copy of your Panel first; see [Testing the Upgrade](./testing-the-upgrade.mdx).
 </Callout>
 
 ## Introduction
@@ -44,8 +44,6 @@ apt install php8.3-intl
 ```
 
 If `php -v` shows a version older than 8.3, upgrade PHP first with [Upgrading PHP](../guides/configuration/php-upgrade.mdx).
-
-Building the frontend also needs Node.js 22.12 or newer. The steps below cover installing it.
 
 <StepDone step="intl" />
 
@@ -93,15 +91,12 @@ tar -czf /root/panel-1.x-files.tar.gz -C /var/www/pterodactyl .
 
 ### Download 2.0
 
-2.0 has no release yet, so download the `2.0-develop` branch and unpack it in a new directory:
+Download the latest beta and unpack it in a new directory:
 
 ```bash
 mkdir /var/www/pterodactyl-2.0
 cd /var/www/pterodactyl-2.0
-curl -Lo panel.zip https://github.com/pterodactyl/panel/archive/refs/heads/2.0-develop.zip
-unzip -q panel.zip
-cp -a panel-2.0-develop/. .
-rm -rf panel-2.0-develop panel.zip
+curl -L https://github.com/pterodactyl/panel/releases/download/v2.0.0-beta.1/panel.tar.gz | tar -xzv
 ```
 
 Then copy your `.env` file from 1.x. It needs no changes:
@@ -126,20 +121,6 @@ If Composer reports a missing PHP extension, install it and run the command agai
 
 ```bash
 composer check-platform-reqs --no-dev
-```
-
-The branch does not include the built frontend, so build it with Node.js 22.12 or newer. If `node --version` prints an older version or no version, first install Node.js 22 from NodeSource:
-
-```bash
-curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-apt -y install nodejs
-```
-
-Then build the frontend:
-
-```bash
-npm ci
-npm run build:production
 ```
 
 <StepDone step="dependencies" />

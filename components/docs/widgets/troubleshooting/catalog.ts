@@ -424,7 +424,7 @@ export const PROBLEMS: Problem[] = [
       { pattern: /build:production/i, weight: 2 },
       { pattern: /manifest\.json/i, weight: 2 },
     ],
-    why: 'The Panel serves its pages from built JavaScript and CSS. A Panel installed from the `2.0-develop` branch does not include them, so the first page load fails until you build them. The Docker image already contains them.',
+    why: 'The Panel serves its pages from built JavaScript and CSS. Release downloads and the Docker image include them, but a Panel installed from a branch or source checkout does not, so the first page load fails until you build them.',
     fix: ['Build the frontend from the Panel\'s directory. You need Node.js 22.12 or newer.'],
     commands: ['cd {path} && npm ci && npm run build:production'],
     link: { href: '/v2/panel/requirements#building-from-source', label: 'Building From Source' },

@@ -23,7 +23,6 @@ Supported operating systems:
 | | 22.04 | Needs an extra repository for PHP 8.3. |
 | Debian | 13 | Needs an extra repository for PHP. |
 | | 12 | Needs extra repositories for PHP, MariaDB, and Redis. |
-| | 11 | Needs extra repositories for PHP, MariaDB, and Redis. |
 
 Pterodactyl officially supports Ubuntu, Debian, and the Panel's [Docker image](./docker.mdx). Other Linux distributions may work, but often need changes to these steps, and we cannot help with them.
 
@@ -41,7 +40,6 @@ The Panel needs:
 - A web server, such as NGINX, Apache, or Caddy.
 - `curl`, `tar`, and `unzip`.
 - Composer 2.
-- Node.js 22.12 or newer, to build the frontend.
 
 <ShowFor ppa={true}>
 Ubuntu 24.04 includes PHP 8.3. Other PHP versions, and PHP on Ubuntu 22.04, need the PHP repository. Add it:
@@ -52,7 +50,7 @@ LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 ```
 </ShowFor>
 
-<ShowFor os={['debian-13', 'debian-12', 'debian-11']}>
+<ShowFor os={['debian-13', 'debian-12']}>
 Debian needs Sury's repository for PHP. Add it:
 
 ```bash
@@ -62,8 +60,8 @@ curl -fsSL https://packages.sury.org/php/apt.gpg | gpg --dearmor -o /etc/apt/tru
 ```
 </ShowFor>
 
-<ShowFor os={['debian-12', 'debian-11']}>
-Debian 11 and 12 also need the Redis and MariaDB repositories:
+<ShowFor os={['debian-12']}>
+Debian 12 also needs the Redis and MariaDB repositories:
 
 ```bash
 curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
@@ -115,15 +113,6 @@ Install Composer, the PHP dependency manager:
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 ```
 
-### Installing Node.js
-
-Ubuntu's Node.js is too old to build the frontend. Install Node.js 22 from NodeSource:
-
-```bash
-curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-apt -y install nodejs
-```
-
 ## Downloading the Panel
 
 Create the Panel's directory and move into it:
@@ -133,21 +122,12 @@ mkdir -p /var/www/pterodactyl
 cd /var/www/pterodactyl
 ```
 
-2.0 has no release yet, so download the `2.0-develop` branch. Unpack it and make `storage` and `bootstrap/cache` writable:
+Download the latest beta, unpack it, and make `storage` and `bootstrap/cache` writable:
 
 ```bash
-curl -Lo panel.zip https://github.com/pterodactyl/panel/archive/refs/heads/2.0-develop.zip
-unzip -q panel.zip
-cp -a panel-2.0-develop/. .
-rm -rf panel-2.0-develop panel.zip
+curl -Lo panel.tar.gz https://github.com/pterodactyl/panel/releases/download/v2.0.0-beta.1/panel.tar.gz
+tar -xzvf panel.tar.gz
 chmod -R 755 storage/* bootstrap/cache/
-```
-
-The branch has no built frontend. Build it:
-
-```bash
-npm ci
-npm run build:production
 ```
 
 ## Creating the Database

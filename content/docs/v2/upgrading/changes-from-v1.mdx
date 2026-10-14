@@ -101,7 +101,7 @@ The Panel is tested with MariaDB 10.11 and 11, and MySQL 8 and 9. The 1.x minimu
 
 **Likelihood Of Impact: Low**
 
-This affects you only if you build the Panel from source, which until 2.0 is released includes everyone following [Upgrading From 1.x](./upgrading-from-v1.mdx). The frontend now builds with npm and Vite instead of Yarn and Webpack, and needs Node.js 22.12 or newer. The `--openssl-legacy-provider` option is no longer needed. The release archive will contain the built frontend.
+This affects you only if you build the Panel from source. The release archive and the Docker image include the built frontend. The frontend builds with npm and Vite instead of Yarn and Webpack, needs Node.js 22.12 or newer, and does not need the `--openssl-legacy-provider` option.
 
 ### Docker Image
 

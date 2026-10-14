@@ -47,9 +47,7 @@ If PHP-FPM uses a different PHP installation than the command line, give it the 
 
 ### Building From Source
 
-2.0 has no release yet, so a Panel installed from the `2.0-develop` branch must build its frontend. The Docker image includes a built frontend.
-
-This needs Node.js 22.12 or newer. From the Panel directory, run:
+Release downloads and the Docker image include the built frontend. A Panel installed from a branch or a source checkout has to build it, which needs Node.js 22.12 or newer. From the Panel directory, run:
 
 ```bash
 npm ci
@@ -60,7 +58,7 @@ npm run build:production
 
 Pterodactyl officially supports two ways to run the Panel:
 
-- A native installation on Ubuntu 22.04 or 24.04, or Debian 11, 12, or 13. See [Getting Started](./getting-started.mdx).
+- A native installation on Ubuntu 22.04 or 24.04, or Debian 12 or 13. See [Getting Started](./getting-started.mdx).
 - The [Docker image](./docker.mdx), which supports AMD64 and ARM64.
 
 Other Linux distributions may work, but often need changed installation steps, and we cannot help with them. The upgrade from 1.x was tested on Ubuntu 24.04.
@@ -77,4 +75,4 @@ There is no Wings version table for 2.0 yet. Wings 1.13.2 and 1.13.3 work with t
 - Schedules.
 - Backups.
 
-{/* Verified against panel-next 18a0cf2c: composer.json, Dockerfile, package.json, and the CI test matrix (PHP 8.3/8.4, mariadb:10/11, mysql:8/9). */}
+{/* Verified against panel v2.0.0-beta.1: composer.json, Dockerfile, package.json, and the CI test matrix (PHP 8.3/8.4, mariadb:10.11/11, mysql:8/9) and install workflow. */}

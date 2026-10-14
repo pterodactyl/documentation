@@ -57,6 +57,16 @@ export const MENUS: NavMenu[] = [
     },
     groups: [
       {
+        title: '2.0',
+        status: { dot: 'is-warning', label: 'Open beta' },
+        links: [
+          { label: 'Install the Panel', site: 'docs', href: '/v2/panel/getting-started' },
+          { label: 'Upgrade from 1.x', site: 'docs', href: '/v2/upgrading/upgrading-from-v1' },
+          { label: 'Extensions', site: 'docs', href: '/v2/extensions' },
+          { label: 'API reference', site: 'docs', href: '/v2/api' },
+        ],
+      },
+      {
         title: '1.x',
         status: { dot: 'is-running', label: 'Stable' },
         links: [
@@ -64,16 +74,6 @@ export const MENUS: NavMenu[] = [
           { label: 'Install Wings', site: 'docs', href: '/v1/wings/installing' },
           { label: 'Troubleshooting', site: 'docs', href: '/v1/panel/troubleshooting' },
           { label: 'API reference', site: 'docs', href: '/v1/api' },
-        ],
-      },
-      {
-        title: '2.0',
-        status: { dot: 'is-warning', label: 'Pre-release' },
-        links: [
-          { label: 'Requirements', site: 'docs', href: '/v2/panel/requirements' },
-          { label: 'Upgrade from 1.x', site: 'docs', href: '/v2/upgrading/upgrading-from-v1' },
-          { label: 'Extensions', site: 'docs', href: '/v2/extensions' },
-          { label: 'API reference', site: 'docs', href: '/v2/api' },
         ],
       },
     ],
@@ -126,7 +126,7 @@ export const MENUS: NavMenu[] = [
     groups: [
       {
         title: 'Panel 2.0',
-        status: { dot: 'is-warning', label: 'Pre-release' },
+        status: { dot: 'is-warning', label: 'Open beta' },
         links: [
           { label: 'All extensions', site: 'marketplace', href: '/marketplace' },
           { label: 'Free extensions', site: 'marketplace', href: '/marketplace?price=free' },

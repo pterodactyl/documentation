@@ -26,24 +26,19 @@ php artisan down
 
 ### Download the Update
 
-2.0 has no release yet, so download the latest `2.0-develop` branch and unpack it over the current files:
+Download the release and unpack it over the current files. The [releases page](https://github.com/pterodactyl/panel/releases) lists every 2.0 version; change the version in the link to update to another one.
 
 ```bash
-curl -Lo panel.zip https://github.com/pterodactyl/panel/archive/refs/heads/2.0-develop.zip
-unzip -q panel.zip
-cp -a panel-2.0-develop/. .
-rm -rf panel-2.0-develop panel.zip
+curl -L https://github.com/pterodactyl/panel/releases/download/v2.0.0-beta.1/panel.tar.gz | tar -xzv
 chmod -R 755 storage/* bootstrap/cache
 ```
 
 ### Update Dependencies
 
-Install PHP dependencies and rebuild the frontend:
+Install PHP dependencies:
 
 ```bash
 COMPOSER_ALLOW_SUPERUSER=1 composer install --no-dev --optimize-autoloader
-npm ci
-npm run build:production
 ```
 
 ### Clear Cached Files
