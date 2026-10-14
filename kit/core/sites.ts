@@ -166,8 +166,8 @@ export const MENUS: NavMenu[] = [
       {
         title: 'Project',
         links: [
-          { label: 'About Pterodactyl', site: 'docs', href: '/v1/project/about' },
-          { label: 'Community standards', site: 'docs', href: '/v1/project/community' },
+          { label: 'About Pterodactyl', site: 'docs', href: '/v2/project/about' },
+          { label: 'Community standards', site: 'docs', href: '/v2/project/community' },
           { label: 'Sponsor', href: 'https://github.com/sponsors/pterodactyl' },
         ],
       },
