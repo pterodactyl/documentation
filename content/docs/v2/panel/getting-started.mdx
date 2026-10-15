@@ -71,6 +71,15 @@ curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | bash
 ```
 </ShowFor>
 
+<ShowFor os={['debian-13']}>
+Debian 13 does not install `crontab` by default. Install the `cron` package:
+
+```bash
+apt update
+apt -y install cron
+```
+</ShowFor>
+
 <ShowFor webserver="nginx">
 Install everything:
 
