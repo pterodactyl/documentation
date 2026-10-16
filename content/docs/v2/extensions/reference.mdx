@@ -124,6 +124,7 @@ Compatibility is checked before activation. Dependencies load first; incompatibl
 | `registerSettings($definition)` | Register the extension's settings. |
 | `settings()` | Return the extension's key-value settings store. |
 | `registerPermissions($description, $keys)` | Register permission keys and their descriptions under `ext.{id}.{key}`. |
+| `registerFields($model, $fields)` | Add the fields a `Fields` class declares to the admin forms of a model. See [Form Fields](#form-fields). |
 | `listenToServerOperations($listener)` | Listen for an immutable `OperationCompleted` result; errors are recorded against the extension. |
 | `loadExtensionViews()` | Load Blade views from `resources/views`, as `ext-{id}::view`. |
 | `loadExtensionTranslations()` | Load translations from `resources/lang`, as `ext-{id}::key`. |
@@ -178,8 +179,10 @@ The store returned by `settings()` supports:
 | `forgetByPrefix($prefix)` | Delete matching keys. |
 | `forUser($user)` | Return a store scoped to a persisted user. |
 | `forServer($server)` | Return a store scoped to a persisted server. |
+| `for($model)` | Return a store scoped to a persisted user, server, node, egg, location, mount, or database host. |
+| `fields($model)` | Return the store of the form field values the Panel keeps for a model, when your `Fields` class has no `values` and `save`. |
 
-Global, user, and server scopes are separate. Deleting a user or server deletes its scoped settings. `ExtensionSettings::preload($stores)` loads several stores together. An `ExtensionSettingsDefinition` also supports `forUser` and `forServer`.
+The global scope, each model's scope, and each model's form field values are separate. Deleting a model deletes its scoped settings and field values. `ExtensionSettings::preload($stores)` loads several stores together. An `ExtensionSettingsDefinition` also supports `forUser` and `forServer`.
 
 ### Permissions
 
@@ -199,6 +202,46 @@ You can also use these core permissions:
 | Schedules | `schedule.create`, `schedule.read`, `schedule.update`, `schedule.delete` |
 | Settings | `settings.rename`, `settings.reinstall` |
 | Activity | `activity.read` |
+
+### Form Fields
+
+`registerFields($model, $fields)` adds the fields declared by a class extending `Pterodactyl\Extensions\Fields` to the admin create and edit forms of a model. Register one class for each model. Every method of the class is optional, and each is called through the service container, so it may type-hint the model and any other dependency.
+
+| Method | Called | Returns |
+| --- | --- | --- |
+| `rules()` | On every save that validates the extension, including creation. | Validation rules keyed by field. They apply to the extension's values alone. |
+| `values($model)` | When a resource is returned. | The current values, keyed by field. |
+| `save($model, $values)` | Inside the transaction that writes the model, after its row is written. The parameter must be named `$values`. | Nothing. |
+| `authorize()` | Before values are accepted or returned. | Whether the signed-in administrator may see and change the values. |
+| `secrets()` | When values are stored and returned. | The fields that hold credentials. They are encrypted and returned as `********`. |
+| `attributes()`, `messages()` | During validation. | Field names and messages for validation errors. |
+
+Methods other than `values` and `save` also run while a model is created, so their model parameter must be nullable. Implement both `values` and `save`, or neither: without them, the Panel stores the values, readable with `settings()->fields($model)`. Registering an unsupported model, a class that does not extend `Fields`, only one of `values` and `save`, or the same model twice stops the extension from loading.
+
+| Model | Admin form | Pages |
+| --- | --- | --- |
+| `Pterodactyl\Models\User` | `admin.user` | Create user, user details |
+| `Pterodactyl\Models\Server` | `admin.server` | Create server, server Details tab |
+| `Pterodactyl\Models\Node` | `admin.node` | Create node, node Settings tab |
+| `Pterodactyl\Models\Egg` | `admin.egg` | Create egg, egg Configuration tab |
+| `Pterodactyl\Models\Location` | `admin.location` | New location dialog, location details |
+| `Pterodactyl\Models\Mount` | `admin.mount` | Create mount, mount details |
+| `Pterodactyl\Models\DatabaseHost` | `admin.database_host` | Create database host, database host details |
+
+| Behaviour | Detail |
+| --- | --- |
+| Request shape | The create and update endpoints of each resource accept `extensions: { [extensionId]: { [field]: value } }`. |
+| Values | A string, number, boolean, `null`, or a list of those. |
+| Validation on create | The rules of every extension the administrator may change run, whether or not the request includes its values. |
+| Validation on update | The rules of each extension the request includes run, even with no values. An extension left out keeps its stored values. |
+| Errors | Reported as `extensions.{id}.{field}`. An extension whose methods throw during validation is recorded as failing, and the request gets a `422` under `extensions.{id}`. |
+| Saving | A `save` that throws rolls back the whole change. |
+| Responses | Responses about one resource include `attributes.extensions`. Lists leave it out. An extension whose `values` throws is recorded as failing and left out. |
+| Authorization | A request that sends values `authorize` refuses gets a `403`. Refused values are left out of responses. |
+| Application API | Classes marked `#[ApplicationApi]` are also accepted and returned by the Application API's user, node, location, and server endpoints. |
+| Availability | Values sent for a disabled or failed extension are ignored, and its stored values are kept. |
+
+`GET /api/admin/extensions/forms` lists, for each admin form, the enabled extensions that add fields to it and that the signed-in administrator may change.
 
 ### Events
 
@@ -269,6 +312,7 @@ Use `definePterodactylExtension({ setup })` for an entry definition, or `defineC
 | `screens.register(id, importer, options?)` | Attach a component to a screen declared in `extension.json`. The importer must return a module with a default export, such as `() => import('./Screen')`. `options.visible` is the predicate a `when.runtime` screen requires, and `options.badge` returns a live navigation badge. Both receive a `ScreenContext` with `user`, `config`, and the current `server` or `resource`. |
 | `columns.register(name, column)` | Add a typed column to a supported admin table. |
 | `components.replace(name, replacement)` | Register a presentation for a name declared in `ui.components`. Accepts a component or `{ load: () => import('./View') }`. |
+| `forms.extend(form, component)` | Draw the extension's fields inside an admin form. See [Form Fields](#form-fields) for the form names. |
 
 ### Component Replacements
 
@@ -433,6 +477,10 @@ The SDK also exports `toast` for notifications.
 | `FileManagerSlotData`, `FileRowSlotData` | Native file context, selection, and callbacks; the row contract also has `file`. |
 | `StartupFormSlotData` | Startup configuration and native callbacks. |
 | `AdminUserFormSlotData`, `AdminUserFormValues` | The native user resource, bound form, and its existing field names. |
+| `FormExtension`, `FormExtensionProps` | A component registered with `forms.extend`, typed by its values and form, and its props: `form`, `mode`, `resource`, `values`, and `field`. |
+| `ExtensionField` | One field bound by `field(name)`: `id`, `name`, `value`, `setValue`, and `error`. |
+| `ExtensionFormName`, `ExtensionFormResources` | The admin form names, and the resource type each one edits. |
+| `ExtensionFieldValues`, `ExtensionFieldValue` | One extension's values, keyed by field, and the type of one value. |
 | `ExtensionTableRows`, `ExtensionTableName`, `ExtensionTableColumn` | Native table row and column contracts. |
 | `ComponentName`, `ComponentModels`, `ReplacementProps`, `ComponentPartProps`, `ComponentParts`, `DefaultComponentProps` | Component replacement names, models, props, native parts, and default-view props. |
 | `ServerCardModel`, `ServerCardState`, `ServerCardMetric`, `FileDetailsModel`, `FileEditorModel`, `FileManagerModel`, `FileManagerEntry`, `FileManagerPermissions`, `FileManagerActions` | Read-only presentation models. |
@@ -493,7 +541,7 @@ Slots are named places on Panel pages where extensions render components. Regist
 | `ExtensionResourceContext` | `kind` and the matching native `resource`. Detail action slots narrow this to their own resource kind. |
 | `AdminUserFormSlotData` | `kind: 'admin.user'`, `resource`, and the native `form`. Use `form.AppField` for existing user fields. |
 
-The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `password`, `rootAdmin`, and `language`. Contributed controls share validation, pending state, submission, and persistence with the Panel's form. Extension-specific values need scoped settings or an extension endpoint.
+The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `password`, `rootAdmin`, and `language`. Contributed controls share validation, pending state, submission, and persistence with the Panel's form. To add fields of your own, use [Form Fields](#form-fields) and `forms.extend` instead.
 
 ### Navigation Slots
 
@@ -679,4 +727,3 @@ The native user form fields are `email`, `username`, `nameFirst`, `nameLast`, `p
 | `panel.extensions.after` | Extensions page | After | `RouteSlotData` |
 | `panel.apiKeys.before` | API keys page | Before | `RouteSlotData` |
 | `panel.apiKeys.after` | API keys page | After | `RouteSlotData` |
-
