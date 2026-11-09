@@ -113,11 +113,25 @@ export function useSetup(): Setup {
  * reader has not set stays as written.
  */
 export function applySetup(code: string, setup: Setup): string {
-  let result = code;
-  if (setup.domain) result = result.replaceAll('<domain>', setup.domain);
-  if (setup.php !== DEFAULT_PHP) result = result.replaceAll(`php${DEFAULT_PHP}`, `php${setup.php}`);
   const path = installPath(setup);
-  if (path !== DEFAULT_PATH) result = result.replaceAll(DEFAULT_PATH, path);
+
+  const replacements: Record<string, string> = {
+    '<domain>': setup.domain || '<domain>',
+    '<php_version>': setup.php,
+    '<php>': setup.php,
+    '<install_path>': path,
+    [DEFAULT_PATH]: path,
+    [`php${DEFAULT_PHP}`]: `php${setup.php}`,
+  };
+
+  let result = code;
+
+  for (const [placeholder, value] of Object.entries(replacements)) {
+    // Don't replace the fallback domain with an empty string.
+    if (placeholder === '<domain>' && !setup.domain) continue;
+
+    result = result.replaceAll(placeholder, value);
+  }
 
   return result;
 }
