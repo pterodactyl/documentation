@@ -1,16 +1,9 @@
-import { source } from '@/lib/source';
-import { createFromSource } from 'fumadocs-core/search/server';
+import { search, suggested } from '@/lib/search';
 
-export const { GET } = createFromSource(source, {
-  language: 'english',
-  buildIndex(page) {
-    return {
-      id: page.url,
-      title: page.data.title ?? '',
-      description: page.data.description,
-      url: page.url,
-      structuredData: page.data.structuredData,
-      tag: page.slugs[0],
-    };
-  },
-});
+export async function GET(request: Request) {
+  const params = new URL(request.url).searchParams;
+  const tag = params.get('tag') ?? undefined;
+  const query = params.get('query')?.trim();
+
+  return Response.json(query ? await search(query, tag) : suggested(tag));
+}
