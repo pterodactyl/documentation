@@ -15,7 +15,7 @@ import { usePathname } from 'next/navigation';
 
 export default function DefaultSearchDialog(props: SharedProps) {
   const pathname = usePathname();
-  const version = pathname.split('/').find((segment) => segment === 'v1' || segment === 'v2');
+  const version = pathname.split('/').find((segment) => segment === 'v1' || segment === 'v2' || segment === 'plus');
   const { search, setSearch, query } = useDocsSearch({
     type: 'fetch',
     api: '/api/search',

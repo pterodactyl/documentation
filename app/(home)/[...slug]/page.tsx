@@ -57,7 +57,7 @@ export default async function Page(props: PageProps<'/[...slug]'>) {
         />
       </DocsBody>
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <EditOnGitHub href={githubUrl} />
+        {githubUrl && <EditOnGitHub href={githubUrl} />}
         {page.data.lastModified && <PageLastUpdate date={page.data.lastModified} />}
       </div>
     </DocsPage>

@@ -21,6 +21,7 @@ export const docs = defineDocs({
   },
   meta: {
     schema: metaSchema,
+    files: ['**/meta.json'],
   },
 });
 

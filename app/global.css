@@ -3,6 +3,8 @@
 @import 'fumadocs-ui/css/preset.css';
 @import 'fumadocs-openapi/css/preset.css';
 
+@source '../content/docs/plus';
+
 /* The design system pterodactyl.io and these docs share: tokens (colours,
    type scale, rails, light mode on `.light`) and primitives (rails, inset
    rhythm, buttons, pill, status lights, figure card, halftone). kit/ is a

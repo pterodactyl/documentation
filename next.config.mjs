@@ -26,12 +26,12 @@ const config = {
     },
     async rewrites() {
         return [
-            { source: '/:version(v1|v2).md', destination: '/llms.mdx/:version/content.md' },
-            { source: '/:version(v1|v2)/:path*.md', destination: '/llms.mdx/:version/:path*/content.md' },
+            { source: '/:version(v1|v2|plus).md', destination: '/llms.mdx/:version/content.md' },
+            { source: '/:version(v1|v2|plus)/:path*.md', destination: '/llms.mdx/:version/:path*/content.md' },
         ];
     },
     async headers() {
-        return [{ source: '/:version(v1|v2)/:path*', headers: [{ key: 'Vary', value: 'Accept' }] }];
+        return [{ source: '/:version(v1|v2|plus)/:path*', headers: [{ key: 'Vary', value: 'Accept' }] }];
     },
     images: {
         unoptimized: true,

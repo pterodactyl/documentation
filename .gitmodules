@@ -1,0 +1,3 @@
+[submodule "content/docs/plus"]
+	path = content/docs/plus
+	url = git@github.com:wisp-gg/plus-docs.git

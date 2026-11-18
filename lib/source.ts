@@ -1,4 +1,4 @@
-import { openapi, openapiV2 } from '@/lib/openapi';
+import { openapi, openapiPlus, openapiV2 } from '@/lib/openapi';
 import { docs } from 'fumadocs-mdx:collections/server';
 import { type InferPageType, loader } from 'fumadocs-core/source';
 import { lucideIconsPlugin } from 'fumadocs-core/source/lucide-icons';
@@ -11,6 +11,21 @@ const apiV2 = await openapiV2.staticSource({
 
 // content/docs/v2/api/meta.json names and orders the section.
 apiV2.files = apiV2.files.filter((file) => file.path !== 'v2/api/meta.json');
+
+// Each Pterodactyl+ API is a folder of its own under plus/api.
+for (const { name, title, openapi: plus } of openapiPlus) {
+  const api = await plus.staticSource({
+    baseDir: `plus/api/${name}`,
+    groupBy: 'tag',
+    meta: true,
+  });
+  for (const file of api.files) {
+    if (file.type === 'meta' && file.path === `plus/api/${name}/meta.json`) {
+      file.data = { ...file.data, title };
+    }
+  }
+  apiV2.files.push(...api.files);
+}
 
 // See https://fumadocs.dev/docs/headless/source-api for more info
 export const source = loader(
@@ -42,7 +57,12 @@ export function getPageMarkdownUrl(page: SourcePage) {
   };
 }
 
+// Sections mounted from another repository. Their pages have no file in this one.
+const MOUNTED_SECTIONS = ['plus'];
+
 export function getPageGitHubUrl(page: SourcePage) {
+  if (MOUNTED_SECTIONS.includes(page.slugs[0])) return undefined;
+
   return `https://github.com/pterodactyl/documentation/blob/v2/content/docs/${page.path}`;
 }
 
