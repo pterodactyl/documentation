@@ -84,6 +84,11 @@
   samp {
     font-family: var(--font-mono);
   }
+
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
 }
 
 /* ==================================================================== *
@@ -253,4 +258,32 @@ a[style*='padding-inline-start'][href*='/api/'][href*='/delete-']::before {
   content: 'DEL' !important;
   background-color: color-mix(in srgb, var(--color-red) 16%, transparent) !important;
   color: var(--color-red);
+}
+
+/* ---- Wide screens and the API reference ------------------------------ */
+#nd-docs-layout {
+  --fd-layout-width: 120rem;
+}
+
+header:has(+ #nd-docs-layout) {
+  --spacing-rail: 120rem;
+}
+
+#nd-page[class~='max-w-[1168px]'] {
+  max-width: 100rem;
+}
+
+#nd-page[class~='max-w-[1168px]'] > h1 {
+  font-size: 2rem;
+}
+
+#nd-page .prose > .text-sm {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+@container (min-width: 56rem) {
+  #nd-page [class~='@4xl:w-[400px]'] {
+    width: clamp(400px, 44%, 720px);
+  }
 }
