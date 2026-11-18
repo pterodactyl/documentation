@@ -26,6 +26,8 @@ export interface SearchResults {
   cards: SearchCard[];
   guides: number;
   endpoints: number;
+  /** The query the results are for, when a typo was corrected. */
+  corrected?: string;
 }
 
 interface Operation {
@@ -107,6 +109,21 @@ async function operationOf(page: SourcePage): Promise<Operation | undefined> {
   return path ? { method, path } : undefined;
 }
 
+// What a typo can be corrected to: the words of every title and heading, per version ('' is all of them).
+const topics = new Map<string, Map<string, number>>();
+
+for (const page of source.getPages()) {
+  const text = [page.data.title, ...page.data.structuredData.headings.map((heading) => heading.content)].join(' ');
+
+  for (const word of wordsOf(text).filter(correctable)) {
+    for (const key of ['', page.slugs[0]]) {
+      const words = topics.get(key) ?? new Map<string, number>();
+
+      topics.set(key, words.set(word, (words.get(word) ?? 0) + 1));
+    }
+  }
+}
+
 function wordsOf(text: string): string[] {
   return text
     .replace(/<\/?mark>/g, '')
@@ -126,6 +143,62 @@ function strength(content: string, terms: string[]): number {
   const words = wordsOf(content);
 
   return terms.filter((term) => words.some((word) => sameWord(term, word))).length;
+}
+
+// Short words and ones with digits have too many near neighbors to guess at.
+function correctable(word: string): boolean {
+  return word.length > 3 && !/\d/.test(word);
+}
+
+// Edits between two words, counting two swapped letters as one.
+function distance(a: string, b: string): number {
+  let previous: number[] = [];
+  let current = Array.from({ length: b.length + 1 }, (_, index) => index);
+
+  for (let i = 1; i <= a.length; i++) {
+    const next = [i];
+
+    for (let j = 1; j <= b.length; j++) {
+      next[j] = Math.min(current[j] + 1, next[j - 1] + 1, current[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) next[j] = Math.min(next[j], previous[j - 2] + 1);
+    }
+
+    previous = current;
+    current = next;
+  }
+
+  return current[b.length];
+}
+
+function closest(word: string, tag = ''): string | undefined {
+  const limit = word.length > 6 ? 2 : 1;
+  let best: { word: string; edits: number; count: number } | undefined;
+
+  for (const [candidate, count] of topics.get(tag) ?? []) {
+    if (Math.abs(candidate.length - word.length) > limit) continue;
+
+    const edits = distance(word, candidate);
+    if (edits > limit || (best && (edits > best.edits || (edits === best.edits && count <= best.count)))) continue;
+
+    best = { word: candidate, edits, count };
+  }
+
+  return best?.word;
+}
+
+// Only words the index has never seen are replaced, so a real word is never "corrected".
+async function correct(query: string, tag?: string): Promise<string | undefined> {
+  const words = wordsOf(query);
+  const fixed = await Promise.all(
+    words.map(async (word) => {
+      if (!correctable(word) || (await loose.search(word, { tag, limit: 1 })).length) return word;
+
+      return closest(word, tag) ?? word;
+    }),
+  );
+
+  return fixed.some((word, index) => word !== words[index]) ? fixed.join(' ') : undefined;
 }
 
 function excerpt(markdown: string): string {
@@ -212,9 +285,21 @@ function byScore(a: { score: number }, b: { score: number }): number {
 }
 
 export async function search(query: string, tag?: string): Promise<SearchResults> {
-  const [matches, lookup] = await Promise.all([strict.search(query, { tag }), operations]);
-  const results = matches.length ? matches : await loose.search(query, { tag });
-  const terms = wordsOf(query);
+  const lookup = await operations;
+  let results = await strict.search(query, { tag });
+  let corrected: string | undefined;
+
+  if (!results.length) {
+    corrected = await correct(query, tag);
+    if (corrected) results = await strict.search(corrected, { tag });
+
+    if (!results.length) {
+      corrected = undefined;
+      results = await loose.search(query, { tag });
+    }
+  }
+
+  const terms = wordsOf(corrected ?? query);
   const guides: Ranked<SearchCard>[] = [];
   const found: (Ranked<SearchRow> & { crumbs: string[] })[] = [];
 
@@ -259,6 +344,7 @@ export async function search(query: string, tag?: string): Promise<SearchResults
     cards: cards.map(({ score: _, ...card }) => card),
     guides: guides.length,
     endpoints: endpoints.length,
+    corrected,
   };
 }
 

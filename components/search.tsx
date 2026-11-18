@@ -285,7 +285,7 @@ export default function DefaultSearchDialog({ open, onOpenChange }: SharedProps)
 
   if (loaded && !results) empty = { title: 'Search is unavailable right now.' };
   else if (query && results?.cards.length && !cards.length) {
-    empty = { title: `No ${tab === 'api' ? 'endpoints' : 'guides'} for “${query}”`, action: 'Show all results', onAction: () => setTab('all') };
+    empty = { title: `No ${tab === 'api' ? 'endpoints' : 'guides'} for “${results.corrected ?? query}”`, action: 'Show all results', onAction: () => setTab('all') };
   } else if (query && results && !cards.length) {
     empty = everywhere
       ? { title: `No results for “${query}”` }
@@ -347,6 +347,11 @@ export default function DefaultSearchDialog({ open, onOpenChange }: SharedProps)
 
         <div data-empty={!cards.length && !empty} className="h-(--list-height) overflow-hidden transition-[height] duration-150 ease-out motion-reduce:transition-none">
           <div ref={viewport} className="flex max-h-[min(590px,60dvh)] flex-col gap-2.5 overflow-y-auto p-3 empty:p-0">
+            {results?.corrected && (
+              <p className={`px-1 text-ui-sm text-fg-subtle ${ENTER}`}>
+                Showing results for <span className="font-medium text-white">{results.corrected}</span>
+              </p>
+            )}
             {cards.map(card)}
             {counts && cards.length > 0 && shown < counts[tab] && (
               <p className="py-1 text-center text-ui-sm text-fg-subtle">
