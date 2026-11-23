@@ -64,6 +64,12 @@ export default async function Page(props: PageProps<'/[...slug]'>) {
   );
 }
 
+// Every page is built ahead of time, so a path that is not one of them is a
+// 404 straight away. Left on, Next.js renders each unknown path on demand
+// and keeps the result on disk for good, about 0.8 MB per URL, which a
+// crawler following broken links turns into gigabytes.
+export const dynamicParams = false;
+
 export async function generateStaticParams() {
   return source.generateParams();
 }

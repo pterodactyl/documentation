@@ -6,6 +6,10 @@ import { ImageResponse } from 'next/og';
 
 export const revalidate = false;
 
+// Only the images built ahead of time exist. Anything else is a 404 without
+// rendering, so an unknown path is never drawn and kept on disk.
+export const dynamicParams = false;
+
 // Every image is rendered once, at build time, so these are read from the
 // checkout and never from a running server.
 const file = (path: string) => readFile(join(process.cwd(), path));
